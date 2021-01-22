@@ -353,7 +353,7 @@ It follows that $\mathrm{ran}(T) = \mathrm{ran}(\tilde{T})$ is closed, as $X$ is
 \section{(Algebraic) Number Theory}
 
 \subsection{Propositions (from Neukirch)}
-Let $K/\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$.
+Let $K|\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$.
 \begin{description}
     \item[2.9] For $\alpha_1, ..., \alpha_n \in \mathcal{O}_K$ basis of $K$, then $d(\alpha_1, ..., \alpha_n)\mathcal{O}_K \subseteq \alpha_1 \Z + ... + \alpha_n \Z$.
     \item[2.10] Each finitly generated $\mathcal{O}_K$-module $M \subseteq K$ is a free $\Z$-module. 
@@ -386,8 +386,8 @@ In the case $D < 0$, have that
 \end{equation}
 so $(u^2 - dv^2)(w^2 - dt^2) = 16$. By using $u \equiv dv \mod 2, \ w \equiv dt \mod 2$ and $d \equiv d^2 \mod 4$ get that $u, v$ also fulfill the equation (as $u^2 - dv^2, w^2 - dt^2 \equiv 0 \mod 4$). By Dirichlet's unit theorem, have that $\mathcal{O}_K^* = \langle \epsilon \rangle$ for $\epsilon = \frac 1 2 (u + v \sqrt{d_K})$. Wlog have that $u, v \geq 0$ (maybe use $\epsilon^{-1}$), then $\epsilon_1 = \epsilon^k, \ k > 0$. It must hold $k = 1$, otherwise $u, v$ would solve $x^2 - dy^2 = \pm 4$ with $u^2 + dv^2 < x^2 + dy^2$ (which we consider as ``smaller'').
 
-\subsection{Ramification (DE: Verzweigung)}
-Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{o})$ and $\mathcal{O}$ integral closure of $\mathcal{R}$ in field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
+\subsection{Ramification (de: Verzweigung)}
+Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\mathcal{O}$ the integral closure of $\mathcal{R}$ in an algebraic field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
 
 For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
 \begin{description}
