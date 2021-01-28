@@ -77,6 +77,18 @@ Otherwise, $U \subseteq B$. If $B = U$, then $g(B) \subseteq g(U)$, so we may as
 $\mathcal{R}$ is a chain and a tower, so $C \in \mathcal{R}$. We also have $g(C) \in \mathcal{R}$, as $\mathcal{R}$ is a tower.
 \\$\Rightarrow g(C) \subseteq C$ and therefore $C = g(C)$, so $C$ is maximal in $\mathcal{X}$ by definition of $g$.
 
+\subsection{Ultrafilter Lemma}
+For each filter $\mathcal{F}$ on a set $X$ there is a ultrafilter $\mathcal{U}$ such that $\mathcal{F} \subseteq \mathcal{U}$. 
+
+\subsection{Product Cardinality}
+For infinite set $X$ have $\mathrm{card}(X) = \mathrm{card}(X \times X)$.
+\paragraph{Proof idea} Proof the statement for all cardinals $\aleph_\alpha$ by transfinite induction on $\alpha$ to show that $\mathrm{ord}(\aleph_\alpha \times \aleph_\alpha) = \aleph_\alpha$ (using some defined well-order on $\aleph_\alpha \times \aleph_\alpha$).
+
+If $\alpha = \beta + 1$ then show that for each $\mu < \aleph_\alpha$ have $\mathrm{card}(\mu \times \mu) < \aleph_\alpha$ by transfinite induction. For the limit ordinal case, use that $\mathrm{card}(\mu \times \mu) < \aleph_\alpha$ iff $\mathrm{card}(\mu \times \mu) \leq \aleph_\beta$ and $\mathrm{card}(\aleph_\beta \times \aleph_\beta) = \aleph_\beta$.
+It follows that then $\mathrm{ord}(\mu \times \mu) < \aleph_\alpha$, so $\mathrm{ord}(\aleph_\alpha \times \aleph_\alpha) = \bigcup_{\mu < \aleph_\alpha} \mathrm{ord}(\mu \times \mu) \leq \aleph_\alpha$.
+
+If $\alpha$ is a limit ordinal, then $\mathrm{ord}(\aleph_\alpha \times \aleph_\alpha) = \bigcup_{\beta < \alpha} \mathrm{ord}(\aleph_\beta \times \aleph_\beta) = \bigcup_{\beta < \alpha} \aleph_\beta = \aleph_\alpha$.
+
 \section{Algebra}
 
 \subsection{Cauchy-Schwarz}
@@ -117,7 +129,7 @@ where $M^*$ denotes the unique ``dual'' of $M$ in $\langle M \rangle$.
 \begin{itemize}
     \item $\mathbb{F}_q^*$ is cyclic for $q = p^n$
 \end{itemize}
-\paragraph{Proof} By the theorem on finitly generated abelian groups, have
+\paragraph{Proof} By the theorem on finitely generated abelian groups, have
 \begin{equation}
     \mathbb{F}_q^* \cong \Z/n_1\Z \times ... \times \Z/n_s\Z \nonumber
 \end{equation}
@@ -196,13 +208,64 @@ $X_1, ..., X_n$ independent, $0 \leq X_i \leq 1$. Then
 \subsection{Transformation}
 $\phi: U \to \mathbb{R}^n$ injective. Then
 \begin{equation}
-    \int_{\phi(U)} f(x) dx = \int_U f(\phi(x)) |\det(D\phi)(u)| dx \nonumber
+    \int_{\phi(U)} f(x) dx = \int_U f(\phi(x)) \ |\det(D\phi)(u)| \ dx \nonumber
 \end{equation}
 
 \section{Topology}
 
+\subsection{Separation axioms}
+\begin{description}
+    \item[T0] for distinct points $x, y$, have either $x \in U, y \notin U$ or $x \notin U, y \in U$ for open $U$
+    \item[T1] for distinct points $x, y$ have $x \in U, y \notin U$ and $x \notin V, y \in V$ for open $U, V$ (equivalent to singletons are closed)
+    \item[T2] or Hausdorff; points can be separated by open sets
+    \item[T3] T1 + points can be separated from closed sets by open sets
+    \item[T4] T1 + closed sets can be separated from closed sets by open sets
+\end{description}
+
+\subsection{Universal nets}
+Every net $(x_i)_{i \in I}$ has a universal subnet.
+\paragraph{Proof idea} 
+Consider the filter $\mathcal{F} = \{F \subseteq I \ | \ \exists i \in I \ \forall j \in I: \ j \geq i \Rightarrow j \in F\}$ and use ultrafilter $\mathcal{U} \supseteq \mathcal{F}$ as index set.
+
+\subsection{Initial topologies}
+$\{ \bigcap_{\alpha \in \mathcal{F}} f_\alpha^{-1}(U_\alpha) \ | \ \mathcal{F} \subseteq \mathcal{A} \ \text{finite}, \ U_\alpha \in \tau_\alpha \}$ is a basis for the initial topology of $f_\alpha: X \to (X_\alpha, \tau_\alpha)$.
+
+\subsection{Characterization of compactness}
+The following are equivalent, where $(X, \tau)$ is a topological space
+\begin{itemize}
+    \item Every open cover of $X$ has a finite subcover
+    \item For all $\mathcal{D} \subseteq 2^X$ of nonempty, closed sets with $\bigcap \mathcal{F} \neq \emptyset$ for each finite $\mathcal{F} \subseteq \mathcal{D}$ have that $\bigcap \mathcal{D} \neq \emptyset$
+    \item For each chain $\mathcal{C} \subseteq 2^X$ of nonempty, closed sets have $\bigcap \mathcal{C} \neq \emptyset$
+    \item Each universal net converges
+    \item Each net has a convergent subnet
+    \item Each closed $S \subseteq X$ is compact w.r.t the subspace topology
+\end{itemize}
+\paragraph{Proof} Interesting is only (iii) $\Rightarrow$ (ii). Given $\mathcal{D} \subseteq 2^X$ consider $\mathcal{S} := \{\mathcal{A} \subseteq \mathcal{D} \ | \ \bigcap \mathcal{A} \neq \emptyset \}$. Then by assumption, $\mathcal{S}$ contains all finite sets.
+Also, $\mathcal{S}$ is also closed w.r.t monotone unions, as for a chain $\mathcal{C} \subseteq \mathcal{S}$ have that $\{ \bigcap C \ | \ C \in \mathcal{C} \}$ is a chain of nonempty closed sets, so $\bigcap \{ \bigcap C \ | \ C \in \mathcal{C} \} \neq \emptyset$ by assumption. But this is a lower bound for each $C \in \mathcal{C}$, so for $\bigcup \mathcal{C}$. Therefore, $\bigcup \mathcal{C} \in \mathcal{S}$.
+
+Assume $\mathcal{A} \subseteq 2^\mathcal{D}$ is a set of smallest cardinality $\kappa$ not in $\mathcal{S}$. Then we can well-order $\mathcal{A} = \{a_\xi \ | \ \xi \in \kappa\}$ and get $\mathcal{A} = \bigcup_{\chi \in \kappa} \{ a_\xi \ | \ \xi \in \chi\}$ as $\kappa$ is infinite, so a limit ordinal. Therefore $\mathcal{A}$ is a monotone union of sets in $\mathcal{S}$ (by minimality of $\kappa$), so in $\mathcal{S}$.
+Then $\mathcal{S} = 2^\mathcal{D}$ so $\mathcal{D} \in \mathcal{S}$ and therefore $\bigcap \mathcal{D} \neq \emptyset$.
+
 \subsection{Tychonoffs Theorem}
 For a collection of compact topological spaces $(X_i)_{i \in I}$ the product space $\prod_{i \in I} X_i$ is compact.
+\paragraph{Proof idea} Follows directly from the fact that projections of universal nets are universal, and a space is compact iff every universal net converges.
+
+\subsection{Urysohn's Lemma}
+For closed $C_0, C_1$ in a T4 space $X$ there is a continuous $f: X \to [0, 1]$ with $\restr{f}{C_0} = 0$ and $\restr{f}{C_1} = 1$.
+\paragraph{Proof idea} Construct by induction open sets $U_q$ for $q \in \Q \cap [0, 1]$ with $C_0 \subseteq U_q \subseteq \bar{U}_q \subseteq U_r \subseteq \bar{U_r} \subseteq C_1^c$ for $q < r$. Then take $f(x) := \inf \{q \in \Q \cap [0, 1] \ | \ x \in U_q \} \cup \{1\}$.
+
+\subsection{Tietze's extension theorem}
+For closed $C$ in a T4 space $X$ and continuous $f: C \to \R$ there is a continuous extension $\tilde{f}: X \to \R$.
+
+\subsection{Extension of uniformly continuous functions}
+Let $S$ be a set in a metric space $M$ and $f: S \to \R$ uniformly continuous. Then $f$ can be continuously extended to $\tilde{f}: M \to \R$.
+\paragraph{Proof idea} Use the following result: If $X$ is a topological space and $Y$ is T3, then for $D \subseteq X$ and continuous $f: D \to Y$ we can extend $f$ to $\bar{D} \to Y$ if 
+\begin{equation*}
+    \forall x \in \partial D \ \exists y \in Y \ \forall (x_i)_{i \in I} \ \text{net in $D$}: \ x_i \to x \ \Rightarrow \ f(x_i) \to y
+\end{equation*}
+This condition already determines the extension function $\tilde{f}$, and its continuity can be proven by contradiction. Assume a universal net $(x_i)_{i \in I}$ in $\bar{D}$ converges to $x \in \bar{D}$ but not $\tilde{f}(x_i) \to \tilde{f}(x)$. Construct a net $(w_j)_{j \in J}$ in $D$ such that $w_j \to x$ and $\tilde{f}(w_j)$ is outside of the closure of a fixed neighborhood $N$ of $\tilde{f}(x)$. This contradicts the assumption.
+
+
 
 \section{Discrete}
 
@@ -350,13 +413,33 @@ Consider any $y \in Z$ with $\|y\| \leq 1$. If $y \notin \mathrm{cl}(T(2c B_X))$
 a contradiction. Therefore, $\mathrm{cl}(T(B_X))^\circ \neq \emptyset$ and so $\tilde{T}: X \to Z, \ x \mapsto T(x)$ is open by \ref{closure_image_unit_ball}.
 It follows that $\mathrm{ran}(T) = \mathrm{ran}(\tilde{T})$ is closed, as $X$ is closed.
 
+\subsection{Projection theorem}
+\label{projection_theorem}
+Let $H$ be a Hilbert space and $K \subseteq H$ convex and closed. Then for $x \in H$ the infimum $\inf_{y \in K} \| y - x\|$ is reached by some $y \in K$. In particular, for $U \subseteq H$ closed subspace, $U^\perp$ is also closed and $H = U \oplus U^\perp$ is a topological decomposition.
+
+\subsection{Frechet-Riesz representation theorem}
+Let $H$ be a Hilbert space. Then a isometric, bijective, conjugate linear map is given by
+\begin{equation*}
+    \phi: H \to H', \quad y \mapsto \langle \cdot , y \rangle
+\end{equation*}
+\paragraph{Proof} Show surjectivity, the rest is clear: For $x' \in H'$ have that $(\mathrm{ker}(x'))^\perp$ has dimension 1. By using \ref{projection_theorem} the claim follows.
+
+\subsection{Orthonormal bases}
+Let $H$ be a Hilbert space and $S \subseteq H$ a maximal orthonormal system. As
+\begin{equation*}
+    \left\langle x - \sum_{s \in F} \langle x, s \rangle s, \ x - \sum_{s \in F} \langle x, s \rangle s \right\rangle \geq 0 \ \Rightarrow \ \sum_{s \in F} |\langle x, s \rangle|^2 \leq \langle x, x \rangle
+\end{equation*}
+for finite $F \subseteq S$, get that $\sum_{s \in S} \langle x, s \rangle s$ converges absolutely, and if $x \in \mathrm{cl}(\mathrm{span}(S))$, to $x$. For a maximal orthonormal system $S \subseteq H$ have that $\mathrm{cl}(\mathrm{span}(S)) = H$, so it is an orthonormal basis.
+
+
+
 \section{(Algebraic) Number Theory}
 
 \subsection{Propositions (from Neukirch)}
 Let $K|\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$.
 \begin{description}
     \item[2.9] For $\alpha_1, ..., \alpha_n \in \mathcal{O}_K$ basis of $K$, then $d(\alpha_1, ..., \alpha_n)\mathcal{O}_K \subseteq \alpha_1 \Z + ... + \alpha_n \Z$.
-    \item[2.10] Each finitly generated $\mathcal{O}_K$-module $M \subseteq K$ is a free $\Z$-module. 
+    \item[2.10] Each finitely generated $\mathcal{O}_K$-module $M \subseteq K$ is a free $\Z$-module. 
     \item[3.1] $\mathcal{O}_K$ is a Dedekind domain, so noetherian, integrally closed and each prime ideal $p \neq 0$ is maximal.
     \item[3.3] Each ideal except $(0), (1)$ has a unique factorization in prime ideals (up to order). 
 \end{description}
@@ -380,11 +463,16 @@ In the case $D < 0$, have that
         \{ 1, -1 \} & \text{otherwise}
     \end{cases} \nonumber
 \end{equation}
-\paragraph{Proof idea of the second part} For $\epsilon = \frac 1 2 (u + v \sqrt{d_K}) \in \mathcal{O}_K^*$ with $\epsilon^{-1} = \frac 1 2 (w + t \sqrt{d_K})$ have
-\begin{equation}
-    uw + dtv = 4, \ ut + vw = 0 \quad \Rightarrow \quad w(u^2 - dv^2) = 4u, \ u(w^2 - dt^2) = 4w \nonumber
-\end{equation}
-so $(u^2 - dv^2)(w^2 - dt^2) = 16$. By using $u \equiv dv \mod 2, \ w \equiv dt \mod 2$ and $d \equiv d^2 \mod 4$ get that $u, v$ also fulfill the equation (as $u^2 - dv^2, w^2 - dt^2 \equiv 0 \mod 4$). By Dirichlet's unit theorem, have that $\mathcal{O}_K^* = \langle \epsilon \rangle$ for $\epsilon = \frac 1 2 (u + v \sqrt{d_K})$. Wlog have that $u, v \geq 0$ (maybe use $\epsilon^{-1}$), then $\epsilon_1 = \epsilon^k, \ k > 0$. It must hold $k = 1$, otherwise $u, v$ would solve $x^2 - dy^2 = \pm 4$ with $u^2 + dv^2 < x^2 + dy^2$ (which we consider as ``smaller'').
+\paragraph{Proof idea of the second part} For $\epsilon = \frac 1 2 (u + v \sqrt{d_K}) \in \mathcal{O}_K^*$ have
+\begin{equation*}
+    N_{K|\Q}(\epsilon) = \frac 1 4 (u^2 - d_K v^2) \in \{ -1, 1 \} \ \Rightarrow \ u^2 - d_K v^2 = \pm 4
+\end{equation*}
+By Dirichlet's unit theorem have fundamental unit $\epsilon = \frac 1 2 (u + v \sqrt{d_K})$ and as $-\epsilon$ and $\epsilon^{-1}$ together with $-1$ also generate $\mathcal{O}_K^*$, we may assume $u, v \geq 0$.
+Therefore, $\epsilon^k = \frac 1 2 (x + y\sqrt{d_K})$ and as in
+\begin{equation*}
+    \frac 1 2 (w + t\sqrt{d_K})\frac 1 2 (u + v \sqrt{d_K}) = \frac 1 4 (wu + d_K tv + (ut + vw)\sqrt{d_K})
+\end{equation*}
+the part $\frac 1 4 (wu + d_K tv)$ is greater than $\frac 1 2 w$ as wlog $u \geq 2$, have that $u, v$ must be the smallest solution of Pell's equation.
 
 \subsection{Ramification (de: Verzweigung)}
 Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\mathcal{O}$ the integral closure of $\mathcal{R}$ in an algebraic field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
