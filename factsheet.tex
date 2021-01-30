@@ -256,6 +256,8 @@ For closed $C_0, C_1$ in a T4 space $X$ there is a continuous $f: X \to [0, 1]$ 
 
 \subsection{Tietze's extension theorem}
 For closed $C$ in a T4 space $X$ and continuous $f: C \to \R$ there is a continuous extension $\tilde{f}: X \to \R$.
+\paragraph{Proof idea} Prove extension of $f: C \to ]-1,1[$ to $\tilde{f}: X \to ]-1,1[$, then the result follows by using a homeomorphism $]-1,1[ \to \R$.
+By Urysohn's Lemma, it suffices to extend $f: C \to [-1, 1]$ to $\tilde{f}: X \to [-1, 1]$. For this, construct a sequence $h_n: X \to (\frac 2 3)^n [-\frac 1 3, \frac 1 3]$ of continuous functions such that $\sum_n h_n$ converges uniformly.
 
 \subsection{Extension of uniformly continuous functions}
 Let $S$ be a set in a metric space $M$ and $f: S \to \R$ uniformly continuous. Then $f$ can be continuously extended to $\tilde{f}: M \to \R$.
@@ -264,8 +266,6 @@ Let $S$ be a set in a metric space $M$ and $f: S \to \R$ uniformly continuous. T
     \forall x \in \partial D \ \exists y \in Y \ \forall (x_i)_{i \in I} \ \text{net in $D$}: \ x_i \to x \ \Rightarrow \ f(x_i) \to y
 \end{equation*}
 This condition already determines the extension function $\tilde{f}$, and its continuity can be proven by contradiction. Assume a universal net $(x_i)_{i \in I}$ in $\bar{D}$ converges to $x \in \bar{D}$ but not $\tilde{f}(x_i) \to \tilde{f}(x)$. Construct a net $(w_j)_{j \in J}$ in $D$ such that $w_j \to x$ and $\tilde{f}(w_j)$ is outside of the closure of a fixed neighborhood $N$ of $\tilde{f}(x)$. This contradicts the assumption.
-
-
 
 \section{Discrete}
 
@@ -430,8 +430,6 @@ Let $H$ be a Hilbert space and $S \subseteq H$ a maximal orthonormal system. As
     \left\langle x - \sum_{s \in F} \langle x, s \rangle s, \ x - \sum_{s \in F} \langle x, s \rangle s \right\rangle \geq 0 \ \Rightarrow \ \sum_{s \in F} |\langle x, s \rangle|^2 \leq \langle x, x \rangle
 \end{equation*}
 for finite $F \subseteq S$, get that $\sum_{s \in S} \langle x, s \rangle s$ converges absolutely, and if $x \in \mathrm{cl}(\mathrm{span}(S))$, to $x$. For a maximal orthonormal system $S \subseteq H$ have that $\mathrm{cl}(\mathrm{span}(S)) = H$, so it is an orthonormal basis.
-
-
 
 \section{(Algebraic) Number Theory}
 
