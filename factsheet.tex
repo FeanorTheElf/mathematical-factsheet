@@ -485,4 +485,26 @@ For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
     Also have $f_i = \mathrm{deg}(p_i)$
 \end{description}
 
+If $L|K$ is galoisch, we can consider the effect of the Galoisgroup on the prime ideals $\mathfrak{B} \leq \mathcal{O}$ over some prime ideal $\mathfrak{p} \leq \mathcal{R}$.
+Fix some prime ideal $\mathfrak{B} \leq \mathcal{O}$ over $\mathfrak{p}$ and consider
+\begin{align*}
+    \text{``Zerlegungsgruppe''} \ &G_{\mathfrak{B}} := \{ \sigma \in G \ | \ \sigma \mathfrak{B} = \mathfrak{B} \} \ &\text{with fixed field} \ Z_{\mathfrak{B}} = L^{G_\mathfrak{B}} \\
+    \text{``Trägheitsgruppe''} \ &I_{\mathfrak{B}} := \mathrm{ker}(\phi) \ &\text{with fixed field} \ T_\mathfrak{B} = L^{I_\mathfrak{B}}
+\end{align*}
+where
+\begin{equation*}
+    \phi_\sigma: \mathcal{O}/\mathfrak{B} \to \mathcal{O}/\mathfrak{B}, \quad [a] \mapsto [\sigma a]
+\end{equation*}
+Let then be $e$ resp. $f$ be the ``Verzweigungsindex'' (maximal power such that $\mathfrak{B}^e | \mathfrak{p}$) resp. ```Trägheitsindex'' (the index of $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$) of $\mathfrak{B}$ over $\mathfrak{p}$. If $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$ is separable, have the following representation:
+\begin{align*}
+    \mathfrak{p} \quad \underset{1}{\overset{1}{\subseteq}} \quad \mathfrak{B}_Z := \mathfrak{B} \cap Z_\mathfrak{B} \quad \underset{1}{\overset{f}{\subseteq}} \quad \mathfrak{B}_T := \mathfrak{B} \cap T_\mathfrak{B} \quad \underset{e}{\overset{1}{\subseteq}} \quad \mathfrak{B}
+\end{align*}
+where the ``Verzweigungsindizes'' are written over the corresponding ideal decompositions and the ``Trägheitsindizes'' are written below, respectivly.
+
+\subsection{Problems}
+\begin{description}
+    \item[§10.1] For each $n \in \N$ there are infinitely many primes $p$ with $p \equiv 1 \mod n$.
+
+    Assume there were only finitely many, so their product is $P \in \N$. Then for some $x \in \Z$ have that $\Phi_n(nxP) \neq 1$, so it has a prime divisor $p$. Therefore, $\Phi(nxP) \equiv 0 \mod p$, so $[nxP]_p$ is a primitive $n$-th root of unity in $\mathbb{F}_p$. As $\mathbb{F}^*$ is cyclic of order $p - 1$, get that $n | (p - 1)$ so $p \equiv 1 \mod n$. However, clearly $p \not| \ P$, a contradiction.
+\end{description}
 \end{document}

@@ -47,6 +47,7 @@
     separation & T4 \\
     compact & no, $(ne_1)_{n \in \N}$ has no convergent subnet \\
     Baire & yes, as completly metrizable \\
+    connected & connected \\
     countability & second countable via $\{B_q(r) \ | \ q, r \in \Q, \ q > 0\}$; separable
 \end{tabular}
 \\\\
@@ -63,6 +64,7 @@ Note that this is homeomorphic to each open ball.
     separation & T4 \\
     compact & yes, by Heine-Borel \\
     Baire & yes, as completly metrizable \\
+    connected & connected \\
     countability & second countable; separable (see \ref{top:euclidean})
 \end{tabular}
 
@@ -77,6 +79,7 @@ Let $X$ be infinite.
     separation & T1, as there are no disjoint open sets except $\emptyset$ \\
     compact & yes, as a chain of finite sets contains a smallest element \\
     Baire & iff $X$ is uncountable \\
+    connected & connected, as there are no disjoint, open, nonempty sets \\
     countability & separable; if $X$ is uncountable then not first countable
 \end{tabular}
 \\\\
@@ -95,6 +98,7 @@ Let $X$ be uncountable.
     separation & T1, as there are no disjoint open sets except $\emptyset$ \\
     compact & no, as $(\{n, n+1, ...\})_{n \in \N}$ are closed, nonempty with empty intersection \\
     Baire & yes \\
+    connected & connected, as there are no disjoint, open, nonempty sets \\
     countability & not separable; not first countable (see \ref{top:co_finite})
 \end{tabular}
 \\\\
@@ -111,6 +115,7 @@ Let $X$ be a set of at least two elements.
     separation & T4 \\
     compact & iff $X$ is finite \\
     Baire & yes, as the only dense set is $X$ \\
+    connected & totally disconnected \\
     countability & first countable; not separable resp. second countable if $X$ is infinite
 \end{tabular}
 
@@ -125,6 +130,7 @@ Let $X$ be a set of at least two elements.
     separation & none \\
     compact & yes \\
     Baire & yes, as the only open, dense set is $X$ \\
+    connected & connected, as there are no disjoint, open, nonempty sets \\
     countability & second countable; separable
 \end{tabular}
 
@@ -139,12 +145,15 @@ Let $(X, \leq)$ be a totally ordered set.
     separation & T4 \\
     compact & iff $\leq$ is order complete (i.e. $\sup$ and $\inf$ exist for all subsets) \\
     Baire & not in general, see $\Q$ \\
+    connected & iff $(X, \leq)$ is dense and conditionally order complete \\
     countability & in general neither separable nor first countable, see e.g. $\aleph_1 + 1$
 \end{tabular}
 \\\\
-For $x \notin C$ and $C \subseteq X$ closed have $x \in ]y, z[$ and $]y, z[$ disjoint to $C$ by closedness of $C$. Then one easily sees that $x$ can be separated from $C$ by distinguishing the cases $y < u < x$ or $]y, x[ = \emptyset$ and similarly for $z$.
+For $x \notin C$ and $C \subseteq X$ closed have $x \in ]y, z[$ and $]y, z[$ disjoint to $C$ by closedness of $C$. Then one easily sees that $x$ can be separated from $C$ by distinguishing the cases $y < u < x$ or $]y, x[ = \emptyset$ and similarly for $z$ (this shows T3).
 
 For T4 see \href{https://math.stackexchange.com/questions/980584/is-every-linear-ordered-set-normal-in-its-order-topology}{math SE}.
+
+For the characterizations of compactness and connectedness see topology exercise sheets.
 
 \subsubsection{Order topology $\aleph_1 + 1$}
 
@@ -155,6 +164,7 @@ For T4 see \href{https://math.stackexchange.com/questions/980584/is-every-linear
     separation & T4 \\
     compact & yes, as order complete \\
     Baire & yes, as compact Hausdorff space \\
+    connected & not connected, as $\leq$ not dense \\
     countability & not first countable ($\aleph_1$ has no countable neighborhood basis), not separable (countable union of countable sets is countable)
 \end{tabular}
 
@@ -167,6 +177,7 @@ For T4 see \href{https://math.stackexchange.com/questions/980584/is-every-linear
     separation & T4 \\
     compact & no, as not Baire \\
     Baire & no, as there is no open singleton and $\Q$ is countable \\
+    connected & totally disconnected, as $\R \setminus \Q$ dense in $\R$ \\
     countability & second countable, as $\Q$ is countable
 \end{tabular}
 \\\\
@@ -181,6 +192,7 @@ This is equal to the euclidean subspace topology on $\Q$
     separation & T4 \\
     compact & no, as $\R$ is not compact \\
     Baire & yes because it is metric and complete \\
+    connected & not connected, as $(X, \leq)$ not conditionally order complete, e.g. $\{0\} \times \R$ has no supremum \\
     countability & first countable (for $(\mu, x)$ take $(\mu, ]x - \frac 1 n, x + \frac 1 n[)$); second countable and separable iff $\alpha$ is countable
 \end{tabular}
 
@@ -195,16 +207,20 @@ Let $\alpha$ be a ordinal.
     separation & T4 \\
     compact & yes by Tychonoffs theorem \\
     Baire & yes, as compact Hausdorff space \\
-    countability & first countable iff $\alpha = 0$; In this case, also second countable, separable (see e.g. exercise problem 33); ? separable in the general case ?
+    connected & connected \\
+    countability & first countable iff $\alpha = 0$; In this case, also second countable (see e.g. exercise problem 33); Separable iff $\aleph_\alpha \leq \mathrm{card}(\R)$.
 \end{tabular}
 \\\\
 To prove non-first-countability for $\alpha > 0$ use that the sets $]\frac 1 3, \frac 2 3[ \times \prod_{\xi \neq \chi} [0, 1]$ are open and that the intersection of countably many open sets contains $\prod_{\xi \in A} S_\xi \times \prod_{\xi \notin A} [0, 1]$ for a countable $A$ and any $S_\xi \subseteq [0, 1]$.
 
 For the T4 property, consider $C_0, C_1 \subseteq [0,1]^{\aleph_\alpha}$ closed. Then as above $C_i \subseteq A_i \times \prod_{\alpha \notin \mathcal{F}_i} [0,1]$ for $\mathcal{F}_i$ finite. Therefore, separating $C_0, C_1$ at the coordinates $\mathcal{F}_0 \cup \mathcal{F}_1$ is sufficient (this is possible, as the set is finite).
 
-% A countable, dense subset can be constructed as follows: Construct a sequence $(S_\xi)_{\xi < \aleph_\alpha}$ such that each $S_\xi$ is a countable set of partial functions $f: D_f \subseteq \xi \to \Q$ and it holds: For each $\mathcal{F} \subseteq \xi$ finite, $g: \mathcal{F} \to \Q$ there is some $f \in S_\xi$ with $\mathcal{F} \subseteq D_f$ and $g = \restr{f}{\mathcal{F}}$. In the successor ordinal case, just consider each $f \in S_{\xi - 1}$ and extended it by each $q \in \Q$ ($\Q \times S_{\xi - 1}$ is countable). In the limit ordinal case, just unify all previous sets (this does not work).
+For separability see \href{https://dantopology.wordpress.com/2009/11/06/product-of-separable-spaces/}{some blog}.
 
 By Urysohn's Lemma, each compact T4 space is homeomorphic to a subspace of $[0, 1]^\kappa$, where $\kappa$ is a big enough cardinal number. It suffices to take $\kappa = \mathrm{card}(X^2)$, but it even suffices if there is a base of cardinality $\kappa$. Note that because of this, every second countable compact T4 space is metrizable.
+
+For connectedness, assume there was non-constant $\phi: [0,1]^{\aleph_\alpha} \to \{0,1\}$ with $\phi(x) \neq \phi(y)$. Consider the net $((z_{\beta,\gamma})_\beta)_\gamma$ with $z_{\beta,\gamma} = x_\beta$ if $\beta \leq \gamma$ and $z_{\beta,\gamma}=y_\beta$ otherwise.
+By transfinite induction, it is easy to see that $\phi(x) = \phi(z_\gamma)$ for each $\gamma$ (in the limit ordinal case, use that the net up to now converges and $\phi^{-1}(\{\phi(x)\})$ is closed). This yields a contradiction as $\phi(x) = \phi(z_{\aleph_\alpha}) = \phi(y)$.
 
 \subsection{Sorgenfrey topology}
 \label{top:sorgenfrey}
@@ -215,10 +231,53 @@ By Urysohn's Lemma, each compact T4 space is homeomorphic to a subspace of $[0, 
     separation & T4 \\
     compact & no, even the subspace $[0, 1]$ is not compact, as the cover $[1, 2[$ and $[1 - \frac 1 n, 1 - \frac 1 {n + 1}[$ has no finite subcover \\
     Baire & yes \\
+    connected & totally disconnected \\
     countability & first countable, separable; not second countable
 \end{tabular}
 \\\\
 Note that the Sorgenfrey is not connected. Assume there is a countable basis. Then there is some $x$ such that $x$ is not the infimum of any basis set. Then there is no basis set $B$ with $x \in B \subseteq [x, x + \epsilon]$.
 
 To see that it is a Baire space, consider $(U_n)_{n \in \N}$ open, dense and construct decreasing $[x_n, x_n + \epsilon_n[$ in $U_n \cap N$ for some open $N$. Then the $x_n$ have a supremum $x$, and it is in $\bigcap_{n \in \N} U_n$.
+
+\subsection{The co-less-continuum topology}
+Let $X$ be a set with $\mathrm{card}(X) \geq \mathrm{card}(\R)$.
+\\\\
+\begin{tabular}{c | p{0.8\textwidth}}
+    Definition & $(X, \tau = \{U \subseteq X \ | \ \mathrm{card}(U^c) < \mathrm{card}(\R)\}) \cup \{\emptyset\}$ \\
+    \hline
+    type & not metric, as not Hausdorff \\
+    separation & T1 \\
+    compact & no \\
+    Baire & no \\
+    connected & connected, as there are no disjoint, open, nonempty sets \\
+    countability & not separable; not first countable
+\end{tabular}
+\\\\
+Note that the quotient topology of the euclidean space with the following, evil equivalence relation is of this form:
+Let $x \sim y :\Leftrightarrow x = y \vee x = x_\xi, y = y_\xi$ and $(x_\xi)_\xi, (y_\xi)_\xi$ are all distinct and constructed by transfinite induction such that for every $U \subseteq \R, U^\circ \neq \emptyset, \mathrm{card}(U) = \mathrm{card}(\R)$ have $\xi$ with $x_\xi \in U, y_\xi \notin U$ (using a countable basis of $\tau_{\mathrm{Eucl}}$).
+This is the case, since for all preimages $U \subseteq \R$ under the projection, have that if $U$ is open, it is empty or its complement is of cardinality $< \mathrm{card}(\R)$ (otherwise, it would contain $x_\xi$ but not $y_\xi$, a contradiction to being a preimage).
+
+Assuming the continuum hypothesis, this is the co-countable topology \ref{top:co_countable}. In any case, its properties can be shown exactly the same way.
+
+\subsection{Axiomatization topology}
+Let $\mathcal{L}$ be a formal language and $X(\mathcal{L})$ a representant system of all $\mathcal{L}$-structures modulo $\equiv$ (elementary equivalence).
+Assume $\kappa(\mathcal{L}) = \aleph_0$.
+\\\\
+\begin{tabular}{c | p{0.8\textwidth}}
+    Definition & Consider a topology on $X(\mathcal{L})$ where a set is closed iff it is axiomatizable by some $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ \\
+    \hline
+    type & metric (? iff $\kappa(\mathcal{L}) = \aleph_0$ ?) \\
+    separation & T4 \\
+    compact & yes, by the compactness theorem \\
+    Baire & yes \\
+    connected & not connected, as $W(\gamma)$ and $W(\neg\gamma)$ is a disjoint, open, nontrivial cover of $X(\mathcal{L})$ for a suitable $\gamma \in \mathrm{Sen}(\mathcal{L})$ \\
+    countability & second countable, separable (? iff $\kappa(\mathcal{L}) = \aleph_0$ ?)
+\end{tabular}
+\\\\
+Denote by $W(\Sigma) \subseteq X(\mathcal{L})$ the set of models of $\Sigma$. 
+
+T4 follows, as the space is clearly T2 (two non-elementarily-equivalent models can be separated by a single sentence, so by open sets) and compact.
+
+By the separation lemma, closed disjoint sets can even be separated by the open sets $W(\gamma)$ and $W(\neg\gamma)$ for a single $\mathcal{L}$-sentence $\gamma$.
+Therefore, the $W(\gamma)^c$ for each $\gamma \in \mathrm{Sen}(\mathcal{L})$ for a countabale base (as by assumption, $\kappa(\mathcal{L}) = \aleph_0$).
 \end{document}
