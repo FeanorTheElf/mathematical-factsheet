@@ -267,6 +267,38 @@ and we are done. Therefore, let $\alpha > 2$ and $p > 2$ and consider the mappin
 \end{equation}
 which is a homomorphism, as $(1 + k[p^{\alpha - 1}])(1 + l[p^{\alpha - 1}]) = 1 + (l + k)[p^{\alpha - 1}]$ and $\mathrm{ord}(g) = (p-1)p^{\alpha - 2}$ and bijective, so an isomorphism. How to continue from here?
 
+\subsection{Chinese Remainder theorem}
+Let $R$ be any commutative ring. For pairwise coprime ideals $I_1, ..., I_n \leq R$ have
+\begin{equation*}
+    R/(I_1 \cdot ... \cdot I_n) \cong R/I_1 \times ... \times R/I_n
+\end{equation*}
+
+\subsection{Main theorem of finitly generated modules over PIDs}
+Let $R$ be a principal ideal domain and $M$ a finitly generated $R$-module. Then
+\begin{equation*}
+    M \cong R^d \oplus \bigoplus_{p \in \mathcal{P}} \ \bigoplus_{j \in \{1, ..., n_p\}} R / \left( p^{e_{pj}} \right)
+\end{equation*}
+where $\mathcal{P} \subseteq R$ is a set of prime elements and $n_p \in \N_{>0}$ for $p \in \mathcal{P}$. The set $\mathcal{P}$ is unique, as are the exponents $e_{pj}$ (up to order).
+
+By the Chinese Remainder theorem, we get for finitly generated abelian groups $G$ that
+\begin{equation*}
+    G \cong \Z^d \oplus \bigoplus_{j \in \{1, ..., s\}} \Z/n_j\Z
+\end{equation*}
+for $n_1 | n_2 | ... | n_s$ with $s \in \N$.
+
+\subsection{Smith normal form}
+Let $A \in R^{m \times n}$ for a principal ideal domain $R$. Then there are $U \in \mathrm{SL}_m(R)$ and $V \in \mathrm{SL}_n(R)$ such that
+\begin{equation*}
+    U A V = \mathrm{diag}(n_1, ..., n_s, 0, ..., 0) \in R^{m \times n}
+\end{equation*}
+where $n_1 | n_2 | ... | n_s$ with $s \in \N$.
+
+\subsection{The module $\Z^n$}
+$\Z^n$ is a free, noetherian $\Z$-module.
+
+\subsection{Hilbert's basis theorem}
+If $R$ is a noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a finitly generated ring extension $S \supseteq R$.
+
 \section{Probabilities}
 
 \subsection{Chernoff-Hoeffding}
@@ -530,10 +562,98 @@ Let $H$ be a Hilbert space and $S \subseteq H$ a maximal orthonormal system. As
 \end{equation*}
 for finite $F \subseteq S$, get that $\sum_{s \in S} \langle x, s \rangle s$ converges absolutely, and if $x \in \mathrm{cl}(\mathrm{span}(S))$, to $x$. For a maximal orthonormal system $S \subseteq H$ have that $\mathrm{cl}(\mathrm{span}(S)) = H$, so it is an orthonormal basis.
 
+Have also the following laws
+\begin{description}
+    \item[Bessel] For an orthonormal system $S$ have $\sum_{s \in S} |\langle x, s \rangle|^2 \leq \| x \|^2$ for all $x$
+    \item[Parseval] $S$ is an orthonormal basis iff there is equality above, i.e. $\| x \|^2 = \sum_{s \in S} |\langle x, s \rangle|^2$
+\end{description}
+
+\subsection{Spectra}
+Let $T \in \mathcal{L}(X)$ for a Banach space $X$.
+With
+\begin{align*}
+    \text{point spectrum} \quad \sigma_p(T) &:= \{ \lambda \in \mathbb{K} \ | \ \ker(T - \lambda) \neq \emptyset \} \\
+    \text{continuous spectrum} \quad \sigma_c(T) &:= \{ \lambda \in \mathbb{K} \ | \ \ker(T - \lambda) = \emptyset, \ \mathrm{cl}(\mathrm{im}(T - \lambda)) \neq X \} \\
+    \text{residual spectrum} \quad \sigma_r(T) &:= \{ \lambda \in \mathbb{K} \ | \ \ker(T - \lambda) = \emptyset, \ \mathrm{cl}(\mathrm{im}(T - \lambda)) = X, \ \mathrm{im}(T - \lambda) \neq X \} \\
+    \text{spectrum} \quad \sigma(T) &:= \sigma_p(T) \cup \sigma_c(T) \cup \sigma_r(T)
+\end{align*}
+have that $\sigma(T)$ compact and bounded by $\| T \|_{\mathrm{op}}$.
+\paragraph{Proof idea} Use the Neumann series.
+
+\subsection{Decomposition compact operator}
+\label{decomposition_compact_operator}
+Let $T \in \mathcal{K}(X)$ for Banach space $X$. Then $X = \ker((T - 1)^p) \oplus \mathrm{im}((T - 1)^p)$ for some $p \in \N$ (where the direct sum is a decomposition in the topological sense).
+\paragraph{Proof idea} Show that the sequence of $N_i = \ker((T - 1)^i)$ is stationary. Assume not, then have $x_i \in N_i$ with $\|x_i\| = 1$ and distance $\frac 1 2$ to $N_{i - 1}$ by Riesz Lemma. Applying $T$ then yields a non-Cauchy sequence as for $m < n$ have
+\begin{equation*}
+    Tx_n - Tx_m = x_n - x_m + (T - 1)(x_n - x_m) \in x_n - \underbrace{x_m + \ker((T - 1)^{n - 1})}_{= N_{n - 1}}
+\end{equation*}
+a contradiction to the compactness of $T$. Similar show that $\mathrm{im}((T - 1)^i)$ is stationary and for an index $p \in \N$ at which both are constant the claim holds. The closedness of $\mathrm{im}((T - 1)^p)$ follows as $(T - 1)^p$ is open by the open mapping theorem.$\hfill\square$
+
+\subsection{Spectral theorem for compact, normal operators}
+\label{spectral_theorem_operator}
+Let $T \in \mathcal{K}(H)$ on a Hilbert space $H$ be normal (if $\mathbb{K} = \C$) resp. self-adjoint (if $\mathbb{K} = \R$). Then there is a countable orthonormal system $E$ and $\lambda_e \in \mathbb{K} \setminus \{0\}$ for $e \in E$ such that
+\begin{equation*}
+    T = \sum_{e \in E} \lambda_e \langle \cdot, e \rangle e
+\end{equation*}
+Additionally, $\{ \lambda_e \ | \ e \in E \}$ has $0$ as only accumulation point, is bounded by $\| T \|_{\mathrm{op}}$ and $\lambda_e$ takes the same value for only finitely many $e \in E$. Also $H = \ker T \oplus \mathrm{cl}(\mathrm{span}(E))$.
+\paragraph{Proof} For $\lambda, \mu \in \sigma(T)$ with $\lambda \neq \mu$ have that $\ker(T - \lambda) \perp \ker(T - \mu)$ as $\mu v = T v = \lambda v$ implies $v = 0$. Therefore, take for $\lambda \in \sigma(T)$ orthonormal basis $\{ e_{\lambda, 1}, ..., e_{\lambda, n_\lambda} \}$ of $\ker(T - \lambda)$ and set
+\begin{equation*}
+    E = \{ e_{\lambda, i} \ | \ \lambda \in \sigma(T) \setminus \{0\} \}, \quad \lambda_{e_{\lambda, i}} = \lambda
+\end{equation*}
+Now consider $H_2 := (\ker T + \mathrm{cl}(\mathrm{span}(E)))^\perp$. Then $T(H_2) \subseteq H_2$ and $T_2 := \restr{T}{H_2}: H_2 \to H_2$ is compact and self-adjoint. If $T_2 = 0$ then $\ker(T_2) \subseteq H_2 \cap \ker(T) = \{0\}$ so we are done. 
+So assume $T_2 \neq 0$. Then $T_2x = \lambda x$ for some $\lambda \neq 0$ (see next lemma). However, then $x \in \ker(T - \lambda)$, a contradiction.
+The rest of the proposition follows from the two lemmas:
+
+\subsubsection{Lemma}
+A compact operator $T \in \mathcal{K}(H)$ that is normal (if $\mathbb{K} = \C$) resp. self-adjoint (if $\mathbb{K} = \R$) has $\lambda \in \sigma(T)$ where $|\lambda| = \| T \|_{\mathrm{op}}$.
+
+\subsubsection{Lemma (Spectrum of compact operators)}
+Let $T \in \mathcal{K}(X)$. Then $\sigma(T)$ is countable with only accumulation point $0$.
+\paragraph{Proof idea} Assume there are infinitely many $\lambda_n \in \sigma(T)$ pairwise distinct with $|\lambda_n| > \epsilon > 0$. By \ref{decomposition_compact_operator} each $T - \lambda_n$ is injective iff surjective, so have $Tx_n = \lambda_n x_n$ for non-zero $x_n$. 
+It follows that they are linearly independent. By Riesz lemma, have $y_n \in \mathrm{span}\{x_1, ..., x_n\}$ with distance $\frac 1 2$ to $\mathrm{span}\{x_1, ..., x_{n - 1}\}$ and $\| y_n \| = 1$. Then $Ty_n$ has distance $\frac 1 2 \epsilon$ from $\mathrm{span}\{Tx_1, ..., Tx_{n-1}\}$, but this contradicts the compactness of $T$.
+
+\subsection{Singular value decomposition}
+Let $T \in \mathcal{K}(H_1, H_2)$. Then there is $N = \{ 1, ..., n \}$ or $N = \N$ and orthonormal systems $\{ e_n \ | \ n \in N \}$ of $H_1$ and $\{ f_n \ | \ n \in N \}$ of $H_2$ and $\{ s_n \ | \ n \in N \} \subseteq \R_{>0}$ with $0$ as only accumulation point such that
+\begin{equation*}
+    T = \sum_{n \in N} s_n \langle \cdot, e_n \rangle f_n
+\end{equation*}
+\paragraph{Proof idea} 
+The operator $T^* \circ T$ is positive, self-adjoint and compact, so has a unique positive, self-adjoint compact root $S$ with $S \circ S = T^* \circ T$ (take the root of each eigenvalue in the representation of \ref{spectral_theorem_operator}).
+Then $T = U \circ S$ for a unitary operator $U$ and with $S = \sum_{e \in E} \lambda_e \langle \cdot, e \rangle e$ have that
+\begin{equation*}
+    T = \sum_{e \in E} \lambda_e \langle \cdot, e \rangle Ue
+\end{equation*}
+which is of the specified form.$\hfill\square$
+
+\subsection{Operator hierarchy}
+Let $H$ be a Hilbert space. Consider
+\begin{description}
+    \item[Compact operators $\mathcal{K}(H)$] In $T = \sum_n s_n \langle \cdot, e_n \rangle f_n \in \mathcal{K}(H)$ have $(s_n)_n \in c_0$
+    \item[Hilbert-Schmidt operators $\mathrm{HS}(H)$] Compact operators where $(s_n)_n \in \ell^2$
+    \item[Nuclear operators $\mathcal{N}(H)$] Compact operators where $(s_n)_n \in \ell^1$
+\end{description}
+Have the corresponding norms $\| \cdot \|_{\mathrm{op}}, \| \cdot \|_{\mathrm{HS}}, \| \cdot \|_{\mathrm{nuk}}$ as the $\ell^\infty, \ell^2, \ell^1$-norms of the $(s_n)_n$.
+Then
+\begin{itemize}
+    \item $\| \cdot \|_{\mathrm{op}} \geq \| \cdot \|_{\mathrm{HS}} \geq \| \cdot \|_{\mathrm{nuk}}$, so the identity embedding is continuous
+    \item The nuclear operators can be defined as operators of the form $\sum y_i x'_i(\cdot)$ where $\sum \| y_i \| \| x'_i \|$ converges
+    \item $(\mathcal{N}(H), \|\cdot\|_{\mathrm{nuk}})$ is a Banach space
+    \item Nuclear operators have the ``ideal property'': $T \circ S \circ R \in \mathcal{N}(H)$ if $S \in \mathcal{N}(H)$
+\end{itemize}
+For a nuclear operator $T = \sum s_n \langle \cdot, e_n \rangle f_n$ and an orthonormal basis $E$ the series
+\begin{equation*}
+    \mathrm{tr}(T) := \sum_{e \in E} \langle Te, e \rangle = \sum s_n \langle f_n, e_n \rangle
+\end{equation*}
+is independent of the choice of $E$ and defines the trace of $T$. We then further get
+\begin{itemize}
+    \item For $T, S \in \mathrm{HS}(H)$ have $T \circ S \in \mathcal{N}(H)$ and $\| T \circ S \|_{\mathrm{nuk}} \leq \| T \|_{\mathrm{HS}} \| S \|_{\mathrm{HS}}$ (compare the Hölder inequality \ref{hoelder_inequality})
+    \item $(\mathrm{HS}(H), \langle \cdot, \cdot \rangle_{\mathrm{HS}})$ defines a Hilbert space via $\langle x, y \rangle_{\mathrm{HS}} := \mathrm{tr}(T^* \circ S)$ (well-defined by the above point)
+\end{itemize}
+
 \section{(Algebraic) Number Theory}
 
-\subsection{Propositions (from Neukirch)}
-Let $K|\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$.
+\subsection{Propositions}
+Let $K|\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$. The following basic propositions can be found in Neukirch's book.
 \begin{description}
     \item[2.9] For $\alpha_1, ..., \alpha_n \in \mathcal{O}_K$ basis of $K$, then $d(\alpha_1, ..., \alpha_n)\mathcal{O}_K \subseteq \alpha_1 \Z + ... + \alpha_n \Z$.
     \item[2.10] Each finitely generated $\mathcal{O}_K$-module $M \subseteq K$ is a free $\Z$-module. 
@@ -544,13 +664,30 @@ Let $K|\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$.
 \subsection{Minkowski's theorem (Neukirch 4.4)}
 Let $V$ be a $n$-dimensional euclidean vector space, $\Gamma \subseteq V$ be a complete lattice, $X \subseteq V$ convex and balanced with $\mathrm{vol}(X) > 2^n \mathrm{vol}(\Gamma)$, then $X \cap \Gamma \neq \emptyset$.
 
+\subsection{The Class group (Neukirch 6.3)}
+Let $K$ be a number field with ring of integers $\mathcal{O}_K$. Then the set of fractional ideals is a group and the principal ideals form a subgroup. The quotient group is finite and called the class group $\mathrm{Cl}_K$. In particular, every $c \in \mathrm{Cl}_K$ contains an integral ideal $I$ of norm
+\begin{equation*}
+    N(I) := [ \mathcal{O}_K : I ] \leq M_K := \left( \frac 4 \pi \right)^s \frac {n!} {n^n} \sqrt{|d_k|}
+\end{equation*}
+where $s$ is the number of pairs of complex embeddings $K \to \mathbb{C}$ and $n = [K : \Q]$.
+\paragraph{Proof idea} Consider an equivalence class $[\mathfrak{a}]$. Then $\gamma \mathfrak{a}^{-1} \subseteq \mathcal{O}_K$ for some $\gamma \in \mathcal{O}_K$.
+By Minkowski's theorem, there is a $a \in \gamma\mathfrak{a}^{-1}$ of norm
+\begin{equation*}
+    N_{K|\Q}(a) \leq \left(\frac 2 \pi\right)^s \frac {n!} {n^n} \sqrt{|d_k|} N(\gamma\mathfrak{a}^{-1}) = \left(\frac 4 \pi\right)^s \frac {n!} {n^n} \sqrt{|d_K|} N(\gamma) N(\mathfrak{a})^{-1}
+\end{equation*}
+Therefore for the ideal $a\gamma^{-1}\mathfrak{a}$ in $[\mathfrak{a}]$ we have
+\begin{equation*}
+    N(a\gamma^{-1}\mathfrak{a}) \leq \left(\frac 4 \pi\right)^s \frac {n!} {n^n} \sqrt{|d_K|}
+\end{equation*}
+This is integral, as $(\gamma) = \gamma\mathfrak{a}^{-1}\mathfrak{a} \ | \ a\mathfrak{a}$.$\hfill\square$
+
 \subsection{Dirichlet's unit theorem}
 For $K / \Q$ finite with ring of integers $\mathcal{O}_K$, have $\mathcal{O}_K^* \cong \mu(K) \oplus G$, where $\mu(K)$ are the roots of unity and $G$ is a free group of rank $r + s - 1$, where $r$ is the number of real $\Q$-embeddings $K \to \R$ and $s$ is the number of conjugate pairs of complex $\Q$-embeddings $K \to \C$.
 
 \subsection{Square number fields}
-For a square-free $D \in \Z, \ D \neq 0, 1$ have $K = \Q(\sqrt{D})$. Then $d := d_K = D$ if $D \equiv 1 \mod 4$ and $d := d_K = 4D$ otherwise. Furthermore, $\mathcal{O}_K = \Z[\frac 1 2 (d_K + \sqrt{d_K})]$.
+For a square-free $D \in \Z, \ D \neq 0, 1$ have $K = \Q(\sqrt{D})$. Then $d := d_K = D$ if $D \equiv 1 \mod 4$ and $d := d_K = 4D$ otherwise. Furthermore, $\mathcal{O}_K = \Z[\frac 1 2 (1 + \sqrt{d_K})]$.
 
-In the case $D > 1$, have that $\mathcal{O}_K^* = \langle \epsilon_1 \rangle$, where $\epsilon_1 = \frac 1 2 (x + y \sqrt{d_K})$ for the smallest solution $x, y \geq 0$ of $x^2 - dy^2 = -4$ (or $... = 4$ if this has no integral solution).
+In the case $D > 1$, have that $\mathcal{O}_K^* = \langle \epsilon_1 \rangle$, where $\epsilon_1 = \frac 1 2 (x + y \sqrt{d})$ for the smallest solution $x, y \geq 0$ of $x^2 - dy^2 = -4$ (or $... = 4$ if this has no integral solution).
 
 In the case $D < 0$, have that 
 \begin{equation}
@@ -572,19 +709,20 @@ Therefore, $\epsilon^k = \frac 1 2 (x + y\sqrt{d_K})$ and as in
 the part $\frac 1 4 (wu + d_K tv)$ is greater than $\frac 1 2 w$ as wlog $u \geq 2$, have that $u, v$ must be the smallest solution of Pell's equation.
 
 \subsection{Ramification (de: Verzweigung)}
-Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\mathcal{O}$ the integral closure of $\mathcal{R}$ in an algebraic field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
+Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\mathcal{O}$ the integral closure of $\mathcal{R}$ in an algebraic and separable field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
 
 For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
 \begin{description}
-    \item[8.2] $L|K$ separable $\Rightarrow \ \sum e_i f_i = n := [L : K]$ where $\mathfrak{p}\mathcal{O} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ is the factorization of $\mathfrak{p}$ into prime ideals in $\mathcal{O}$ and $f_i = [\mathcal{O}/\mathfrak{B}_i : \mathcal{R}/\mathfrak{p}]$. The proof uses the CRT and the properties of $\mathcal{O}/\mathfrak{B}_i$ as $\mathcal{R}/\mathfrak{p}$-vector space.
-    \item[8.3] Let $L = K(\alpha)$ for an integral, primitive element $\alpha \in \mathcal{O}$. Then $\mathfrak{p} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ for $\mathfrak{B}_i = \mathfrak{p}\mathcal{O} + p_i(\alpha)\mathcal{O}$, where the minimal polynomial $p$ of $\alpha$ splits into irreducible factors mod $\mathfrak{p}\mathcal{O}$ 
+    \item[8.2] Have $\sum e_i f_i = n := [L : K]$ where $\mathfrak{p}\mathcal{O} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ is the factorization of $\mathfrak{p}$ into prime ideals in $\mathcal{O}$ and $f_i = [\mathcal{O}/\mathfrak{B}_i : \mathcal{R}/\mathfrak{p}]$. The proof uses the CRT and the properties of $\mathcal{O}/\mathfrak{B}_i$ as $\mathcal{R}/\mathfrak{p}$-vector space.
+    \item[8.3] Let $L = K(\alpha)$ for an integral, primitive element $\alpha \in \mathcal{O}$. If $\mathfrak{p}$ is a prime ideal that does not divide the leader $\mathcal{F}$ of $\mathcal{R}[\alpha]$ (the largest ideal contained in $\mathcal{R}[\alpha]$), then $\mathfrak{p} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ for $\mathfrak{B}_i = \mathfrak{p}\mathcal{O} + p_i(\alpha)\mathcal{O}$, where the minimal polynomial $p$ of $\alpha$ splits into irreducible factors mod $\mathfrak{p}\mathcal{O}$ 
     \begin{equation}
         p(X) \equiv p_1(X)^{e_1} ... p_r(X)^{e_r} \mod \mathfrak{p}\mathcal{O} \nonumber
     \end{equation} 
-    Also have $f_i = \mathrm{deg}(p_i)$
-\end{description}
+    Also have $f_i = \mathrm{deg}(p_i)$.
 
-If $L|K$ is galoisch, we can consider the effect of the Galoisgroup on the prime ideals $\mathfrak{B} \leq \mathcal{O}$ over some prime ideal $\mathfrak{p} \leq \mathcal{R}$.
+    By definition of $\mathcal{F}$, note that for a number field $K$ (i.e. $\mathcal{R} = \Z$) it is sufficient if $\mathfrak{p} = (p) \not| \ ([\mathcal{O} : \Z[\alpha]])$.
+\end{description}
+If $L|K$ is galoisch, we can consider the effect of the Galois group on the prime ideals $\mathfrak{B} \leq \mathcal{O}$ over some prime ideal $\mathfrak{p} \leq \mathcal{R}$.
 Fix some prime ideal $\mathfrak{B} \leq \mathcal{O}$ over $\mathfrak{p}$ and consider
 \begin{align*}
     \text{``Zerlegungsgruppe''} \ &G_{\mathfrak{B}} := \{ \sigma \in G \ | \ \sigma \mathfrak{B} = \mathfrak{B} \} \ &\text{with fixed field} \ Z_{\mathfrak{B}} = L^{G_\mathfrak{B}} \\
@@ -600,10 +738,102 @@ Let then be $e$ resp. $f$ be the ``Verzweigungsindex'' (maximal power such that 
 \end{align*}
 where the ``Verzweigungsindizes'' are written over the corresponding ideal decompositions and the ``Trägheitsindizes'' are written below, respectivly.
 
-\subsection{Problems}
-\begin{description}
-    \item[§10.1] For each $n \in \N$ there are infinitely many primes $p$ with $p \equiv 1 \mod n$.
+\subsection{Quadratic Reciprocity}
+For $a \in \Z$ and $p \in \mathbb{P}$ and $n = \prod_{p} p^{e_p} \in \N_{\geq 2}$ define
+\begin{equation*}
+    \left(\frac a p \right) := \begin{cases}
+        0 & \text{if} \ a = 0 \\
+        1 & \text{if there is $x$ with} \ a \equiv x^2 \mod p \\
+        -1 & \text{otherwise}
+    \end{cases} \quad \text{and} \quad
+    \left(\frac a n \right) := \prod_p \left( \frac a p \right)^{e_p}
+\end{equation*}
+Then for odd $a, n$ have
+\begin{equation*}
+    \left(\frac a n\right) = \begin{cases}
+        -\left(\frac n a \right) & \text{if} \ a \equiv n \equiv 3 \mod 4 \\
+        \left(\frac n a \right) & \text{otherwise}
+    \end{cases} \quad \text{and} \quad
+    \left(\frac 2 n\right) = \begin{cases}
+        1 & \text{if} \ n \equiv \pm 1 \mod 8 \\
+        -1 & \text{if} \ n \equiv \pm 3 \mod 8
+    \end{cases}
+\end{equation*}
 
-    Assume there were only finitely many, so their product is $P \in \N$. Then for some $x \in \Z$ have that $\Phi_n(nxP) \neq 1$, so it has a prime divisor $p$. Therefore, $\Phi(nxP) \equiv 0 \mod p$, so $[nxP]_p$ is a primitive $n$-th root of unity in $\mathbb{F}_p$. As $\mathbb{F}^*$ is cyclic of order $p - 1$, get that $n | (p - 1)$ so $p \equiv 1 \mod n$. However, clearly $p \not| \ P$, a contradiction.
-\end{description}
+\section{Computational Algebraic Number theory and Cryptanalysis}
+
+\subsection{Primality test}
+Let $n \in \N_{>2}$ be odd with $n - 1 = d2^s, \ d \perp 2$ and consider
+\begin{align*}
+    U_n &:= \{ a \in \Z_n^* \ | \ a^{n - 1} \equiv 1 \mod n \} \leq \Z_n^* & \text{(Fermat)}\\
+    V_n &:= \{ x \in \Z_n^* \ | \ x^{\frac {n - 1} 2} \equiv \left(\frac x n\right) \mod n \} \leq \Z_n^* & \text{(Solovay-Strassen)}\\
+    W_n &:= \{ a \in \Z_n^* \ | \ a^d \equiv 1 \quad \text{or} \quad a^{2^rd} \equiv -1 \quad \text{for some} \ r < s \} & \text{(Miller-Rabin)}
+\end{align*}
+If $n$ is prime, then $U_n = V_n = W_n = \Z_n^*$ and otherwise, $V_n, W_n \neq \Z_n^*$. Furthermore, if $n$ is composite, then $\#W_n \leq \frac 1 4 n$.
+\paragraph{Proof} That $U_n, V_n \leq \Z_n^*$ are subgroups can bee seen easily (note that $(\frac \cdot n )$ is multiplicative). Similarly, see that $V_n \subseteq U_n$ and if $n$ is prime, then all are equal by using that $\Z_n^*$ is cyclic.
+
+For the other parts, use some key ideas: First, for each prime $p$ (so in particular for $p | n$) have $\Z_p^*$ is cyclic of even order (wlog $n$ odd) and we get that $a$ is a square if $2\mathrm{ord}[a]_p | \ p - 1$. Furthermore, we have the CRT and if $a^k \equiv -1$ then $[a]_p^k = [-1]$ for each prime factor $p | n$.
+
+If $n = \prod_i p_i^{e_i}$ is composite, consider $x \in \Z_n^*$ which is congruent to a non-square modulo $p_1$ and congruent to $1$ modulo every other $p_i$. Then note that $x \notin V_n$ as
+\begin{equation*}
+    x^{\frac {n - 1} 2} \equiv 1^{\frac {n - 1} 2} \equiv 1 \not\equiv -1 \mod p_i \ \text{for some} \ i \neq 1 \quad \text{so} \quad x^{\frac {n - 1} 2} \not\equiv -1
+\end{equation*}
+where congruences are modulo $n$ unless otherwise mentioned.
+\\
+Now we consider $W_n$. Let $n = \prod_i p_i^{e_i}$ be odd and $a \in W_n$. 
+
+If $a^d \equiv 1$ then the order $\mathrm{ord}[a]_{p_i}$ is odd for each $i$, and therefore $a$ is a square modulo $p_i$ by using that $\Z_{p_i}^*$ is cyclic of even order. Therefore, 
+\begin{equation*}
+    \left(\frac a n\right) = 1 \equiv a^{\frac {n - 1} 2} \ \text{so} \ a \in V_n
+\end{equation*}
+
+If $a^{2^rd} \equiv -1$ for $r < s$ have that $[a]_{p_i}^{2^rd} = [-1]$. It follows that $\mathrm{ord} [a]_{p_i} = 2^{r + 1}d_i$ for $d_i \perp 2$, as $2^kf := \mathrm{ord}[a] \ | \ 2^{r + 1}d, \ f \perp 2$ and if $k \leq r$ then
+\begin{equation*}
+    [-1] = [a]^{2^rd_i} = \left([a]^{2^k f}\right)^{\frac {d_i} f 2^{r - k}} = [1]^{\frac {d_i} f 2^{r - k}} = [1], \quad \text{a contradiction}
+\end{equation*}
+So $\mathrm{ord} [a]_{p_i} = 2^{r + 1}d_i$, hence $2^{r + 1} \ | \ p_i - 1$. We set $p_i = 2^{r + 1} b_i + 1$.
+
+As above, $\Z_{p_i}^*$ is cyclic of even order, so we get
+\begin{equation*}
+    \left(\frac a {p_i}\right) = -1 \ \Leftrightarrow \ 2 \mathrm{ord}[a]_{p_i} \not| \ p_i - 1 \ \Leftrightarrow \ 2^{r + 2}d_i \not| \ p_i - 1  \ \Leftrightarrow \ 2^{r + 2} \not| \ p_i - 1 \ \Leftrightarrow \ b_i \perp 2
+\end{equation*}
+This yields
+\begin{equation*}
+    \left(\frac a {p_i}\right) = (-1)^{b_i} \quad \Rightarrow \quad \left(\frac a n\right) = \prod_i \left(\frac a {p_i}\right)^{e_i} = (-1)^{\sum_i b_i e_i}
+\end{equation*}
+Furthermore we get for the representation of $n$ modulo $2^{2r + 2}$ that
+\begin{equation*}
+    n = \prod_i p_i^{e_i} = \prod_i (2^{r + 1} b_i + 1)^{e_i} \equiv \prod_i (2^{r + 1} b_i e_i + 1) \equiv 1 + 2^{r + 1} \sum_i b_i e_i \mod 2^{2r + 2}
+\end{equation*}
+so
+\begin{equation*}
+    2^{s - 1}d = \frac {n - 1} 2 \equiv 2^r \sum_i b_i e_i \mod 2^{2r + 1} \quad \Rightarrow \quad 2^{s - r - 1} \equiv 2^{s - r - 1}d \equiv \sum_i b_i e_i \mod 2
+\end{equation*}
+and at last we get
+\begin{equation*}
+    a^{\frac {n - 1} 2} = a^{2^{s - 1}d} = \left( a^{2^rd} \right)^{2^{s - r - 1}} = (-1)^{2^{s - r - 1}} = (-1)^{\sum_i b_i e_i} = \left(\frac a n\right)
+\end{equation*}
+$\hfill\square$
+
+\subsection{Hidden Subgroup Problem}
+Given a group $G$ together with a group homomorphism $f: G \to X$ that is constant on all cosets of some subgroup $H \leq G$ and different on different cosets, find a generating set of $H$.
+\paragraph{Quantum Algorithm for $G = \Z$}
+Each subgroup $H \leq \Z$ is of the form $H = q\Z$, so $f$ is periodic with periode $b \in \Z$.
+Now consider some big $N = 2^n \in \Z$ and consider
+\begin{equation*}
+    \sum_{x = 0}^{N - 1} |x\rangle \ |f(x)\rangle
+\end{equation*}
+With a $N$-th root of unity $\zeta$, applying the QFT yields
+\begin{equation*}
+    \frac 1 N \sum_{x = 0}^{N - 1} \sum_{k = 0}^{N - 1} \zeta^{k x} |k\rangle \ |f(x)\rangle
+\end{equation*}
+When measuring both states, the probability to get some $k \in \{0, ..., N-1\}, f(x_0) \in X$ is equal to
+\begin{align*}
+    &\frac 1 {N^2} \left| \ \sum_{x = 0, \ f(x) = f(x_0)}^{N - 1} \zeta^{k x} \ \right|^2 = \frac 1 {N^2} \left| \ \sum_{l = 0}^M \zeta^{k (x_0 + bl)} \ \right|^2 = \frac 1 {N^2} \left| \ \zeta^{kx_0} \ \sum_{l = 0}^M \zeta^{kbl} \ \right|^2 \\
+    = \ &\frac 1 {N^2} \left| \ \sum_{l = 0}^M \zeta^{kbl} \ \right|^2 = \frac 1 {N^2} \left| \frac {1 - \zeta^{kb(M + 1)}} {1 - \zeta^{kb}} \right|^2 = \frac 1 {N^2} \left| \frac {\sin(2\pi \frac {kb(M+1)} N)} {\sin(2\pi \frac {kb} N)} \right|^2
+\end{align*}
+where $M = \left\lfloor \frac {N - x_0} b \right\rfloor \approx \frac N b$ and the denominators are non-zero as $b$ is wlog odd.
+
+TODO
+
 \end{document}
