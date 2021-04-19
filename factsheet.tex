@@ -128,7 +128,7 @@ Furthermore have then
     \item $(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$
     \item $\alpha + \beta = \alpha + \gamma \ \Rightarrow \ \beta = \gamma$ (but in general not for right-addition)
 \end{itemize}
-Then define $\cdot$ by $\alpha \cdot \beta := \mathrm{ord}(\alpha \times \beta)$ (with lexiographic ordering).
+Then define $\cdot$ by $\alpha \cdot \beta := \mathrm{ord}(\alpha \times \beta)$ (with lexicographic ordering).
 Then have the following properties (which also define $\cdot$ by transfinite recursion)
 \begin{itemize}
     \item $\alpha \cdot 0 = 0$
@@ -159,7 +159,7 @@ In 1st order logic proofs, we allow Modus Ponens and Generalization, and the fol
 Let $\Sigma \subseteq \mathrm{Fml}(\mathcal{L}), \phi \in \mathrm{Sen}(\mathcal{L}), \psi \in \mathrm{Fml}(\mathcal{L})$. If $\Sigma \cup \{\phi\} \vdash \psi$ then $\Sigma \vdash (\phi \rightarrow \psi)$.
 
 \subsection{Constant lemma}
-Let $\phi_1, ..., \phi_n, \phi \in \mathrm{Fml}(\mathcal{L})$ and $x$ a variable not occuring in the $\phi, \phi_i$ and $\mathcal{L}'$ an extension of $\mathcal{L}$ by a constant $c$. If $\phi_1, ..., \phi_n \vdash_{\mathcal{L}'} \phi$ then $\phi_1(c/x), ..., \phi_n(c/x) \vdash_{\mathcal{L}} \phi(c/x)$.
+Let $\phi_1, ..., \phi_n, \phi \in \mathrm{Fml}(\mathcal{L})$ and $x$ a variable not occurring in the $\phi, \phi_i$ and $\mathcal{L}'$ an extension of $\mathcal{L}$ by a constant $c$. If $\phi_1, ..., \phi_n \vdash_{\mathcal{L}'} \phi$ then $\phi_1(c/x), ..., \phi_n(c/x) \vdash_{\mathcal{L}} \phi(c/x)$.
 
 \subsection{Gödel's completeness theorem}
 \label{goedel_completeness}
@@ -187,6 +187,18 @@ Let $\Sigma_1, \Sigma_2, \Gamma \subseteq \mathrm{Sen}(\mathcal{L})$. If for eac
 \subsection{Vaught's test}
 Let $T$ be an $\mathcal{L}$-theory. If $T$ has only infinite models and is $\kappa$-categorical for some $\kappa \geq \kappa_{\mathcal{L}}$, then $T$ is complete.
 \paragraph{Proof} If $T \cup \{\alpha\}$ and $T \cup \{\neg \alpha\}$ would be consistent, Löwenheim-Skolem yields corresponding models of cardinality $\kappa$, which then are isomorphic. This is a contradiction.$\hfill\square$
+
+\subsection{Quantifier elimination}
+A set $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ has quantifier elimination, if any of the following equivalent definitions are fulfilled:
+\begin{itemize}
+    \item for every $\mathcal{L}$-formula $\phi$ there is a quantifier-free $\mathcal{L}$-formula $\psi$ with no additional free variables such that $\Sigma \vdash \phi \leftrightarrow \psi$.
+    \item for every substructure $\mathcal{A}$ of a model of $\Sigma$ have that $\Sigma \cup \mathcal{D}(\mathcal{A}) \subseteq \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ is complete.
+    \item for every two models $\mathcal{M}_1, \mathcal{M}_2$ of $\Sigma$ and a joint substructure $\mathcal{A}$ of $\mathcal{M}_1$ and $\mathcal{M}_2$ have that:
+    \begin{equation*}
+        (\mathcal{M}_1, \mathrm{id}_{|\mathcal{A}|}) \models \phi \ \Leftrightarrow \ (\mathcal{M}_2, \mathrm{id}_{|\mathcal{A}|}) \models \phi
+    \end{equation*}
+    for every formula $\phi \in \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ of the form $\phi = \exists x \psi$ with a quantifier-free $\psi$.
+\end{itemize}
 
 \section{Algebra}
 
@@ -252,7 +264,7 @@ is a surjective group homomorphism. We have
     \mathrm{ker}(f) = \pi^{-1}(\{1\}) = 1 + ([p^{\alpha - 1}]) = \left\{ 1 + k[p^{\alpha - 1}] \ \middle| \ k \in \{0, ..., p - 1\} \right\} \nonumber
 \end{equation}
 As $[p^{\alpha - 1}]^2 = 0$, have $\mathrm{ker}(f) = \langle 1 + [p^{\alpha - 1}] \rangle$ by the binomial theorem. On the other hand, by the second isomorphism theorem, have
-the ring isomorphy $( (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]) ) \cong \Z/p^{\alpha - 1}\Z$, which is cyclic by the induction hypothesis. Therefore, $G / \mathrm{im}(f) \cong \mathrm{ker}(f)$ yields:
+a ring isomorphism $( (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]) ) \cong \Z/p^{\alpha - 1}\Z$, which is cyclic by the induction hypothesis. Therefore, $G / \mathrm{im}(f) \cong \mathrm{ker}(f)$ yields:
 \begin{equation}
     (\Z/p^\alpha\Z)^* / \langle 1 + [p^{\alpha - 1}] \rangle \cong \langle [g] \rangle \ \text{for some} \ g \in (\Z/p^\alpha\Z)^* \nonumber
 \end{equation}
@@ -273,14 +285,14 @@ Let $R$ be any commutative ring. For pairwise coprime ideals $I_1, ..., I_n \leq
     R/(I_1 \cdot ... \cdot I_n) \cong R/I_1 \times ... \times R/I_n
 \end{equation*}
 
-\subsection{Main theorem of finitly generated modules over PIDs}
-Let $R$ be a principal ideal domain and $M$ a finitly generated $R$-module. Then
+\subsection{Main theorem of finitely generated modules over PIDs}
+Let $R$ be a principal ideal domain and $M$ a finitely generated $R$-module. Then
 \begin{equation*}
     M \cong R^d \oplus \bigoplus_{p \in \mathcal{P}} \ \bigoplus_{j \in \{1, ..., n_p\}} R / \left( p^{e_{pj}} \right)
 \end{equation*}
 where $\mathcal{P} \subseteq R$ is a set of prime elements and $n_p \in \N_{>0}$ for $p \in \mathcal{P}$. The set $\mathcal{P}$ is unique, as are the exponents $e_{pj}$ (up to order).
 
-By the Chinese Remainder theorem, we get for finitly generated abelian groups $G$ that
+By the Chinese Remainder theorem, we get for finitely generated abelian groups $G$ that
 \begin{equation*}
     G \cong \Z^d \oplus \bigoplus_{j \in \{1, ..., s\}} \Z/n_j\Z
 \end{equation*}
@@ -294,10 +306,10 @@ Let $A \in R^{m \times n}$ for a principal ideal domain $R$. Then there are $U \
 where $n_1 | n_2 | ... | n_s$ with $s \in \N$.
 
 \subsection{The module $\Z^n$}
-$\Z^n$ is a free, noetherian $\Z$-module.
+$\Z^n$ is a free, Noetherian $\Z$-module.
 
 \subsection{Hilbert's basis theorem}
-If $R$ is a noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a finitly generated ring extension $S \supseteq R$.
+If $R$ is a Noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a ring extension $S \supseteq R$.
 
 \section{Probabilities}
 
@@ -484,13 +496,16 @@ Let $T \in \mathcal{L}(X)$. If $\sum_{n \in \N} T^n$ converges, then $1 - T$ is 
 \end{equation*}
 To get convergence, it is sufficient to have $\|T\| < 1$ and $X$ is complete.
 
-\subsection{$l^p$ spaces}
-Note that from \ref{hoelder_inequality} we get that $l^p \simeq (l^q)'$ for $p > 1$ and $\frac 1 p + \frac 1 q = 1$. 
-
 \subsection{Riesz lemma}
 \label{riesz_lemma}
 Let $U \subsetneq X$ closed subspace of a normed space. For $\delta > 0$ have then $x \in X$ with $\|x\|=1$ and distance greater than $1 - \delta$ from $U$.
 \paragraph{Proof idea} Consider any $x \in X \setminus U$ and an almost closest point $u \in U$. Then scale $x - u$ appropriately.
+
+\subsection{Riesz Representation theorem}
+Let $K$ be a compact metric space (compact Hausdorff space??). Consider $(C(X), \|\cdot\|_\infty)$ and the space of complex regular Borel measures $M(X)$ on $X$. Then $C(K)' \cong M(K)$ under
+\begin{equation*}
+    M(K) \to C(K)', \quad \mu \mapsto \Bigl(f \mapsto \int_K f \ d\mu\Bigr)
+\end{equation*}
 
 \subsection{Compact Operators and spaces}
 From \ref{riesz_lemma} one can conclude that the unit ball $B_X$ is compact iff $\dim X < \infty$. Therefore, consider operators $T \in \mathcal{L}(X, Y)$ such that $\mathrm{cl}(T(B_X))$ compact, these are a Banach space $\mathcal{K}(X, Y)$.
@@ -510,16 +525,6 @@ and consider the diagonal sequence $(y_n)_{n \in \N}$. Then $(y_n(s_k))_{n \in \
 
 By equicontinuity, have for each $k \in \N$ a neighborhood $N_k$ of $s_k$ such that $\forall x \in M: \ x(N_k) \subseteq B_\epsilon(x(s_k))$.
 Therefore, there is a subcover $N_i$ for $i \in I$ finite. As $(y_n(s_k))_{n \in \N}$ converges for each $k$, it simultaneously converges for each $i \in I$. This yields that $(y_n)_{n \in \N}$ is a Cauchy-sequence w.r.t $\|\cdot\|_{\infty}$.
-
-\subsection{Proposition of Schauder}
-For $T \in \mathcal{L}(X, Y)$ between Banach-spaces, have that $T$ is compact if and only if $T' \in \mathcal{L}(Y', X')$ is compact.
-
-\paragraph{Proof} Prove $\Rightarrow$, the other direction follows. Then $K := \mathrm{cl}(T(B_X))$ is compact metric space.
-For $(y'_n)_{n \in \N}$ have
-\begin{equation*}
-    \left(\restr{y'_n}{K}\right)_{n \in \N} \ \text{is a sequence in $C(K)$}
-\end{equation*}
-It also fulfills the conditions of \ref{arzela_ascoli}, so there is a convergent subsequence indexed by $(n_k)_{k \in \N}$. Then also $(T'y_{n_k})_{k \in \N}$ converges, so $T'(B_{Y'})$ is relatively compact.
 
 \subsection{Closed range theorem}
 Let $X, Y$ be Banach spaces, $T \in \mathcal{L}(X, Y)$. The the following are equivalent
@@ -563,19 +568,6 @@ Let $H$ be a Hilbert space. Then a isometric, bijective, conjugate linear map is
     \phi: H \to H', \quad y \mapsto \langle \cdot , y \rangle
 \end{equation*}
 \paragraph{Proof} Show surjectivity, the rest is clear: For $x' \in H'$ have that $(\mathrm{ker}(x'))^\perp$ has dimension 1. By using \ref{projection_theorem} the claim follows.
-
-\subsection{Orthonormal bases}
-Let $H$ be a Hilbert space and $S \subseteq H$ a maximal orthonormal system. As
-\begin{equation*}
-    \left\langle x - \sum_{s \in F} \langle x, s \rangle s, \ x - \sum_{s \in F} \langle x, s \rangle s \right\rangle \geq 0 \ \Rightarrow \ \sum_{s \in F} |\langle x, s \rangle|^2 \leq \langle x, x \rangle
-\end{equation*}
-for finite $F \subseteq S$, get that $\sum_{s \in S} \langle x, s \rangle s$ converges absolutely, and if $x \in \mathrm{cl}(\mathrm{span}(S))$, to $x$. For a maximal orthonormal system $S \subseteq H$ have that $\mathrm{cl}(\mathrm{span}(S)) = H$, so it is an orthonormal basis.
-
-Have also the following laws
-\begin{description}
-    \item[Bessel] For an orthonormal system $S$ have $\sum_{s \in S} |\langle x, s \rangle|^2 \leq \| x \|^2$ for all $x$
-    \item[Parseval] $S$ is an orthonormal basis iff there is equality above, i.e. $\| x \|^2 = \sum_{s \in S} |\langle x, s \rangle|^2$
-\end{description}
 
 \subsection{Spectra}
 Let $T \in \mathcal{L}(X)$ for a Banach space $X$.
@@ -633,31 +625,6 @@ Then $T = U \circ S$ for a unitary operator $U$ and with $S = \sum_{e \in E} \la
     T = \sum_{e \in E} \lambda_e \langle \cdot, e \rangle Ue
 \end{equation*}
 which is of the specified form.$\hfill\square$
-
-\subsection{Operator hierarchy}
-Let $H$ be a Hilbert space. Consider
-\begin{description}
-    \item[Compact operators $\mathcal{K}(H)$] In $T = \sum_n s_n \langle \cdot, e_n \rangle f_n \in \mathcal{K}(H)$ have $(s_n)_n \in c_0$
-    \item[Hilbert-Schmidt operators $\mathrm{HS}(H)$] Compact operators where $(s_n)_n \in \ell^2$
-    \item[Nuclear operators $\mathcal{N}(H)$] Compact operators where $(s_n)_n \in \ell^1$
-\end{description}
-Have the corresponding norms $\| \cdot \|_{\mathrm{op}}, \| \cdot \|_{\mathrm{HS}}, \| \cdot \|_{\mathrm{nuk}}$ as the $\ell^\infty, \ell^2, \ell^1$-norms of the $(s_n)_n$.
-Then
-\begin{itemize}
-    \item $\| \cdot \|_{\mathrm{op}} \geq \| \cdot \|_{\mathrm{HS}} \geq \| \cdot \|_{\mathrm{nuk}}$, so the identity embedding is continuous
-    \item The nuclear operators can be defined as operators of the form $\sum y_i x'_i(\cdot)$ where $\sum \| y_i \| \| x'_i \|$ converges
-    \item $(\mathcal{N}(H), \|\cdot\|_{\mathrm{nuk}})$ is a Banach space
-    \item Nuclear operators have the ``ideal property'': $T \circ S \circ R \in \mathcal{N}(H)$ if $S \in \mathcal{N}(H)$
-\end{itemize}
-For a nuclear operator $T = \sum s_n \langle \cdot, e_n \rangle f_n$ and an orthonormal basis $E$ the series
-\begin{equation*}
-    \mathrm{tr}(T) := \sum_{e \in E} \langle Te, e \rangle = \sum s_n \langle f_n, e_n \rangle
-\end{equation*}
-is independent of the choice of $E$ and defines the trace of $T$. We then further get
-\begin{itemize}
-    \item For $T, S \in \mathrm{HS}(H)$ have $T \circ S \in \mathcal{N}(H)$ and $\| T \circ S \|_{\mathrm{nuk}} \leq \| T \|_{\mathrm{HS}} \| S \|_{\mathrm{HS}}$ (compare the Hölder inequality \ref{hoelder_inequality})
-    \item $(\mathrm{HS}(H), \langle \cdot, \cdot \rangle_{\mathrm{HS}})$ defines a Hilbert space via $\langle x, y \rangle_{\mathrm{HS}} := \mathrm{tr}(T^* \circ S)$ (well-defined by the above point)
-\end{itemize}
 
 \section{(Algebraic) Number Theory}
 
@@ -844,5 +811,47 @@ When measuring both states, the probability to get some $k \in \{0, ..., N-1\}, 
 where $M = \left\lfloor \frac {N - x_0} b \right\rfloor \approx \frac N b$ and the denominators are non-zero as $b$ is wlog odd.
 
 TODO
+
+\section{Algorithms}
+
+\subsection{Parameterized Algorithms design techniques}
+
+\subsubsection*{Kernelization}
+
+Given an instance $(X, k)$, compute an instance $(X', k')$ such that $(X, k)$ is a YES-instance if and only if $(X', k')$ is a YES-instance and the size of $X'$ is bounded by $f(k)$ (this is usually done via reduction rules).
+
+\subsubsection*{Bounded search tree}
+
+Given an instance $(X, k)$ compute instances $(X_1, k_1)$, ..., $(X_n, k_m)$ such that $(X, k)$ is a YES-instance if and only if at least one of the $(X_i, k_i)$ is a YES-instance. Additionally, it must hold that $d_i := k - k_i > 0$.
+Then applying this algorithm recursively on all the $(X_i, k_i)$ yields an FPT algorithm with running time $O(\lambda^k \mathrm{poly}(n))$ where $\lambda$ is the positive root of the branching vector polynomial equation (there exactly one, as the $m-1, ..., 0$-th derivates all are non-positive up to some point, and then positive)
+\begin{equation*}
+    X^m = \sum_{i = 1}^m X^{m - d_i}
+\end{equation*}
+
+\subsubsection*{Iterative Compression}
+
+Usually this is used for problems where solutions are (in some way) parts/subsets of the instance and behave monotonously (i.e. supersets of solutions are also solutions).
+In this case, one normally has the size of the searched solution as parameter.
+Then it is easy to reduce the original problem to its ``compression variant''
+\begin{description}
+    \item[Input] Given an instance $(X, k)$ and a solution to $Z \leq X$ of size exactly $k + 1$
+    \item[Problem] Find a solution of size at most $k$ (or find that it does not exist)
+\end{description}
+By trying all $2^k$ subsets, we can further reduce it to the ``disjoint variant'' of the problem:
+\begin{description}
+    \item[Input] Given an instance $(X, k)$ and a solution $Y \leq X$ of size exactly $k + 1$
+    \item[Problem] Find a solution of size at most $k$ that is disjoint to $Y$ (or that it does not exist) 
+\end{description}
+
+\subsection{Treewidth}
+
+A tree $T$ with nodes in $2^V$ is called a tree decomposition of $G = (V, E)$, if
+\begin{itemize}
+    \item for $\{u, v\} \in E$ have a tree node containing $u, v$
+    \item for $u \in V$ have a tree node containing $u$
+    \item for $u \in V$ have that all tree nodes containing $u$ form a subtree of $T$
+\end{itemize}
+The width of a tree decomposition $T$ is the cardinality of its largest node minus 1.
+The treewidth of a graph $G = (V, E)$ is the minimal width of a tree decomposition. 
 
 \end{document}
