@@ -23,6 +23,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\vol}{\mathrm{vol}}
+\newcommand{\divides}{\ | \ }
 \newcommand\restr[2]{{
     \left.\kern-\nulldelimiterspace
     #1
@@ -247,37 +248,35 @@ where $M^*$ denotes the unique ``dual'' of $M$ in $\langle M \rangle$.
 with $n_1 | ... | n_s$. Assume $s > 1$ and $n_1 \neq 1$. Then $n_s < N := |\mathbb{F}_q^*|$. For $x \in \mathbb{F}_q^*$, have therefore that $\mathrm{ord}(x) | n_s$, so $p(x) = 0$ with $p(X) := X^{n_s} - 1$. 
 But this is a contradiction, as $p$ is a polynomial of degree $n_s$ with $N > n_s$ roots in the field $\mathbb{F}_q$.
 \begin{itemize}
-    \item $(\Z/p^\alpha\Z)^*$ is cyclic if $p > 2$ or $\alpha \leq 2$
+    \item if $p > 2$ is prime then $(\Z/p^\alpha\Z)^*$ is cyclic with generator $g$ or $g + p$, where $g \in \mathbb{F}_p^*$ is a generator of $\mathbb{F}_p^*$.
 \end{itemize}
-\paragraph{Proof} Use induction over $\alpha$.
-\subparagraph{$\alpha = 1$} Follows directly from the previous point, as $\mathbb{F}_p \cong \Z/p\Z$ as rings.
-\subparagraph{$\alpha > 1$} Consider the canonical ring homomorphism
-\begin{equation}
-    \pi: \Z/p^\alpha\Z \to (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]), \quad x \mapsto [x] \nonumber
-\end{equation}
-Then the restriction of $\pi$ to $(\Z/p^\alpha\Z)^*$
-\begin{equation}
-    f: (\Z/p^\alpha\Z)^* \to \left( (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]) \right)^*, \quad x \mapsto \pi(x) \nonumber
-\end{equation}
-is a surjective group homomorphism. We have
-\begin{equation}
-    \mathrm{ker}(f) = \pi^{-1}(\{1\}) = 1 + ([p^{\alpha - 1}]) = \left\{ 1 + k[p^{\alpha - 1}] \ \middle| \ k \in \{0, ..., p - 1\} \right\} \nonumber
-\end{equation}
-As $[p^{\alpha - 1}]^2 = 0$, have $\mathrm{ker}(f) = \langle 1 + [p^{\alpha - 1}] \rangle$ by the binomial theorem. On the other hand, by the second isomorphism theorem, have
-a ring isomorphism $( (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]) ) \cong \Z/p^{\alpha - 1}\Z$, which is cyclic by the induction hypothesis. Therefore, $G / \mathrm{im}(f) \cong \mathrm{ker}(f)$ yields:
-\begin{equation}
-    (\Z/p^\alpha\Z)^* / \langle 1 + [p^{\alpha - 1}] \rangle \cong \langle [g] \rangle \ \text{for some} \ g \in (\Z/p^\alpha\Z)^* \nonumber
-\end{equation}
-Assume now that $(\Z/p^\alpha\Z)^*$ is not cyclic. Then $\mathrm{ord}(g) \neq (p-1)p^{\alpha - 1}$, so $\mathrm{ord}(g) = (p-1)p^{\alpha - 2}$, as $\mathrm{ord}(1 + [p^{\alpha - 1}]) = p$.
-If $\alpha = 2$, then $\mathrm{ord}(g) = p - 1 \perp p$, and the Chinese Remainder theorem yields that 
-\begin{equation}
-    (\Z/p^\alpha\Z)^* \cong \Z/p\Z \times \Z/(p - 1)p^{\alpha - 2}\Z \cong \Z/(p - 1)p^{\alpha - 1}\Z \nonumber
-\end{equation}
-and we are done. Therefore, let $\alpha > 2$ and $p > 2$ and consider the mapping
-\begin{equation}
-    \phi: \Z/p\Z \times \Z/(p-1)p^{\alpha - 2}\Z \to (\Z/p^\alpha\Z)^*, \quad (k, n) \mapsto (1 + k[p^{\alpha - 1}])g^n \nonumber
-\end{equation}
-which is a homomorphism, as $(1 + k[p^{\alpha - 1}])(1 + l[p^{\alpha - 1}]) = 1 + (l + k)[p^{\alpha - 1}]$ and $\mathrm{ord}(g) = (p-1)p^{\alpha - 2}$ and bijective, so an isomorphism. How to continue from here?
+\paragraph{Proof} 
+First we show: If $a^p \equiv 1 \mod p^\alpha$ then $a \equiv 1 \mod p^\beta$ for all $\beta < \alpha$ where $\alpha \geq 2$.
+If $\beta = 1$ this is clear as $p \divides a^p - 1$ iff $p \divides a - 1$ as $a^p \equiv a \mod p$.
+This shows the claim
+
+So now let $\beta > 1$. Have $p^\alpha \divides a^p - 1$ and by IH also $p^{\beta - 1} \divides a - 1$.
+It follows that $a = 1 + l p^{\beta - 1}$ for some $l \in \Z$ and we have
+\begin{equation*}
+    1 \equiv a^p \equiv (1 + l p^{\beta - 1})^p = \sum_{k = 0}^p \binom{p}{k} l^k p^{k(\beta - 1)} \equiv 1 + l p^{\beta} \mod p^{\beta + 1}
+\end{equation*}
+as $\beta + 1 \leq \alpha$ and $p^{\beta + 1} \divides p p^{2\beta - 2} \divides \binom{p}{k} p^{k\beta - 2}$ for $k \geq 2$.
+Therefore $p \divides l$ and so $a \equiv 1 \mod p^{\beta}$.
+
+We have for each prime $l \divides p - 1$ that
+\begin{equation*}
+    g^{p^{\alpha - 1} \frac {p - 1} l} \equiv 1 \mod p^\alpha \quad \Rightarrow \quad g^{p^{\alpha - 1} \frac {p - 1} l} \equiv g^{\frac {p - 1} l} \equiv 1 \mod p
+\end{equation*}
+where the latter is a contradiction as $g$ is a generator of $\mathbb{F}_p^*$. Therefore, $g$ is a generator of $(\Z/p^\alpha\Z)^*$ iff 
+\begin{equation*}
+    g^{p^{\alpha - 2} (p - 1)} \not\equiv 1 \mod p^\alpha
+\end{equation*}
+By using the claim recursively, this is implied by $g^{p - 1} \not\equiv 1 \mod p^2$. We have that
+\begin{equation*}
+    (g + p)^{p - 1} = \sum_{k = 0}^{p - 1} \binom{p - 1}{k} g^{p - 1 - k} p^k \equiv g^{p - 1} + (p - 1)g^{p - 2}p \equiv g^{p - 1} - p g^{p - 2} \mod p^2
+\end{equation*}
+So if $g^{p - 1} \equiv 1$ then this is $1 - p g^{-1} \not\equiv 1$ as $g^{-1}$ is a unit in $\Z/p^2\Z$, so $p g^{-1} \not\equiv 0$. 
+Hence $g^{p - 1} \not\equiv 1$ or $(g + p)^{p - 1} \not\equiv 1$ and as both $g$ and $g + p$ are generators of $\mathbb{F}_p^*$, this implies that one of them is a generator of $(\Z/p^\alpha\Z)^*$.$\hfill\square$
 
 \subsection{Chinese Remainder theorem}
 Let $R$ be any commutative ring. For pairwise coprime ideals $I_1, ..., I_n \leq R$ have
