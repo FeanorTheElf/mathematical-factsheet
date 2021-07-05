@@ -488,18 +488,6 @@ The topologies on the sets match, as the weak-*-topology on $K$ has a local base
 
 \section{Operator theory}
 
-\subsection{Neumann series}
-Let $T \in \mathcal{L}(X)$. If $\sum_{n \in \N} T^n$ converges, then $1 - T$ is invertible with
-\begin{equation*}
-    (1 - T)^{-1} = \sum_{n \in \N} T^n
-\end{equation*}
-To get convergence, it is sufficient to have $\|T\| < 1$ and $X$ is complete.
-
-\subsection{Riesz lemma}
-\label{riesz_lemma}
-Let $U \subsetneq X$ closed subspace of a normed space. For $\delta > 0$ have then $x \in X$ with $\|x\|=1$ and distance greater than $1 - \delta$ from $U$.
-\paragraph{Proof idea} Consider any $x \in X \setminus U$ and an almost closest point $u \in U$. Then scale $x - u$ appropriately.
-
 \subsection{Riesz Representation theorem}
 Let $K$ be a compact metric space (compact Hausdorff space??). Consider $(C(X), \|\cdot\|_\infty)$ and the space of complex regular Borel measures $M(X)$ on $X$. Then $C(K)' \cong M(K)$ under
 \begin{equation*}
@@ -509,6 +497,11 @@ Let $K$ be a compact metric space (compact Hausdorff space??). Consider $(C(X), 
 \subsection{Compact Operators and spaces}
 From \ref{riesz_lemma} one can conclude that the unit ball $B_X$ is compact iff $\dim X < \infty$. Therefore, consider operators $T \in \mathcal{L}(X, Y)$ such that $\mathrm{cl}(T(B_X))$ compact, these are a Banach space $\mathcal{K}(X, Y)$.
 \paragraph{Proof idea} To show that $\mathcal{K}(X, Y)$ is closed in $\mathcal{L}(X, Y)$, consider diagonal sequences.
+
+\subsubsection{Riesz lemma}
+\label{riesz_lemma}
+Let $U \subsetneq X$ closed subspace of a normed space. For $\delta > 0$ have then $x \in X$ with $\|x\|=1$ and distance greater than $1 - \delta$ from $U$.
+\paragraph{Proof idea} Consider any $x \in X \setminus U$ and an almost closest point $u \in U$. Then scale $x - u$ appropriately.
 
 \subsection{Arzela-Ascoli}
 \label{arzela_ascoli}
@@ -524,29 +517,6 @@ and consider the diagonal sequence $(y_n)_{n \in \N}$. Then $(y_n(s_k))_{n \in \
 
 By equicontinuity, have for each $k \in \N$ a neighborhood $N_k$ of $s_k$ such that $\forall x \in M: \ x(N_k) \subseteq B_\epsilon(x(s_k))$.
 Therefore, there is a subcover $N_i$ for $i \in I$ finite. As $(y_n(s_k))_{n \in \N}$ converges for each $k$, it simultaneously converges for each $i \in I$. This yields that $(y_n)_{n \in \N}$ is a Cauchy-sequence w.r.t $\|\cdot\|_{\infty}$.
-
-\subsection{Closed range theorem}
-Let $X, Y$ be Banach spaces, $T \in \mathcal{L}(X, Y)$. The the following are equivalent
-\begin{itemize}
-    \item $\mathrm{ran}(T)$ closed
-    \item $\mathrm{ran}(T) = (\mathrm{ker}(T'))_\perp$
-    \item $\mathrm{ran}(T')$ closed
-    \item $\mathrm{ran}(T') = (\mathrm{ker}(T))^\perp$
-\end{itemize} 
-\paragraph{Proof} Show (ii) $\Leftrightarrow$ (iv), the rest is relativly easy. Let $x' \in (\mathrm{ker}(T))^\perp$. Then have $z': \mathrm{ran}(T) \to \mathbb{K}$ linear with $z' \circ T = x'$ (isomorphism theorem).
-A complex computation using the open mapping theorem shows that $z'$ is continuous.
-A Hahn-Banach extension of $z'$ to $Y$ then yields a preimage under $T'$ of $x'$.
-
-For the other direction, consider $Z := \mathrm{cl}(\mathrm{ran}(T))$. By the Hahn-Banach theorem, we can extend functionals on $Z$ to functionals on $Y$, so $\mathrm{ran}(T') \simeq Z'$ by the isomorphism $\mathrm{ran}(T') \to Z', \ T'(y') \mapsto \restr{y'}{Z}$.
-
-Therefore, for all $y' \in Y'$ have that $\| \restr{y'}{Z} \| \leq c \| y' \circ T \|$ where $c > 0$. 
-
-Consider any $y \in Z$ with $\|y\| \leq 1$. If $y \notin \mathrm{cl}(T(2c B_X))$, the Hahn-Banach separation theorem yields $y' \in Y'$ such that
-\begin{equation*}
-    2c \| y' \circ T \| = \sup \left( 2c (y' \circ T)(B_X) \right) \leq y'(y) = \| \restr{y'}{Z}(y) \| \leq \| \restr{y'}{Z} \| \leq c \| y' \circ T \| 
-\end{equation*}
-a contradiction. Therefore, $\mathrm{cl}(T(B_X))^\circ \neq \emptyset$ and so $\tilde{T}: X \to Z, \ x \mapsto T(x)$ is open by \ref{closure_image_unit_ball}.
-It follows that $\mathrm{ran}(T) = \mathrm{ran}(\tilde{T})$ is closed, as $X$ is closed.
 
 \subsection{Projection theorem}
 \label{projection_theorem}
@@ -578,16 +548,7 @@ With
     \text{spectrum} \quad \sigma(T) &:= \sigma_p(T) \cup \sigma_c(T) \cup \sigma_r(T)
 \end{align*}
 have that $\sigma(T)$ compact and bounded by $\| T \|_{\mathrm{op}}$.
-\paragraph{Proof idea} Use the Neumann series.
-
-\subsection{Decomposition compact operator}
-\label{decomposition_compact_operator}
-Let $T \in \mathcal{K}(X)$ for Banach space $X$. Then $X = \ker((T - 1)^p) \oplus \mathrm{im}((T - 1)^p)$ for some $p \in \N$ (where the direct sum is a decomposition in the topological sense).
-\paragraph{Proof idea} Show that the sequence of $N_i = \ker((T - 1)^i)$ is stationary. Assume not, then have $x_i \in N_i$ with $\|x_i\| = 1$ and distance $\frac 1 2$ to $N_{i - 1}$ by Riesz Lemma. Applying $T$ then yields a non-Cauchy sequence as for $m < n$ have
-\begin{equation*}
-    Tx_n - Tx_m = x_n - x_m + (T - 1)(x_n - x_m) \in x_n - \underbrace{x_m + \ker((T - 1)^{n - 1})}_{= N_{n - 1}}
-\end{equation*}
-a contradiction to the compactness of $T$. Similar show that $\mathrm{im}((T - 1)^i)$ is stationary and for an index $p \in \N$ at which both are constant the claim holds. The closedness of $\mathrm{im}((T - 1)^p)$ follows as $(T - 1)^p$ is open by the open mapping theorem.$\hfill\square$
+\paragraph{Proof idea} Use the Neumann series $\sum_n T^n = (1 - T)^{-1}$ if convergent.
 
 \subsection{Spectral theorem for compact, normal operators}
 \label{spectral_theorem_operator}
@@ -602,7 +563,16 @@ Additionally, $\{ \lambda_e \ | \ e \in E \}$ has $0$ as only accumulation point
 \end{equation*}
 Now consider $H_2 := (\ker T + \mathrm{cl}(\mathrm{span}(E)))^\perp$. Then $T(H_2) \subseteq H_2$ and $T_2 := \restr{T}{H_2}: H_2 \to H_2$ is compact and self-adjoint. If $T_2 = 0$ then $\ker(T_2) \subseteq H_2 \cap \ker(T) = \{0\}$ so we are done. 
 So assume $T_2 \neq 0$. Then $T_2x = \lambda x$ for some $\lambda \neq 0$ (see next lemma). However, then $x \in \ker(T - \lambda)$, a contradiction.
-The rest of the proposition follows from the two lemmas:
+The rest of the proposition follows from the next lemmas:
+
+\subsubsection{Decomposition compact operator}
+\label{decomposition_compact_operator}
+Let $T \in \mathcal{K}(X)$ for Banach space $X$. Then $X = \ker((T - 1)^p) \oplus \mathrm{im}((T - 1)^p)$ for some $p \in \N$ (where the direct sum is a decomposition in the topological sense).
+\paragraph{Proof idea} Show that the sequence of $N_i = \ker((T - 1)^i)$ is stationary. Assume not, then have $x_i \in N_i$ with $\|x_i\| = 1$ and distance $\frac 1 2$ to $N_{i - 1}$ by Riesz Lemma. Applying $T$ then yields a non-Cauchy sequence as for $m < n$ have
+\begin{equation*}
+    Tx_n - Tx_m = x_n - x_m + (T - 1)(x_n - x_m) \in x_n - \underbrace{x_m + \ker((T - 1)^{n - 1})}_{= N_{n - 1}}
+\end{equation*}
+a contradiction to the compactness of $T$. Similar show that $\mathrm{im}((T - 1)^i)$ is stationary and for an index $p \in \N$ at which both are constant the claim holds. The closedness of $\mathrm{im}((T - 1)^p)$ follows as $(T - 1)^p$ is open by the open mapping theorem.$\hfill\square$
 
 \subsubsection{Lemma}
 A compact operator $T \in \mathcal{K}(H)$ that is normal (if $\mathbb{K} = \C$) resp. self-adjoint (if $\mathbb{K} = \R$) has $\lambda \in \sigma(T)$ where $|\lambda| = \| T \|_{\mathrm{op}}$.
