@@ -215,6 +215,7 @@ Then there is an elementary embedding $F: \langle |\mathcal{S}|, a \rangle \to \
 \paragraph{Proof idea} The condition $F(a) = b$ uniquely defines $F$, so just check well-definedness. 
 
 \subsection{Chains}
+\label{model_chains_union}
 Let $(\mathcal{M}_\beta)_{\beta < \alpha}$ be an $\alpha$-chain. Then
 \begin{equation*}
     \bigcap_{\beta < \alpha} \mathrm{Th}_{\forall\exists}(\mathcal{M}_\beta) \subseteq \mathrm{Th}_{\forall\exists}\Bigl( \bigcup_{\beta < \alpha} \mathcal{M}_\beta \Bigr)
@@ -227,6 +228,7 @@ If $(\mathcal{M}_\beta)_{\beta < \alpha}$ is elementary, then even
 Part (ii) is proven via transfinite induction and a similar argument in the transfinite case.
 
 \subsection{Embeddings and saturated structures}
+\label{saturation_embedding}
 Let $\mathcal{M}, \mathcal{N}$ be $\mathcal{L}$-structure, $\mathcal{N}$ is $\mathrm{card}(\mathcal{M})$-saturated.
 \begin{itemize}
     \item If $\mathrm{Th}_\exists(\mathcal{M}) \subseteq \mathrm{Th}_\exists(\mathcal{N})$ then $\mathcal{M}$ embeds into $\mathcal{N}$
@@ -297,13 +299,91 @@ Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. Then the following are equival
 \paragraph{Proof} (iii)$\Leftrightarrow$(iv) follows by considering $\neg\phi$. (i)$\Rightarrow$(ii) and (iii)$\wedge$(iv)$\Rightarrow$(i) are easy. For (ii)$\Rightarrow$(iii) we consider special cases first.
 
 If $\phi$ is an existential sentence, use the separation lemma \ref{separation_lemma}.
-Let $\Gamma = \{ \mathrm{UCL}(\delta) \ | \ \delta \in \mathrm{Fml}(\mathcal{L}) \ \text{quantifier-free} \}$ and $\Sigma_1 = \Sigma \cup \{ \phi \}, \Sigma_2 = \Sigma \cup \{ \neg \phi \}$.
+Let $\Gamma = \{ \delta \in \mathrm{Sen}(\mathcal{L}) \ | \ \delta \ \text{universal} \}$ and $\Sigma_1 = \Sigma \cup \{ \phi \}, \Sigma_2 = \Sigma \cup \{ \neg \phi \}$.
+
 Assume there are $\mathcal{M}_1, \mathcal{M}_2 \models \Sigma$ not separated by $\Gamma$.
-
-Find a $\mathrm{card}(\mathcal{M}_2)$-saturated elementary extension $\mathcal{N}$ of $\mathcal{M}_1$, so $\mathcal{M}_1 \prec \mathcal{N} \supset \mathcal{M}_2$.
+Find a $\mathrm{card}(\mathcal{M}_2)$-saturated elementary extension $\mathcal{N}$ of $\mathcal{M}_1$.
+As $\Gamma$ does not separate them, all existential sentences that hold in $\mathcal{M}_1$ hold in $\mathcal{M}_2$.
+By \ref{saturation_embedding}, get wlog $\mathcal{M}_2 \subset \mathcal{N}$, thus $\mathcal{M}_1 \prec \mathcal{N} \supset \mathcal{M}_2$.
 As $\mathcal{M}_2$ is existentially closed, get $\mathcal{M}_1 \models \phi$ if and only if $\mathcal{M}_2 \models \phi$.
-Then $\Gamma$ separates $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2)$ and thus $\Sigma \vdash \phi \leftrightarrow \gamma^*$ for a quantifier-free $\gamma^*$.
 
+The separation lemma now yields a universal $\gamma^*$ such that $\Sigma \vdash \phi \leftrightarrow \gamma^*$.
+By introducing new constants, this can be generalized to all existential formulas $\phi$.
+For arbitrary $\phi$, proceed by induction on the construction of $\phi$. The special case is used in the only nontrivial step, namely $\phi = \neg \psi$.
+
+\subsection{Characterization of Inductive classes}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. 
+Then $\Sigma$ is inductive (i.e. its models are preserved under monotonous unions) if and only if $\mathrm{Mod}_{\mathcal{L}}(\Sigma) = \mathrm{Mod}_{\mathcal{L}}(\mathrm{Ded}_{\forall\exists}(\Sigma))$.
+\paragraph{Proof} $\Leftarrow$ follows from \ref{model_chains_union}. To show $\Rightarrow$, consider a model $\mathcal{M}_0$ of $\mathrm{Ded}_{\forall\exists}(\Sigma)$ and construct a sequence
+\begin{equation*}
+    \mathcal{M}_0 \subset \mathcal{N}_0 \subset \mathcal{M}_1 \subset \mathcal{N}_1 \subset ...
+\end{equation*}
+where $\mathcal{N}_i$ are models of $\Sigma$. 
+To get $\mathcal{N}_i$, construct an extension of $\mathcal{M}_i$ such that the latter is existentially closed, by considering a model of the consistent set $\Sigma \cup \mathrm{Th}_\forall(\mathcal{M}_i, \mathrm{id}_{|\mathcal{M}_i|})$.
+To get $\mathcal{M}_{i + 1}$ consider a sufficiently saturated elementary extension of $\mathcal{M}_i$.
+Now $\mathcal{M}_i \prec \bigcup_n \mathcal{M}_n = \bigcup_n \mathcal{N}_n$ which is a model of $\Sigma$.
+
+\subsection{Omitting type Theorem}
+\label{omitting_type_theorem}
+Let $\mathcal{L}$ be countable and $\Phi_1(\bar{x}), \Phi_2(\bar{x}), ...$ be non-isolated types over a theory $T$.
+Then $T$ has a model that omits all $\Phi_n$.
+\paragraph{Proof idea} Introduce countably many constant symbols $C$ (these represent all elements whose existence is provable) and construct $\mathcal{L}(C)$ sentences $\Sigma^*$ with
+\begin{itemize}
+    \item For $\psi(x) \in \mathrm{Fml}(\mathcal{L}(C))$ have a $c \in C$ such that $\exists x \psi(x) \rightarrow \psi(c) \in \Sigma^*$ 
+    \item For $\bar{c} \in C$ and $i \in \N$ have $\phi_i(\bar{x}) \in \Phi_i(\bar{x})$ such that $\neg\phi_i(\bar{c}) \in \Sigma^*$
+\end{itemize}
+Do this by recursively constructing consistent $\Sigma_n$ such that $\Sigma_n \setminus T$ is finite.
+Then the substructure $\{ c^{\mathcal{A}} \ | \ c \in C \}$ of a model $\mathcal{A}$ of $\Sigma^*$ omits all $\Phi_n$.
+We use the next lemma to perform this construction: 
+
+Satisfy (i) for $\psi_n \in \mathrm{Fml}(\mathcal{L}(C))$ during step $(n, \perp)$ by adding a sentence with a previously unused constant $c_n \in C$, and satisfy (ii) for $c_{\bar{j}}$ and $j$ in step $(n, m)$ where $\bar{j}, j$ are the images of some bijection $m \mapsto (\bar{j}, j) \in \{ 0, ..., n \}^N \times \N$ (here we require that $\Phi(\bar{x})$ is not isolated).
+
+\subsubsection{Lemma}
+\label{countable_constraint_sequence}
+There exists a bijective sequence $(x_n, y_n)_n$ with $x_n \in \N, y_n \in \N \cup \{\perp\}$ such that 
+\begin{itemize}
+    \item $(n, m)$ does not occur before $(n, \perp)$ for all $n, m \in \N$
+    \item $(n_2, \perp)$ does not occur before $(n_1, \perp)$ for $n_1 < n_2$
+\end{itemize}
+
+\subsection{Ryll-Nardzewski Theorem}
+Let $\mathcal{L}$ be countable and $T$ a complete theory. 
+Then $T$ is $\aleph_0$-categorical if and only if for every $n \in \N$ there are only countably many $\phi(x_1, ..., x_n) \in \mathrm{Fml}(\mathcal{L})$ up to provable equivalence in $T$.
+
+In this case, each countable model of $T$ is saturated.
+\paragraph{Proof} (i) $\overset{\text{\ref{omitting_type_theorem}}}{\Leftrightarrow}$ all complete types are isolated $\Leftrightarrow$ $S_n(T)$ has discrete topology $\Leftrightarrow$ $S_n(T)$ is finite $\Leftrightarrow$ $S_n(T)$ has finitely many open sets $\Leftrightarrow$ (ii).
+
+\subsection{Characterization of small theories}
+Let $\mathcal{L}$ be countable and $T$ complete. Then $T$ is small (i.e. $S_n(T)$ countable) if and only if $T$ has a countable, saturated model.
+\paragraph{Proof idea} $\Leftarrow$ holds as tuples over $\mathcal{M}$ determine each type $\Phi(\bar{x}) \in S_n(T)$. 
+For $\Rightarrow$, consider an elementary chain $(\mathcal{M}_n)_n$ such that $\mathcal{M}_{n + 1}$ realizes all types over $\mathcal{M}_n$.
+
+\subsection{Theorem of Vaught}
+Let $\mathcal{L}$ be countable and $T$ complete. Then $T$ cannot have exactly two countable models, up to isomorphism.
+\paragraph{Proof idea} wlog have that $T$ is small (otherwise the claim is easy). 
+Then there is a saturated, countable mode, a non-saturated, countable model realizing a non-isolated type $\Phi$ and a countable model omitting $\Phi$ (that or $T$ is $\aleph_0$-categorical).
+
+\subsection{Amalgamation Method}
+Let $\mathcal{L}$ be countable and $\mathcal{K}$ a class of $\mathcal{L}$-structures.
+Then the following are equivalent:
+\begin{itemize}
+    \item There is a countable $\mathcal{K}$-saturated $\mathcal{L}$-structure $\mathcal{M}$, i.e. $\mathcal{K}$ consists exactly of all finitely generated substructures of $\mathcal{M}$ and for $\mathcal{A}, \mathcal{B} \in \mathcal{K}$ with embeddings $f: \mathcal{A} \to \mathcal{M}, g: \mathcal{A} \to \mathcal{B}$ there is an embedding $h: \mathcal{B} \to \mathcal{M}$ such that $f = h \circ g$.
+    \item $\mathcal{K}$ consists of finitely generated $\mathcal{L}$-structures and satisfies
+    \begin{itemize}
+        \item for $\mathcal{M} \in \mathcal{K}$ each finitely generated substructure of $\mathcal{M}$ is in $\mathcal{K}$
+        \item every $\mathcal{M}_1, \mathcal{M_2} \in \mathcal{K}$ can be jointly embedded into some $\mathcal{N} \in \mathcal{K}$
+        \item for $\mathcal{P}, \mathcal{M}_1, \mathcal{M}_2 \in \mathcal{K}$ and embeddings $f_i: \mathcal{P} \to \mathcal{M}_i$ find $\mathcal{N} \in \mathcal{K}$ and embeddings $g_i: \mathcal{M}_i \to \mathcal{N}$ such that $g_1 \circ f_1 = g_2 \circ f_2$.
+    \end{itemize}
+\end{itemize}
+\paragraph{Proof} $\Rightarrow$ is easy. 
+For $\Leftarrow$ use the combinatorial lemma \ref{countable_constraint_sequence} to construct a sequence $\mathcal{M}_1 \subset \mathcal{M}_2 \subset ...$ such that
+\begin{itemize}
+    \item each $\mathcal{M} \in \mathcal{K}$ embeds into some $\mathcal{M}_k$.
+    \item for embeddings $f: \mathcal{A} \to \mathcal{M}_n, \ g: \mathcal{A} \to \mathcal{B}$ with $\mathcal{A}, \mathcal{B} \in \mathcal{K}$ have embedding $h: \mathcal{B} \to \mathcal{M}_n$ such that $\mathcal{M} \subset \mathcal{M}_k$ and $h \circ g = f$.
+\end{itemize}
+As $\mathcal{K}$ is countable up to isomorphism ($\mathcal{L}$ is countable), we can satisfy (i) during the steps $(n, \perp)$.
+During step $(n, m)$ we satisfy then (ii) for $\mathcal{A}_{n, m}, \mathcal{B}_{n, m}, \mathcal{M}_n, f_{n, m}, g_{n, m}$, where $\mathcal{A}_{n, m}, \mathcal{B}_{n, m}, f_{n, m}, g_{n, m}$ runs through all possible choice of these values as $m$ runs through $\N$ (if we count $\mathcal{A}, \mathcal{B}$ only up to isomorphism, these are countably many).
+Now $\mathcal{M}^* := \bigcup_n \mathcal{M}_n$ satisfies the claim.
 
 \section{Algebra}
 
@@ -892,8 +972,9 @@ For this, see Arithmetic of Elliptic Curves, III 4.8) which uses a similar idea 
 \subsection{Nonconstant isogenies are surjective}
 Let $E_1, E_2$ be elliptic curves and $\phi: E_1 \to E_2$ an isogeny.
 Then $\phi$ is either constant or surjective (note that it is crucial that the points of $E_1$ resp. $E_2$ are in $\mathbb{P}^2 = \mathbb{P}^2_L$ for an algebraically closed field $L | K$).
-
-The statement follows directly from this theorem of algebraic geometry: A morphism between irreducible projective curves is either constant or surjective. 
+\paragraph{Proof} The image of $\phi$ is closed in the Zariski-topology, so either $\phi$ surjective or $\phi$ has finite image as $E_2$ is an irreducible 1-dimensional variety.
+However, the kernel of $\phi$ is the fiber $\phi^{-1}(\mathcal{O})$ which does not contain $E_1$ by assumption. Thus $\phi^{-1}(\mathcal{O})$ is a proper subvariety of $E_1$ and hence 0-dimensional.
+Thus $\ker\phi$ is finite, so $\phi$ cannot have finite image.
 
 \section{Computational Algebraic Number theory and Cryptanalysis}
 
