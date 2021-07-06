@@ -147,6 +147,8 @@ Furthermore have then
 
 \section{Logic}
 
+Let $\mathcal{L}$ be a formal language.
+
 \subsection*{Definition Proof}
 In 1st order logic proofs, we allow Modus Ponens and Generalization, and the following base axioms:
 \begin{align*}
@@ -182,6 +184,7 @@ Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$.
 \paragraph{Proof idea} The construction in \ref{goedel_completeness} creates a model of cardinality $\leq \kappa_{\mathcal{L}}$. Greater models can be constructed by adding as many constants and unequal-axioms to $\Sigma$ (stays consistent by the compactness theorem).
 
 \subsection{Separation lemma}
+\label{separation_lemma}
 Let $\Sigma_1, \Sigma_2, \Gamma \subseteq \mathrm{Sen}(\mathcal{L})$. If for each $\mathcal{M}_1 \models \Sigma_1$ and $\mathcal{M}_2 \models \Sigma_2$ have $\gamma \in \Gamma$ that separates them (i.e. $\mathcal{M}_1 \models \gamma, \mathcal{M}_2 \models \neg\gamma$), then there is $\gamma^* = \bigvee_i \bigwedge_j \gamma_{ij}$ with $\gamma_{ij} \in \Gamma$ separating $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2)$ (i.e. $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1) \subseteq \mathrm{Mod}_{\mathcal{L}}(\gamma^*)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2) \subseteq \mathrm{Mod}_{\mathcal{L}}(\neg\gamma^*)$).
 \paragraph{Proof idea} Use the compactness theorem twice on covers by $\mathrm{Mod}_{\mathcal{L}}(\gamma), \gamma \in \Gamma$.
 
@@ -200,6 +203,107 @@ A set $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ has quantifier elimination, i
     \end{equation*}
     for every formula $\phi \in \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ of the form $\phi = \exists x \psi$ with a quantifier-free $\psi$.
 \end{itemize}
+\paragraph{Proof idea} Use the separation lemma \ref{separation_lemma}.
+
+\section{Model Theory}
+
+Let $\mathcal{L}$ be a formal language.
+
+\subsection{Extending embeddings}
+Let $\mathcal{S} \subset \mathcal{M}$ be an $\mathcal{L}$-substructure and $f: \mathcal{S} \to \mathcal{N}$ and elementary embedding.
+Then there is an elementary embedding $F: \langle |\mathcal{S}|, a \rangle \to \mathcal{N}$ that extends $f$ with $F(a) = b$ if and only if $b$ realizes $f(\mathrm{tp}^{\mathcal{M}}(a/|\mathcal{S}|))$.
+\paragraph{Proof idea} The condition $F(a) = b$ uniquely defines $F$, so just check well-definedness. 
+
+\subsection{Chains}
+Let $(\mathcal{M}_\beta)_{\beta < \alpha}$ be an $\alpha$-chain. Then
+\begin{equation*}
+    \bigcap_{\beta < \alpha} \mathrm{Th}_{\forall\exists}(\mathcal{M}_\beta) \subseteq \mathrm{Th}_{\forall\exists}\Bigl( \bigcup_{\beta < \alpha} \mathcal{M}_\beta \Bigr)
+\end{equation*}
+If $(\mathcal{M}_\beta)_{\beta < \alpha}$ is elementary, then even
+\begin{equation*}
+    \mathcal{M}_\beta \prec \bigcup_{\gamma < \alpha} \mathcal{M}_\gamma \ \text{for all} \ \beta < \alpha
+\end{equation*}
+\paragraph{Proof idea} Part (i) is easily proven by considering a large enough $\beta$ such that all finitely many elements required for a counterexample are in $\mathcal{M}_\beta$. 
+Part (ii) is proven via transfinite induction and a similar argument in the transfinite case.
+
+\subsection{Embeddings and saturated structures}
+Let $\mathcal{M}, \mathcal{N}$ be $\mathcal{L}$-structure, $\mathcal{N}$ is $\mathrm{card}(\mathcal{M})$-saturated.
+\begin{itemize}
+    \item If $\mathrm{Th}_\exists(\mathcal{M}) \subseteq \mathrm{Th}_\exists(\mathcal{N})$ then $\mathcal{M}$ embeds into $\mathcal{N}$
+    \item If $\mathrm{Th}(\mathcal{M}) = \mathrm{Th}(\mathcal{N})$ then $\mathcal{M}$ embeds elementarily into $\mathcal{N}$
+\end{itemize}
+\paragraph{Proof idea} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $\mathcal{M}$. 
+Then construct by transfinite induction a chain of maps $f_\beta: A_\beta := \{a_\gamma \ | \ \gamma < \beta\} \to \mathcal{N}$ such that
+\begin{equation*}
+    \mathrm{Th}_\exists(\mathcal{M}, (a_\gamma)_{\gamma < \beta}) \subseteq \mathrm{Th}_\exists(\mathcal{N}, f) \quad \text{resp.} \quad \mathrm{Th}(\mathcal{M}, (a_\gamma)_{\gamma < \beta}) = \mathrm{Th}(\mathcal{N}, f)
+\end{equation*}
+In the inductive step, the next element is found by considering the types $f(\mathrm{tp}_\exists^{\mathcal{M}}(a_\beta / A_\beta))$ resp $f(\mathrm{tp}^{\mathcal{M}}(a_\beta / A_\beta))$ over $\mathcal{N}$.
+
+\subsection{Back-and-forth Argument}
+\label{back_and_forth}
+Let $M, N$ be sets of same cardinality $\kappa$ and $\mathcal{G}$ a class of bijective maps $A \to B$ for subsets $A \subseteq M, B \subseteq N$.
+Assume that $\mathcal{G}$ is invariant under monotonous unions and for $f: A \to B \in \mathcal{G}$ and $a \in M \setminus A, \ b \in N \setminus B$ there are extensions $f_a: A \cup \{a\} \to B', \ f_b: A' \to B \cup \{b\}$.
+Then there is a bijective map $F: M \to N$ in $\mathcal{G}$.
+\paragraph{Proof} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $M$ and $(b_\beta)_{\beta < \kappa}$ be the elements of $N$.
+Construct $f_\beta: A_\beta \to B_\beta$ in $\mathcal{G}$ by transfinite induction such that $a_\gamma \in A_\beta, \ b_\gamma \in B_\beta$ for all $\gamma < \beta$.
+Thus $A_\kappa = M$ and $B_\kappa = N$. The claims for the induction follow directly by the assumptions.
+
+\subsection{Saturation and Isomorphisms}
+Let $\mathcal{M} \equiv \mathcal{N}$ be saturated. Then $\mathcal{M} \cong \mathcal{N}$.
+\paragraph{Proof idea} 
+Use \ref{back_and_forth} with $\mathcal{G} = \{ f: A \to B \ | \ \mathrm{Th}(\mathcal{M}, \mathrm{id}_A) = \mathrm{Th}(\mathcal{N}, f)\}$.
+The extension property follows by considering $\mathrm{tp}^{\mathcal{M}}(a/A)$ which is realized in $\mathcal{N}$ and vice versa.
+
+\subsection{Theorem of Los}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ and $S = \{ \Delta \subseteq \Sigma \ | \ \Delta \ \text{finite}\}$.
+For $\Delta \in S$ let $S_\Delta = \{ \Delta' \in S \ | \ \Delta \subseteq \Delta' \}$
+Now define $\mathcal{D} = \{ S_\Delta \ | \ \Delta \in S \}$.
+Then $\prod_{\Delta \in S} \mathrm{M}_\Delta / \mathcal{U}$ is a model of $\Sigma$ if $\mathcal{U}$ is an ultrafilter on $\mathcal{S}$ containing $\mathcal{D}$ and $\mathcal{M}_\Delta$ is a model of $\Delta$.
+\paragraph{Proof} Follows from this lemma
+
+\subsubsection{Lemma}
+For an $\mathcal{L}$-formula $\phi$ have
+\begin{equation*}
+    \prod_s \mathcal{M}_s / \mathcal{U} \models \phi \Bigl[ \prod_s h_s / \mathcal{U} \Bigr] \ \Leftrightarrow \ \{ s \in S \ | \ \mathcal{M}_s \models \phi[h_s] \} \in \mathcal{U}
+\end{equation*}
+\paragraph{Proof idea} Use induction on the structure of $\phi$. The nontrivial case is $\phi = \forall x \psi$.
+To show $\Leftarrow$, consider $(a_s)_s \in \bigtimes_s |\mathcal{M}_s|$. 
+Now $\{ s \in S \ | \ \mathcal{M}_s \models \phi[h_s(x / a_s)]\}$ is a superset of the set above, thus in $\mathcal{U}$.
+By induction hypothesis, get the claim for $\overline{(a_s)_s}$.
+For $\Rightarrow$, consider $\neq\phi$ and use that $\mathcal{U}$ is an ultrafilter.
+
+\subsection{Saturation and Ultraproducts}
+Let $\mathcal{L}$ be countable and $(\mathcal{M}_n)_{n \in \N}$ be $\mathcal{L}$-structures. If $\mathcal{U}$ is a free ultrafilter on $\N$ then $\prod_n \mathcal{M}_n/\mathcal{U}$ is $\aleph_1$-saturated.
+\paragraph{Proof idea} The proof relies on diagonal sequences.
+Let $A \subseteq |\mathcal{M}|$ countable and $p(x) = \{\phi_1(x), \phi_2(x), ...\}$ a 1-type over $A$. 
+Set $\psi_k := \phi_1 \wedge ... \wedge \phi_k$.
+As $p$ is a type, $\psi_k$ is realized by $\overline{(c_{k, n})_n}$. Now use the following lemma with $A_k = \{ n \ | \ \mathcal{M}_n \models \psi_k(c_{k, n}) \}$ and get that $p$ is realized by $\overline{(c_{z_n, n})_n}$.
+
+\subsubsection{Lemma}
+Let $\mathcal{U}$ be a free ultrafilter on $\N$ and $(A_k)_k$ a sequence of sets in $\mathcal{U}$. Then there is a sequence of numbers $(z_n)_n$ such that
+\begin{equation*}
+    A^{(k)} := \{ n \ | \ z_n \geq k \ \text{and} \ n \in A_{z_n} \} \in \mathcal{U} \ \text{for all} \ k \in \N
+\end{equation*}
+\paragraph{Proof idea} Take for $z_n$ the greatest $k \leq n$ with $n \in A_k$, or $0$ if this does not exist. Now $A^{(k)} \supseteq A_k \setminus \{ 0, ..., k - 1 \} \in \mathcal{U}$ as $\mathcal{U}$ contains all cofinite sets..
+
+\subsection{Robinson's Test}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. Then the following are equivalent
+\begin{itemize}
+    \item $\Sigma$ is model-complete, i.e. $\Sigma \cup \mathcal{D}(\mathcal{M})$ is complete for all $\mathcal{M} \models \Sigma$
+    \item If $\mathcal{M} \subset \mathcal{N}$ are models of $\Sigma$, then $\mathcal{M}$ is existentially closed in $\mathcal{N}$
+    \item For all $\phi \in \mathrm{Fml}(\mathcal{L})$ there is a universal $\psi \in \mathrm{Fml}(\mathcal{L})$ with $\mathrm{Fr}(\psi) \subseteq \mathrm{Fr}(\phi), \ \Sigma \vdash \phi \leftrightarrow \psi$
+    \item For all $\phi \in \mathrm{Fml}(\mathcal{L})$ there is an existential $\psi \in \mathrm{Fml}(\mathcal{L})$ with $\mathrm{Fr}(\psi) \subseteq \mathrm{Fr}(\phi), \ \Sigma \vdash \phi \leftrightarrow \psi$
+\end{itemize}
+\paragraph{Proof} (iii)$\Leftrightarrow$(iv) follows by considering $\neg\phi$. (i)$\Rightarrow$(ii) and (iii)$\wedge$(iv)$\Rightarrow$(i) are easy. For (ii)$\Rightarrow$(iii) we consider special cases first.
+
+If $\phi$ is an existential sentence, use the separation lemma \ref{separation_lemma}.
+Let $\Gamma = \{ \mathrm{UCL}(\delta) \ | \ \delta \in \mathrm{Fml}(\mathcal{L}) \ \text{quantifier-free} \}$ and $\Sigma_1 = \Sigma \cup \{ \phi \}, \Sigma_2 = \Sigma \cup \{ \neg \phi \}$.
+Assume there are $\mathcal{M}_1, \mathcal{M}_2 \models \Sigma$ not separated by $\Gamma$.
+
+Find a $\mathrm{card}(\mathcal{M}_2)$-saturated elementary extension $\mathcal{N}$ of $\mathcal{M}_1$, so $\mathcal{M}_1 \prec \mathcal{N} \supset \mathcal{M}_2$.
+As $\mathcal{M}_2$ is existentially closed, get $\mathcal{M}_1 \models \phi$ if and only if $\mathcal{M}_2 \models \phi$.
+Then $\Gamma$ separates $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2)$ and thus $\Sigma \vdash \phi \leftrightarrow \gamma^*$ for a quantifier-free $\gamma^*$.
+
 
 \section{Algebra}
 
