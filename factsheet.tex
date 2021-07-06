@@ -23,6 +23,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\vol}{\mathrm{vol}}
+\newcommand{\divides}{\ | \ }
 \newcommand\restr[2]{{
     \left.\kern-\nulldelimiterspace
     #1
@@ -96,7 +97,7 @@ Then $f(\aleph_\delta) = \aleph_\delta$ for each $\delta \in \mathrm{On}$. This 
 \begin{equation*}
     (a_0, a_1) \leq (b_0, b_1) :\Leftrightarrow \begin{cases} \max \{a_0,a_1\} < \max \{b_0,b_1\} \ \vee \\ \max \{a_0,a_1\} = \max \{b_0,b_1\}, a_0 < b_0 \ \vee \\ \max \{a_0,a_1\} = \max \{b_0,b_1\}, a_0 = b_0, a_1 \leq b_1 \end{cases}
 \end{equation*}
-Then $f: \mathrm{On} \to \mathrm{On}, \ \alpha \mapsto \mathrm{ord}(\alpha \times \alpha)$ fulfils the conditions from the lemma.$\hfill\square$
+Then $f: \mathrm{On} \to \mathrm{On}, \ \alpha \mapsto \mathrm{ord}(\alpha \times \alpha)$ fulfills the conditions from the lemma.$\hfill\square$
 
 \subsection{Power Cardinality}
 For an infinite set $X$ and any set $Y$ have $\mathrm{card}(X^Y) = \max \{ \mathrm{card}(X), \mathrm{card}(\mathfrak{P}(Y)) \}$. 
@@ -112,10 +113,10 @@ Consider the order $\leq$ on $\mathrm{On}^\gamma$ given by
 \begin{equation*}
     (a_y)_y \leq (b_y)_y :\Leftrightarrow \begin{cases} \sup_y a_y < \sup_y b_y \ \vee \\ \sup_y a_y = \sup_y b_y, \ (a_y)_y \leq_{\text{lexiographic}} (b_y)_y \end{cases}
 \end{equation*}
-Then the function $\mathrm{On} \to \mathrm{On}, \ \alpha \mapsto \mathrm{ord}(\alpha^\gamma)$ fulfils the conditions of the modified lemma, and the claim follows as $\mathrm{card}(X) \geq 2^\gamma$.$\hfill\square$
+Then the function $\mathrm{On} \to \mathrm{On}, \ \alpha \mapsto \mathrm{ord}(\alpha^\gamma)$ fulfills the conditions of the modified lemma, and the claim follows as $\mathrm{card}(X) \geq 2^\gamma$.$\hfill\square$
 
 \subsection{Ordinal arithmetic}
-For $\alpha, \beta \in \mathrm{On}$ define $\alpha + \beta := \mathrm{ord}((\{0\} \times \alpha) \cup (\{1\} \times \beta))$ (with lexicographic ordering).
+For $\alpha, \beta \in \mathrm{On}$ define $\alpha + \beta := \mathrm{ord}((\{0\} \times \alpha) \cup (\{1\} \times \beta))$ (with lexiographic ordering).
 Then have the following properties (which also define $+$ by transfinite recursion)
 \begin{itemize}
     \item $\alpha + 0 = \alpha$
@@ -128,7 +129,7 @@ Furthermore have then
     \item $(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$
     \item $\alpha + \beta = \alpha + \gamma \ \Rightarrow \ \beta = \gamma$ (but in general not for right-addition)
 \end{itemize}
-Then define $\cdot$ by $\alpha \cdot \beta := \mathrm{ord}(\alpha \times \beta)$ (with lexiographic ordering).
+Then define $\cdot$ by $\alpha \cdot \beta := \mathrm{ord}(\alpha \times \beta)$ (with lexicographic ordering).
 Then have the following properties (which also define $\cdot$ by transfinite recursion)
 \begin{itemize}
     \item $\alpha \cdot 0 = 0$
@@ -145,6 +146,8 @@ Furthermore have then
 \end{itemize}
 
 \section{Logic}
+
+Let $\mathcal{L}$ be a formal language.
 
 \subsection*{Definition Proof}
 In 1st order logic proofs, we allow Modus Ponens and Generalization, and the following base axioms:
@@ -181,12 +184,126 @@ Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$.
 \paragraph{Proof idea} The construction in \ref{goedel_completeness} creates a model of cardinality $\leq \kappa_{\mathcal{L}}$. Greater models can be constructed by adding as many constants and unequal-axioms to $\Sigma$ (stays consistent by the compactness theorem).
 
 \subsection{Separation lemma}
+\label{separation_lemma}
 Let $\Sigma_1, \Sigma_2, \Gamma \subseteq \mathrm{Sen}(\mathcal{L})$. If for each $\mathcal{M}_1 \models \Sigma_1$ and $\mathcal{M}_2 \models \Sigma_2$ have $\gamma \in \Gamma$ that separates them (i.e. $\mathcal{M}_1 \models \gamma, \mathcal{M}_2 \models \neg\gamma$), then there is $\gamma^* = \bigvee_i \bigwedge_j \gamma_{ij}$ with $\gamma_{ij} \in \Gamma$ separating $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2)$ (i.e. $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1) \subseteq \mathrm{Mod}_{\mathcal{L}}(\gamma^*)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2) \subseteq \mathrm{Mod}_{\mathcal{L}}(\neg\gamma^*)$).
 \paragraph{Proof idea} Use the compactness theorem twice on covers by $\mathrm{Mod}_{\mathcal{L}}(\gamma), \gamma \in \Gamma$.
 
 \subsection{Vaught's test}
 Let $T$ be an $\mathcal{L}$-theory. If $T$ has only infinite models and is $\kappa$-categorical for some $\kappa \geq \kappa_{\mathcal{L}}$, then $T$ is complete.
 \paragraph{Proof} If $T \cup \{\alpha\}$ and $T \cup \{\neg \alpha\}$ would be consistent, Löwenheim-Skolem yields corresponding models of cardinality $\kappa$, which then are isomorphic. This is a contradiction.$\hfill\square$
+
+\subsection{Quantifier elimination}
+A set $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ has quantifier elimination, if any of the following equivalent definitions are fulfilled:
+\begin{itemize}
+    \item for every $\mathcal{L}$-formula $\phi$ there is a quantifier-free $\mathcal{L}$-formula $\psi$ with no additional free variables such that $\Sigma \vdash \phi \leftrightarrow \psi$.
+    \item for every substructure $\mathcal{A}$ of a model of $\Sigma$ have that $\Sigma \cup \mathcal{D}(\mathcal{A}) \subseteq \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ is complete.
+    \item for every two models $\mathcal{M}_1, \mathcal{M}_2$ of $\Sigma$ and a joint substructure $\mathcal{A}$ of $\mathcal{M}_1$ and $\mathcal{M}_2$ have that:
+    \begin{equation*}
+        (\mathcal{M}_1, \mathrm{id}_{|\mathcal{A}|}) \models \phi \ \Leftrightarrow \ (\mathcal{M}_2, \mathrm{id}_{|\mathcal{A}|}) \models \phi
+    \end{equation*}
+    for every formula $\phi \in \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ of the form $\phi = \exists x \psi$ with a quantifier-free $\psi$.
+\end{itemize}
+\paragraph{Proof idea} Use the separation lemma \ref{separation_lemma}.
+
+\section{Model Theory}
+
+Let $\mathcal{L}$ be a formal language.
+
+\subsection{Extending embeddings}
+Let $\mathcal{S} \subset \mathcal{M}$ be an $\mathcal{L}$-substructure and $f: \mathcal{S} \to \mathcal{N}$ and elementary embedding.
+Then there is an elementary embedding $F: \langle |\mathcal{S}|, a \rangle \to \mathcal{N}$ that extends $f$ with $F(a) = b$ if and only if $b$ realizes $f(\mathrm{tp}^{\mathcal{M}}(a/|\mathcal{S}|))$.
+\paragraph{Proof idea} The condition $F(a) = b$ uniquely defines $F$, so just check well-definedness. 
+
+\subsection{Chains}
+Let $(\mathcal{M}_\beta)_{\beta < \alpha}$ be an $\alpha$-chain. Then
+\begin{equation*}
+    \bigcap_{\beta < \alpha} \mathrm{Th}_{\forall\exists}(\mathcal{M}_\beta) \subseteq \mathrm{Th}_{\forall\exists}\Bigl( \bigcup_{\beta < \alpha} \mathcal{M}_\beta \Bigr)
+\end{equation*}
+If $(\mathcal{M}_\beta)_{\beta < \alpha}$ is elementary, then even
+\begin{equation*}
+    \mathcal{M}_\beta \prec \bigcup_{\gamma < \alpha} \mathcal{M}_\gamma \ \text{for all} \ \beta < \alpha
+\end{equation*}
+\paragraph{Proof idea} Part (i) is easily proven by considering a large enough $\beta$ such that all finitely many elements required for a counterexample are in $\mathcal{M}_\beta$. 
+Part (ii) is proven via transfinite induction and a similar argument in the transfinite case.
+
+\subsection{Embeddings and saturated structures}
+Let $\mathcal{M}, \mathcal{N}$ be $\mathcal{L}$-structure, $\mathcal{N}$ is $\mathrm{card}(\mathcal{M})$-saturated.
+\begin{itemize}
+    \item If $\mathrm{Th}_\exists(\mathcal{M}) \subseteq \mathrm{Th}_\exists(\mathcal{N})$ then $\mathcal{M}$ embeds into $\mathcal{N}$
+    \item If $\mathrm{Th}(\mathcal{M}) = \mathrm{Th}(\mathcal{N})$ then $\mathcal{M}$ embeds elementarily into $\mathcal{N}$
+\end{itemize}
+\paragraph{Proof idea} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $\mathcal{M}$. 
+Then construct by transfinite induction a chain of maps $f_\beta: A_\beta := \{a_\gamma \ | \ \gamma < \beta\} \to \mathcal{N}$ such that
+\begin{equation*}
+    \mathrm{Th}_\exists(\mathcal{M}, (a_\gamma)_{\gamma < \beta}) \subseteq \mathrm{Th}_\exists(\mathcal{N}, f) \quad \text{resp.} \quad \mathrm{Th}(\mathcal{M}, (a_\gamma)_{\gamma < \beta}) = \mathrm{Th}(\mathcal{N}, f)
+\end{equation*}
+In the inductive step, the next element is found by considering the types $f(\mathrm{tp}_\exists^{\mathcal{M}}(a_\beta / A_\beta))$ resp $f(\mathrm{tp}^{\mathcal{M}}(a_\beta / A_\beta))$ over $\mathcal{N}$.
+
+\subsection{Back-and-forth Argument}
+\label{back_and_forth}
+Let $M, N$ be sets of same cardinality $\kappa$ and $\mathcal{G}$ a class of bijective maps $A \to B$ for subsets $A \subseteq M, B \subseteq N$.
+Assume that $\mathcal{G}$ is invariant under monotonous unions and for $f: A \to B \in \mathcal{G}$ and $a \in M \setminus A, \ b \in N \setminus B$ there are extensions $f_a: A \cup \{a\} \to B', \ f_b: A' \to B \cup \{b\}$.
+Then there is a bijective map $F: M \to N$ in $\mathcal{G}$.
+\paragraph{Proof} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $M$ and $(b_\beta)_{\beta < \kappa}$ be the elements of $N$.
+Construct $f_\beta: A_\beta \to B_\beta$ in $\mathcal{G}$ by transfinite induction such that $a_\gamma \in A_\beta, \ b_\gamma \in B_\beta$ for all $\gamma < \beta$.
+Thus $A_\kappa = M$ and $B_\kappa = N$. The claims for the induction follow directly by the assumptions.
+
+\subsection{Saturation and Isomorphisms}
+Let $\mathcal{M} \equiv \mathcal{N}$ be saturated. Then $\mathcal{M} \cong \mathcal{N}$.
+\paragraph{Proof idea} 
+Use \ref{back_and_forth} with $\mathcal{G} = \{ f: A \to B \ | \ \mathrm{Th}(\mathcal{M}, \mathrm{id}_A) = \mathrm{Th}(\mathcal{N}, f)\}$.
+The extension property follows by considering $\mathrm{tp}^{\mathcal{M}}(a/A)$ which is realized in $\mathcal{N}$ and vice versa.
+
+\subsection{Theorem of Los}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ and $S = \{ \Delta \subseteq \Sigma \ | \ \Delta \ \text{finite}\}$.
+For $\Delta \in S$ let $S_\Delta = \{ \Delta' \in S \ | \ \Delta \subseteq \Delta' \}$
+Now define $\mathcal{D} = \{ S_\Delta \ | \ \Delta \in S \}$.
+Then $\prod_{\Delta \in S} \mathrm{M}_\Delta / \mathcal{U}$ is a model of $\Sigma$ if $\mathcal{U}$ is an ultrafilter on $\mathcal{S}$ containing $\mathcal{D}$ and $\mathcal{M}_\Delta$ is a model of $\Delta$.
+\paragraph{Proof} Follows from this lemma
+
+\subsubsection{Lemma}
+For an $\mathcal{L}$-formula $\phi$ have
+\begin{equation*}
+    \prod_s \mathcal{M}_s / \mathcal{U} \models \phi \Bigl[ \prod_s h_s / \mathcal{U} \Bigr] \ \Leftrightarrow \ \{ s \in S \ | \ \mathcal{M}_s \models \phi[h_s] \} \in \mathcal{U}
+\end{equation*}
+\paragraph{Proof idea} Use induction on the structure of $\phi$. The nontrivial case is $\phi = \forall x \psi$.
+To show $\Leftarrow$, consider $(a_s)_s \in \bigtimes_s |\mathcal{M}_s|$. 
+Now $\{ s \in S \ | \ \mathcal{M}_s \models \phi[h_s(x / a_s)]\}$ is a superset of the set above, thus in $\mathcal{U}$.
+By induction hypothesis, get the claim for $\overline{(a_s)_s}$.
+For $\Rightarrow$, consider $\neq\phi$ and use that $\mathcal{U}$ is an ultrafilter.
+
+\subsection{Saturation and Ultraproducts}
+Let $\mathcal{L}$ be countable and $(\mathcal{M}_n)_{n \in \N}$ be $\mathcal{L}$-structures. If $\mathcal{U}$ is a free ultrafilter on $\N$ then $\prod_n \mathcal{M}_n/\mathcal{U}$ is $\aleph_1$-saturated.
+\paragraph{Proof idea} The proof relies on diagonal sequences.
+Let $A \subseteq |\mathcal{M}|$ countable and $p(x) = \{\phi_1(x), \phi_2(x), ...\}$ a 1-type over $A$. 
+Set $\psi_k := \phi_1 \wedge ... \wedge \phi_k$.
+As $p$ is a type, $\psi_k$ is realized by $\overline{(c_{k, n})_n}$. Now use the following lemma with $A_k = \{ n \ | \ \mathcal{M}_n \models \psi_k(c_{k, n}) \}$ and get that $p$ is realized by $\overline{(c_{z_n, n})_n}$.
+
+\subsubsection{Lemma}
+Let $\mathcal{U}$ be a free ultrafilter on $\N$ and $(A_k)_k$ a sequence of sets in $\mathcal{U}$. Then there is a sequence of numbers $(z_n)_n$ such that
+\begin{equation*}
+    A^{(k)} := \{ n \ | \ z_n \geq k \ \text{and} \ n \in A_{z_n} \} \in \mathcal{U} \ \text{for all} \ k \in \N
+\end{equation*}
+\paragraph{Proof idea} Take for $z_n$ the greatest $k \leq n$ with $n \in A_k$, or $0$ if this does not exist. Now $A^{(k)} \supseteq A_k \setminus \{ 0, ..., k - 1 \} \in \mathcal{U}$ as $\mathcal{U}$ contains all cofinite sets..
+
+\subsection{Robinson's Test}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. Then the following are equivalent
+\begin{itemize}
+    \item $\Sigma$ is model-complete, i.e. $\Sigma \cup \mathcal{D}(\mathcal{M})$ is complete for all $\mathcal{M} \models \Sigma$
+    \item If $\mathcal{M} \subset \mathcal{N}$ are models of $\Sigma$, then $\mathcal{M}$ is existentially closed in $\mathcal{N}$
+    \item For all $\phi \in \mathrm{Fml}(\mathcal{L})$ there is a universal $\psi \in \mathrm{Fml}(\mathcal{L})$ with $\mathrm{Fr}(\psi) \subseteq \mathrm{Fr}(\phi), \ \Sigma \vdash \phi \leftrightarrow \psi$
+    \item For all $\phi \in \mathrm{Fml}(\mathcal{L})$ there is an existential $\psi \in \mathrm{Fml}(\mathcal{L})$ with $\mathrm{Fr}(\psi) \subseteq \mathrm{Fr}(\phi), \ \Sigma \vdash \phi \leftrightarrow \psi$
+\end{itemize}
+\paragraph{Proof} (iii)$\Leftrightarrow$(iv) follows by considering $\neg\phi$. (i)$\Rightarrow$(ii) and (iii)$\wedge$(iv)$\Rightarrow$(i) are easy. For (ii)$\Rightarrow$(iii) we consider special cases first.
+
+If $\phi$ is an existential sentence, use the separation lemma \ref{separation_lemma}.
+Let $\Gamma = \{ \mathrm{UCL}(\delta) \ | \ \delta \in \mathrm{Fml}(\mathcal{L}) \ \text{quantifier-free} \}$ and $\Sigma_1 = \Sigma \cup \{ \phi \}, \Sigma_2 = \Sigma \cup \{ \neg \phi \}$.
+Assume there are $\mathcal{M}_1, \mathcal{M}_2 \models \Sigma$ not separated by $\Gamma$.
+
+Find a $\mathrm{card}(\mathcal{M}_2)$-saturated elementary extension $\mathcal{N}$ of $\mathcal{M}_1$, so $\mathcal{M}_1 \prec \mathcal{N} \supset \mathcal{M}_2$.
+As $\mathcal{M}_2$ is existentially closed, get $\mathcal{M}_1 \models \phi$ if and only if $\mathcal{M}_2 \models \phi$.
+Then $\Gamma$ separates $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2)$ and thus $\Sigma \vdash \phi \leftrightarrow \gamma^*$ for a quantifier-free $\gamma^*$.
+
 
 \section{Algebra}
 
@@ -235,37 +352,35 @@ where $M^*$ denotes the unique ``dual'' of $M$ in $\langle M \rangle$.
 with $n_1 | ... | n_s$. Assume $s > 1$ and $n_1 \neq 1$. Then $n_s < N := |\mathbb{F}_q^*|$. For $x \in \mathbb{F}_q^*$, have therefore that $\mathrm{ord}(x) | n_s$, so $p(x) = 0$ with $p(X) := X^{n_s} - 1$. 
 But this is a contradiction, as $p$ is a polynomial of degree $n_s$ with $N > n_s$ roots in the field $\mathbb{F}_q$.
 \begin{itemize}
-    \item $(\Z/p^\alpha\Z)^*$ is cyclic if $p > 2$ or $\alpha \leq 2$
+    \item if $p > 2$ is prime then $(\Z/p^\alpha\Z)^*$ is cyclic with generator $g$ or $g + p$, where $g \in \mathbb{F}_p^*$ is a generator of $\mathbb{F}_p^*$.
 \end{itemize}
-\paragraph{Proof} Use induction over $\alpha$.
-\subparagraph{$\alpha = 1$} Follows directly from the previous point, as $\mathbb{F}_p \cong \Z/p\Z$ as rings.
-\subparagraph{$\alpha > 1$} Consider the canonical ring homomorphism
-\begin{equation}
-    \pi: \Z/p^\alpha\Z \to (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]), \quad x \mapsto [x] \nonumber
-\end{equation}
-Then the restriction of $\pi$ to $(\Z/p^\alpha\Z)^*$
-\begin{equation}
-    f: (\Z/p^\alpha\Z)^* \to \left( (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]) \right)^*, \quad x \mapsto \pi(x) \nonumber
-\end{equation}
-is a surjective group homomorphism. We have
-\begin{equation}
-    \mathrm{ker}(f) = \pi^{-1}(\{1\}) = 1 + ([p^{\alpha - 1}]) = \left\{ 1 + k[p^{\alpha - 1}] \ \middle| \ k \in \{0, ..., p - 1\} \right\} \nonumber
-\end{equation}
-As $[p^{\alpha - 1}]^2 = 0$, have $\mathrm{ker}(f) = \langle 1 + [p^{\alpha - 1}] \rangle$ by the binomial theorem. On the other hand, by the second isomorphism theorem, have
-the ring isomorphy $( (\Z/p^\alpha\Z) \ / \ ([p^{\alpha - 1}]) ) \cong \Z/p^{\alpha - 1}\Z$, which is cyclic by the induction hypothesis. Therefore, $G / \mathrm{im}(f) \cong \mathrm{ker}(f)$ yields:
-\begin{equation}
-    (\Z/p^\alpha\Z)^* / \langle 1 + [p^{\alpha - 1}] \rangle \cong \langle [g] \rangle \ \text{for some} \ g \in (\Z/p^\alpha\Z)^* \nonumber
-\end{equation}
-Assume now that $(\Z/p^\alpha\Z)^*$ is not cyclic. Then $\mathrm{ord}(g) \neq (p-1)p^{\alpha - 1}$, so $\mathrm{ord}(g) = (p-1)p^{\alpha - 2}$, as $\mathrm{ord}(1 + [p^{\alpha - 1}]) = p$.
-If $\alpha = 2$, then $\mathrm{ord}(g) = p - 1 \perp p$, and the Chinese Remainder theorem yields that 
-\begin{equation}
-    (\Z/p^\alpha\Z)^* \cong \Z/p\Z \times \Z/(p - 1)p^{\alpha - 2}\Z \cong \Z/(p - 1)p^{\alpha - 1}\Z \nonumber
-\end{equation}
-and we are done. Therefore, let $\alpha > 2$ and $p > 2$ and consider the mapping
-\begin{equation}
-    \phi: \Z/p\Z \times \Z/(p-1)p^{\alpha - 2}\Z \to (\Z/p^\alpha\Z)^*, \quad (k, n) \mapsto (1 + k[p^{\alpha - 1}])g^n \nonumber
-\end{equation}
-which is a homomorphism, as $(1 + k[p^{\alpha - 1}])(1 + l[p^{\alpha - 1}]) = 1 + (l + k)[p^{\alpha - 1}]$ and $\mathrm{ord}(g) = (p-1)p^{\alpha - 2}$ and bijective, so an isomorphism. How to continue from here?
+\paragraph{Proof} 
+First we show: If $a^p \equiv 1 \mod p^\alpha$ then $a \equiv 1 \mod p^\beta$ for all $\beta < \alpha$ where $\alpha \geq 2$.
+If $\beta = 1$ this is clear as $p \divides a^p - 1$ iff $p \divides a - 1$ as $a^p \equiv a \mod p$.
+This shows the claim
+
+So now let $\beta > 1$. Have $p^\alpha \divides a^p - 1$ and by IH also $p^{\beta - 1} \divides a - 1$.
+It follows that $a = 1 + l p^{\beta - 1}$ for some $l \in \Z$ and we have
+\begin{equation*}
+    1 \equiv a^p \equiv (1 + l p^{\beta - 1})^p = \sum_{k = 0}^p \binom{p}{k} l^k p^{k(\beta - 1)} \equiv 1 + l p^{\beta} \mod p^{\beta + 1}
+\end{equation*}
+as $\beta + 1 \leq \alpha$ and $p^{\beta + 1} \divides p p^{2\beta - 2} \divides \binom{p}{k} p^{k\beta - 2}$ for $k \geq 2$.
+Therefore $p \divides l$ and so $a \equiv 1 \mod p^{\beta}$.
+
+We have for each prime $l \divides p - 1$ that
+\begin{equation*}
+    g^{p^{\alpha - 1} \frac {p - 1} l} \equiv 1 \mod p^\alpha \quad \Rightarrow \quad g^{p^{\alpha - 1} \frac {p - 1} l} \equiv g^{\frac {p - 1} l} \equiv 1 \mod p
+\end{equation*}
+where the latter is a contradiction as $g$ is a generator of $\mathbb{F}_p^*$. Therefore, $g$ is a generator of $(\Z/p^\alpha\Z)^*$ iff 
+\begin{equation*}
+    g^{p^{\alpha - 2} (p - 1)} \not\equiv 1 \mod p^\alpha
+\end{equation*}
+By using the claim recursively, this is implied by $g^{p - 1} \not\equiv 1 \mod p^2$. We have that
+\begin{equation*}
+    (g + p)^{p - 1} = \sum_{k = 0}^{p - 1} \binom{p - 1}{k} g^{p - 1 - k} p^k \equiv g^{p - 1} + (p - 1)g^{p - 2}p \equiv g^{p - 1} - p g^{p - 2} \mod p^2
+\end{equation*}
+So if $g^{p - 1} \equiv 1$ then this is $1 - p g^{-1} \not\equiv 1$ as $g^{-1}$ is a unit in $\Z/p^2\Z$, so $p g^{-1} \not\equiv 0$. 
+Hence $g^{p - 1} \not\equiv 1$ or $(g + p)^{p - 1} \not\equiv 1$ and as both $g$ and $g + p$ are generators of $\mathbb{F}_p^*$, this implies that one of them is a generator of $(\Z/p^\alpha\Z)^*$.$\hfill\square$
 
 \subsection{Chinese Remainder theorem}
 Let $R$ be any commutative ring. For pairwise coprime ideals $I_1, ..., I_n \leq R$ have
@@ -273,14 +388,14 @@ Let $R$ be any commutative ring. For pairwise coprime ideals $I_1, ..., I_n \leq
     R/(I_1 \cdot ... \cdot I_n) \cong R/I_1 \times ... \times R/I_n
 \end{equation*}
 
-\subsection{Main theorem of finitly generated modules over PIDs}
-Let $R$ be a principal ideal domain and $M$ a finitly generated $R$-module. Then
+\subsection{Main theorem of finitely generated modules over PIDs}
+Let $R$ be a principal ideal domain and $M$ a finitely generated $R$-module. Then
 \begin{equation*}
     M \cong R^d \oplus \bigoplus_{p \in \mathcal{P}} \ \bigoplus_{j \in \{1, ..., n_p\}} R / \left( p^{e_{pj}} \right)
 \end{equation*}
 where $\mathcal{P} \subseteq R$ is a set of prime elements and $n_p \in \N_{>0}$ for $p \in \mathcal{P}$. The set $\mathcal{P}$ is unique, as are the exponents $e_{pj}$ (up to order).
 
-By the Chinese Remainder theorem, we get for finitly generated abelian groups $G$ that
+By the Chinese Remainder theorem, we get for finitely generated abelian groups $G$ that
 \begin{equation*}
     G \cong \Z^d \oplus \bigoplus_{j \in \{1, ..., s\}} \Z/n_j\Z
 \end{equation*}
@@ -294,10 +409,10 @@ Let $A \in R^{m \times n}$ for a principal ideal domain $R$. Then there are $U \
 where $n_1 | n_2 | ... | n_s$ with $s \in \N$.
 
 \subsection{The module $\Z^n$}
-$\Z^n$ is a free, noetherian $\Z$-module.
+$\Z^n$ is a free, Noetherian $\Z$-module.
 
 \subsection{Hilbert's basis theorem}
-If $R$ is a noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a finitly generated ring extension $S \supseteq R$.
+If $R$ is a Noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a ring extension $S \supseteq R$.
 
 \section{Probabilities}
 
@@ -477,24 +592,20 @@ The topologies on the sets match, as the weak-*-topology on $K$ has a local base
 
 \section{Operator theory}
 
-\subsection{Neumann series}
-Let $T \in \mathcal{L}(X)$. If $\sum_{n \in \N} T^n$ converges, then $1 - T$ is invertible with
+\subsection{Riesz Representation theorem}
+Let $K$ be a compact metric space (compact Hausdorff space??). Consider $(C(X), \|\cdot\|_\infty)$ and the space of complex regular Borel measures $M(X)$ on $X$. Then $C(K)' \cong M(K)$ under
 \begin{equation*}
-    (1 - T)^{-1} = \sum_{n \in \N} T^n
+    M(K) \to C(K)', \quad \mu \mapsto \Bigl(f \mapsto \int_K f \ d\mu\Bigr)
 \end{equation*}
-To get convergence, it is sufficient to have $\|T\| < 1$ and $X$ is complete.
-
-\subsection{$l^p$ spaces}
-Note that from \ref{hoelder_inequality} we get that $l^p \simeq (l^q)'$ for $p > 1$ and $\frac 1 p + \frac 1 q = 1$. 
-
-\subsection{Riesz lemma}
-\label{riesz_lemma}
-Let $U \subsetneq X$ closed subspace of a normed space. For $\delta > 0$ have then $x \in X$ with $\|x\|=1$ and distance greater than $1 - \delta$ from $U$.
-\paragraph{Proof idea} Consider any $x \in X \setminus U$ and an almost closest point $u \in U$. Then scale $x - u$ appropriately.
 
 \subsection{Compact Operators and spaces}
 From \ref{riesz_lemma} one can conclude that the unit ball $B_X$ is compact iff $\dim X < \infty$. Therefore, consider operators $T \in \mathcal{L}(X, Y)$ such that $\mathrm{cl}(T(B_X))$ compact, these are a Banach space $\mathcal{K}(X, Y)$.
 \paragraph{Proof idea} To show that $\mathcal{K}(X, Y)$ is closed in $\mathcal{L}(X, Y)$, consider diagonal sequences.
+
+\subsubsection{Riesz lemma}
+\label{riesz_lemma}
+Let $U \subsetneq X$ closed subspace of a normed space. For $\delta > 0$ have then $x \in X$ with $\|x\|=1$ and distance greater than $1 - \delta$ from $U$.
+\paragraph{Proof idea} Consider any $x \in X \setminus U$ and an almost closest point $u \in U$. Then scale $x - u$ appropriately.
 
 \subsection{Arzela-Ascoli}
 \label{arzela_ascoli}
@@ -510,39 +621,6 @@ and consider the diagonal sequence $(y_n)_{n \in \N}$. Then $(y_n(s_k))_{n \in \
 
 By equicontinuity, have for each $k \in \N$ a neighborhood $N_k$ of $s_k$ such that $\forall x \in M: \ x(N_k) \subseteq B_\epsilon(x(s_k))$.
 Therefore, there is a subcover $N_i$ for $i \in I$ finite. As $(y_n(s_k))_{n \in \N}$ converges for each $k$, it simultaneously converges for each $i \in I$. This yields that $(y_n)_{n \in \N}$ is a Cauchy-sequence w.r.t $\|\cdot\|_{\infty}$.
-
-\subsection{Proposition of Schauder}
-For $T \in \mathcal{L}(X, Y)$ between Banach-spaces, have that $T$ is compact if and only if $T' \in \mathcal{L}(Y', X')$ is compact.
-
-\paragraph{Proof} Prove $\Rightarrow$, the other direction follows. Then $K := \mathrm{cl}(T(B_X))$ is compact metric space.
-For $(y'_n)_{n \in \N}$ have
-\begin{equation*}
-    \left(\restr{y'_n}{K}\right)_{n \in \N} \ \text{is a sequence in $C(K)$}
-\end{equation*}
-It also fulfills the conditions of \ref{arzela_ascoli}, so there is a convergent subsequence indexed by $(n_k)_{k \in \N}$. Then also $(T'y_{n_k})_{k \in \N}$ converges, so $T'(B_{Y'})$ is relatively compact.
-
-\subsection{Closed range theorem}
-Let $X, Y$ be Banach spaces, $T \in \mathcal{L}(X, Y)$. The the following are equivalent
-\begin{itemize}
-    \item $\mathrm{ran}(T)$ closed
-    \item $\mathrm{ran}(T) = (\mathrm{ker}(T'))_\perp$
-    \item $\mathrm{ran}(T')$ closed
-    \item $\mathrm{ran}(T') = (\mathrm{ker}(T))^\perp$
-\end{itemize} 
-\paragraph{Proof} Show (ii) $\Leftrightarrow$ (iv), the rest is relativly easy. Let $x' \in (\mathrm{ker}(T))^\perp$. Then have $z': \mathrm{ran}(T) \to \mathbb{K}$ linear with $z' \circ T = x'$ (isomorphism theorem).
-A complex computation using the open mapping theorem shows that $z'$ is continuous.
-A Hahn-Banach extension of $z'$ to $Y$ then yields a preimage under $T'$ of $x'$.
-
-For the other direction, consider $Z := \mathrm{cl}(\mathrm{ran}(T))$. By the Hahn-Banach theorem, we can extend functionals on $Z$ to functionals on $Y$, so $\mathrm{ran}(T') \simeq Z'$ by the isomorphism $\mathrm{ran}(T') \to Z', \ T'(y') \mapsto \restr{y'}{Z}$.
-
-Therefore, for all $y' \in Y'$ have that $\| \restr{y'}{Z} \| \leq c \| y' \circ T \|$ where $c > 0$. 
-
-Consider any $y \in Z$ with $\|y\| \leq 1$. If $y \notin \mathrm{cl}(T(2c B_X))$, the Hahn-Banach separation theorem yields $y' \in Y'$ such that
-\begin{equation*}
-    2c \| y' \circ T \| = \sup \left( 2c (y' \circ T)(B_X) \right) \leq y'(y) = \| \restr{y'}{Z}(y) \| \leq \| \restr{y'}{Z} \| \leq c \| y' \circ T \| 
-\end{equation*}
-a contradiction. Therefore, $\mathrm{cl}(T(B_X))^\circ \neq \emptyset$ and so $\tilde{T}: X \to Z, \ x \mapsto T(x)$ is open by \ref{closure_image_unit_ball}.
-It follows that $\mathrm{ran}(T) = \mathrm{ran}(\tilde{T})$ is closed, as $X$ is closed.
 
 \subsection{Projection theorem}
 \label{projection_theorem}
@@ -564,19 +642,6 @@ Let $H$ be a Hilbert space. Then a isometric, bijective, conjugate linear map is
 \end{equation*}
 \paragraph{Proof} Show surjectivity, the rest is clear: For $x' \in H'$ have that $(\mathrm{ker}(x'))^\perp$ has dimension 1. By using \ref{projection_theorem} the claim follows.
 
-\subsection{Orthonormal bases}
-Let $H$ be a Hilbert space and $S \subseteq H$ a maximal orthonormal system. As
-\begin{equation*}
-    \left\langle x - \sum_{s \in F} \langle x, s \rangle s, \ x - \sum_{s \in F} \langle x, s \rangle s \right\rangle \geq 0 \ \Rightarrow \ \sum_{s \in F} |\langle x, s \rangle|^2 \leq \langle x, x \rangle
-\end{equation*}
-for finite $F \subseteq S$, get that $\sum_{s \in S} \langle x, s \rangle s$ converges absolutely, and if $x \in \mathrm{cl}(\mathrm{span}(S))$, to $x$. For a maximal orthonormal system $S \subseteq H$ have that $\mathrm{cl}(\mathrm{span}(S)) = H$, so it is an orthonormal basis.
-
-Have also the following laws
-\begin{description}
-    \item[Bessel] For an orthonormal system $S$ have $\sum_{s \in S} |\langle x, s \rangle|^2 \leq \| x \|^2$ for all $x$
-    \item[Parseval] $S$ is an orthonormal basis iff there is equality above, i.e. $\| x \|^2 = \sum_{s \in S} |\langle x, s \rangle|^2$
-\end{description}
-
 \subsection{Spectra}
 Let $T \in \mathcal{L}(X)$ for a Banach space $X$.
 With
@@ -587,16 +652,7 @@ With
     \text{spectrum} \quad \sigma(T) &:= \sigma_p(T) \cup \sigma_c(T) \cup \sigma_r(T)
 \end{align*}
 have that $\sigma(T)$ compact and bounded by $\| T \|_{\mathrm{op}}$.
-\paragraph{Proof idea} Use the Neumann series.
-
-\subsection{Decomposition compact operator}
-\label{decomposition_compact_operator}
-Let $T \in \mathcal{K}(X)$ for Banach space $X$. Then $X = \ker((T - 1)^p) \oplus \mathrm{im}((T - 1)^p)$ for some $p \in \N$ (where the direct sum is a decomposition in the topological sense).
-\paragraph{Proof idea} Show that the sequence of $N_i = \ker((T - 1)^i)$ is stationary. Assume not, then have $x_i \in N_i$ with $\|x_i\| = 1$ and distance $\frac 1 2$ to $N_{i - 1}$ by Riesz Lemma. Applying $T$ then yields a non-Cauchy sequence as for $m < n$ have
-\begin{equation*}
-    Tx_n - Tx_m = x_n - x_m + (T - 1)(x_n - x_m) \in x_n - \underbrace{x_m + \ker((T - 1)^{n - 1})}_{= N_{n - 1}}
-\end{equation*}
-a contradiction to the compactness of $T$. Similar show that $\mathrm{im}((T - 1)^i)$ is stationary and for an index $p \in \N$ at which both are constant the claim holds. The closedness of $\mathrm{im}((T - 1)^p)$ follows as $(T - 1)^p$ is open by the open mapping theorem.$\hfill\square$
+\paragraph{Proof idea} Use the Neumann series $\sum_n T^n = (1 - T)^{-1}$ if convergent.
 
 \subsection{Spectral theorem for compact, normal operators}
 \label{spectral_theorem_operator}
@@ -611,7 +667,16 @@ Additionally, $\{ \lambda_e \ | \ e \in E \}$ has $0$ as only accumulation point
 \end{equation*}
 Now consider $H_2 := (\ker T + \mathrm{cl}(\mathrm{span}(E)))^\perp$. Then $T(H_2) \subseteq H_2$ and $T_2 := \restr{T}{H_2}: H_2 \to H_2$ is compact and self-adjoint. If $T_2 = 0$ then $\ker(T_2) \subseteq H_2 \cap \ker(T) = \{0\}$ so we are done. 
 So assume $T_2 \neq 0$. Then $T_2x = \lambda x$ for some $\lambda \neq 0$ (see next lemma). However, then $x \in \ker(T - \lambda)$, a contradiction.
-The rest of the proposition follows from the two lemmas:
+The rest of the proposition follows from the next lemmas:
+
+\subsubsection{Decomposition compact operator}
+\label{decomposition_compact_operator}
+Let $T \in \mathcal{K}(X)$ for Banach space $X$. Then $X = \ker((T - 1)^p) \oplus \mathrm{im}((T - 1)^p)$ for some $p \in \N$ (where the direct sum is a decomposition in the topological sense).
+\paragraph{Proof idea} Show that the sequence of $N_i = \ker((T - 1)^i)$ is stationary. Assume not, then have $x_i \in N_i$ with $\|x_i\| = 1$ and distance $\frac 1 2$ to $N_{i - 1}$ by Riesz Lemma. Applying $T$ then yields a non-Cauchy sequence as for $m < n$ have
+\begin{equation*}
+    Tx_n - Tx_m = x_n - x_m + (T - 1)(x_n - x_m) \in x_n - \underbrace{x_m + \ker((T - 1)^{n - 1})}_{= N_{n - 1}}
+\end{equation*}
+a contradiction to the compactness of $T$. Similar show that $\mathrm{im}((T - 1)^i)$ is stationary and for an index $p \in \N$ at which both are constant the claim holds. The closedness of $\mathrm{im}((T - 1)^p)$ follows as $(T - 1)^p$ is open by the open mapping theorem.$\hfill\square$
 
 \subsubsection{Lemma}
 A compact operator $T \in \mathcal{K}(H)$ that is normal (if $\mathbb{K} = \C$) resp. self-adjoint (if $\mathbb{K} = \R$) has $\lambda \in \sigma(T)$ where $|\lambda| = \| T \|_{\mathrm{op}}$.
@@ -633,31 +698,6 @@ Then $T = U \circ S$ for a unitary operator $U$ and with $S = \sum_{e \in E} \la
     T = \sum_{e \in E} \lambda_e \langle \cdot, e \rangle Ue
 \end{equation*}
 which is of the specified form.$\hfill\square$
-
-\subsection{Operator hierarchy}
-Let $H$ be a Hilbert space. Consider
-\begin{description}
-    \item[Compact operators $\mathcal{K}(H)$] In $T = \sum_n s_n \langle \cdot, e_n \rangle f_n \in \mathcal{K}(H)$ have $(s_n)_n \in c_0$
-    \item[Hilbert-Schmidt operators $\mathrm{HS}(H)$] Compact operators where $(s_n)_n \in \ell^2$
-    \item[Nuclear operators $\mathcal{N}(H)$] Compact operators where $(s_n)_n \in \ell^1$
-\end{description}
-Have the corresponding norms $\| \cdot \|_{\mathrm{op}}, \| \cdot \|_{\mathrm{HS}}, \| \cdot \|_{\mathrm{nuk}}$ as the $\ell^\infty, \ell^2, \ell^1$-norms of the $(s_n)_n$.
-Then
-\begin{itemize}
-    \item $\| \cdot \|_{\mathrm{op}} \geq \| \cdot \|_{\mathrm{HS}} \geq \| \cdot \|_{\mathrm{nuk}}$, so the identity embedding is continuous
-    \item The nuclear operators can be defined as operators of the form $\sum y_i x'_i(\cdot)$ where $\sum \| y_i \| \| x'_i \|$ converges
-    \item $(\mathcal{N}(H), \|\cdot\|_{\mathrm{nuk}})$ is a Banach space
-    \item Nuclear operators have the ``ideal property'': $T \circ S \circ R \in \mathcal{N}(H)$ if $S \in \mathcal{N}(H)$
-\end{itemize}
-For a nuclear operator $T = \sum s_n \langle \cdot, e_n \rangle f_n$ and an orthonormal basis $E$ the series
-\begin{equation*}
-    \mathrm{tr}(T) := \sum_{e \in E} \langle Te, e \rangle = \sum s_n \langle f_n, e_n \rangle
-\end{equation*}
-is independent of the choice of $E$ and defines the trace of $T$. We then further get
-\begin{itemize}
-    \item For $T, S \in \mathrm{HS}(H)$ have $T \circ S \in \mathcal{N}(H)$ and $\| T \circ S \|_{\mathrm{nuk}} \leq \| T \|_{\mathrm{HS}} \| S \|_{\mathrm{HS}}$ (compare the Hölder inequality \ref{hoelder_inequality})
-    \item $(\mathrm{HS}(H), \langle \cdot, \cdot \rangle_{\mathrm{HS}})$ defines a Hilbert space via $\langle x, y \rangle_{\mathrm{HS}} := \mathrm{tr}(T^* \circ S)$ (well-defined by the above point)
-\end{itemize}
 
 \section{(Algebraic) Number Theory}
 
@@ -722,13 +762,8 @@ Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\m
 
 For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
 \begin{description}
-    \item[8.2] Have $\sum e_i f_i = n := [L : K]$ where $\mathfrak{p}\mathcal{O} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ is the factorization of $\mathfrak{p}$ into prime ideals in $\mathcal{O}$ and $f_i = [\mathcal{O}/\mathfrak{B}_i : \mathcal{R}/\mathfrak{p}]$. 
-    The proof uses the CRT and the properties of $\mathcal{O}/\mathfrak{B}_i$ as $\mathcal{R}/\mathfrak{p}$-vector space.
-    \item[8.3] Let $L = K(\alpha)$ for an integral, primitive element $\alpha \in \mathcal{O}$. If $\mathfrak{p}$ is a prime ideal that does not divide the leader $\mathcal{F}$ of $\mathcal{R}[\alpha]$ (the largest ideal contained in $\mathcal{R}[\alpha]$), then 
-    \begin{equation*}
-        \mathfrak{p} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r} \quad \text{for} \quad \mathfrak{B}_i = \mathfrak{p}\mathcal{O} + p_i(\alpha)\mathcal{O}
-    \end{equation*}
-    where the minimal polynomial $p$ of $\alpha$ splits into irreducible factors mod $\mathfrak{p}\mathcal{O}$ 
+    \item[8.2] Have $\sum e_i f_i = n := [L : K]$ where $\mathfrak{p}\mathcal{O} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ is the factorization of $\mathfrak{p}$ into prime ideals in $\mathcal{O}$ and $f_i = [\mathcal{O}/\mathfrak{B}_i : \mathcal{R}/\mathfrak{p}]$. The proof uses the CRT and the properties of $\mathcal{O}/\mathfrak{B}_i$ as $\mathcal{R}/\mathfrak{p}$-vector space.
+    \item[8.3] Let $L = K(\alpha)$ for an integral, primitive element $\alpha \in \mathcal{O}$. If $\mathfrak{p}$ is a prime ideal that does not divide the leader $\mathcal{F}$ of $\mathcal{R}[\alpha]$ (the largest ideal contained in $\mathcal{R}[\alpha]$), then $\mathfrak{p} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ for $\mathfrak{B}_i = \mathfrak{p}\mathcal{O} + p_i(\alpha)\mathcal{O}$, where the minimal polynomial $p$ of $\alpha$ splits into irreducible factors mod $\mathfrak{p}\mathcal{O}$ 
     \begin{equation}
         p(X) \equiv p_1(X)^{e_1} ... p_r(X)^{e_r} \mod \mathfrak{p}\mathcal{O} \nonumber
     \end{equation} 
@@ -736,7 +771,7 @@ For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
 
     By definition of $\mathcal{F}$, note that for a number field $K$ (i.e. $\mathcal{R} = \Z$) it is sufficient if $\mathfrak{p} = (p) \not| \ ([\mathcal{O} : \Z[\alpha]])$.
 \end{description}
-If $L|K$ is galoisch, we can consider the effect of the Galois group $G$ on the prime ideals $\mathfrak{B} \leq \mathcal{O}$ over some prime ideal $\mathfrak{p} \leq \mathcal{R}$.
+If $L|K$ is galoisch, we can consider the effect of the Galois group on the prime ideals $\mathfrak{B} \leq \mathcal{O}$ over some prime ideal $\mathfrak{p} \leq \mathcal{R}$.
 Fix some prime ideal $\mathfrak{B} \leq \mathcal{O}$ over $\mathfrak{p}$ and consider
 \begin{align*}
     \text{``Zerlegungsgruppe''} \ &G_{\mathfrak{B}} := \{ \sigma \in G \ | \ \sigma \mathfrak{B} = \mathfrak{B} \} \ &\text{with fixed field} \ Z_{\mathfrak{B}} = L^{G_\mathfrak{B}} \\
@@ -746,13 +781,11 @@ where
 \begin{equation*}
     \phi_\sigma: \mathcal{O}/\mathfrak{B} \to \mathcal{O}/\mathfrak{B}, \quad [a] \mapsto [\sigma a]
 \end{equation*}
-Let then be $e$ resp. $f$ be the ramification index (de: Verzweigungsindex) (maximal power such that $\mathfrak{B}^e | \mathfrak{p}$) resp. residual index (de: Trägheitsindex) (the index of $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$) of $\mathfrak{B}$ over $\mathfrak{p}$. 
-Note that in general, these might be different for different $\mathfrak{B} | \mathfrak{p}$ but if $L|K$ is galoisch, they are the same for each prime ideal factor of $\mathfrak{p}$.
-If $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$ is separable, have the following representation:
+Let then be $e$ resp. $f$ be the ``Verzweigungsindex'' (maximal power such that $\mathfrak{B}^e | \mathfrak{p}$) resp. ```Trägheitsindex'' (the index of $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$) of $\mathfrak{B}$ over $\mathfrak{p}$. If $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$ is separable, have the following representation:
 \begin{align*}
     \mathfrak{p} \quad \underset{1}{\overset{1}{\subseteq}} \quad \mathfrak{B}_Z := \mathfrak{B} \cap Z_\mathfrak{B} \quad \underset{1}{\overset{f}{\subseteq}} \quad \mathfrak{B}_T := \mathfrak{B} \cap T_\mathfrak{B} \quad \underset{e}{\overset{1}{\subseteq}} \quad \mathfrak{B}
 \end{align*}
-where the ramification indices are written over the corresponding ideal decompositions and the residual indices are written below, respectively.
+where the ``Verzweigungsindizes'' are written over the corresponding ideal decompositions and the ``Trägheitsindizes'' are written below, respectivly.
 
 \subsection{Quadratic Reciprocity}
 For $a \in \Z$ and $p \in \mathbb{P}$ and $n = \prod_{p} p^{e_p} \in \N_{\geq 2}$ define
@@ -776,6 +809,92 @@ Then for odd $a, n$ have
     \end{cases}
 \end{equation*}
 
+\section{Elliptic Curves}
+
+Let $\mathbb{P}^2 := \mathbb{P}^2_{\bar{K}}$ be the 2 dimensional projective space over the algebraic closure $\bar{K}$ of a field $K$.
+Furthermore, denote a rational map $\phi$ defined on a variety $V$ that is given by $\phi_1, ..., \phi_n \in K(V)$ with homogeneous, equal-degree numerators and denominators by $\phi = [\phi_1, ..., \phi_n]$.
+
+\subsection{Definition}
+An elliptic curve is a pair $(E, O)$ where $E$ is a nonsingular curve of genus one in $\mathbb{P}^2$ and $O \in E$.
+It can be shown (Arithmetic of Elliptic Curves, III 3.1) that if $E$ is defined over $K$ there is always an (variety-) isomorphism $[x, y, 1]$ that maps
+\begin{equation*}
+    [x, y, 1]: E \to \mathcal{Z}\left((Y^2 + a_1 X Y + a_3 Y - X^3 - a_2 X^2 - a_4 X - a_6)^{\mathrm{hom}}\right)
+\end{equation*}
+for $a_1, ..., a_6 \in K$ where the defining polynomial is also called Weierstraß equation.
+If $\mathrm{char}(K) \not\in \{ 2, 3 \}$ then there is even a degree-1 isomorphism between $\mathrm{im}[x, y, 1]$ and a curve of the form
+\begin{equation*}
+    E' = \mathcal{Z}\left((Y^2 - X^3 - A X - B)^{\mathrm{hom}}\right)
+\end{equation*}
+Usually we do not explicitly mention the homogenization or the projective nature and say the projective curve $E' = \mathcal{Z}((f - g)^{\mathrm{hom}})$ is given by the equation $E': f = g$.
+
+For a curve $E'$ given by the last equation, define the discriminant 
+\begin{equation*}
+    \Delta(E') := -16(4A^3 + 27B^2)
+\end{equation*}    
+and the j-invariant
+\begin{equation*}
+    j(E') := -1728 \frac {64 A^3} \Delta
+\end{equation*}
+
+For an elliptic curve $E$ given by $E: Y^2 + a_1 XY + a_3 Y - X^3 + a_2 X^2 + a_4 X + a_6$ also define a group law on $E$ via
+\begin{align*}
+    -(x_1, y_1) &:= (x_1, -y_1 - a_1 x_1 - a_3) \\
+    \lambda &:= \begin{cases}
+        \frac {y_2 - y_1} {x_2 - x_1} \ \text{if} \ x_1 \neq x_2 \\
+        \frac {3 x_1^2 + 2 a_2 x_1 + a_4 - a_1} {2 y_1 + a_1 x_1 + a_3} \ \text{otherwise}
+    \end{cases} \\
+    x_3 &:= -x_1 - x_2 - a_2 + \lambda (\lambda + a_1) \\
+    (x_1, y_1) + (x_2, y_2) &:= (x_3, -y_1 - a_3 - a_1 x_3 + \lambda (x_1 - x_3))
+\end{align*}
+It can be shown that this group law has the following geometric interpretation: 
+For $P, Q \in E$ there is exactly one line through $P$ and $Q$ (with multiplicity, i.e. if $P = Q$ then this is the tangent line).
+Then $-(P + Q)$ is defined as the third point of intersection of this line with $E$.
+
+\subsection{Picard group structure}
+\label{elliptic_curve_group}
+Let $(E, O)$ be an elliptic curve. Then the map
+\begin{equation*}
+    \sigma: \mathrm{Div}^0(E) \to E, \quad D \mapsto \text{unique point} \ (P) \sim D + (O) 
+\end{equation*}
+is well-defined, surjective and $\sigma(D_1) = \sigma(D_2)$ iff $D_1 \sim D_2$. Furthermore
+\begin{equation*}
+    \bar{\sigma}: \mathrm{Pic}^0(E) \to E, \quad \overline{D} \mapsto \sigma(D)
+\end{equation*}
+is a group isomorphism. From the number theoretic perspective, $K[E] = K[x, y] = K[X, Y] / (Y^2 - f(X))$ is a Dedekind domain and the map
+\begin{equation*}
+    \phi: E \to \mathrm{Cl}(K[E]), \quad (\lambda : \mu : 1) \mapsto \overline{\langle x - \lambda, y - \mu \rangle}, \ (0 : 0 : 1) \mapsto \overline{\langle 1 \rangle}
+\end{equation*}
+is a group isomorphism.
+
+\paragraph{Proof} See (Arithmetic of Elliptic Curves, III 3.4) for the first part.
+To show that $K[E]$ is a Dedekind domain, note that $K[x]$ is and hence the integers $B$ in $K(E)$ are.
+Now $K[E]$ is an order in $B$ and as $d(K[E])$ is square-free, it must already be the maximal order $B$.
+
+That $\phi$ is injective follows from a lengthy elementary computation and a degree argument (note that $f$ has odd degree), for details see Cryptanalysis lecture.
+By unique factorization of ideals, $\mathrm{Cl}(K[E])$ is generated by $\mathrm{im}\phi$. 
+Note that $\langle x - \lambda, y - \mu \rangle \langle x - \lambda, y + \mu \rangle = \langle x - \lambda \rangle$ is principal, so $\mathrm{im}\phi$ is inversion-closed.
+Lastly show that $\mathrm{im}\phi$ is addition-closed. I think it should be possible to compute the third point on the line and show that the product of the respective ideals is principal.
+In Cryptanalysis, a more complex approach was chosen, so check this again.$\hfill\square$
+
+\subsection{Isogenies}
+Let $\psi: E_1 \to E_2$ be an isogeny between elliptic curves $E_1, E_2$, i.e. a morphism $\psi$ satisfying $\phi(O) = O$. Then $\psi$ is group homomorphism.
+\paragraph{Proof} If $\psi$ is a morphism, then
+\begin{equation*}
+    \psi^*: K[E_2] \to K[E_1], \quad \overline{f} \mapsto \overline{f(\psi)}
+\end{equation*}
+is a ring homomorphism. 
+In particular, $\psi^*$ is also a group isomorphism between the class groups. 
+Now have $\psi = \phi^{-1} \circ \psi^* \circ \phi$ for the $\phi$ from \ref{elliptic_curve_group}.
+
+This proposition is also useful if one applies it to the isomorphism between any elliptic curve and a corresponding elliptic curve given in Weierstraß form.
+For this, see Arithmetic of Elliptic Curves, III 4.8) which uses a similar idea with $\psi_*$ between the Picard groups.$\hfill\square$
+
+\subsection{Nonconstant isogenies are surjective}
+Let $E_1, E_2$ be elliptic curves and $\phi: E_1 \to E_2$ an isogeny.
+Then $\phi$ is either constant or surjective (note that it is crucial that the points of $E_1$ resp. $E_2$ are in $\mathbb{P}^2 = \mathbb{P}^2_L$ for an algebraically closed field $L | K$).
+
+The statement follows directly from this theorem of algebraic geometry: A morphism between irreducible projective curves is either constant or surjective. 
+
 \section{Computational Algebraic Number theory and Cryptanalysis}
 
 \subsection{Primality test}
@@ -783,7 +902,7 @@ Let $n \in \N_{>2}$ be odd with $n - 1 = d2^s, \ d \perp 2$ and consider
 \begin{align*}
     U_n &:= \{ a \in \Z_n^* \ | \ a^{n - 1} \equiv 1 \mod n \} \leq \Z_n^* & \text{(Fermat)}\\
     V_n &:= \{ x \in \Z_n^* \ | \ x^{\frac {n - 1} 2} \equiv \left(\frac x n\right) \mod n \} \leq \Z_n^* & \text{(Solovay-Strassen)}\\
-    W_n &:= \{ a \in \Z_n^* \ | \ a^d \equiv 1 \quad \text{or} \quad a^{2^rd} \equiv -1 \quad \text{for some} \ r < s \} & \text{(Miller-Rabin)}
+    W_n &:= \{ a \in \Z_n^* \ | \ a^d \equiv 1 \quad \text{or} \quad a^{2^r d} \equiv -1 \quad \text{for some} \ r < s \} & \text{(Miller-Rabin)}
 \end{align*}
 If $n$ is prime, then $U_n = V_n = W_n = \Z_n^*$ and otherwise, $V_n, W_n \neq \Z_n^*$. Furthermore, if $n$ is composite, then $\#W_n \leq \frac 1 4 n$.
 \paragraph{Proof} That $U_n, V_n \leq \Z_n^*$ are subgroups can bee seen easily (note that $(\frac \cdot n )$ is multiplicative). Similarly, see that $V_n \subseteq U_n$ and if $n$ is prime, then all are equal by using that $\Z_n^*$ is cyclic.
@@ -851,5 +970,47 @@ When measuring both states, the probability to get some $k \in \{0, ..., N-1\}, 
 where $M = \left\lfloor \frac {N - x_0} b \right\rfloor \approx \frac N b$ and the denominators are non-zero as $b$ is wlog odd.
 
 TODO
+
+\section{Algorithms}
+
+\subsection{Parameterized Algorithms design techniques}
+
+\subsubsection*{Kernelization}
+
+Given an instance $(X, k)$, compute an instance $(X', k')$ such that $(X, k)$ is a YES-instance if and only if $(X', k')$ is a YES-instance and the size of $X'$ is bounded by $f(k)$ (this is usually done via reduction rules).
+
+\subsubsection*{Bounded search tree}
+
+Given an instance $(X, k)$ compute instances $(X_1, k_1)$, ..., $(X_n, k_m)$ such that $(X, k)$ is a YES-instance if and only if at least one of the $(X_i, k_i)$ is a YES-instance. Additionally, it must hold that $d_i := k - k_i > 0$.
+Then applying this algorithm recursively on all the $(X_i, k_i)$ yields an FPT algorithm with running time $O(\lambda^k \mathrm{poly}(n))$ where $\lambda$ is the positive root of the branching vector polynomial equation (there exactly one, as the $m-1, ..., 0$-th derivates all are non-positive up to some point, and then positive)
+\begin{equation*}
+    X^m = \sum_{i = 1}^m X^{m - d_i}
+\end{equation*}
+
+\subsubsection*{Iterative Compression}
+
+Usually this is used for problems where solutions are (in some way) parts/subsets of the instance and behave monotonously (i.e. supersets of solutions are also solutions).
+In this case, one normally has the size of the searched solution as parameter.
+Then it is easy to reduce the original problem to its ``compression variant''
+\begin{description}
+    \item[Input] Given an instance $(X, k)$ and a solution to $Z \leq X$ of size exactly $k + 1$
+    \item[Problem] Find a solution of size at most $k$ (or find that it does not exist)
+\end{description}
+By trying all $2^k$ subsets, we can further reduce it to the ``disjoint variant'' of the problem:
+\begin{description}
+    \item[Input] Given an instance $(X, k)$ and a solution $Y \leq X$ of size exactly $k + 1$
+    \item[Problem] Find a solution of size at most $k$ that is disjoint to $Y$ (or that it does not exist) 
+\end{description}
+
+\subsection{Treewidth}
+
+A tree $T$ with nodes in $2^V$ is called a tree decomposition of $G = (V, E)$, if
+\begin{itemize}
+    \item for $\{u, v\} \in E$ have a tree node containing $u, v$
+    \item for $u \in V$ have a tree node containing $u$
+    \item for $u \in V$ have that all tree nodes containing $u$ form a subtree of $T$
+\end{itemize}
+The width of a tree decomposition $T$ is the cardinality of its largest node minus 1.
+The treewidth of a graph $G = (V, E)$ is the minimal width of a tree decomposition. 
 
 \end{document}
