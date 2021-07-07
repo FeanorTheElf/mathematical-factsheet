@@ -379,11 +379,45 @@ Then the following are equivalent:
 For $\Leftarrow$ use the combinatorial lemma \ref{countable_constraint_sequence} to construct a chain $\mathcal{M}_1 \subset \mathcal{M}_2 \subset ...$ such that
 \begin{itemize}
     \item each $\mathcal{M} \in \mathcal{K}$ embeds into some $\mathcal{M}_k$.
-    \item for embeddings $f: \mathcal{A} \to \mathcal{M}_n, \ g: \mathcal{A} \to \mathcal{B}$ with $\mathcal{A}, \mathcal{B} \in \mathcal{K}$ have embedding $h: \mathcal{B} \to \mathcal{M}_n$ such that $\mathcal{M} \subset \mathcal{M}_k$ and $h \circ g = f$.
+    \item for embeddings $f: \mathcal{A} \to \mathcal{M}_n, \ g: \mathcal{A} \to \mathcal{B}$ with $\mathcal{A}, \mathcal{B} \in \mathcal{K}$ have embedding $h: \mathcal{B} \to \mathcal{M}_k$ such that $\mathcal{M}_n \subset \mathcal{M}_k$ and $h \circ g = f$.
 \end{itemize}
 As $\mathcal{K}$ is countable up to isomorphism ($\mathcal{L}$ is countable), we can satisfy (i) during the steps $(n, \perp)$.
 During step $(n, m)$ we satisfy then (ii) for $\mathcal{A}_{n, m}, \mathcal{B}_{n, m}, \mathcal{M}_n, f_{n, m}, g_{n, m}$, where $\mathcal{A}_{n, m}, \mathcal{B}_{n, m}, f_{n, m}, g_{n, m}$ runs through all possible choice of these values as $m$ runs through $\N$ (if we count $\mathcal{A}, \mathcal{B}$ only up to isomorphism, these are countably many).
 Now $\mathcal{M}^* := \bigcup_n \mathcal{M}_n$ satisfies the claim.
+
+\subsection{The Standard Lemma}
+Let $I, J$ be infinite ordered sets and $(a_i)_{i \in I}$ a sequence in $|\mathcal{M}|$.
+Then there is an $\mathcal{L}$-structure $\mathcal{N}$ and a sequence of indiscernibles $(b_j)_{j \in J}$ in $|\mathcal{N}|$ such that $\mathcal{M} \equiv \mathcal{N}$ and $(b_j)_j$ realizes the Ehrenfeucht-Mostowski-type
+\begin{equation*}
+    \mathrm{EM}^{\mathcal{M}}((a_i)_i) := \{ \phi(x_1, ..., x_n) \ | \ n \in \N, \ (\mathcal{M}, \mathrm{id}_{|\mathrm{M}|}) \models \phi(a_{i_1}, ... a_{i_n}) \ \text{for all} \ i_1 < ... < i_n \}
+\end{equation*}
+i.e. for $\phi(x_1, ..., x_n) \in \mathrm{EM}^{\mathcal{M}}((a_i)_i)$ have
+\begin{equation*}
+    (\mathcal{M}, \mathrm{id}_{|\mathcal{M}|}) \models \phi(b_{j_1}, ..., b_{j_n}) \ \text{for all} \ j_1 < ... < j_n
+\end{equation*}
+\paragraph{Proof} Introduce constants $C = \{ c_j \ | \ j \in J \}$ and define a corresponding order on $C$.
+Now a model of
+\begin{align*}
+    \mathrm{Th}(\mathcal{M})& \cup \Sigma_C \cup \Gamma_{C, \mathrm{Fml}(\mathcal{L})} \\
+    \text{where} \ &\Sigma_D = \{ \psi(\bar{c}) \ | \ \psi(\bar{c}) \in \mathrm{EM}^{\mathcal{M}}((a_i)_i), \ \bar{c} \in D^n \ \text{increasing} \} \\
+    &\Gamma_{D, \Delta} = \{ \phi(\bar{c}) \leftrightarrow \phi(\bar{d}) \ | \ \phi(\bar{x}) \in \Delta, \ \bar{c}, \bar{d} \in D^n \ \text{increasing} \}
+\end{align*}
+shows the claim. So use the compactness theorem. 
+A finite subset of these sentences is contained in $\mathrm{Th}(\mathcal{M}) \cup \Sigma_D \cup \Gamma_{D, \Delta}$ for finite $D \subseteq C, \Delta \subseteq \mathrm{Fml}(\mathcal{L})$.
+Now we find $(a_d)_{d \in D}$ such that
+\begin{equation*}
+    (\mathcal{M}, (a_d)_d) \models \mathrm{Th}(\mathcal{M}) \cup \Sigma_D \cup \Gamma_{D, \Delta}
+\end{equation*}
+This can be done by choosing increasing elements from an infinite set $B$, where $B \subseteq \{ a_i \ | \ i \in I \}$ such that $\bar{b} \sim \bar{d}$ for increasing $\bar{b}, \bar{d} \in B^n$.
+Here $\sim$ is defined by
+\begin{equation*}
+    \bar{b} \sim \bar{d} :\Leftrightarrow (\mathcal{M}, \mathrm{id}_{\mathcal{M}}) \models \phi(\bar{b}) \leftrightarrow \phi(\bar{d}) \ \text{for all} \ \phi(\bar{x}) \in \Delta
+\end{equation*}
+We get this set $B$ from Ramsey's theorem, as the partition $\Omega_n(\{ a_i \ | \ i \in I \})/\sim$ is finite ($\Delta$ is finite).
+
+\subsubsection{Ramsey's theorem}
+Let $A$ be infinite, $n \in \N$ and set $\Omega_n(A) := \{ B \subseteq A \ | \ \mathrm{card}(B) = n \}$.
+For a finite partition $\Omega_n(A) = \bigcup_{k \leq N} C_k$ have an infinite $\tilde{A} \subseteq A$ with $\Omega_n(\tilde{A}) \subseteq C_k$ for some $k \in \N$.
 
 \section{Algebra}
 
