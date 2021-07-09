@@ -347,6 +347,7 @@ There exists a bijective sequence $(x_n, y_n)_n$ with $x_n \in \N, y_n \in \N \c
 \end{itemize}
 
 \subsection{Ryll-Nardzewski Theorem}
+\label{ryll_nardzewski}
 Let $\mathcal{L}$ be countable and $T$ a complete theory. 
 Then $T$ is $\aleph_0$-categorical if and only if for every $n \in \N$ there are only countably many $\phi(x_1, ..., x_n) \in \mathrm{Fml}(\mathcal{L})$ up to provable equivalence in $T$.
 
@@ -433,6 +434,7 @@ For a language $\mathcal{L}$ there is a Skolem theory $T_{\mathrm{Skol}}$, i.e. 
 \paragraph{Proof idea} Introduce function symbols for all $\forall \bar{x} \exists y \ \psi(\bar{x}, y)$.
 
 \subsection{Stability and transcendence}
+\label{stability_transcendence_facts}
 Let $\mathcal{L}$ be countable and $T$ a complete $\mathcal{L}$-theory.
 \begin{itemize}
     \item $T$ is $\kappa$-categorical for uncountable $\kappa$ $\Rightarrow$ $T$ is $\omega$-stable
@@ -461,20 +463,53 @@ Let $X$ be an infinite set of cardinality $\kappa$ and $\mathcal{C} \subseteq 2^
 Then there is $x \in X$ such that $\mathcal{C}_x := \{ A \in \mathcal{C} \ | \ x \in A \}$ and $\mathcal{C} \setminus \mathcal{C}_x$ are of cardinality $> \kappa$.
 \paragraph{Proof} Assume not, so wlog $\mathrm{card}(\mathcal{C}_x) \leq \kappa$. Then also $\mathcal{C} \setminus \{ \emptyset \} = \bigcup_{x \in X} \mathcal{C}_x$ is of cardinality $\leq \mathrm{card}(\kappa \times \kappa) = \kappa$, a contradiction.
 
+\subsection{Saturation and categoricity}
+\label{uncountable_saturation_categoricity}
+Let $\mathcal{L}$ be countable, $T$ a complete theory and $\kappa$ be an infinite cardinal. 
+Then $T$ is $\kappa$-categorical if and only if every model of $T$ of cardinality $\kappa$ is saturated. 
+\paragraph{Proof idea} Showing $\Leftarrow$ is easy. For $\Rightarrow$, if $\kappa = \aleph_0$ the claim follows by \ref{ryll_nardzewski}.
+Otherwise, note that a model $\mathcal{M}$ is $\kappa$-stable by \ref{stability_transcendence_facts}, thus for $\lambda < \kappa$ we find an elementary extension that is $\lambda^+$-saturated and of same cardinality.
+All of them are isomorphic by assumption, thus $\mathcal{M}$ is saturated.
+
 \subsection{Constructible Prime Extensions}
+\label{constructible_prime_extensions}
 Let $\mathcal{L}$ be countable, $T$ a totally transcendental theory and $\mathcal{M}$ a model.
 Then every $A \subseteq |\mathcal{M}|$ has a constructible elementary prime extension $\mathcal{M}_0$, so $\mathcal{M}_0$ is constructible over $A$ and every partial elementary map $A \to \mathcal{N}$ extends to an elementary embedding $\mathcal{M}_0 \to \mathcal{N}$.
 \paragraph{Proof idea} A maximal constructible subset of $|\mathcal{M}|$ already defines an elementary substructure of $\mathcal{M}$ and an elementary prime extension of $A$.
 
 \subsection{Theorem of Lachlan}
+\label{lachlan_theorem}
 Let $\mathcal{L}$ be countable and $T$ totally transcendental with an uncountable model $\mathcal{M}$.
 Then there are arbitrarily large $\mathcal{N} \succ \mathcal{M}$ that omit every possible countable type, i.e. every countable type omitted in $\mathcal{M}$.
-\paragraph{Proof idea} Call an $\mathcal{L}(\mathcal{M})$-formula ``large'', if it has uncountably many realizations.
+
+\paragraph{Proof idea} Call an $\mathcal{L}(\mathcal{M})$-formula ``large'', if it has uncountably many realizations in $\mathcal{M}$.
 As $\mathcal{M}$ has no binary tree of consistent formulas, there is an $\mathcal{L}(\mathcal{M})$-formula $\phi_0(x)$ which does not have two large tree children (i.e. either $\phi_0 \wedge \psi$ or $\phi_0 \wedge \neg\psi$ are not large).
 Thus $p(x) = \{ \psi(x) \in \mathrm{Fml}(\mathcal{L}(\mathcal{M})) \ | \ \phi_0 \wedge \psi \ \text{large} \}$ is a complete type over $\mathcal{M}$.
 
-Now consider a constructible elementary prime extension $\mathcal{N}$ of $|\mathcal{M}| \cup b$, where $b$ realizes $p$ (in some elementary extension of $\mathcal{M}$).
+Now consider a constructible elementary prime extension $\mathcal{N}$ of $|\mathcal{M}| \cup \{a\}$, where $a$ realizes $p$ (in some elementary extension of $\mathcal{M}$) by \ref{constructible_prime_extensions}.
+Let $\Phi(x) \subseteq \mathrm{tp}^{\mathcal{N}}(b/\mathcal{M})$ be a countable type realized in $\mathcal{N}$, then it is by constructibility isolated by some $\chi(a, y)$.
+\begin{equation*}
+    \Psi(x) := \{ \forall y \ (\chi(x, y) \rightarrow \phi(y)) \ | \ \phi \in \Phi \} \subseteq p \quad \text{is a countable subset}
+\end{equation*}
+We show that it is realized in $\mathcal{M}$, so we find an element $\tilde{a} \in |\mathcal{M}|$ ``sufficiently like $a$'' such that it can be used to isolate $\Phi$.
+Then clearly $\Phi$ is realized in $\mathcal{M}$. 
 
+Let $\Psi = \{ \psi_n \ | \ n \in \N \}$. Then the set $R_n$ of realizations of $\phi_0 \cap \neg\psi_n$ is countable, so also $\bigcup_{n \in \N} R_n$ is.
+However $\phi_0$ has uncountably many realizations, so find one not in $\bigcup_n R_n$. This then realizes all $\psi_n$, hence $\Psi$.
+
+Now repeat this construction to get an arbitrarily long elementary chain, yielding arbitrarily large elementary extensions.
+
+\subsection{Morley's Theorem}
+Let $\mathcal{L}$ be countable and $T$ an $\mathcal{L}$-theory. Then the following are equivalent:
+\begin{itemize}
+    \item $T$ is $\aleph_1$-categorical
+    \item $T$ is $\kappa$-categorical for some uncountable cardinal $\kappa$
+    \item $T$ is $\kappa$-categorical for all uncountable cardinals $\kappa$
+\end{itemize}
+\paragraph{Proof idea} Show only (ii) $\Rightarrow$ (i), the direction (i) $\Rightarrow$ (iii) was not proven.
+Consider a non-saturated model $\mathcal{M}$ of $T$ of cardinality $\aleph_1$. Then $\mathcal{M}$ omits some countable type.
+Using \ref{stability_transcendence_facts} and \ref{lachlan_theorem} we lift it to a non-saturated elementary extension of cardinality $\kappa$.
+Now get a contradiction by \ref{uncountable_saturation_categoricity}.
 
 \section{Algebra}
 
