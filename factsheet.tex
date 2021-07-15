@@ -246,6 +246,7 @@ In the inductive step, the next element is found by considering the types $f(\ma
 Let $M, N$ be sets of same cardinality $\kappa$ and $\mathcal{G}$ a class of bijective maps $A \to B$ for subsets $A \subseteq M, B \subseteq N$.
 Assume that $\mathcal{G}$ is invariant under monotonous unions and for $f: A \to B \in \mathcal{G}$ and $a \in M \setminus A, \ b \in N \setminus B$ there are extensions $f_a: A \cup \{a\} \to B', \ f_b: A' \to B \cup \{b\}$.
 Then there is a bijective map $F: M \to N$ in $\mathcal{G}$.
+
 \paragraph{Proof} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $M$ and $(b_\beta)_{\beta < \kappa}$ be the elements of $N$.
 Construct $f_\beta: A_\beta \to B_\beta$ in $\mathcal{G}$ by transfinite induction such that $a_\gamma \in A_\beta, \ b_\gamma \in B_\beta$ for all $\gamma < \beta$.
 Thus $A_\kappa = M$ and $B_\kappa = N$. The claims for the induction follow directly by the assumptions.
@@ -1250,7 +1251,33 @@ When measuring both states, the probability to get some $k \in \{0, ..., N-1\}, 
 \end{align*}
 where $M = \left\lfloor \frac {N - x_0} b \right\rfloor \approx \frac N b$ and the denominators are non-zero as $b$ is wlog odd.
 
-TODO
+As $b$ is odd, have $\overline{b} \in \Z_N^*$ and so there are at least $b$ different $k \in \{0, ..., N - 1\}$ such that $|kb \mod N| \leq \frac b 2$.
+For such a $k$, have that $\delta_k := \frac {kb} {N} - \lfloor \frac {kb} {N} \rceil$ is at most $\frac b {2N}$ in absolute value.
+Thus
+\begin{equation*}
+    \sin\left(2\pi \frac{kb} N\right) = \sin(2\pi\delta_k) \leq |\delta_k|
+\end{equation*}
+and $\delta_k (M + 1)$ is at most $\frac N b \frac b {2N} = \frac 1 2$ in absolute value, so ($\sin$ is convex in $[0, \frac 1 2]$)
+\begin{equation*}
+    \sin\left(2\pi \frac{kb(M + 1)} N\right) = \sin(2\pi\delta_k(M + 1)) \geq |\delta_k| (M + 1) \sin\left(\frac 1 2\right) \geq \frac {|\delta_k|(M + 1)} 3
+\end{equation*}
+It follows that
+\begin{equation*}
+    \frac 1 {N^2} \left| \frac {\sin(2\pi \frac {kb(M+1)} N)} {\sin(2\pi \frac {kb} N)} \right|^2 \geq \frac 1 {N^2} \left( \frac {|\delta_k| (M + 1)} 3 \frac 1 {|\delta_k|} \right)^2 = \frac {(M + 1)^2} {9N^2} \geq \frac 1 {9b^2} \left(1 - \frac {2b} N + \frac {b^2} {N^2}\right)
+\end{equation*}
+As $f$ takes different values on different cosets, we have $b$ different values of the form $f(x_0)$. 
+For each of them, the above applies, so the probability that we measure any value where the first component is a fixed $k \in \{ 0, ..., N - 1\}$ with $|\delta_k| \leq \frac b {2N}$ is at least
+\begin{equation*}
+    b \cdot \frac {1 - \epsilon} {9b^2} = \frac {1 - \epsilon} {9b}
+\end{equation*}
+where $\epsilon = 1 - \frac {2b} N + \frac {b^2} {N^2}$.
+
+As there are at least $b$ such $k$, the probability that we measure a value whose first component satisfies $|\delta_k| \leq \frac b {2N}$ is at least
+\begin{equation*}
+    b \cdot \frac {1 - \epsilon} {9b} = \frac {1 - \epsilon} 9
+\end{equation*}
+If $N$ is sufficiently large - say $N \geq b^2$ - then $\epsilon \in \Theta(\frac 1 b)$, hence we can find a $k$ with $|\delta_k| \leq \frac b {2N}$ in polynomial time.
+Using continued fractions, we can extract $b$ from this.
 
 \section{Algorithms}
 
