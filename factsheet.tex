@@ -242,6 +242,11 @@ Then construct by transfinite induction a chain of maps $f_\beta: A_\beta := \{a
 In the inductive step, the next element is found by considering the types $f(\mathrm{tp}_\exists^{\mathcal{M}}(a_\beta / A_\beta))$ resp $f(\mathrm{tp}^{\mathcal{M}}(a_\beta / A_\beta))$ over $\mathcal{N}$.
 
 \subsection{Back-and-forth Argument}
+\begin{center}
+    Well, I guess the theorem is correct and still misses the whole point.
+    The way it currently goes, we could just extend $f$ to $M \to B$ first and then to $M \to N$.
+    However, the interesting thing is the cardinality, so the fact that if one alternatively extends the maps correctly, there will always be elements ``left'' on the other side.
+\end{center}
 \label{back_and_forth}
 Let $M, N$ be sets of same cardinality $\kappa$ and $\mathcal{G}$ a class of bijective maps $A \to B$ for subsets $A \subseteq M, B \subseteq N$.
 Assume that $\mathcal{G}$ is invariant under monotonous unions and for $f: A \to B \in \mathcal{G}$ and $a \in M \setminus A, \ b \in N \setminus B$ there are extensions $f_a: A \cup \{a\} \to B', \ f_b: A' \to B \cup \{b\}$.
