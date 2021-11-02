@@ -731,11 +731,41 @@ $X_1, ..., X_n$ independent, $0 \leq X_i \leq 1$. Then
     \end{split}
 \end{equation}
 
+\section{Measure and Integration theory}
+
+\subsection{Dominated convergence theorem}
+\paragraph{Riemann-integral}
+Let $(f_n)$ be a sequence of Riemann-integrable functions $\R \to \C$ that converges pointwise to $f: \R \to \C$. If
+\begin{itemize}
+    \item $(f_n)$ is dominated, i.e. there is a Riemann-integrable function $g: \R \to \R_+$ with finite integral and $|f_n(x)| \leq g(x)$ for all $x \in \R$
+    \item $f$ is Riemann-integrable
+\end{itemize}
+then
+\begin{equation*}
+    \lim_{n \mapsto \infty} \int_{-\infty}^{\infty} f_n(x) dx = \int_{-\infty}^{\infty} f(x) dx
+\end{equation*}
+\paragraph{Measure integral}
+Let $(f_n)$ be a sequence of measurable functions $S \to \C$ in a measure space $(S, \Sigma, \mu)$ that converges pointwise to $f: S \to \C$ and is dominated by a measurable function $g: S \to \R_+$ with finite integral.
+Then $f$ is measurable and
+\begin{equation*}
+    \lim_{n \mapsto \infty} \int f_n(x) dx = \int f(x) dx
+\end{equation*}
+
 \subsection{Transformation}
-$\phi: U \to \mathbb{R}^n$ injective. Then
+Let $\phi: U \to \mathbb{R}^n$ be injective and $f: \R^n \to \R$ be Riemann-integrable. Then
 \begin{equation}
     \int_{\phi(U)} f(x) dx = \int_U f(\phi(x)) \ |\det(D\phi)(u)| \ dx \nonumber
 \end{equation}
+
+\subsection{Fubini's theorem}
+Let $X$ and $Y$ be $\sigma$-finite measure spaces and consider a $X \times Y$-measurable function $f: X \times Y \to \C$. If
+\begin{equation*}
+    \int_{X \times Y} |f(x, y)| d(x, y) \quad \text{is finite}
+\end{equation*}
+then
+\begin{equation*}
+    \int_X \int_Y f(x, y) dy \ dx = \int_{X \times Y} f(x, y) d(x, y) = \int_Y \int_X f(x, y) dy \ dx
+\end{equation*}
 
 \section{Topology}
 
