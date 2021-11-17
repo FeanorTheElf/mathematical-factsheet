@@ -675,9 +675,9 @@ In the inductive case, find a maximal prime ideal chain $\mathfrak{y}_1 \subsetn
 Let $V \subseteq \mathbb{P}^n$ be a projective $K$-variety with $(1 : 0 : ... : 0) \notin V$.
 Let
 \begin{equation*}
-    \pi: V \to \mathbb{P}^{n - 1}, \ (a_0 : ... : a_n) \mapsto (a_1 : ... : a_n)
+    \pi: V \to \mathbb{P}^{n - 1}, \ [a_0 : ... : a_n] \mapsto [a_1 : ... : a_n]
 \end{equation*}
-Then $\pi(V) = Z^+(\I^+(V) \cap K[x_1, ..., x_n])$.
+Then $\pi(V)$ is closed.
 
 In particular, it follows that for a morphism $\phi: V \to \mathbb{P}^m$ have \
 \begin{equation*}
@@ -685,21 +685,55 @@ In particular, it follows that for a morphism $\phi: V \to \mathbb{P}^m$ have \
 \end{equation*}
 is closed.
 
-\paragraph{Proof} The inclusion $\subseteq$ clearly holds. 
-So let $(a_1 : ... : a_n) \in Z^+(\I^+(V) \cap K[x_1, ..., x_n])$.
-With $\I^+(V) = \langle f_1, ..., f_m \rangle$ it suffices to show that 
+\paragraph{We show the following}
+Let $U \subseteq \mathbb{P}^{n - 1}_k$ such that for all $[a_1 : ... : a_n] \in U$ there is $a \in k$ with $[a_0 : a_1 : ... : a_n] \in V$.
+Then this also holds for $W := \overline{U}$.
+\paragraph{Proof} 
+Have that for all $[a_1 : ... : a_n] \in U$ it holds that
 \begin{equation*}
-    J = \langle f_1(x, a_1, ..., a_n), ... f_m(x, a_1, ..., a_n) \rangle
+    1 \notin \langle f_1(x, a_1, ..., a_n), ..., f_m(x, a_1, ..., a_n) \rangle \leq k[x]
 \end{equation*}
-is a proper subset of $K[x]$.
-Consider
-\begin{align*}
-    \phi: P_{l - \deg f_1} \times ... \times P_{l - \deg f_m} &\to P \\
-    (g_1, ..., g_m) &\mapsto \sum_i g_i(1, a_1, ..., a_n) f_i(1, a_1, ..., a_n) x^l
-\end{align*}
-We see that $\mathrm{im}\phi = J_l$. Hence, assume that $\mathrm{ev}_{a_1, ..., a_m} \circ \phi$ is surjective.
-Let $g_1, ..., g_m$ such that $\phi(g_1, ... g_m) = x^l$.
-Then $f = \sum_i g_i f_i(x, y_1, ..., y_n) \in \I^+(V) \cap K[y_1, ..., y_n]$. We get a contradiction as by assumption, $f(a_1, ..., a_n) = 0 \neq 1$.
+where $\I^+(V) = \langle f_1, ..., f_m \rangle$ homogeneous ideal. 
+We show that there is a joint solution $\alpha$ in the algebraic closure $K$ of $k(W)$ of the equations
+\begin{equation*}
+    \langle f_1(x, y_1, ..., y_n), ..., f_m(x, y_1, ..., y_n \rangle \leq k[W][x]
+\end{equation*}
+Assume not, then Hilbert's Nullstellensatz yields that $1 = \sum_i \tilde{g}_i f_i(x, y_1, ..., y_n)$ for $\tilde{g}_i \in k(W)[x]$
+(here we use the nontrivial fact that $IK[x] \cap k(W)[x] = I$ for $I \leq k(W)[x]$).
+In particular, we find
+\begin{equation*}
+    g = \sum_i g_i f_i(x, y_1, ..., y_n)
+\end{equation*}
+for $g_i \in k[W][x]$ and $g \in k[W] \setminus \{0\}$.
+
+Consider now the open subset $S := W \setminus \V(g) \subseteq W$.
+Now for each $b \in S$ we find a well-defined ring homomorphism
+\begin{equation*}
+    k[W] \to k, \quad f \in R \mapsto f(b)
+\end{equation*}
+In particular, the image of $f_i(x, y_1, ..., y_n)$ under this map is $f_i(x, b_1, ..., b_n)$. 
+Thus we find a representation
+\begin{equation*}
+    g(b_1, ..., b_n) = \sum_i g'_i f_i(x, b_1, ..., b_n) \in k^*
+\end{equation*}
+where $g'_i \in k[x]$ is the image of $g_i \in k[W][x]$.
+This shows that for $b \in S$ there is no $b_0 \in k$ with $[b_0 : ... : b_n] \in V$.
+However, $U$ is dense in $W$ and $S$ is open, so $U \cap S \neq \emptyset$, a contradiction.
+
+So let now $\alpha \in K$ be a universal solution of $f_i(x, y_1, ..., y_n)$.
+Further, let $t \in k[W]$ such that $t\alpha$ is integral over $k[W]$.
+Consider the minimal polynomial $F \in k[W][T]$ of $t\alpha$ over $k(W)$.
+Now let $b \in W$. As $F \in k[W][T]$ is monic, $F(b) \in k[T]$ is a well-defined, non-constant polynomial.
+Hence, it has a root $\beta \in k$ and we can consider the ``evaluation map''
+\begin{equation*}
+    k[W][t\alpha] \to k, \quad y_i \mapsto b_i, \ t\alpha \mapsto \beta
+\end{equation*}
+As the $f_i$ are homogenous, find $f_i(t\alpha, ty_1, ..., ty_n) = t^{\deg f_i}(\alpha, y_1, ..., y_n) = 0$.
+Hence, taking the image under the above ring homomorphism yields
+\begin{equation*}
+    0 = f_i(\beta, t(b) b_1, ..., t(b) b_n)
+\end{equation*}
+Thus there is $[\beta, t(b) b_1, ..., t(b) b_n] \in V$, but since $[1 : 0 : ... : 0] \notin V$ by assumption, we see that $t(b) \neq 0$ and the claim is shown.$\hfill\square$
 
 \section{Probabilities}
 
