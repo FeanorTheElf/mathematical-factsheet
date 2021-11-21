@@ -6,3 +6,7 @@
 *.toc
 *.synctex(busy)
 *.out
+*.bbl
+*.bcf
+*.blg
+*.run.xml
