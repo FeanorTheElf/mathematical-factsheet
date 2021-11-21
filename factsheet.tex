@@ -640,11 +640,11 @@ Let $A$ be a finitely generated ring extension of a field $K$ and $f \in K[x_1, 
 Then there are $r_1, ..., r_{n - 1} \in \N$ such that $a^{-1}f(x_1 + x_n^{r_1}, ..., x_{n - 1} + x_n^{r_{n - 1}}, x_n)$ is monic with $a \in K^*$.
 
 \subsection{Hilbert's Nullstellensatz}
-Let $I \leq K[x_1, ..., x_n]$. Then
+Let $I \leq K[x_1, ..., x_n]$ and $K$ algebraically closed. Then
 \begin{itemize}
     \item (weak Nullstellensatz) $1 \notin I$ if and only if $\V(I) \neq \emptyset$
     \item (strong Nullstellensatz) $\I(\V(I)) = \mathrm{Rad}(I)$
-    \item (projective Nullstellensatz) If $I$ is homogeneous, then $\I^+(Z^+(I)) = \mathrm{Rad}(I)$
+    \item (projective Nullstellensatz) If $I$ is homogeneous, then $\I^+(\V^+(I)) = \mathrm{Rad}(I)$
 \end{itemize}
 \paragraph{Proof idea} For (ii), let $f \in \I(\V(I)) \setminus \{0\}$ and consider $J = \langle I \rangle + \langle Xf - 1 \rangle \leq K[x_1, ..., x_n, X]$.
 As $f$ vanishes on $\V(I)$ get $\V(J) = \emptyset$, so by the weak Nullstellensatz $1 \in J$.
@@ -734,6 +734,51 @@ Hence, taking the image under the above ring homomorphism yields
     0 = f_i(\beta, t(b) b_1, ..., t(b) b_n)
 \end{equation*}
 Thus there is $[\beta, t(b) b_1, ..., t(b) b_n] \in V$, but since $[1 : 0 : ... : 0] \notin V$ by assumption, we see that $t(b) \neq 0$ and the claim is shown.$\hfill\square$
+
+\subsection{Theorem (Plücker relations)}
+For the Grassmanian $\mathrm{Gr}(d, n) := \{ U \subseteq k^n \ | \ U \ \text{$d$-dimensional linear subspace}\}$ have that the map
+\begin{equation*}
+    \mathrm{Gr}(d, n) \to \mathbb{P}^{{n \choose d} - 1}, \quad U = \V(\underbrace{Mx}_{\mathclap{\text{as matrix-vector multiplication, $M \in k^{d \times n}$}}}) \mapsto \left( \det \tilde{M} \right)_{\tilde{M} \in k^{d \times d} \ \text{minor of $M$}}
+\end{equation*}
+is a closed embedding of projective varieties.
+Note that it is well-defined, as for $M, M'$ with $\V(Mx) = \V(M'x)$ have $A \in \mathrm{GL}(d, k)$ such that $M = AM'$ and so $\det(\tilde{M}) = \det(A)\det(\tilde{M}')$. 
+
+\subsection{Properties of the Grassmanian}
+The Grassmanian $\mathrm{Gr}(d, n)$ is an irreducible variety.
+Further, $\dim\mathrm{Gr}(d, n) = d(n - d)$ and
+\begin{equation*}
+    \deg\mathrm{Gr}(d, n) = (d(n - d))! \frac {1! \cdot 2! \cdot ... \cdot (d - 1)!} {(n - d)! \cdot (n - d + 1)! \cdot ... \cdot (n - 1)!}
+\end{equation*}
+\paragraph{Proof}
+Note that $\mathrm{GL}(n, k)$ is an irreducible affine (quasi-projective) variety, and we find a surjective morphism
+\begin{equation*}
+    \mathrm{GL}(n, k) \to \mathrm{Gr}(d, n), \quad T \mapsto \mathrm{span}\{T e_1, ..., T e_d\}
+\end{equation*}
+This shows that $\mathrm{Gr}(d, n)$ is irreducible. The other statements are harder to show.
+
+\subsection{Dimension of varieties}
+For an affine variety $X \subseteq \mathbb{A}^n$ have that $\dim X = \dim k[X]$.
+For a projective variety $X \subseteq \mathbb{P}^n$ have that $\dim X$ is the maximal length of homogeneous prime ideal chains not containing $\langle x_0, ..., x_n \rangle$ in $S(X)$.
+It follows that $\dim X = \dim S(X) - 1$.
+
+\subsection{Degree of a variety}
+For each projective variety $X \subseteq \mathbb{P}^{n + 1}$ of dimension $d$ there exists an open subset $U \subseteq \mathrm{Gr}(n + 1 - d, n + 1)$ such that for all $L \in U$, the set $L \cap X$ is finite has maximal size among all choices of $U$ (its size does not depend on the $L \in U$).
+
+This size of $L \cap X$ is called the degree $\deg(X)$ of $X$.
+
+\subsection{Weak Bezout's theorem}
+Let $X, Y \subseteq \mathbb{P}^n$ be projective varieties of pure dimension (i.e. all irreducible components have the same dimension) with $\dim(X \cap Y) = \dim X + \dim Y - n$.
+Then $\deg(X \cap Y) \leq \deg X \deg Y$.
+
+\subsection{Hilbert function and Hilbert polynomial}
+Let $X \subseteq \mathbb{P}^n$ be a projective variety. Then for sufficiently large $m$, the Hilbert function
+\begin{equation*}
+    h_X: \N \to \N, \quad m \mapsto \dim_k S(X)_m
+\end{equation*}
+is given by a polynomial $p_X \in \Q[z]$. The leading term of $p_X$ is
+\begin{equation*}
+    \frac {\deg X} {(\dim X)!} \cdot z^{\dim X}
+\end{equation*}
 
 \section{Probabilities}
 

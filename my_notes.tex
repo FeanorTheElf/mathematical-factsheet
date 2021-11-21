@@ -1,0 +1,125 @@
+\documentclass{scrartcl}
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{xparse}
+\usepackage{geometry}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage[style=english]{csquotes}
+\usepackage[language=english, backend=biber, style=alphabetic, sorting=nyt]{biblatex}
+
+\usetikzlibrary{babel, positioning, shapes.geometric, arrows, arrows.meta}
+\addbibresource{bibliography.bib}
+
+\title{Some Notes on Morphisms and Elliptic Curves}
+\author{Simon Pohmann}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\proj}{\mathrm{proj}}
+\newcommand{\Quot}{\mathrm{Quot}}
+\renewcommand{\O}{O}
+
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{theorem}[prop]{Theorem}
+\newtheorem{lemma}[prop]{Lemma}
+\newtheorem{corollary}[prop]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{problem}[prop]{Problem}
+\newtheorem{alg}[prop]{Algorithm}
+\newtheorem{definition}[prop]{Definition}
+\newtheorem{example}[prop]{Example}
+\newtheorem{remark}[prop]{Remark}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Projective morphisms}
+Let $V \subseteq \mathbb{P}^n, W \subseteq \mathbb{P}^m$ be projective varieties.
+
+\begin{definition}
+    The affine coordinate ring of $V$ is defined as 
+    \begin{equation*}
+        k[V] := k[x_1, ..., x_n]/\mathbb{I}_{\mathrm{aff}}(V \cap \mathbb{A}^n)
+    \end{equation*}
+    The projective coordinate ring of $V$ is defined as
+    \begin{equation*}
+        S(V) := S_k(V) := k[x_0, ..., x_n]/\mathbb{I}_{\mathrm{proj}}(V)
+    \end{equation*}
+\end{definition}
+Now we want to build maps by interpreting elements of these rings as polynomials.
+This is quite subtle, as it is hard to get a well-defined notion.
+\begin{definition}
+    Let $u_0, ..., u_m \in S(V)$ be homogeneous of same degree.
+    For a point $a = [a_0 : ... : a_n] \in V$ say that $[u_0 : ... : u_m]$ is defined on $a$ if there are polynomials $f_0, ..., f_m \in k[x_0, ..., x_n]$ homogeneous of same degree with
+    \begin{equation*}
+        (f_0(a_0, ..., a_n), ..., f_m(a_0, ..., a_n)) \neq (0, ..., 0) \quad \text{and} \quad \forall i: \ \overline{f}_i = u_i \in S(V)
+    \end{equation*}
+    In this case, define the value of $[u_0 : ... : u_m]$ at $a$ as
+    \begin{equation*}
+        [u_0 : ... : u_m](a) := [f_0(a_0, ..., a_n) : ... : f_m(a_0, ..., a_n)] \in \mathbb{P}^m
+    \end{equation*}
+\end{definition}
+\begin{lemma}
+    This is well-defined.
+\end{lemma}
+Using this, define the notion of rational map and morphism.
+\begin{definition}
+    A partial map $\phi: V \to W$ is called rational, if there are $u_0, ..., u_m \in S(V)$ homogeneous of same degree such that for all points $a \in V$ at which $\phi$ is defined, have
+    \begin{equation*}
+        [u_0 : ... : u_m](a) \ \text{is defined and} \ [u_0 : ... : u_m](a) = \phi(a)
+    \end{equation*}
+    Furthermore, $\phi$ is called morphism if it is defined on the whole of $V$.
+    We will also denote the morphism by $\phi = [u_0 : ... : u_m]$.
+\end{definition}
+The condition ``homogeneous of same degree'' is quite bulky, and moreover, the representation $[u_0 : ... : u_m]$ is not unique.
+Concretely, a morphism determines the tuple $(u_0, ..., u_m)$ only up to scaling by $S(V) \setminus \{0\}$.
+Using the affine coordinate ring, we find a much nicer characterization.
+\begin{theorem}
+    Consider the $S(V)$-module
+    \begin{equation*}
+        M^{(m)} := \{ (u_0, ..., u_m) \in S(V)^{m + 1} \ | \ u_0, ..., u_m \ \text{homogeneous of same degree} \}
+    \end{equation*}
+    Then there is a bijection
+    \begin{align*}
+        \Phi: \ &(M^{(m)} \setminus \{0\}) \ / \ (S(V) \setminus \{0\}) \to \Quot(k[V])^m, \\
+        &\overline{(u_0, ..., u_m)} \mapsto \left( \frac {u_i(1, x_1, ..., x_n)} {u_j(1, x_1, ..., x_n)} \right)_{i \neq j} \text{where $u_j(1, x_1, ..., x_n) \neq 0 \in k[V]$}
+    \end{align*}
+    that is compatible with evaluation maps, i.e. for $u_1, ..., u_m \in k[V]$ and $v_1, ..., v_r \in k[W]$ such that $g(u_0, ..., u_m) = 0$ for all $g \in \I(W)$ homogeneous, have
+    \begin{equation*}
+        \Phi\left(\mathrm{ev}_{(u_1, ..., u_m)}((v_1, ..., v_r))\right) = \mathrm{ev}_{\Phi((v_1, ..., v_r))}\left(\Phi(u_1, ..., u_m)\right)
+    \end{equation*}
+    Further we can express evaluation of $(u_0, ..., u_m) \in M^{(m)}$ at a point $a = [1 : a_1 : ... : a_n] \in V$ for which $[u_0 : ... : u_m](a)$ is defined as follows:
+    There exist elements $g, f_1, ..., f_m \in k[V]$ with $\Phi((f_1/g, ..., f_m/g)) = (u_0, ..., u_m)$ such that one of the following is the case:
+    \begin{itemize}
+        \item Either $g(a_1, ..., a_m) \neq 0$ and
+        \begin{equation*}
+            [1 : f_1(a)/g(a) : ... : f_m(a)/g(a)] = [u_0 : ... : u_m](a)
+        \end{equation*}
+        \item Or $g(a_1, ..., a_m) = 0, \ (f_1(a), ..., f_m(a)) \neq (0, ..., 0)$ and $[u_0 : ... : u_m](a)$ is a point in the hyperplane at infinity
+    \end{itemize}
+    Because of this, the field $k(V) := \Quot(k[V])$ is also called the function field of $V$. Note that up to isomorphism, it does not depend on the choice of the embedding $\mathbb{A}^n \to \mathbb{P}^n$.
+\end{theorem}
+In other words, we have a nice 1-1 correspondence between rational maps $V \to \mathbb{P}^m$ with maximal set of definition to tuples in $k(V)^m$.
+From now on, we will not distinguish between those in many cases, and also use the notation $[u_1, ..., u_m]$ with elements $u_i \in k(V)$ to denote the rational map given by $\Phi^{-1}((u_1, ..., u_m))$.
+
+The affine characterization just has the problem that it gives no nice definition of the value at infinity.
+In the end, computing this will always require homogenizing the polynomials.
+
+\end{document}
