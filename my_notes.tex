@@ -20,7 +20,7 @@
 \usetikzlibrary{babel, positioning, shapes.geometric, arrows, arrows.meta}
 \addbibresource{bibliography.bib}
 
-\title{Some Notes on Morphisms and Elliptic Curves}
+\title{Some Notes on Morphisms, Regular Maps and Elliptic Curves}
 \author{Simon Pohmann}
 
 \newcommand{\N}{\mathbb{N}}
@@ -31,6 +31,13 @@
 \newcommand{\proj}{\mathrm{proj}}
 \newcommand{\Quot}{\mathrm{Quot}}
 \renewcommand{\O}{O}
+
+\newcommand\restr[2]{{
+    \left.\kern-\nulldelimiterspace
+    #1
+    \vphantom{\big|}
+    \right|_{#2}
+}}
 
 \newtheorem{prop}{Proposition}[section]
 \newtheorem{theorem}[prop]{Theorem}
@@ -91,7 +98,7 @@ Using this, define the notion of rational map and morphism.
 The condition ``homogeneous of same degree'' is quite bulky, and moreover, the representation $[u_0 : ... : u_m]$ is not unique.
 Concretely, a morphism determines the tuple $(u_0, ..., u_m)$ only up to scaling by $S(V) \setminus \{0\}$.
 Using the affine coordinate ring, we find a much nicer characterization.
-\begin{theorem}
+\begin{theorem}[Characterization using the coordinate rings]
     Consider the $S(V)$-module
     \begin{equation*}
         M^{(m)} := \{ (u_0, ..., u_m) \in S(V)^{m + 1} \ | \ u_0, ..., u_m \ \text{homogeneous of same degree} \}
@@ -122,4 +129,48 @@ From now on, we will not distinguish between those in many cases, and also use t
 The affine characterization just has the problem that it gives no nice definition of the value at infinity.
 In the end, computing this will always require homogenizing the polynomials.
 
+\section{Regular Maps}
+Now we want to examine a very similar concept, namely regular maps.
+Honestly, I am still not completely sure how exactly they differ, but hopefully, we will work it out now. 
+
+\begin{definition}[Regular map]
+    Let $X$ be an affine or projective variety. A map $f: U \to k$ for $U \subseteq X$ is called regular at a point $p \in U^\circ$, if there exists an open neighborhood $W \subseteq U$ of $p$ such that $f: W \to k \subseteq \mathbb{P}^1 \ \text{resp.} \ \mathbb{A}^1$ is a rational map (in the projective sense) and defined on the whole of $W$.
+    
+    If $U$ is open, call $f$ regular, if $f$ is regular at all $p \in U$. Write $\mathcal{O}_X(U)$ for the $k$-algebra of regular functions on $U$.
+\end{definition}
+\begin{lemma}
+    The notions of regular map on affine and projective varieties are compatible.
+    Concretely, let $X \subseteq \mathbb{P}^n$ be a projective variety and $X_a = X \cap \mathbb{A}^n \subseteq \mathbb{A}^n \subseteq \mathbb{P}^n$ an affine chart.
+    Then a map $f: X_a \to k$ is regular at $p \in X_a$ in the sense of projective varieties iff it is regular at $p$ in the sense of affine varieties.
+\end{lemma}
+\begin{proof}
+Trivial.
+\end{proof}
+\begin{definition}[Function germ]
+    Let $X$ be an affine or projective variety and $p \in X$.
+    The elements of
+    \begin{equation*}
+        \mathcal{O}_{X, p} := \{ (U, f) \ | \ U \subseteq X \ \text{open}, f: U \to k \ \text{regular} \} / \sim
+    \end{equation*}
+    where
+    \begin{equation*}
+        (U, f) \sim (U', f') :\Leftrightarrow \restr{f}{W} = \restr{f'}{W} \ \text{for some $W \subseteq U \cap U'$ open}
+    \end{equation*}
+    are called function germs at $p$.
+    Note that $\mathcal{O}_{X, p}$ is again a $k$-algebra.
+\end{definition}
+The function germs allow a nice characterization using again the coordinate ring.
+\begin{prop}
+    Let $X \subseteq \mathcal{A}^n$ be an affine variety. At $p \in X$ have
+    \begin{equation*}
+        \mathcal{O}_{X, p} \cong k[X]_{\mathfrak{m}_p}
+    \end{equation*} 
+\end{prop}
+It really seems as though there is a lot of technical complexity, but not fundamental one.
+Probably, it will get simpler when considering quasi-projective varieties, as we do not require the distinction between affine and projective varieties anymore.
+Further, one difference between regular maps and (projective) morphisms is that the former is usually defined for affine varieties, while the latter is defined for projective varieties.
+However, morphisms of affine varieties differ somewhat from regular maps, as it is possible to define by a global condition instead of locally.
+
+Finally, for quasi-projective varieties, the notion of regular map and morphism are exactly the same.
+Hence, any difference is just in the domain and range, which usually are not varieties in the case of regular maps.
 \end{document}
