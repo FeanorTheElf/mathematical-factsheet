@@ -797,16 +797,21 @@ We then have
 \end{itemize}
 
 \subsection{Dirichlet series}
-Let $(a_n)_n$ be a sequence in $\C$ with $|a_n| \leq n^{o(1)}$. Then
+Let $f: \N_{> 0} \to \C$ be a function with $|f(n)| \leq n^{o(1)}$. Then
 \begin{equation*}
-    \sum_{n \geq 1} \frac {a_n} {n^s}
+    \sum_{n \geq 1} \frac {f(n)} {n^s}
 \end{equation*}
 converges absolutely to an analytic function for $\Re(s) > 1$.
 For any $\delta > 0$ the convergence is uniform on $\Re(s) \geq 1 + \delta$.
+If also $g: \N_{> 0} \to \C$ is a function with $|g(n)| \leq n^{o(1)}$ then
+\begin{equation*}
+    \sum_{n \geq 1} \frac {(f * g)(n)} {n^s} = \left( \sum_{n \geq 1} \frac {f(n)} {n^s} \right)\left( \sum_{n \geq 1} \frac {g(n)} {n^s} \right)
+\end{equation*}
 \paragraph{Proof idea} Just show uniform convergence, the rest follows. To do so, use that for sufficiently large $n$, have
 \begin{equation*}
     \sum_{N_1 \leq n \leq N_2} \left| \frac {a_n} {n^s} \right| \leq \sum_{N_1 \leq n \leq N_2} \frac {n^{\delta/2}} {n^{\Re(s)}} \leq \frac {\delta} {2(N_1 - 1)^{\delta/2}}
 \end{equation*}
+The second part can be shown by splitting the sum and bounding one part.
 
 \subsection{Analytic continuation of $\zeta$}
 $\zeta(s)$ has a meromorphic continuation to $\Re(s) > -2$, given by
@@ -821,15 +826,69 @@ Note that this already gives an analytic continuation to $\Re(s) > 0$.
 By integration by parts and using that $\int \{t\} = \frac 1 2 \lfloor t \rfloor + \frac 1 2 \{t\}^2$, find further
 \begin{align*}
     \int_1^\infty \frac {\{t\}} {t^{s + 1}} dt &= 0 - \frac 1 2 + \frac 1 2(s + 1)\int_1^\infty \frac {\lfloor t \rfloor + \{t\}^2} {t^{s + 2}} dt \\
-    &= -\frac 1 2 + \frac {s + 1} 2 \int_1^\infty \frac t {t^{s + 2}} dt - \frac {s + 2} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt \\
-    &= -\frac 1 2 + \frac {s + 1} {2s} - \frac {s + 2} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt
+    &= -\frac 1 2 + \frac {s + 1} 2 \int_1^\infty \frac t {t^{s + 2}} dt - \frac {s + 1} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt \\
+    &= -\frac 1 2 + \frac {s + 1} {2s} - \frac {s + 1} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 1}} dt
 \end{align*}
 and so
 \begin{equation*}
-    \sum_{n \geq 1} \frac 1 {n^s} = \frac 1 {s - 1} + \frac 1 2 + \frac {(s + 2)s} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt
+    \sum_{n \geq 1} \frac 1 {n^s} = \frac 1 {s - 1} + \frac 1 2 + \frac {(s + 1)s} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt
 \end{equation*}
 Note that this already gives an analytic continuation to $\Re(s) > -1$.
 Repeating this one more time yields the claim.$\hfill\square$
+
+\subsection{Properties of $\zeta$}
+First of all, some ``basic'' properties:
+\begin{itemize}
+    \item For $x \in ]1, \infty[ \subseteq \R$ have $\zeta(x) > 0$
+    \item For $x \in ]0, 1[ \subseteq \R$ have $\zeta(x) < 0$
+    \item $\zeta(-1) = -\frac 1 {12}$
+    \item For $\Re(s) > 1$ have $\zeta'(s) = -\sum_{n \geq 1} \log(n)/n^s$
+    \item For $\Re(s) > 0$ have $\zeta(s) = \sum_{1 \leq n \leq N} \frac 1 {n^s} + N^{1 - s}/(1 - s) + O(|s| N^{-\Re(s)})$
+    \item For $0 < \Re(s) < 1$ have $|\zeta(s)| = O(1 + |t|^{1 - s}/(1 - \Re(s)))$
+    \item For $\Re(s) > 1$ have
+    \begin{align*}
+        \sum_{n \geq 1} \frac {\tau(n)} {n^s} &= \zeta(s)^2 \\
+        \sum_{n \geq 1} \frac {\mu(n)} {n^s} &= \zeta(s)^{-1} \\
+        \sum_{n \geq 1} \frac {\Lambda(n)} {n^s} &= -\frac {\zeta'(s)} {\zeta(s)}
+    \end{align*}
+    In particular, each of the sums on the left-hand side has a meromorphic continuation to $\Re(s) > -2$
+    \item For $\Re(s) > 1$ have $\zeta(s) \neq 1$
+\end{itemize}
+For the following properties, we use the functional equation and some theory on the Gamma function.
+\begin{itemize}
+    \item $\zeta(s)$ has a meromorphic continuation to $\C$
+    \item $\zeta(s)$ has a simple pole at $s = 1$ and no other poles on $\C$
+    \item $\zeta(s)$ has ``trivial'' zeros at $2\Z_{< 0}$
+    \item All other ``non-trivial'' zeros satisfy $0 \leq \Re(s) \leq 1$
+\end{itemize}
+Using \ref{bounds_complex_analytic_functions} one can show the following claims on the density of zeros of $\zeta(s)$.
+\begin{itemize}
+    \item For all $t$ have that the number of nontrivial zeros $\rho$ with $t \leq \Im(\rho) \leq t + 1$ is $O(\log(2 + |t|))$.
+    \item From the previous it follows that for $\Re(s) \geq -\frac 1 n$ have
+    \begin{equation*}
+        \frac {\zeta'(s)} {\zeta(s)} = -(s - 1)^{-1} + \sum_{\mathclap{|\rho - s| \leq \frac 1 {10}, \ \zeta(\rho) = 0}} (s - \rho)^{-1} + O(\log(2 + |t|))
+    \end{equation*}
+\end{itemize}
+
+\subsection{Euler Products}
+Let $f: \N_{>0} \to \C$ be multiplicative with $f(n) \leq n^{o(1)}$. Then for $\Re(s) > 1$ have
+\begin{equation*}
+    \sum_{n \geq 1} \frac {f(n)} {n^s} = \prod_{p \in \mathbb{P}} \ \sum_{j \geq 0} \frac {f(p^j)} {p^{js}}
+\end{equation*}
+
+\subsection{Functional equation}
+The function $\xi(s) := \zeta(s)\Gamma(\frac s 2) \pi^{-s/2}$ defined for $\Re(s) > 0$ has a meromorphic continuation to $\C$ and satisfies $\xi(S) = \xi(1 - s)$.
+\paragraph{Proof idea} Use the following, technical lemma with the Gaussian function $f(x) = \exp(-\pi x^2) \in S(\R)$ 
+\subsubsection*{Lemma}
+Let $f \in S(\R)$ with $f(x) = f(-x)$ and define
+\begin{equation*}
+    F(s) := \int_0^\infty f(x) x^{s - 1} dx \quad \text{for $\Re(s) > 0$}
+\end{equation*}
+Then
+\begin{equation*}
+    \zeta(s)F(s) = \frac {\hat{f}(0)} {2(s - 1)} - \frac {f(0)} {2s} + \int_1^\infty \left( \sum_{n \geq 1} f(nx) \right) x^{s - 1} dx + \int_1^\infty \left( \sum_{n \geq 1} \hat{f}(nu) \right) u^{-s} du
+\end{equation*}
+\paragraph{Proof idea} Use the Poisson summation formula.
 
 \section{Category Theory}
 
@@ -858,7 +917,6 @@ $X_1, ..., X_n$ independent, $0 \leq X_i \leq 1$. Then
 \begin{equation}
     \Pr\left[\sum X_i - \Ex\left[\sum X_i\right] \geq t\right] \leq \exp\left(-2\frac {t^2} n\right) \nonumber
 \end{equation}
-
 
 \section{Analysis}
 
@@ -902,6 +960,80 @@ Let $A(t) := \sum_{n \leq t} a_n$. Then
     &= A(n_2) f(n_2) - A(n_1 - 1) f(n_1) - \int_{n_1}^{n_2} A(t) f'(t) dt
 \end{align*}
 Using further that $A(n_2) f(n_2) = A(y) f(y) - \int_y^{n_2} A(t) f'(t) dt$ and $A(n_1) f(n_1) = A(x) f(x) + \int_{n_1}^x A(t) f'(t) dt$ yields the claim.$\hfill\square$
+
+\subsection{Fourier transform}
+For $f \in S(\R) := \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}, \ \forall k \in \N_{> 0}: f^{(i)}(x) = O(|x|^{-k}) \}$ have
+\begin{equation*}
+    \hat{f}(\xi) := \int_{-\infty}^{\infty} f(x) \exp(-2\pi i x \xi) dx \in S(\R)
+\end{equation*}
+and
+\begin{equation*}
+    f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) \exp(2\pi i \xi x) d\xi
+\end{equation*}
+For $f \in S(\R/\Z) = \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}\}$ have
+\begin{equation*}
+    \hat{f}(n) := \int_0^1 f(x) \exp(-2\pi i x n) dx \in S(\Z) := \{ g: \Z \to \C \ | \ \forall k \in \N_{> 0} g(n) = O(n^{-k})\}
+\end{equation*}
+and
+\begin{equation*}
+    f(x) = \sum_{n \in \Z} \hat{f}(n) \exp(2\pi i n x)
+\end{equation*}
+
+\subsection{Poisson Summation Formula}
+Let $f \in S(\R)$. Then
+\begin{equation*}
+    \sum_{n \in \Z} f(n) = \sum_{n \in \Z} \hat{f}(n)
+\end{equation*}
+
+\subsection{The Gaussian Function}
+Let $f(x) := \exp(-\pi x^2)$. Then $f \in S(\R)$ with $\hat{f}(\xi) = f(\xi)$ for all $\xi \in \R$.
+Further $\int_{-\infty}^\infty f(x) dx = 1$.
+
+\subsection{The Gamma Function}
+Define
+\begin{equation*}
+    \Gamma(s) := \int_0^\infty x^{s - 1} e^{-x} dx \quad \text{for $\Re(s) > 0$}
+\end{equation*}
+Then for $\Re(s) > 0$ have $\Gamma(s) = \Gamma(s + 1) / s$ and so we find a meromorphic continuation to $\C$ with poles only at $\Z_{< 0}$.
+
+\subsection{Euler Reflection Formula}
+For all $s \in \C$ have
+\begin{equation*}
+    \Gamma(s)\Gamma(s - 1) = \frac \pi {\sin(\pi s)}
+\end{equation*}
+(if $s \in \Z$, this means that both sides have poles of equal order at $s$)
+
+In particular, $\Gamma(s)$ has no zeros on $\C$.
+
+\subsection{Perron's Formula}
+Let $2 \leq T \leq 2x$ and $c := 1 + \frac 1 {\log x}$. Consider a sequence $(a_n)_n$ in $\C$ with $|a_n| \leq (\log n)^2$. Then
+\begin{equation*}
+    \sum_{n < x} a_n = \frac 1 {2\pi i} \int_{c - iT}^{c + iT} \frac {x^s} s \left( \sum_{n \geq 1} \frac {a_n} {n^s} \right) ds + O\left(\frac {x(\log x)^3} T\right)
+\end{equation*}
+\paragraph{Proof idea} Use the ``weak Perron's formula'' to distinguish whether $n < x$ or $n > x$.
+\subsubsection*{Lemma}
+Let $y > 0, y \neq 1$. Then for all $c > 0$ and $T \geq 2$ have
+\begin{equation*}
+    \frac 1 {2\pi i} \int_{c - iT}^{c + iT} \frac {y^s} s ds = O\left( \frac {y^c} {T |\log y|} \right) + \begin{cases}
+        1 & \text{if $y > 1$} \\
+        0 & \text{if $y < 1$}
+    \end{cases}
+\end{equation*}
+
+\subsection{Technical lemmas on holomorphic functions}
+\label{bounds_complex_analytic_functions}
+Let $f(z)$ be an analytic function on $|z| \leq R$ with Taylor series $f(z) = \sum c_n z^n$. Then
+\begin{equation*}
+    |c_n| \leq \frac {8 \max_{|z| = R} \Re(f(z) - f(0))} {R^n}
+\end{equation*}
+Further, let $f(z)$ be an analytic function on $|z| \leq R$ with $f(0) \neq 0$.
+Let $z_1, ..., z_k$ be the zeros of $f$ within $|z| \leq \frac R 2$ counted with multiplicity.
+Then there is $\epsilon > 0$ such that for $|z| \leq (\frac 1 2 - \epsilon)R$ have
+\begin{equation*}
+    \frac {f'(z)} {f(z)} = \sum_j \frac 1 {z - z_j} + O\left( \frac 1 R \max_{|x| = R} \log\left| \frac {f(x)} {f(0)} \right| \right)
+\end{equation*}
+Further, let $f(z)$ be an analytic function on $|z| \leq R$.
+Then the number of zeros on $|z| \leq \frac R 2$ (counted with multiplicity) is bounded by $2\max_{|x| = R} \log\left| f(x)/f(0) \right|$.
 
 \section{Measure and Integration theory}
 
@@ -1202,21 +1334,6 @@ Note that $q := r - \sum_i x_i \in \I(V)$. So with $I = \langle x_i - x_i^j \ | 
 \end{equation*}
 
 \section{Discrete}
-
-\subsection{Gamma Function}
-Defined for $\mathbb{C} \setminus -\mathbb{N}$. Possible definitions:
-\begin{equation}
-    \begin{split}
-        \Gamma(z) &:= \int_0^{\infty} t^{z - 1} e^{-t} dt \ \text{ if } \text{Re}(z) > 0\\
-        \frac 1 {\Gamma(z)} &= \lim_{n \mapsto \infty} {\ n + z - 1 \choose\ n } n^{1-z}\nonumber
-    \end{split}
-\end{equation}
-We get
-\begin{equation}
-    \begin{split}
-        \Gamma(z + 1) = z\Gamma(z) \nonumber
-    \end{split}
-\end{equation}
 
 \section{Functional analysis}
 
