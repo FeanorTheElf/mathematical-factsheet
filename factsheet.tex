@@ -32,6 +32,7 @@
     \vphantom{\big|}
     \right|_{#2}
 }}
+\DeclareMathOperator*{\colim}{colim}
 
 \begin{document}
 
@@ -780,6 +781,76 @@ is given by a polynomial $p_X \in \Q[z]$. The leading term of $p_X$ is
     \frac {\deg X} {(\dim X)!} \cdot z^{\dim X}
 \end{equation*}
 
+\section{Analytic Number Theory}
+
+\subsection{Dirichlet convolution and Möbius inversion}
+Let $f, g: \N_{>0} \to \C$ be functions. Then define the Dirichlet convolution
+\begin{equation*}
+    f * g: \N_{>0} \to \C, \quad n \mapsto \sum_{ab = n} f(a) g(b)
+\end{equation*}
+We then have
+\begin{itemize}
+    \item $f * g = g * f$
+    \item $f * (g * h) = (f * g) * h$
+    \item $f, g$ multiplicative (i.e. $f(ab) = f(a)f(b)$ for $a \perp b$), then also $f * g$ multiplicative
+    \item $1 * \mu = \delta$ where $\delta(1) = 1, \delta(k) = 0$ for $k > 1$ and $\mu$ is the multiplicative function with $\mu(p) = -1, \mu(p^k) = 0$ for a prime $p$ and $k > 1$.
+\end{itemize}
+
+\subsection{Dirichlet series}
+Let $(a_n)_n$ be a sequence in $\C$ with $|a_n| \leq n^{o(1)}$. Then
+\begin{equation*}
+    \sum_{n \geq 1} \frac {a_n} {n^s}
+\end{equation*}
+converges absolutely to an analytic function for $\Re(s) > 1$.
+For any $\delta > 0$ the convergence is uniform on $\Re(s) \geq 1 + \delta$.
+\paragraph{Proof idea} Just show uniform convergence, the rest follows. To do so, use that for sufficiently large $n$, have
+\begin{equation*}
+    \sum_{N_1 \leq n \leq N_2} \left| \frac {a_n} {n^s} \right| \leq \sum_{N_1 \leq n \leq N_2} \frac {n^{\delta/2}} {n^{\Re(s)}} \leq \frac {\delta} {2(N_1 - 1)^{\delta/2}}
+\end{equation*}
+
+\subsection{Analytic continuation of $\zeta$}
+$\zeta(s)$ has a meromorphic continuation to $\Re(s) > -2$, given by
+\begin{equation*}
+    \zeta(s) = \frac 1 {s - 1} + \frac 1 2 + \frac s {12} - s(s + 1)(s + 2) \int_1^\infty \frac {\{t\} - 3\{t\}^2 + 2\{t\}^3} {12t^{s + 3}} dt
+\end{equation*}
+\paragraph{Proof} By partial summation, get
+\begin{equation*}
+    \sum_{n \geq 1} \frac 1 {n^s} = 0 - (-s)\int_1^\infty \lfloor t \rfloor t^{-1 - s} dt = s\int_1^\infty \frac {t - \{t\}} {t^{s + 1}} dt = \underbrace{s \int_1^\infty \frac 1 {t^s} dt}_{= \frac s {s - 1} = 1 + \frac 1 {s - 1}} - s\int_1^\infty \frac {\{t\}} {t^{s + 1}} dt
+\end{equation*}
+Note that this already gives an analytic continuation to $\Re(s) > 0$.
+By integration by parts and using that $\int \{t\} = \frac 1 2 \lfloor t \rfloor + \frac 1 2 \{t\}^2$, find further
+\begin{align*}
+    \int_1^\infty \frac {\{t\}} {t^{s + 1}} dt &= 0 - \frac 1 2 + \frac 1 2(s + 1)\int_1^\infty \frac {\lfloor t \rfloor + \{t\}^2} {t^{s + 2}} dt \\
+    &= -\frac 1 2 + \frac {s + 1} 2 \int_1^\infty \frac t {t^{s + 2}} dt - \frac {s + 2} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt \\
+    &= -\frac 1 2 + \frac {s + 1} {2s} - \frac {s + 2} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt
+\end{align*}
+and so
+\begin{equation*}
+    \sum_{n \geq 1} \frac 1 {n^s} = \frac 1 {s - 1} + \frac 1 2 + \frac {(s + 2)s} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt
+\end{equation*}
+Note that this already gives an analytic continuation to $\Re(s) > -1$.
+Repeating this one more time yields the claim.$\hfill\square$
+
+\section{Category Theory}
+
+\subsection{Density of representable functors}
+Let $\mathcal{C}$ be a locally small category. 
+Then for each $\Gamma \in \mathrm{PreSh}(\mathcal{C}) := \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathrm{Set})$ there exists a category $\epsilon(\mathcal{C})$ and a functor $P_\Gamma: \epsilon(\mathcal{C}) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}$ such that
+\begin{equation*}
+    \colim_{\epsilon(\mathcal{C})} P_\Gamma = \Gamma
+\end{equation*}
+\paragraph{Proof} Let
+\begin{align*}
+    \epsilon(\Gamma) = (* \Rightarrow \Gamma)^{\mathrm{op}} \ \text{so} \ &\mathrm{Ob}\epsilon(\Gamma) = \{ (x, y) \ | \ x \in \mathrm{Ob}\mathcal{C}, y \in \Gamma(x)\} \\
+    &\mathrm{Hom}_{\epsilon(\Gamma)}((x_1, y_1), (x_2, y_2)) = \{ f \in \mathrm{Hom}_{\mathcal{C}}(x_1, x_2) \ | \ \Gamma(f)(y_2) = y_1 \}
+\end{align*}
+and
+\begin{align*}
+    P_\Gamma: \epsilon(\Gamma) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}, \quad (x, y) \mapsto \ &Y(x) = \mathrm{Hom}(\cdot, x) \\
+    f \in \mathrm{Hom}_{\epsilon(\Gamma)}((x_1, y_1), (x_2, y_2)) \mapsto \ &\eta^{(f)}: Y(x_1) \Rightarrow Y(x_2) \\
+    &\eta^{(f)}_z: \mathrm{Hom}(z, x_1) \to \mathrm{Hom}(z, x_2), \quad f \circ \cdot
+\end{align*}
+
 \section{Probabilities}
 
 \subsection{Chernoff-Hoeffding}
@@ -788,11 +859,10 @@ $X_1, ..., X_n$ independent, $0 \leq X_i \leq 1$. Then
     \Pr\left[\sum X_i - \Ex\left[\sum X_i\right] \geq t\right] \leq \exp\left(-2\frac {t^2} n\right) \nonumber
 \end{equation}
 
+
 \section{Analysis}
 
-\subsection{Inequalities}
-
-\paragraph{Young's inequality}
+\subsection{Young's inequality}
 \begin{equation}
     xy \leq \frac {x^p} p + \frac {y^q} q \text{ for } \frac 1 p + \frac 1 q = 1, \ x, y \geq 0 \nonumber
 \end{equation}
@@ -804,7 +874,8 @@ $X_1, ..., X_n$ independent, $0 \leq X_i \leq 1$. Then
     \end{split}
 \end{equation}
 
-\paragraph{Hölder's inequality} For measurable functions $f, g$ and $\frac 1 p + \frac 1 q = 1$ (w.r.t measure $\mu$) have:
+\subsection{Hölder's inequality} 
+For measurable functions $f, g$ and $\frac 1 p + \frac 1 q = 1$ (w.r.t measure $\mu$) have:
 \label{hoelder_inequality}
 \begin{equation}
     \| fg \|_1 = \int | fg | d\mu \leq \left( \int |f|^p d\mu \right)^{\frac 1 p} \left( \int |g|^q d\mu \right)^{\frac 1 q} = \|f\|_p \|g\|_q \nonumber
@@ -816,6 +887,21 @@ $X_1, ..., X_n$ independent, $0 \leq X_i \leq 1$. Then
         \Rightarrow \ &\frac {|fg|} {\| f \|_p \| g \|_q} \leq \frac 1 {p \|f\|_p^p} \|f\|_p^p + \frac 1 {q \|g\|_q^q} \|f\|_q^q = 1 \nonumber
     \end{split}
 \end{equation}
+
+\subsection{Partial Summation formula}
+Let $(a_n)_n$ be a sequence in $\C$ and $f: \R \to \R$ a continuously differentiable function.
+Let $A(t) := \sum_{n \leq t} a_n$. Then
+\begin{equation*}
+    \sum_{x < n \leq y} a_n f(n) = A(y)f(y) - A(x)f(x) - \int_x^y A(t)f'(t)dt
+\end{equation*}
+\paragraph{Proof idea} With $n_1 := \lfloor x \rfloor + 1, n_2 := \lfloor y \rfloor$ have
+\begin{align*}
+    \sum_{x < n \leq y} a_n f(n) &= \sum_{n_1 \leq n \leq n_2} f(n)(A(n) - A(n - 1)) \\
+    &= \sum_{n_1 \leq n \leq n_2} A(n) f(n) - \sum_{n_1 - 1 \leq n \leq n_2 - 1} A(n) f(n + 1) \\
+    &= A(n_2) f(n_2) - A(n_1 - 1) f(n_1) + \sum_{n_1 \leq n \leq n_2 - 1} A(n) \underbrace{(f(n) - f(n + 1))}_{= -\int_n^{n+1} f'(t) dt} \\
+    &= A(n_2) f(n_2) - A(n_1 - 1) f(n_1) - \int_{n_1}^{n_2} A(t) f'(t) dt
+\end{align*}
+Using further that $A(n_2) f(n_2) = A(y) f(y) - \int_y^{n_2} A(t) f'(t) dt$ and $A(n_1) f(n_1) = A(x) f(x) + \int_{n_1}^x A(t) f'(t) dt$ yields the claim.$\hfill\square$
 
 \section{Measure and Integration theory}
 

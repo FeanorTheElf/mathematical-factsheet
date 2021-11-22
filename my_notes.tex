@@ -57,120 +57,100 @@
 
 \tableofcontents
 
-\section{Projective morphisms}
-Let $V \subseteq \mathbb{P}^n, W \subseteq \mathbb{P}^m$ be projective varieties.
+\section{Maps on varieties}
 
+\subsection{Algebraic maps}
+First of all, we define the basic notions of algebraic maps, that is maps that are locally defined by polynomials.
+For simplicity of notation, we already introduce the projective coordinate ring before.
 \begin{definition}
-    The affine coordinate ring of $V$ is defined as 
-    \begin{equation*}
-        k[V] := k[x_1, ..., x_n]/\mathbb{I}_{\mathrm{aff}}(V \cap \mathbb{A}^n)
-    \end{equation*}
-    The projective coordinate ring of $V$ is defined as
-    \begin{equation*}
-        S(V) := S_k(V) := k[x_0, ..., x_n]/\mathbb{I}_{\mathrm{proj}}(V)
-    \end{equation*}
+    Let $X \subseteq \mathbb{P}^n$ be a projective variety. 
+    Then the graded ring $S(X) := k[x_0, ..., x_n] / \I(X)$ is its projective coordinate ring.
 \end{definition}
-Now we want to build maps by interpreting elements of these rings as polynomials.
-This is quite subtle, as it is hard to get a well-defined notion.
+Note that the graded ring is not invariant under isomorphisms of projective varieties.
 \begin{definition}
-    Let $u_0, ..., u_m \in S(V)$ be homogeneous of same degree.
-    For a point $a = [a_0 : ... : a_n] \in V$ say that $[u_0 : ... : u_m]$ is defined on $a$ if there are polynomials $f_0, ..., f_m \in k[x_0, ..., x_n]$ homogeneous of same degree with
-    \begin{equation*}
-        (f_0(a_0, ..., a_n), ..., f_m(a_0, ..., a_n)) \neq (0, ..., 0) \quad \text{and} \quad \forall i: \ \overline{f}_i = u_i \in S(V)
-    \end{equation*}
-    In this case, define the value of $[u_0 : ... : u_m]$ at $a$ as
-    \begin{equation*}
-        [u_0 : ... : u_m](a) := [f_0(a_0, ..., a_n) : ... : f_m(a_0, ..., a_n)] \in \mathbb{P}^m
-    \end{equation*}
-\end{definition}
-\begin{lemma}
-    This is well-defined.
-\end{lemma}
-Using this, define the notion of rational map and morphism.
-\begin{definition}
-    A partial map $\phi: V \to W$ is called rational, if there are $u_0, ..., u_m \in S(V)$ homogeneous of same degree such that for all points $a \in V$ at which $\phi$ is defined, have
-    \begin{equation*}
-        [u_0 : ... : u_m](a) \ \text{is defined and} \ [u_0 : ... : u_m](a) = \phi(a)
-    \end{equation*}
-    Furthermore, $\phi$ is called morphism if it is defined on the whole of $V$.
-    We will also denote the morphism by $\phi = [u_0 : ... : u_m]$.
-\end{definition}
-The condition ``homogeneous of same degree'' is quite bulky, and moreover, the representation $[u_0 : ... : u_m]$ is not unique.
-Concretely, a morphism determines the tuple $(u_0, ..., u_m)$ only up to scaling by $S(V) \setminus \{0\}$.
-Using the affine coordinate ring, we find a much nicer characterization.
-\begin{theorem}[Characterization using the coordinate rings]
-    Consider the $S(V)$-module
-    \begin{equation*}
-        M^{(m)} := \{ (u_0, ..., u_m) \in S(V)^{m + 1} \ | \ u_0, ..., u_m \ \text{homogeneous of same degree} \}
-    \end{equation*}
-    Then there is a bijection
-    \begin{align*}
-        \Phi: \ &(M^{(m)} \setminus \{0\}) \ / \ (S(V) \setminus \{0\}) \to \Quot(k[V])^m, \\
-        &\overline{(u_0, ..., u_m)} \mapsto \left( \frac {u_i(1, x_1, ..., x_n)} {u_j(1, x_1, ..., x_n)} \right)_{i \neq j} \text{where $u_j(1, x_1, ..., x_n) \neq 0 \in k[V]$}
-    \end{align*}
-    that is compatible with evaluation maps, i.e. for $u_1, ..., u_m \in k[V]$ and $v_1, ..., v_r \in k[W]$ such that $g(u_0, ..., u_m) = 0$ for all $g \in \I(W)$ homogeneous, have
-    \begin{equation*}
-        \Phi\left(\mathrm{ev}_{(u_1, ..., u_m)}((v_1, ..., v_r))\right) = \mathrm{ev}_{\Phi((v_1, ..., v_r))}\left(\Phi(u_1, ..., u_m)\right)
-    \end{equation*}
-    Further we can express evaluation of $(u_0, ..., u_m) \in M^{(m)}$ at a point $a = [1 : a_1 : ... : a_n] \in V$ for which $[u_0 : ... : u_m](a)$ is defined as follows:
-    There exist elements $g, f_1, ..., f_m \in k[V]$ with $\Phi((f_1/g, ..., f_m/g)) = (u_0, ..., u_m)$ such that one of the following is the case:
+    Let $X \subseteq \mathbb{P}^n$ and $Y \subseteq \mathbb{P}^m$ be quasi-projective varieties, i.e. open subsets of the projective varieties $\bar{X}, \bar{Y}$.
+    Then define
     \begin{itemize}
-        \item Either $g(a_1, ..., a_m) \neq 0$ and
+        \item A map $X \to Y$ is called \emph{morphism}, if it is given locally by polynomials, so for each $p \in X$ there is an open neighborhood $U$ of $p$ and homogeneous polynomials $f_0, ..., f_m \in S(\bar{X})$ of same degree such that
         \begin{equation*}
-            [1 : f_1(a)/g(a) : ... : f_m(a)/g(a)] = [u_0 : ... : u_m](a)
+            (f_0(a), ..., f_m(a)) \neq 0 \ \text{and} \ f(a) = [f_0(a) : ... : f_m(a)] \ \text{for all $a \in U$}
         \end{equation*}
-        \item Or $g(a_1, ..., a_m) = 0, \ (f_1(a), ..., f_m(a)) \neq (0, ..., 0)$ and $[u_0 : ... : u_m](a)$ is a point in the hyperplane at infinity
+        \item A map $X \to k$ is called \emph{regular} at $p \in X$, if it is given by polynomials near $p$, i.e. there is an open neighborhood $U$ of $p$ and homogeneous polynomials  $g, h \in S(\bar{X})$ of same degree such that
+        \begin{equation*}
+            h(a) \neq 0 \ \text{and} \ f(a) = \frac {g(a)} {h(a)} \ \text{for all $a \in U$}
+        \end{equation*}
+        $f$ is called regular, if it is regular at all $p \in X$. 
+        Denote the regular maps on $X$ by $\mathcal{O}_{\bar{X}}(X)$.
+        We remark that this is a $k$-algebra.
     \end{itemize}
-    Because of this, the field $k(V) := \Quot(k[V])$ is also called the function field of $V$. Note that up to isomorphism, it does not depend on the choice of the embedding $\mathbb{A}^n \to \mathbb{P}^n$.
+\end{definition}
+In particular, regular maps and morphisms are technically the same thing, because if you consider $Y = k \subseteq \mathbb{P}^1$, then regular maps $X \to k$ are really just morphisms $X \to Y$.
+However, they are usually used in a completely different way.
+One often works with morphisms between varieties of the same type (e.g. morphisms between projective varieties), and then they differ fundamentally from regular maps (we only have the above equivalence by taking $Y = k$ to be an affine variety).
+
+\subsection{The coordinate rings}
+We have already introduced the projective coordinate ring, which is a not totally natural object, because it is not invariant under isomorphisms.
+Affine varieties have a much nicer coordinate ring.
+\begin{definition}
+    For an affine variety $X \subseteq \mathbb{A}^n$, define the affine coordinate ring $k[X] := k[x_1, ..., x_n] / \I(X)$.
+\end{definition}
+This ring has a much tighter connection to the variety.
+\begin{theorem}
+    Let $\mathcal{V}$ be the category of affine varieties $\subseteq \mathbb{A}_k^n$ with affine morphisms, and $\mathcal{A}$ the category of finitely generated, reduced (commutative, unital) $k$-algebras.
+    Then
+    \begin{align*}
+        \Phi: \mathcal{V}^{\mathrm{op}} \to \mathcal{A}, \quad V \mapsto k[V], \ \phi \mapsto \phi^*
+    \end{align*}
+    is an equivalence of categories.
 \end{theorem}
-In other words, we have a nice 1-1 correspondence between rational maps $V \to \mathbb{P}^m$ with maximal set of definition to tuples in $k(V)^m$.
-From now on, we will not distinguish between those in many cases, and also use the notation $[u_1, ..., u_m]$ with elements $u_i \in k(V)$ to denote the rational map given by $\Phi^{-1}((u_1, ..., u_m))$.
-
-The affine characterization just has the problem that it gives no nice definition of the value at infinity.
-In the end, computing this will always require homogenizing the polynomials.
-
-\section{Regular Maps}
-Now we want to examine a very similar concept, namely regular maps.
-Honestly, I am still not completely sure how exactly they differ, but hopefully, we will work it out now. 
-
-\begin{definition}[Regular map]
-    Let $X$ be an affine or projective variety. A map $f: U \to k$ for $U \subseteq X$ is called regular at a point $p \in U^\circ$, if there exists an open neighborhood $W \subseteq U$ of $p$ such that $f: W \to k \subseteq \mathbb{P}^1 \ \text{resp.} \ \mathbb{A}^1$ is a rational map (in the projective sense) and defined on the whole of $W$.
-    
-    If $U$ is open, call $f$ regular, if $f$ is regular at all $p \in U$. Write $\mathcal{O}_X(U)$ for the $k$-algebra of regular functions on $U$.
+Further, each affine and projective (and even quasi-projective) variety has a function field.
+\begin{definition}
+    For an affine variety $X \subseteq \mathbb{A}^n$, define the \emph{function field} as the field of fractions $k(X) := \mathrm{Frac}(k[X])$.
+    For a projective variety $X \subseteq \mathbb{P}^n$, define the \emph{function field} as
+    \begin{equation*}
+        k(X) := \left\{ f/g \in \mathrm{Frac}(S(X)) \ \middle| \ f, g \ \text{homogeneous polynomials of same degree} \right\}
+    \end{equation*}
 \end{definition}
+Note that we can evaluate an element $\frac f g \in k(X)$ at all points $a \in X \setminus \V(g)$ and get a well-defined value in $k$.
+To get the function field of an arbitrary quasi-projective variety, one can define it as the function field of an affine chart.
+We will not pursue that path further.
+However, the following lemma is important.
 \begin{lemma}
-    The notions of regular map on affine and projective varieties are compatible.
-    Concretely, let $X \subseteq \mathbb{P}^n$ be a projective variety and $X_a = X \cap \mathbb{A}^n \subseteq \mathbb{A}^n \subseteq \mathbb{P}^n$ an affine chart.
-    Then a map $f: X_a \to k$ is regular at $p \in X_a$ in the sense of projective varieties iff it is regular at $p$ in the sense of affine varieties.
+    Let $X \subseteq \mathbb{P}^n$ be a projective variety. Then for all embeddings $\mathbb{A}^n \subseteq \mathbb{P}^n$ get
+    \begin{equation*}
+        k(X \cap \mathbb{A}^n) \cong k(X) \quad \text{via} \quad \frac f g \mapsto \frac {x_0^d f({x_1} / {x_0}, ..., {x_n} / {x_0})} {x_0^d g({x_1} / {x_0}, ..., {x_n} / {x_0})}, \ d = \max \{\deg f, \deg g\}
+    \end{equation*}
+    Further, find that $k(X)$ is invariant under isomorphisms.
+    If the embedding $\mathbb{A}^n \subseteq \mathbb{P}^n$ is clear, we will sometimes identify both fields.
 \end{lemma}
-\begin{proof}
-Trivial.
-\end{proof}
-\begin{definition}[Function germ]
-    Let $X$ be an affine or projective variety and $p \in X$.
-    The elements of
-    \begin{equation*}
-        \mathcal{O}_{X, p} := \{ (U, f) \ | \ U \subseteq X \ \text{open}, f: U \to k \ \text{regular} \} / \sim
-    \end{equation*}
-    where
-    \begin{equation*}
-        (U, f) \sim (U', f') :\Leftrightarrow \restr{f}{W} = \restr{f'}{W} \ \text{for some $W \subseteq U \cap U'$ open}
-    \end{equation*}
-    are called function germs at $p$.
-    Note that $\mathcal{O}_{X, p}$ is again a $k$-algebra.
-\end{definition}
-The function germs allow a nice characterization using again the coordinate ring.
-\begin{prop}
-    Let $X \subseteq \mathcal{A}^n$ be an affine variety. At $p \in X$ have
-    \begin{equation*}
-        \mathcal{O}_{X, p} \cong k[X]_{\mathfrak{m}_p}
-    \end{equation*} 
-\end{prop}
-It really seems as though there is a lot of technical complexity, but not fundamental one.
-Probably, it will get simpler when considering quasi-projective varieties, as we do not require the distinction between affine and projective varieties anymore.
-Further, one difference between regular maps and (projective) morphisms is that the former is usually defined for affine varieties, while the latter is defined for projective varieties.
-However, morphisms of affine varieties differ somewhat from regular maps, as it is possible to define by a global condition instead of locally.
+Hence, the function field is again a natural property of varieties.
 
-Finally, for quasi-projective varieties, the notion of regular map and morphism are exactly the same.
-Hence, any difference is just in the domain and range, which usually are not varieties in the case of regular maps.
+\subsection{The connection between them}
+The function field is more or less equal to all regular maps defined on \emph{some} open subset of $X$. Namely
+\begin{prop}
+    Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety.
+    Have a well-defined and injective $k$-algebra homomorphism
+    \begin{equation*}
+        \mathcal{O}_X(U) \to k(X), \quad f: U \to k \ \text{defined locally at $p \in U$ by $f = g/h$} \ \mapsto \ \frac g h
+    \end{equation*}
+    Further, this is in some sense surjective, meaning that for each $f \in k(X)$ there is some open $U \subseteq X$ such that $f$ is contained in the image of $\mathcal{O}_X(U) \to k(X)$.
+\end{prop}
+If we only consider regular maps that are defined on the whole of $X$, we get the following statement.
+\begin{theorem}
+    If $X \subseteq \mathbb{P}^n$ is a projective variety, find $\mathcal{O}_X(X) \cong k$.
+    If $X \subseteq \mathbb{A}^n$ is an affine variety, find $\mathcal{O}_X(X) \cong k[X]$.
+\end{theorem}
+Describing morphisms is slightly more difficult, but they also allow a relatively nice definition using the function field.
+\begin{theorem}
+    Let $X \subseteq \mathbb{P}^n$ be a projective variety.
+    Then there is a well-defined injection
+    \begin{align*}
+        \Phi: \{ f: X \to \mathbb{P}^m \ | \ f \ \text{morphism} \} &\to k(V)^m, \\ 
+        f \ \text{defined locally by $f_0, ..., f_m \in S(X)$} \ &\mapsto \ \left( \frac {f_1} {f_0}, ..., \frac {f_n} {f_0} \right)
+    \end{align*}
+    that is compatible with evaluation maps, i.e. for $f: X \to Y$ and $g: Y \to \mathbb{P}^r$ have
+    \begin{equation*}
+        \Phi(g \circ f) = \mathrm{ev}_{\Phi(f)}(\Phi(g))
+    \end{equation*}
+\end{theorem}
 \end{document}
