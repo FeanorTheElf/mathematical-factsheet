@@ -864,7 +864,7 @@ For the following properties, we use the functional equation and some theory on 
 Using \ref{bounds_complex_analytic_functions} one can show the following claims on the density of zeros of $\zeta(s)$.
 \begin{itemize}
     \item For all $t$ have that the number of nontrivial zeros $\rho$ with $t \leq \Im(\rho) \leq t + 1$ is $O(\log(2 + |t|))$.
-    \item From the previous it follows that for $\Re(s) \geq -\frac 1 n$ have
+    \item From the previous it follows that for $\Re(s) \geq -\frac 1 4$ have
     \begin{equation*}
         \frac {\zeta'(s)} {\zeta(s)} = -(s - 1)^{-1} + \sum_{\mathclap{|\rho - s| \leq \frac 1 {10}, \ \zeta(\rho) = 0}} (s - \rho)^{-1} + O(\log(2 + |t|))
     \end{equation*}
@@ -889,6 +889,39 @@ Then
     \zeta(s)F(s) = \frac {\hat{f}(0)} {2(s - 1)} - \frac {f(0)} {2s} + \int_1^\infty \left( \sum_{n \geq 1} f(nx) \right) x^{s - 1} dx + \int_1^\infty \left( \sum_{n \geq 1} \hat{f}(nu) \right) u^{-s} du
 \end{equation*}
 \paragraph{Proof idea} Use the Poisson summation formula.
+
+\subsection{The explicit formula}
+Let $2 \leq T \leq 2x$. Then
+\begin{equation*}
+    \Psi(x) := \sum_{n < x} \Lambda(n) = x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x (\log x)^3} T \right)
+\end{equation*}
+where the sum runs over all nontrivial zeros $\rho$ of $\zeta$ with $\Im(\rho) \leq T$.
+\paragraph{Proof idea} Perron's formula yields that
+\begin{equation*}
+    \Psi(x) = -\frac 1 {2\pi i} \int_{c - iT}^{c + iT} \underbrace{\frac {x^s} s \frac {\zeta'(s)} {\zeta(s)}}_{:= f(s)} ds + O\left( \frac {x (\log x)^3} T \right)
+\end{equation*}
+By Cauchy's residue theorem, get for all $\tilde{T}$
+\begin{align*}
+    {\int_{c - i\tilde{T}}^{c + i\tilde{T}} f(s)ds + \int_{c + i\tilde{T}}^{-\frac 1 4 + i\tilde{T}} f(s) ds + \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} f(s) ds + \int_{-\frac 1 4 - i\tilde{T}}^{c - i\tilde{T}} f(s) ds} \ = \ 2\pi i\sum_\rho \mathrm{Res}(f, \rho)
+\end{align*}
+where the sum runs over all poles $\rho$ of $f$ with $\Re(\rho) \in [-\frac 1 4, c]$ and $\Im(\rho) \in [-\tilde{T}, \tilde{T}]$.
+Choosing $\tilde{T} \in [T - 1, T]$ such that there are no zeros $\rho$ of $\zeta$ with $|\Im(\rho) - \tilde{T}| < c/\log T$ (this is possible by \ref{bounds_complex_analytic_functions}, but the calculation is not trivial) allows us then to estimate
+\begin{equation*}
+    \Bigl| \int_{c + i\tilde{T}}^{-\frac 1 4 + i\tilde{T}} f(s) ds \Bigr| \leq \int_{c + i\tilde{T}}^{-\frac 1 4 + i\tilde{T}} \frac x {\tilde{T}} \Bigl| \frac {\zeta'(s)} {\zeta(s)} \Bigr| ds = O\left( \frac {x(\log T)^2} {\tilde{T}} \right)
+\end{equation*}
+as $\zeta'(s)/\zeta(s) = O((\log T)^2)$ in this case (follows from \ref{bounds_complex_analytic_functions}, but the computation is again not trivial).
+Using this again, we see that also
+\begin{align*}
+    \Bigl| \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} f(s) ds \Bigr| &\leq \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} \frac {x^{-\frac 1 4}} s \Bigl| \frac {\zeta'(s)} {\zeta(s)} \Bigr| ds = O\left( x^{-\frac 1 4} (\log T)^2 \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} \frac 1 s ds \right) \\
+    &= O\left( x^{-\frac 1 4} (\log T)^3 \right)
+\end{align*}
+Note that the residues of $f$ at $1$ is $-x$, at nontrivial zeros $\rho$ of $\zeta$ is $x^\rho / \rho m_\rho$ (where $m_\rho$ is the multiplicity) and at $0$ is $\zeta'(0)/\zeta(0)$.
+Lastly, note also that the error made by integrating to $\tilde{T}$ instead of $T$ is $O(x(\log x)^3/T)$.
+Thus
+\begin{align*}
+    \Psi(x) &= x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x(\log T)^2} {\tilde{T}} + \frac {(\log T)^3} {x^{\frac 1 4}} + \frac {x(\log x)^3} T \right) \\
+    &= x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x(\log x)^3} T \right)
+\end{align*}
 
 \section{Category Theory}
 
