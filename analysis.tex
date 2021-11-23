@@ -41,28 +41,61 @@ Let $A(t) := \sum_{n \leq t} a_n$. Then
 Using further that $A(n_2) f(n_2) = A(y) f(y) - \int_y^{n_2} A(t) f'(t) dt$ and $A(n_1) f(n_1) = A(x) f(x) + \int_{n_1}^x A(t) f'(t) dt$ yields the claim.$\hfill\square$
 
 \subsection{Fourier transform}
-For $f \in S(\R) := \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}, \ \forall k \in \N_{> 0}: f^{(i)}(x) = O(|x|^{-k}) \}$ have
-\begin{equation*}
-    \hat{f}(\xi) := \int_{-\infty}^{\infty} f(x) \exp(-2\pi i x \xi) dx \in S(\R)
-\end{equation*}
-and
-\begin{equation*}
-    f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) \exp(2\pi i \xi x) d\xi
-\end{equation*}
-For $f \in S(\R/\Z) = \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}\}$ have
-\begin{equation*}
-    \hat{f}(n) := \int_0^1 f(x) \exp(-2\pi i x n) dx \in S(\Z) := \{ g: \Z \to \C \ | \ \forall k \in \N_{> 0} g(n) = O(n^{-k})\}
-\end{equation*}
-and
-\begin{equation*}
-    f(x) = \sum_{n \in \Z} \hat{f}(n) \exp(2\pi i n x)
-\end{equation*}
+\begin{itemize}
+    \item For $f \in S(\R) := \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}, \ \forall k \in \N_{> 0}: f^{(i)}(x) = O(|x|^{-k}) \}$ have
+    \begin{equation*}
+        \hat{f}(\xi) := \int_{-\infty}^{\infty} f(x) \exp(-2\pi i x \xi) dx \in S(\R)
+    \end{equation*}
+    and
+    \begin{equation*}
+        f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) \exp(2\pi i \xi x) d\xi
+    \end{equation*}
+    \item For $f \in S(\R/\Z) = \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}\}$ have
+    \begin{equation*}
+        \hat{f}(n) := \int_0^1 f(x) \exp(-2\pi i x n) dx \in S(\Z)
+    \end{equation*}
+    where $S(\Z) := \{ g: \Z \to \C \ | \ \forall k \in \N_{> 0}: g(n) = O(n^{-k})\}$ and
+    \begin{equation*}
+        f(x) = \sum_{n \in \Z} \hat{f}(n) \exp(2\pi i n x)
+    \end{equation*}
+\end{itemize}
 
 \subsection{Poisson Summation Formula}
-Let $f \in S(\R)$. Then
-\begin{equation*}
-    \sum_{n \in \Z} f(n) = \sum_{n \in \Z} \hat{f}(n)
-\end{equation*}
+\begin{itemize}
+    \item For $f \in S(\R)$ have
+    \begin{equation*}
+        \sum_{n \in \Z} f(n) = \sum_{n \in \Z} \hat{f}(n)
+    \end{equation*}
+    \item More generally, for a lattice $L \subseteq \R^n$, any $y \in \R^n$ and 
+    \begin{equation*}
+        f \in S(\R^n) := \{ g: \R^n \to \C \ | \ \text{$g$ is $C^\infty$-function}, \ \forall k \in \N_{> 0}: g(x) = O(\|x\|^{-k})\}
+    \end{equation*}
+    have
+    \begin{equation*}
+        \sum_{x \in L} f(y + x) = \det(L^*) \sum_{x \in L^*} \hat{f}(x) \exp(2\pi i \langle y, x \rangle)
+    \end{equation*}
+\end{itemize}
+\paragraph{Proof} Assume wlog $\det(L) = 1$. Consider the functions
+\begin{align*}
+    F: \R^n \to \C, \quad &y \mapsto \sum_{x \in L} f(y + x) \\
+    G: \R^n \to \C, \quad &y \mapsto \sum_{x \in L^*} \hat{f}(x)\exp(2\pi i\langle y, x \rangle)
+\end{align*}
+which are obviously periodic on $L$, and hence $F, G \in S(\R^n / L)$.
+We show that $\hat{F} = \hat{G} \in S(L^*)$, and then it follows that $F = G$. For the fundamental parallelepiped $P$ of $L$ have
+\begin{align*}
+    \hat{G}(\xi) &= \int_P G(y) \exp(-2\pi i \langle \xi, y \rangle) dy = \int_P \ \sum_{x \in L^*} \hat{f}(x) \exp(2\pi i \langle y, x - \xi \rangle) dy \\
+    &= \sum_{x \in L^*} \hat{f}(x) \underbrace{\int_P \exp(2\pi i \langle y, x - \xi \rangle) dy}_{= \begin{cases}
+        \vol(P) = 1 & \text{if $x = \xi$} \\
+        0 & \text{otherwise}
+    \end{cases}} = \hat{f}(\xi)
+\end{align*}
+and by using that $\langle L^*, L \rangle \subseteq \Z$ we also find
+\begin{align*}
+    \hat{F}(\xi) &= \int_P F(y) \exp(-2\pi i \langle \xi, y \rangle) dy = \int_P \ \sum_{x \in L} f(y + x) \exp(-2\pi i \langle \xi, y \rangle) dy \\
+    &= \sum_{x \in L} \ \int_P f(y + x) \exp(-2\pi i \langle \xi, y \rangle) dy = \sum_{x \in L} \ \int_{P - x} f(y) \exp(-2\pi i \langle \xi, y - x \rangle) dy \\
+    &= \sum_{x \in L} \ \int_{P - x} f(y) \exp(-2\pi i \langle \xi, y \rangle) dy = \int_{\R^n} f(y)\exp(-2\pi i \langle \xi, y \rangle) dy = \hat{f}(\xi)
+\end{align*}
+So $F = G$ and clearly $F(y) = G(y)$ for the given $y$.$\hfill\square$
 
 \subsection{The Gaussian Function}
 Let $f(x) := \exp(-\pi x^2)$. Then $f \in S(\R)$ with $\hat{f}(\xi) = f(\xi)$ for all $\xi \in \R$.
