@@ -50,13 +50,37 @@ Using further that $A(n_2) f(n_2) = A(y) f(y) - \int_y^{n_2} A(t) f'(t) dt$ and 
     \begin{equation*}
         f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) \exp(2\pi i \xi x) d\xi
     \end{equation*}
-    \item For $f \in S(\R/\Z) = \{ f: \R \to \C \ | \ f \ \text{$C^\infty$-function}\}$ have
+    \item For $f \in S(\R/\Z) = \{ f: \R / \Z \to \C \ | \ \text{$f$ is $C^\infty$-function}\}$ have
     \begin{equation*}
         \hat{f}(n) := \int_0^1 f(x) \exp(-2\pi i x n) dx \in S(\Z)
     \end{equation*}
     where $S(\Z) := \{ g: \Z \to \C \ | \ \forall k \in \N_{> 0}: g(n) = O(n^{-k})\}$ and
     \begin{equation*}
         f(x) = \sum_{n \in \Z} \hat{f}(n) \exp(2\pi i n x)
+    \end{equation*}
+    \item More generally, for
+    \begin{equation*}
+        f \in S(\R^n) := \{ f: \R^n \to \C \ | \ \text{$f$ is $C^\infty$-function}, \ \forall k \in \N_{> 0}: f(x) = O(\|x\|^{-k})\}
+    \end{equation*}
+    have
+    \begin{equation*}
+        \hat{f}(\xi) := \int_{\R^n} f(x) \exp(-2\pi i \langle x, \xi \rangle) dx \in S(\R^n)
+    \end{equation*}
+    and
+    \begin{equation*}
+        f(x) = \int_{\R^n} \hat{f}(\xi) \exp(2\pi i \langle x, \xi \rangle) d\xi
+    \end{equation*}
+    \item For a lattice $L \subseteq \R^n$ and
+    \begin{equation*}
+        f \in S(\R^n / L) := \{ f: \R^n / L \to \C \ | \ \text{$f$ is $C^\infty$-function} \}
+    \end{equation*}
+    have
+    \begin{equation*}
+        \hat{f}(\xi) = \int_{\text{Fundamental parallelepiped of $L$}} f(x) \exp(-2\pi i \langle x, \xi \rangle) dx \in S(L^*)
+    \end{equation*}
+    where $S(L^*) := \{ f: L^* \to \C \ | \ \forall k \in \N_{> 0}: f(x) = O(\|x\|^{-k}) \}$ and
+    \begin{equation*}
+        f(x) = \sum_{\xi \in L^*} \hat{f}(\xi) \exp(2\pi i \langle x, \xi \rangle)
     \end{equation*}
 \end{itemize}
 
@@ -66,11 +90,7 @@ Using further that $A(n_2) f(n_2) = A(y) f(y) - \int_y^{n_2} A(t) f'(t) dt$ and 
     \begin{equation*}
         \sum_{n \in \Z} f(n) = \sum_{n \in \Z} \hat{f}(n)
     \end{equation*}
-    \item More generally, for a lattice $L \subseteq \R^n$, any $y \in \R^n$ and 
-    \begin{equation*}
-        f \in S(\R^n) := \{ g: \R^n \to \C \ | \ \text{$g$ is $C^\infty$-function}, \ \forall k \in \N_{> 0}: g(x) = O(\|x\|^{-k})\}
-    \end{equation*}
-    have
+    \item More generally, for a lattice $L \subseteq \R^n$, any $y \in \R^n$ and $f \in S(\R^n)$ have
     \begin{equation*}
         \sum_{x \in L} f(y + x) = \det(L^*) \sum_{x \in L^*} \hat{f}(x) \exp(2\pi i \langle y, x \rangle)
     \end{equation*}
