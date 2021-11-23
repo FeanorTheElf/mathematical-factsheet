@@ -1,0 +1,225 @@
+
+\subsection{LYM inequality}
+Let $\mathcal{F} \subseteq \mathcal{P}(n)$ be an antichain. Then
+\begin{equation*}
+    \sum_{i = 0}^n \frac {| \mathcal{F} \cap [n]^{(i)} |} {{n \choose i}} \leq 1
+\end{equation*}
+with equality iff $\mathcal{F} = [n]^{(r)}$. 
+In particular, Sperner's lemma ``the maximal size of an antichain is ${n \choose \lfloor n/2 \rfloor}$'' follows
+\paragraph{Proof idea} Use ``local LYM'': For any $\mathcal{A} \subseteq [n]^{(r)}$ have
+\begin{equation*}
+    \frac {|\partial\mathcal{A}|} {{n \choose r - 1}} \geq \frac {|\mathcal{A}|} {{n \choose r}}
+\end{equation*}
+with equality iff $\mathcal{A} = \emptyset$ or $\mathcal{A} = [n]^{(r)}$.
+This can easily be shown by using double counting on the edges of the bipartite graph $[n]^{(r)} \sqcup [n]^{(r - 1)}$.
+Using this inductively with sets
+\begin{equation*}
+    \mathcal{G}_r := \left(\mathcal{F} \cap [n]^{r}\right) \cup \mathcal{G}_{r + 1}
+\end{equation*}
+we can show the LYM inequality.$\hfill\square$
+
+\subsection{Dilworth's Theorem}
+Let $P$ be a finite poset. Then
+\begin{equation*}
+    m := \min \{ |\mathcal{C}| \ | \ \mathcal{C} \subseteq \mathcal{P}(P) \ \text{chain decomposition} \} = \max \{ |A| \ | \ A \subseteq P \ \text{antichain} \}
+\end{equation*}
+\paragraph{Proof idea} Induction on $|P|$. 
+In the inductive step, consider a maximal chain $C \subseteq P$.
+Assume that $P \setminus C$ has an antichain $A$ of size $m$, otherwise the claim follows by the induction hypothesis.
+Then consider
+\begin{align*}
+    S^+ &:= \{ x \in P \ | \ x \geq a \ \text{for some $a \in A$}\} \\
+    S^- &:= \{ x \in P \ | \ x \leq a \ \text{for some $a \in A$}\}
+\end{align*}
+Now apply the induction hypothesis on $S^+$ and $S^-$ and deduce the claim.$\hfill\square$
+
+\subsection{Symmetric chain decomposition}
+There exists a decomposition of $\mathcal{P}(n)$ into symmetric chains.
+\paragraph{Proof idea} Use induction on $n$, and for a chain $C \subseteq \mathcal{P}(n - 1)$ build two chains
+\begin{equation*}
+    C^+ := C \cup \{ \max C \cup \{ n \} \} \quad \text{and} \quad C^- := \{ A \cup \{n\} \ | \ A \in C, A \neq \max C \}
+\end{equation*}
+
+\subsection{Kleitman's (first) theorem}
+Let $x_1, ..., x_n \in \R^k$ with $\| x_i \| \geq 1$ and $K \subseteq \R^k$ with diameter less than $1$.
+Then there are at most ${n \choose \lfloor n/2 \rfloor}$ sets $A \subseteq [n]$ such that $x_A := \sum_{i \in A} x_i \in K$.
+\paragraph{Proof idea} Call a set system $\mathcal{F} \subseteq \mathcal{P}(n)$ sparse, if $\| x_A - x_B \| \geq 1$ for all $A, B \in \mathcal{F}, A \neq B$.
+A partition of $\mathcal{P}(n)$ is called symmetric, if it satisfies the modified conditions of a symmetric chain decomposition 
+(i.e. there is $r$ such that an element of the partition contains exactly one set from $[n]^{(r)}, ..., [n]^{(n - r)}$ and no other sets).
+
+By induction on $n$ we create a symmetric decomposition into sparse sets, and the claim follows.
+By induction hypothesis, have a symmetric decomposition into sparse sets of $\mathcal{P}(n - 1)$, and for one of these sparse sets $S = \{ F_1, ..., F_l \}$ with wlog
+\begin{equation*}
+    \langle x_{F_1}, \frac {x_n} {\| x_n \|} \rangle, ..., \langle x_{F_{l - 1}}, \frac {x_n} {\| x_n \|} \rangle \ \leq \ \langle x_{F_l}, \frac {x_n} {\| x_n \|} \rangle
+\end{equation*}
+define
+\begin{equation*}
+    S^+ := S \cup \{ F_l \cup \{n\} \} \quad \text{and} \quad S^- := \{ F_1 \cup \{n\}, ..., F_{l - 1} \cup \{n\} \}
+\end{equation*}
+Using that $\| x_{F_l \cup \{n\}} - x_{F_i} \| \geq \langle x_{F_l \cup \{n\}} - x_{F_i}, \frac {x_n} {\| x_n \|} \rangle$, one can show that these are sparse.$\hfill\square$
+
+\subsection{Kruskal-Katona theorem}
+Let $\mathcal{F} \subseteq [n]^{(r)}$ and let $\mathcal{A} \subseteq [n]^{(r)}$ be the first $|\mathcal{F}|$ sets of $[n]^{(r)}$ in colex-order. Then
+\begin{equation*}
+    |\partial\mathcal{F}| \geq |\partial\mathcal{A}|
+\end{equation*}
+\paragraph{Proof idea} Use a compression operator: For $U, V \subseteq \N$ with $|U| = |V|$ finite, let
+\begin{equation*}
+    C_{UV}(A) := \begin{cases}
+        (A \setminus V) \cup U & \text{if $V \subseteq A, U \cap A = \emptyset$} \\
+        A & \text{otherwise}
+    \end{cases}
+\end{equation*}
+and
+\begin{equation*}
+    C_{UV}(\mathcal{A}) := \{ C_{UV}(A) \ | \ A \in \mathcal{A} \} \cup \{ A \in \mathcal{A} \ | \ C_{UV}(A) \in \mathcal{A} \}
+\end{equation*}
+First show the following claim:
+If $U, V$ are disjoint and
+\begin{equation*}
+    \forall u \in U \ \exists v \in V: \ C_{(U \setminus \{u\})(V \setminus \{v\})}(\mathcal{F}) = \mathcal{F}
+\end{equation*}
+then $|\partial C_{UV}(\mathcal{F})| \leq |\partial\mathcal{F}|$.
+Now we can apply $C_{UV}$ for all $U <_{\mathrm{colex}} V$ in order of increasing $|U| = |V|$ and get the initial colex segment.
+By the claim, the size of the shadow never increased.$\hfill\square$
+
+\subsection{Erdös-Ko-Rado theorem}
+Let $\mathcal{A} \subseteq [n]^{(r)}$ be intersecting, then $|\mathcal{A}| \leq {n - 1 \choose r - 1}$.
+\paragraph{Proof idea} Either apply Kruskal-Katona often, or use the ``Katona circle method'':
+Call $A \in \mathcal{A}$ interval w.r.t. $\pi: [n] \to \Z/n\Z$ bijection, if $\pi(A) = \{ k, k + 1, ..., k + r - 1 \}$ for some $k$.
+w.r.t. one $\pi$, there are only at most $r$ intervals in $\mathcal{A}$.
+On the other hand, each $A \in \mathcal{A}$ is an interval w.r.t. $nr!(n - r)!$ different $\pi$.
+Thus double-counting $(A, \pi)$ interval pairs, we see that $|\mathcal{A}|nr!(n - r)! \leq n!r$ and the claim follows.$\hfill\square$
+
+\subsection{Two families theorem}
+Let $A_1, ..., A_k, B_1, ..., B_k$ be finite sets such that for $i \neq j$ have
+\begin{equation*}
+    A_i \cap B_i = \emptyset \quad \text{and} \quad A_i \cap B_j \neq \emptyset
+\end{equation*}
+Then $\sum_i {|A_i| + |B_i| \choose |A_i|}^{-1} \leq 1$. In particular, if $|A_i| = a, |B_i| = b$ then $k \leq {a + b \choose a}$.
+\paragraph{Proof idea} Consider uniformly random permutations $\pi \in S_n$ and say $A <_\pi B :\Leftrightarrow \max \pi(A) < \min \pi(B)$.
+Then
+\begin{equation*}
+    \Pr[A_i <_\pi B_i] = {|A_i| + |B_i| \choose |A_i|}^{-1}
+\end{equation*}
+and applying union bound yields the result.$\hfill\square$
+
+\subsection{Polynomial Bounding Method}
+\label{polynomial_bounding_method}
+Consider $\mathcal{F} = \{ A_1, ..., A_m \} \subseteq \mathcal{P}(n)$ and $V = \{ \chi_F \ | \ F \in \mathcal{F} \} \subseteq \mathbb{A}^n$.
+If we find polynomials $f_1, ..., f_m \in k[x_1, ..., x_n]_{\leq s}$ such that
+\begin{equation*}
+    (f_i(\chi_{A_j}))_{ij} = \left(\begin{matrix*}
+        f_1(\chi_{A_1}) & ... & f_1(\chi_{A_m}) \\
+        \vdots & \ddots & \vdots \\
+        f_m(\chi_{A_1}) & ... & f_m(\chi_{A_m})
+    \end{matrix*}\right)
+\end{equation*}
+is invertible, then $\dim_k k[x_1, ..., x_n]_{\leq s} / \I(V) \geq \dim_k k[x_1, ..., x_n] / \I(V)$.
+In particular, it follows that 
+\begin{equation*}
+    k[x_1, ..., x_n]_{\leq s} / \I(V) = k[x_1, ..., x_n] / \I(V) = k[V]
+\end{equation*}
+and $|\mathcal{F}| = |V| = \dim_k k[x_1, ..., x_n]_{\leq s} / \I(V) \leq \dim_k k[x_1, ..., x_n]_{\leq s} / I$ for any $I \subseteq \I(V)$.
+Note further that if $x_i - x_i^j \in \I(V)$ for all $i, j$, then
+\begin{equation*}
+    \dim_k k[x_1, ..., x_n]_{\leq s} / \I(V) \leq \sum_{i = 0}^s {n \choose i}
+\end{equation*}
+
+\subsection{Sauer-Shelah theorem}
+If $\mathcal{F} \subseteq \mathcal{P}(n)$ has VC-dimension at most $d$, then $|\mathcal{F}| \leq \sum_{i = 0}^d {n \choose i}$.
+\paragraph{Proof idea} Boring inductive proof on $n + d$. An alternative is to consider with $V = \{ \chi_F \ | \ F \in \mathcal{F} \} \subseteq \mathbb{A}^n_\R$.
+We show that $\R[x_1, ..., x_n]_{\leq d} / \I(V) = \R[x_1, ..., x_n] / \I(V)$ and are done, as $|\mathcal{F}| = |V| = \dim_\R \R[V]$ and
+\begin{equation*}
+    \dim_\R \R[x_1, ..., x_n]_{\leq d}/\I(V) \leq \dim_\R \R[x_1, ..., x_n]_{\leq s} / \langle x_i - x_i^j \ | \ i \leq n, j \rangle = \sum_{i = 0}^d {n \choose i}
+\end{equation*}
+Assume not, i.e. there is $\overline{f} \in \R[V] \setminus \R[x_1, ..., x_n]_{\leq d} / \I(V)$.
+wlog $f \in \R[x_1, ..., x_n]$ has minimal degree $\deg(f) > d$ among all representatives of $\overline{f}$.
+wlog $f = \prod_{i \in A} x_i$ is a monomial.
+However $|A| > d$ so there is $B \subseteq A$ with $F \cap A \neq B$ for all $F \in \mathcal{F}$.
+Then
+\begin{equation*}
+    q := \prod_{i \in B} x_i \prod_{i \in A \setminus B} (1 - x_i) \in \I(V)
+\end{equation*}
+but $q - p$ has degree $< \deg(p)$, a contradiction.$\hfill\square$
+
+\subsection{Kleitman's (second) theorem}
+Let $\mathcal{A}, \mathcal{B} \subseteq \mathcal{P}(n)$ be downsets. 
+Then
+\begin{equation*}
+    |\mathcal{A} \cap \mathcal{B}| \geq \frac {|\mathcal{A}| |\mathcal{B}|} {2^n}
+\end{equation*}
+\paragraph{Proof Idea} Induction on $n$. Decompose $\mathcal{A}$ and $\mathcal{B}$ as
+\begin{align*}
+    \mathcal{A}^+ &= \{ A \subseteq [n - 1] \ | \ A \cup \{n\} \in \mathcal{A} \} \\
+    \mathcal{A}^- &= \{ A \subseteq [n - 1] \ | \ A \in \mathcal{A} \}
+\end{align*}
+and similarly for $\mathcal{B}$. Using the induction hypothesis, one can directly show the claim now.$\hfill\square$
+
+\subsection{Fisher's Inequality}
+Let $k \geq 1$ and $\mathcal{F} \subseteq \mathcal{P}(n)$ such that for all $A, B \in \mathcal{F}, A \neq B$ have $|A \cap B| = k$. Then $\mathcal{F} \leq n$.
+\paragraph{Proof Idea} If no $A \in \mathcal{F}$ satisfies $|A| = k$, one can show that all the $\chi_A, A \in \mathcal{F}$ are linearly independent.
+
+\subsection{Oddtown theorem}
+Let $\mathcal{F} \subseteq \mathcal{P}(n)$ such that $|A|$ is odd and $|A \cap B|$ is even for $A, B \in \mathcal{F}, A \neq B$. Then $|\mathcal{F}| \leq n$.
+\paragraph{Proof Idea} In $\mathbb{F}_2$ we have $\langle \chi_A, \chi_B \rangle = \delta_{AB}$. Writing this as a matrix product and using the rank directly shows the claim.$\hfill\square$
+
+\subsection{Frankl-Wilson theorem}
+Let $\mathcal{F} \subseteq \mathcal{P}(n)$ and assume one of the following two cases
+\begin{description}
+    \item[Modular version] Let $S \subseteq \Z/p\Z$ for a prime $p$ and suppose $\overline{|A|} \notin S$ and $\overline{|A \cap B|} \in S$ for all $A, B \in \mathcal{F}, A \neq B$
+    \item[Normal version] Let $S \subseteq \N$ and suppose $\mathcal{F}$ is $S$-intersection (i.e. $|A \cap B| \in S$ for all $A, B \in \mathcal{F}, A \neq B$)
+\end{description}
+Then
+\begin{equation*}
+    |\mathcal{F}| \leq \sum_{i = 0}^{|S|} {n \choose i}
+\end{equation*}
+\paragraph{Proof Idea} For the modular version, let
+\begin{equation*}
+    f_A := \prod_{s \in S} (s - \sum_{i \in A} x_i) \in \mathbb{F}_p[x_1, ..., x_n]
+\end{equation*}
+For the standard version, assume $\mathcal{F} = \{ F_1, ..., F_m \}$ with $|F_i| \leq |F_j|$ for $i \leq j$ and consider
+\begin{equation*}
+    f_j = f_{F_j} = \prod_{s \in S, s < |F_j|} (s - \sum_{i \in F_j} x_i) \in \R[x_1, ..., x_n]
+\end{equation*}
+Now apply \ref{polynomial_bounding_method}.$\hfill\square$
+
+\subsection{Ray-Chaudhuri-Wilson theorem}
+Let $\mathcal{F} \subseteq [n]^{(r)}$ be $S$-intersecting. Then $|\mathcal{F}| \leq {n \choose |S|}$.
+\paragraph{Proof Idea} Again let
+\begin{equation*}
+    f_A := \prod_{s \in S} (s - \sum_{i \in A} x_i) \in \R[x_1, ..., x_n]
+\end{equation*}
+and note that they are linearly independent in $k[V]$ for $V = \{ \chi_A \ | \ A \in \mathcal{F} \}$.
+So we no want to bound $\dim_\R \R[x_1, ..., x_n]_{\leq |S|} / \I(V)$.
+Note that $q := r - \sum_i x_i \in \I(V)$. So with $I = \langle x_i - x_i^j \ | \ i, j \rangle$ have
+\begin{equation*}
+    \dim_\R \R[x]_{\leq |S|} / \I(V) \leq \dim_\R \R[x]_{\leq |S|} / I - \dim_\R \underbrace{(q)_{\leq |S|} / (I \cap (q))}_{\cong \R[x]_{\leq |S| - 1} / I} = \sum_{i = 0}^{|S|} {n \choose i} - \sum_{i = 0}^{|S| - 1} {n \choose i}
+\end{equation*}
+The claim follows.$\hfill\square$
+
+\subsection{Combinatorial Nullstellensatz}
+Let
+\begin{equation*}
+    f = \sum_{i \in \N^n} c_i x^i \in k[x_1, ..., x_n]
+\end{equation*}
+of (multi-)degree $\deg f = t$ and assume $c_{(t_1, ..., t_n)} \neq 0$ with $\sum_i t_i = t$.
+Then for $S_i \subseteq k$ with $|S_i| \geq t_i + 1$ have
+\begin{equation*}
+    S_1 \times ... \times S_n \not\subseteq \V(f) 
+\end{equation*}
+\paragraph{Proof idea} Consider $s_1 \in S_1$ and as $x_1 - s_1$ is monic, we can perform polynomial division
+\begin{equation*}
+    f = (x_1 - s_1)q + r
+\end{equation*}
+with
+\begin{equation*}
+    q = \sum_{i \in \N^n} c_i x^{i - (1, 0, ..., 0)}
+\end{equation*}
+and $r \in k[x_2, ..., x_n]$. Assume $S_1 \times ... \times S_n \subseteq \V(f)$, then $S_2 \times ... \times S_n \subseteq \V(r)$.
+Hence for all $u \in S$ have
+\begin{equation*}
+    0 = f(u) = (u_1 - s_1) q(u) - r(u) = (u_1 - s_1) q(u)
+\end{equation*}
+and so $(S_1 \setminus \{ s_1 \}) \times S_2 \times ... \times S_n \subseteq \V(q)$.
+As $\deg q < \deg f = t$ and $c_\alpha \neq 0$, we can now use induction to show the claim.$\hfill\square$

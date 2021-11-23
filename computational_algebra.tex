@@ -1,0 +1,100 @@
+
+\subsection{Primality test}
+Let $n \in \N_{>2}$ be odd with $n - 1 = d2^s, \ d \perp 2$ and consider
+\begin{align*}
+    U_n &:= \{ a \in \Z_n^* \ | \ a^{n - 1} \equiv 1 \mod n \} \leq \Z_n^* & \text{(Fermat)}\\
+    V_n &:= \{ x \in \Z_n^* \ | \ x^{\frac {n - 1} 2} \equiv \left(\frac x n\right) \mod n \} \leq \Z_n^* & \text{(Solovay-Strassen)}\\
+    W_n &:= \{ a \in \Z_n^* \ | \ a^d \equiv 1 \quad \text{or} \quad a^{2^r d} \equiv -1 \quad \text{for some} \ r < s \} & \text{(Miller-Rabin)}
+\end{align*}
+If $n$ is prime, then $U_n = V_n = W_n = \Z_n^*$ and otherwise, $V_n, W_n \neq \Z_n^*$. Furthermore, if $n$ is composite, then $\#W_n \leq \frac 1 4 n$.
+\paragraph{Proof} That $U_n, V_n \leq \Z_n^*$ are subgroups can bee seen easily (note that $(\frac \cdot n )$ is multiplicative). Similarly, see that $V_n \subseteq U_n$ and if $n$ is prime, then all are equal by using that $\Z_n^*$ is cyclic.
+
+For the other parts, use some key ideas: First, for each prime $p$ (so in particular for $p | n$) have $\Z_p^*$ is cyclic of even order (wlog $n$ odd) and we get that $a$ is a square if $2\mathrm{ord}[a]_p | \ p - 1$. Furthermore, we have the CRT and if $a^k \equiv -1$ then $[a]_p^k = [-1]$ for each prime factor $p | n$.
+
+If $n = \prod_i p_i^{e_i}$ is composite, consider $x \in \Z_n^*$ which is congruent to a non-square modulo $p_1$ and congruent to $1$ modulo every other $p_i$. Then note that $x \notin V_n$ as
+\begin{equation*}
+    x^{\frac {n - 1} 2} \equiv 1^{\frac {n - 1} 2} \equiv 1 \not\equiv -1 \mod p_i \ \text{for some} \ i \neq 1 \quad \text{so} \quad x^{\frac {n - 1} 2} \not\equiv -1
+\end{equation*}
+where congruences are modulo $n$ unless otherwise mentioned.
+\\
+Now we consider $W_n$. Let $n = \prod_i p_i^{e_i}$ be odd and $a \in W_n$. 
+
+If $a^d \equiv 1$ then the order $\mathrm{ord}[a]_{p_i}$ is odd for each $i$, and therefore $a$ is a square modulo $p_i$ by using that $\Z_{p_i}^*$ is cyclic of even order. Therefore, 
+\begin{equation*}
+    \left(\frac a n\right) = 1 \equiv a^{\frac {n - 1} 2} \ \text{so} \ a \in V_n
+\end{equation*}
+
+If $a^{2^rd} \equiv -1$ for $r < s$ have that $[a]_{p_i}^{2^rd} = [-1]$. It follows that $\mathrm{ord} [a]_{p_i} = 2^{r + 1}d_i$ for $d_i \perp 2$, as $2^kf := \mathrm{ord}[a] \ | \ 2^{r + 1}d, \ f \perp 2$ and if $k \leq r$ then
+\begin{equation*}
+    [-1] = [a]^{2^rd_i} = \left([a]^{2^k f}\right)^{\frac {d_i} f 2^{r - k}} = [1]^{\frac {d_i} f 2^{r - k}} = [1], \quad \text{a contradiction}
+\end{equation*}
+So $\mathrm{ord} [a]_{p_i} = 2^{r + 1}d_i$, hence $2^{r + 1} \ | \ p_i - 1$. We set $p_i = 2^{r + 1} b_i + 1$.
+
+As above, $\Z_{p_i}^*$ is cyclic of even order, so we get
+\begin{equation*}
+    \left(\frac a {p_i}\right) = -1 \ \Leftrightarrow \ 2 \mathrm{ord}[a]_{p_i} \not| \ p_i - 1 \ \Leftrightarrow \ 2^{r + 2}d_i \not| \ p_i - 1  \ \Leftrightarrow \ 2^{r + 2} \not| \ p_i - 1 \ \Leftrightarrow \ b_i \perp 2
+\end{equation*}
+This yields
+\begin{equation*}
+    \left(\frac a {p_i}\right) = (-1)^{b_i} \quad \Rightarrow \quad \left(\frac a n\right) = \prod_i \left(\frac a {p_i}\right)^{e_i} = (-1)^{\sum_i b_i e_i}
+\end{equation*}
+Furthermore we get for the representation of $n$ modulo $2^{2r + 2}$ that
+\begin{equation*}
+    n = \prod_i p_i^{e_i} = \prod_i (2^{r + 1} b_i + 1)^{e_i} \equiv \prod_i (2^{r + 1} b_i e_i + 1) \equiv 1 + 2^{r + 1} \sum_i b_i e_i \mod 2^{2r + 2}
+\end{equation*}
+so
+\begin{equation*}
+    2^{s - 1}d = \frac {n - 1} 2 \equiv 2^r \sum_i b_i e_i \mod 2^{2r + 1} \quad \Rightarrow \quad 2^{s - r - 1} \equiv 2^{s - r - 1}d \equiv \sum_i b_i e_i \mod 2
+\end{equation*}
+and at last we get
+\begin{equation*}
+    a^{\frac {n - 1} 2} = a^{2^{s - 1}d} = \left( a^{2^rd} \right)^{2^{s - r - 1}} = (-1)^{2^{s - r - 1}} = (-1)^{\sum_i b_i e_i} = \left(\frac a n\right)
+\end{equation*}
+$\hfill\square$
+
+\subsection{Hidden Subgroup Problem}
+Given a group $G$ together with a group homomorphism $f: G \to X$ that is constant on all cosets of some subgroup $H \leq G$ and different on different cosets, find a generating set of $H$.
+\paragraph{Quantum Algorithm for $G = \Z$}
+Each subgroup $H \leq \Z$ is of the form $H = q\Z$, so $f$ is periodic with periode $b \in \Z$.
+Now consider some big $N = 2^n \in \Z$ and consider
+\begin{equation*}
+    \sum_{x = 0}^{N - 1} |x\rangle \ |f(x)\rangle
+\end{equation*}
+With a $N$-th root of unity $\zeta$, applying the QFT yields
+\begin{equation*}
+    \frac 1 N \sum_{x = 0}^{N - 1} \sum_{k = 0}^{N - 1} \zeta^{k x} |k\rangle \ |f(x)\rangle
+\end{equation*}
+When measuring both states, the probability to get some $k \in \{0, ..., N-1\}, f(x_0) \in X$ is equal to
+\begin{align*}
+    &\frac 1 {N^2} \left| \ \sum_{x = 0, \ f(x) = f(x_0)}^{N - 1} \zeta^{k x} \ \right|^2 = \frac 1 {N^2} \left| \ \sum_{l = 0}^M \zeta^{k (x_0 + bl)} \ \right|^2 = \frac 1 {N^2} \left| \ \zeta^{kx_0} \ \sum_{l = 0}^M \zeta^{kbl} \ \right|^2 \\
+    = \ &\frac 1 {N^2} \left| \ \sum_{l = 0}^M \zeta^{kbl} \ \right|^2 = \frac 1 {N^2} \left| \frac {1 - \zeta^{kb(M + 1)}} {1 - \zeta^{kb}} \right|^2 = \frac 1 {N^2} \left| \frac {\sin(2\pi \frac {kb(M+1)} N)} {\sin(2\pi \frac {kb} N)} \right|^2
+\end{align*}
+where $M = \left\lfloor \frac {N - x_0} b \right\rfloor \approx \frac N b$ and the denominators are non-zero as $b$ is wlog odd.
+
+As $b$ is odd, have $\overline{b} \in \Z_N^*$ and so there are at least $b$ different $k \in \{0, ..., N - 1\}$ such that $|kb \mod N| \leq \frac b 2$.
+For such a $k$, have that $\delta_k := \frac {kb} {N} - \lfloor \frac {kb} {N} \rceil$ is at most $\frac b {2N}$ in absolute value.
+Thus
+\begin{equation*}
+    \sin\left(2\pi \frac{kb} N\right) = \sin(2\pi\delta_k) \leq |\delta_k|
+\end{equation*}
+and $\delta_k (M + 1)$ is at most $\frac N b \frac b {2N} = \frac 1 2$ in absolute value, so ($\sin$ is convex in $[0, \frac 1 2]$)
+\begin{equation*}
+    \sin\left(2\pi \frac{kb(M + 1)} N\right) = \sin(2\pi\delta_k(M + 1)) \geq |\delta_k| (M + 1) \sin\left(\frac 1 2\right) \geq \frac {|\delta_k|(M + 1)} 3
+\end{equation*}
+It follows that
+\begin{equation*}
+    \frac 1 {N^2} \left| \frac {\sin(2\pi \frac {kb(M+1)} N)} {\sin(2\pi \frac {kb} N)} \right|^2 \geq \frac 1 {N^2} \left( \frac {|\delta_k| (M + 1)} 3 \frac 1 {|\delta_k|} \right)^2 = \frac {(M + 1)^2} {9N^2} \geq \frac 1 {9b^2} \left(1 - \frac {2b} N + \frac {b^2} {N^2}\right)
+\end{equation*}
+As $f$ takes different values on different cosets, we have $b$ different values of the form $f(x_0)$. 
+For each of them, the above applies, so the probability that we measure any value where the first component is a fixed $k \in \{ 0, ..., N - 1\}$ with $|\delta_k| \leq \frac b {2N}$ is at least
+\begin{equation*}
+    b \cdot \frac {1 - \epsilon} {9b^2} = \frac {1 - \epsilon} {9b}
+\end{equation*}
+where $\epsilon = 1 - \frac {2b} N + \frac {b^2} {N^2}$.
+
+As there are at least $b$ such $k$, the probability that we measure a value whose first component satisfies $|\delta_k| \leq \frac b {2N}$ is at least
+\begin{equation*}
+    b \cdot \frac {1 - \epsilon} {9b} = \frac {1 - \epsilon} 9
+\end{equation*}
+If $N$ is sufficiently large - say $N \geq b^2$ - then $\epsilon \in \Theta(\frac 1 b)$, hence we can find a $k$ with $|\delta_k| \leq \frac b {2N}$ in polynomial time.
+Using continued fractions, we can extract $b$ from this.

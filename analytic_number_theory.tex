@@ -1,0 +1,140 @@
+
+\subsection{Dirichlet convolution and Möbius inversion}
+Let $f, g: \N_{>0} \to \C$ be functions. Then define the Dirichlet convolution
+\begin{equation*}
+    f * g: \N_{>0} \to \C, \quad n \mapsto \sum_{ab = n} f(a) g(b)
+\end{equation*}
+We then have
+\begin{itemize}
+    \item $f * g = g * f$
+    \item $f * (g * h) = (f * g) * h$
+    \item $f, g$ multiplicative (i.e. $f(ab) = f(a)f(b)$ for $a \perp b$), then also $f * g$ multiplicative
+    \item $1 * \mu = \delta$ where $\delta(1) = 1, \delta(k) = 0$ for $k > 1$ and $\mu$ is the multiplicative function with $\mu(p) = -1, \mu(p^k) = 0$ for a prime $p$ and $k > 1$.
+\end{itemize}
+
+\subsection{Dirichlet series}
+Let $f: \N_{> 0} \to \C$ be a function with $|f(n)| \leq n^{o(1)}$. Then
+\begin{equation*}
+    \sum_{n \geq 1} \frac {f(n)} {n^s}
+\end{equation*}
+converges absolutely to an analytic function for $\Re(s) > 1$.
+For any $\delta > 0$ the convergence is uniform on $\Re(s) \geq 1 + \delta$.
+If also $g: \N_{> 0} \to \C$ is a function with $|g(n)| \leq n^{o(1)}$ then
+\begin{equation*}
+    \sum_{n \geq 1} \frac {(f * g)(n)} {n^s} = \left( \sum_{n \geq 1} \frac {f(n)} {n^s} \right)\left( \sum_{n \geq 1} \frac {g(n)} {n^s} \right)
+\end{equation*}
+\paragraph{Proof idea} Just show uniform convergence, the rest follows. To do so, use that for sufficiently large $n$, have
+\begin{equation*}
+    \sum_{N_1 \leq n \leq N_2} \left| \frac {a_n} {n^s} \right| \leq \sum_{N_1 \leq n \leq N_2} \frac {n^{\delta/2}} {n^{\Re(s)}} \leq \frac {\delta} {2(N_1 - 1)^{\delta/2}}
+\end{equation*}
+The second part can be shown by splitting the sum and bounding one part.
+
+\subsection{Analytic continuation of $\zeta$}
+$\zeta(s)$ has a meromorphic continuation to $\Re(s) > -2$, given by
+\begin{equation*}
+    \zeta(s) = \frac 1 {s - 1} + \frac 1 2 + \frac s {12} - s(s + 1)(s + 2) \int_1^\infty \frac {\{t\} - 3\{t\}^2 + 2\{t\}^3} {12t^{s + 3}} dt
+\end{equation*}
+\paragraph{Proof} By partial summation, get
+\begin{equation*}
+    \sum_{n \geq 1} \frac 1 {n^s} = 0 - (-s)\int_1^\infty \lfloor t \rfloor t^{-1 - s} dt = s\int_1^\infty \frac {t - \{t\}} {t^{s + 1}} dt = \underbrace{s \int_1^\infty \frac 1 {t^s} dt}_{= \frac s {s - 1} = 1 + \frac 1 {s - 1}} - s\int_1^\infty \frac {\{t\}} {t^{s + 1}} dt
+\end{equation*}
+Note that this already gives an analytic continuation to $\Re(s) > 0$.
+By integration by parts and using that $\int \{t\} = \frac 1 2 \lfloor t \rfloor + \frac 1 2 \{t\}^2$, find further
+\begin{align*}
+    \int_1^\infty \frac {\{t\}} {t^{s + 1}} dt &= 0 - \frac 1 2 + \frac 1 2(s + 1)\int_1^\infty \frac {\lfloor t \rfloor + \{t\}^2} {t^{s + 2}} dt \\
+    &= -\frac 1 2 + \frac {s + 1} 2 \int_1^\infty \frac t {t^{s + 2}} dt - \frac {s + 1} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt \\
+    &= -\frac 1 2 + \frac {s + 1} {2s} - \frac {s + 1} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 1}} dt
+\end{align*}
+and so
+\begin{equation*}
+    \sum_{n \geq 1} \frac 1 {n^s} = \frac 1 {s - 1} + \frac 1 2 + \frac {(s + 1)s} 2 \int_1^\infty \frac {\{t\} + \{t\}^2} {t^{s + 2}} dt
+\end{equation*}
+Note that this already gives an analytic continuation to $\Re(s) > -1$.
+Repeating this one more time yields the claim.$\hfill\square$
+
+\subsection{Properties of $\zeta$}
+First of all, some ``basic'' properties:
+\begin{itemize}
+    \item For $x \in ]1, \infty[ \subseteq \R$ have $\zeta(x) > 0$
+    \item For $x \in ]0, 1[ \subseteq \R$ have $\zeta(x) < 0$
+    \item $\zeta(-1) = -\frac 1 {12}$
+    \item For $\Re(s) > 1$ have $\zeta'(s) = -\sum_{n \geq 1} \log(n)/n^s$
+    \item For $\Re(s) > 0$ have $\zeta(s) = \sum_{1 \leq n \leq N} \frac 1 {n^s} + N^{1 - s}/(1 - s) + O(|s| N^{-\Re(s)})$
+    \item For $0 < \Re(s) < 1$ have $|\zeta(s)| = O(1 + |t|^{1 - s}/(1 - \Re(s)))$
+    \item For $\Re(s) > 1$ have
+    \begin{align*}
+        \sum_{n \geq 1} \frac {\tau(n)} {n^s} &= \zeta(s)^2 \\
+        \sum_{n \geq 1} \frac {\mu(n)} {n^s} &= \zeta(s)^{-1} \\
+        \sum_{n \geq 1} \frac {\Lambda(n)} {n^s} &= -\frac {\zeta'(s)} {\zeta(s)}
+    \end{align*}
+    In particular, each of the sums on the left-hand side has a meromorphic continuation to $\Re(s) > -2$
+    \item For $\Re(s) > 1$ have $\zeta(s) \neq 1$
+\end{itemize}
+For the following properties, we use the functional equation and some theory on the Gamma function.
+\begin{itemize}
+    \item $\zeta(s)$ has a meromorphic continuation to $\C$
+    \item $\zeta(s)$ has a simple pole at $s = 1$ and no other poles on $\C$
+    \item $\zeta(s)$ has ``trivial'' zeros at $2\Z_{< 0}$
+    \item All other ``non-trivial'' zeros satisfy $0 \leq \Re(s) \leq 1$
+\end{itemize}
+Using \ref{bounds_complex_analytic_functions} one can show the following claims on the density of zeros of $\zeta(s)$.
+\begin{itemize}
+    \item For all $t$ have that the number of nontrivial zeros $\rho$ with $t \leq \Im(\rho) \leq t + 1$ is $O(\log(2 + |t|))$.
+    \item From the previous it follows that for $\Re(s) \geq -\frac 1 4$ have
+    \begin{equation*}
+        \frac {\zeta'(s)} {\zeta(s)} = -(s - 1)^{-1} + \sum_{\mathclap{|\rho - s| \leq \frac 1 {10}, \ \zeta(\rho) = 0}} (s - \rho)^{-1} + O(\log(2 + |t|))
+    \end{equation*}
+\end{itemize}
+
+\subsection{Euler Products}
+Let $f: \N_{>0} \to \C$ be multiplicative with $f(n) \leq n^{o(1)}$. Then for $\Re(s) > 1$ have
+\begin{equation*}
+    \sum_{n \geq 1} \frac {f(n)} {n^s} = \prod_{p \in \mathbb{P}} \ \sum_{j \geq 0} \frac {f(p^j)} {p^{js}}
+\end{equation*}
+
+\subsection{Functional equation}
+The function $\xi(s) := \zeta(s)\Gamma(\frac s 2) \pi^{-s/2}$ defined for $\Re(s) > 0$ has a meromorphic continuation to $\C$ and satisfies $\xi(S) = \xi(1 - s)$.
+\paragraph{Proof idea} Use the following, technical lemma with the Gaussian function $f(x) = \exp(-\pi x^2) \in S(\R)$ 
+\subsubsection*{Lemma}
+Let $f \in S(\R)$ with $f(x) = f(-x)$ and define
+\begin{equation*}
+    F(s) := \int_0^\infty f(x) x^{s - 1} dx \quad \text{for $\Re(s) > 0$}
+\end{equation*}
+Then
+\begin{equation*}
+    \zeta(s)F(s) = \frac {\hat{f}(0)} {2(s - 1)} - \frac {f(0)} {2s} + \int_1^\infty \left( \sum_{n \geq 1} f(nx) \right) x^{s - 1} dx + \int_1^\infty \left( \sum_{n \geq 1} \hat{f}(nu) \right) u^{-s} du
+\end{equation*}
+\paragraph{Proof idea} Use the Poisson summation formula.
+
+\subsection{The explicit formula}
+Let $2 \leq T \leq 2x$. Then
+\begin{equation*}
+    \Psi(x) := \sum_{n < x} \Lambda(n) = x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x (\log x)^3} T \right)
+\end{equation*}
+where the sum runs over all nontrivial zeros $\rho$ of $\zeta$ with $\Im(\rho) \leq T$.
+\paragraph{Proof idea} Perron's formula yields that
+\begin{equation*}
+    \Psi(x) = -\frac 1 {2\pi i} \int_{c - iT}^{c + iT} \underbrace{\frac {x^s} s \frac {\zeta'(s)} {\zeta(s)}}_{:= f(s)} ds + O\left( \frac {x (\log x)^3} T \right)
+\end{equation*}
+By Cauchy's residue theorem, get for all $\tilde{T}$
+\begin{align*}
+    {\int_{c - i\tilde{T}}^{c + i\tilde{T}} f(s)ds + \int_{c + i\tilde{T}}^{-\frac 1 4 + i\tilde{T}} f(s) ds + \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} f(s) ds + \int_{-\frac 1 4 - i\tilde{T}}^{c - i\tilde{T}} f(s) ds} \ = \ 2\pi i\sum_\rho \mathrm{Res}(f, \rho)
+\end{align*}
+where the sum runs over all poles $\rho$ of $f$ with $\Re(\rho) \in [-\frac 1 4, c]$ and $\Im(\rho) \in [-\tilde{T}, \tilde{T}]$.
+Choosing $\tilde{T} \in [T - 1, T]$ such that there are no zeros $\rho$ of $\zeta$ with $|\Im(\rho) - \tilde{T}| < c/\log T$ (this is possible by \ref{bounds_complex_analytic_functions}, but the calculation is not trivial) allows us then to estimate
+\begin{equation*}
+    \Bigl| \int_{c + i\tilde{T}}^{-\frac 1 4 + i\tilde{T}} f(s) ds \Bigr| \leq \int_{c + i\tilde{T}}^{-\frac 1 4 + i\tilde{T}} \frac x {\tilde{T}} \Bigl| \frac {\zeta'(s)} {\zeta(s)} \Bigr| ds = O\left( \frac {x(\log T)^2} {\tilde{T}} \right)
+\end{equation*}
+as $\zeta'(s)/\zeta(s) = O((\log T)^2)$ in this case (follows from \ref{bounds_complex_analytic_functions}, but the computation is again not trivial).
+Using this again, we see that also
+\begin{align*}
+    \Bigl| \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} f(s) ds \Bigr| &\leq \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} \frac {x^{-\frac 1 4}} s \Bigl| \frac {\zeta'(s)} {\zeta(s)} \Bigr| ds = O\left( x^{-\frac 1 4} (\log T)^2 \int_{-\frac 1 4 + i\tilde{T}}^{-\frac 1 4 - i\tilde{T}} \frac 1 s ds \right) \\
+    &= O\left( x^{-\frac 1 4} (\log T)^3 \right)
+\end{align*}
+Note that the residues of $f$ at $1$ is $-x$, at nontrivial zeros $\rho$ of $\zeta$ is $x^\rho / \rho m_\rho$ (where $m_\rho$ is the multiplicity) and at $0$ is $\zeta'(0)/\zeta(0)$.
+Lastly, note also that the error made by integrating to $\tilde{T}$ instead of $T$ is $O(x(\log x)^3/T)$.
+Thus
+\begin{align*}
+    \Psi(x) &= x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x(\log T)^2} {\tilde{T}} + \frac {(\log T)^3} {x^{\frac 1 4}} + \frac {x(\log x)^3} T \right) \\
+    &= x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x(\log x)^3} T \right)
+\end{align*}

@@ -1,0 +1,60 @@
+
+\subsection{Separation axioms}
+\begin{description}
+    \item[T0] for distinct points $x, y$, have either $x \in U, y \notin U$ or $x \notin U, y \in U$ for open $U$
+    \item[T1] for distinct points $x, y$ have $x \in U, y \notin U$ and $x \notin V, y \in V$ for open $U, V$ (equivalent to singletons are closed)
+    \item[T2] or Hausdorff; points can be separated by open sets
+    \item[T3] T1 + points can be separated from closed sets by open sets
+    \item[T4] T1 + closed sets can be separated from closed sets by open sets
+\end{description}
+
+\subsection{Universal nets}
+Every net $(x_i)_{i \in I}$ has a universal subnet.
+\paragraph{Proof idea} 
+Consider the filter $\mathcal{F} = \{F \subseteq I \ | \ \exists i \in I \ \forall j \in I: \ j \geq i \Rightarrow j \in F\}$ and use ultrafilter $\mathcal{U} \supseteq \mathcal{F}$ as index set.
+
+\subsection{Initial topologies}
+$\{ \bigcap_{\alpha \in \mathcal{F}} f_\alpha^{-1}(U_\alpha) \ | \ \mathcal{F} \subseteq \mathcal{A} \ \text{finite}, \ U_\alpha \in \tau_\alpha \}$ is a basis for the initial topology of $f_\alpha: X \to (X_\alpha, \tau_\alpha)$.
+
+\subsection{Characterization of compactness}
+The following are equivalent, where $(X, \tau)$ is a topological space
+\begin{itemize}
+    \item Every open cover of $X$ has a finite subcover
+    \item For all $\mathcal{D} \subseteq 2^X$ of nonempty, closed sets with $\bigcap \mathcal{F} \neq \emptyset$ for each finite $\mathcal{F} \subseteq \mathcal{D}$ have that $\bigcap \mathcal{D} \neq \emptyset$
+    \item For each chain $\mathcal{C} \subseteq 2^X$ of nonempty, closed sets have $\bigcap \mathcal{C} \neq \emptyset$
+    \item Each universal net converges
+    \item Each net has a convergent subnet
+    \item Each closed $S \subseteq X$ is compact w.r.t the subspace topology
+\end{itemize}
+\paragraph{Proof} Interesting is only (iii) $\Rightarrow$ (ii). Given $\mathcal{D} \subseteq 2^X$ consider $\mathcal{S} := \{\mathcal{A} \subseteq \mathcal{D} \ | \ \bigcap \mathcal{A} \neq \emptyset \}$. Then by assumption, $\mathcal{S}$ contains all finite sets.
+Also, $\mathcal{S}$ is also closed w.r.t monotone unions, as for a chain $\mathcal{C} \subseteq \mathcal{S}$ have that $\{ \bigcap C \ | \ C \in \mathcal{C} \}$ is a chain of nonempty closed sets, so $\bigcap \{ \bigcap C \ | \ C \in \mathcal{C} \} \neq \emptyset$ by assumption. But this is a lower bound for each $C \in \mathcal{C}$, so for $\bigcup \mathcal{C}$. Therefore, $\bigcup \mathcal{C} \in \mathcal{S}$.
+
+Assume $\mathcal{A} \subseteq 2^\mathcal{D}$ is a set of smallest cardinality $\kappa$ not in $\mathcal{S}$. Then we can well-order $\mathcal{A} = \{a_\xi \ | \ \xi \in \kappa\}$ and get $\mathcal{A} = \bigcup_{\chi \in \kappa} \{ a_\xi \ | \ \xi \in \chi\}$ as $\kappa$ is infinite, so a limit ordinal. Therefore $\mathcal{A}$ is a monotone union of sets in $\mathcal{S}$ (by minimality of $\kappa$), so in $\mathcal{S}$.
+Then $\mathcal{S} = 2^\mathcal{D}$ so $\mathcal{D} \in \mathcal{S}$ and therefore $\bigcap \mathcal{D} \neq \emptyset$.
+
+\subsection{Tychonoffs Theorem}
+For a collection of compact topological spaces $(X_i)_{i \in I}$ the product space $\prod_{i \in I} X_i$ is compact.
+\paragraph{Proof idea} Follows directly from the fact that projections of universal nets are universal, and a space is compact iff every universal net converges.
+
+\subsection{Urysohn's Lemma}
+For closed $C_0, C_1$ in a T4 space $X$ there is a continuous $f: X \to [0, 1]$ with $\restr{f}{C_0} = 0$ and $\restr{f}{C_1} = 1$.
+\paragraph{Proof idea} Construct by induction open sets $U_q$ for $q \in \Q \cap [0, 1]$ with $C_0 \subseteq U_q \subseteq \bar{U}_q \subseteq U_r \subseteq \bar{U_r} \subseteq C_1^c$ for $q < r$. Then take $f(x) := \inf \{q \in \Q \cap [0, 1] \ | \ x \in U_q \} \cup \{1\}$.
+
+\subsection{Tietze's extension theorem}
+For closed $C$ in a T4 space $X$ and continuous $f: C \to \R$ there is a continuous extension $\tilde{f}: X \to \R$.
+\paragraph{Proof idea} Prove extension of $f: C \to ]-1,1[$ to $\tilde{f}: X \to ]-1,1[$, then the result follows by using a homeomorphism $]-1,1[ \to \R$.
+By Urysohn's Lemma, it suffices to extend $f: C \to [-1, 1]$ to $\tilde{f}: X \to [-1, 1]$. For this, construct a sequence $h_n: X \to (\frac 2 3)^n [-\frac 1 3, \frac 1 3]$ of continuous functions such that $\sum_n h_n$ converges uniformly.
+
+\subsection{Extension of uniformly continuous functions}
+Let $S$ be a set in a metric space $M$ and $f: S \to \R$ uniformly continuous. Then $f$ can be continuously extended to $\tilde{f}: M \to \R$.
+\paragraph{Proof idea} Use the following result: If $X$ is a topological space and $Y$ is T3, then for $D \subseteq X$ and continuous $f: D \to Y$ we can extend $f$ to $\bar{D} \to Y$ if 
+\begin{equation*}
+    \forall x \in \partial D \ \exists y \in Y \ \forall (x_i)_{i \in I} \ \text{net in $D$}: \ x_i \to x \ \Rightarrow \ f(x_i) \to y
+\end{equation*}
+This condition already determines the extension function $\tilde{f}$, and its continuity can be proven by contradiction. Assume a universal net $(x_i)_{i \in I}$ in $\bar{D}$ converges to $x \in \bar{D}$ but not $\tilde{f}(x_i) \to \tilde{f}(x)$. Construct a net $(w_j)_{j \in J}$ in $D$ such that $w_j \to x$ and $\tilde{f}(w_j)$ is outside of the closure of a fixed neighborhood $N$ of $\tilde{f}(x)$. This contradicts the assumption.
+
+\subsection{Irreducibility}
+If $X$ is a noetherian topological space, then there are only finitely many irreducible components.
+\paragraph{Proof idea} Consider a minimal closed set $A$ that is not a finite union of irreducible closed sets.
+However, $A$ cannot be the union of two proper closed subsets as these would be a finite union of irreducible closed sets.
+Thus $A = X$ and the claim follows.

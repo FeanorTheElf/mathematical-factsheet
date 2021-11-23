@@ -1,0 +1,105 @@
+
+
+\subsection{Zorn's Lemma}
+Let $X$ be a partially ordered set, in which every chain has an upper bound. Then $X$ has a maximal element.
+\paragraph{Proof} Show that the set $\mathcal{X} \subseteq 2^X$ of chains in $X$ has a maximal element, so $X$ has a maximal chain (whose upper bound then is the required maximal element).
+
+Let $f: 2^X \setminus \{\emptyset\} \to X$ be a choice function for $X$, so $f(S) \in S$ for each $S \subseteq X$. Then define
+\begin{equation}
+    g: \mathcal{X} \to \mathcal{X}, \quad C \mapsto \begin{cases}
+        C, & \text{if $C$ maximal} \\
+        C \cup \left\{ f\left(\{ x \in X \ | \ \text{$x$ comparable with $C$} \}\right) \right\}, & \text{otherwise}
+    \end{cases} \nonumber
+\end{equation}
+where we say that an element $x \in X$ is comparable with a set $S \subseteq X$, if $x$ is comparable with $s$ for all $s \in S$.
+\subparagraph{Definition Tower} Call a subset $\mathcal{T} \subseteq \mathcal{X}$ tower, if
+\begin{itemize}
+    \item $\emptyset \in \mathcal{T}$
+    \item If $C \in \mathcal{T}$, then $g(C) \in \mathcal{T}$
+    \item If $\mathcal{S} \subseteq \mathcal{T}$ is a chain, then $\bigcup \mathcal{S} \in \mathcal{T}$
+\end{itemize}
+The intersection of towers is a tower, so have a smallest tower $\mathcal{R} := \bigcap \{ \mathcal{T} \subseteq \mathcal{X} \ | \ \text{$\mathcal{T}$ tower} \}$ in $\mathcal{X}$. We show that $\mathcal{R}$ is a chain. Consider the set $\mathcal{C} := \{ A \in \mathcal{R} \ | \ \text{$A$ comparable to $\mathcal{R}$}\}$ of comparable elements in $\mathcal{R}$.
+
+\subparagraph{Show} $\mathcal{C}$ is a tower, so $\mathcal{R} = \mathcal{C}$ and therefore, $\mathcal{R}$ is a chain.
+
+Trivially, we have $\emptyset \in \mathcal{C}$ as $\emptyset \subseteq A$ for each $A \in \mathcal{R}$. For a chain $\mathcal{S} \subseteq \mathcal{C}$ and any $A \in \mathcal{R}$, have either $A \subseteq S$ for some $S \in \mathcal{S}$, so $A \subseteq \bigcup \mathcal{S}$, or $S \subseteq A$ for each $S \in \mathcal{S}$, so $\bigcup \mathcal{S} \subseteq A$. 
+Therefore, it is left to show that for $\mathcal{C}$ is closed under $g$. Let $B \in \mathcal{C}$.
+
+\subparagraph{Show} The set $\mathcal{U} := \{ A \in \mathcal{R} \ | \ A \subseteq B \vee g(B) \subseteq A \} \subseteq \mathcal{R}$ is a tower. It then follows that $\mathcal{R} = \mathcal{U}$, so for each $A \in \mathcal{R}$, have $A \subseteq B \subseteq g(B)$ or $g(B) \subseteq A$. Hence, $g(B)$ is comparable to $\mathcal{R}$. Obviously, $\emptyset \in \mathcal{U}$ and for a chain $\mathcal{S} \subset \mathcal{U}$, also $\bigcup \mathcal{S} \in \mathcal{U}$. Additionally, for $U \in \mathcal{U}$, have:
+
+If $g(B) \subseteq U$, then also $g(B) \subseteq g(U)$. 
+
+Otherwise, $U \subseteq B$. If $B = U$, then $g(B) \subseteq g(U)$, so we may assume $U \subsetneq B$. We have that $U \in \mathcal{R}$, so $g(U) \in \mathcal{R}$ (because $\mathcal{R}$ is a tower) and therefore, $B$ is comparable to $g(U)$.
+\\$\Rightarrow g(U) \subseteq B$, because if $B \subsetneq g(U)$, we would have $U \subsetneq B \subsetneq g(U)$, however, $g(U) \setminus U$ has at most one element. Hence, $g(U) \in \mathcal{U}$, so $\mathcal{U} = \mathcal{C} = \mathcal{R}$ are towers.
+
+\subparagraph{Show} The set $C := \bigcup \mathcal{R}$ is a maximal element in $\mathcal{X}$.
+
+$\mathcal{R}$ is a chain and a tower, so $C \in \mathcal{R}$. We also have $g(C) \in \mathcal{R}$, as $\mathcal{R}$ is a tower.
+\\$\Rightarrow g(C) \subseteq C$ and therefore $C = g(C)$, so $C$ is maximal in $\mathcal{X}$ by definition of $g$.
+
+\subsection{Ultrafilter Lemma}
+For each filter $\mathcal{F}$ on a set $X$ there is a ultrafilter $\mathcal{U}$ such that $\mathcal{F} \subseteq \mathcal{U}$. 
+
+\subsection{Product Cardinality}
+For infinite set $X$ have $\mathrm{card}(X) = \mathrm{card}(X \times X)$. For a proof, consider the following lemma
+\subsubsection{Lemma}
+\label{aleph_identity_lemma}
+Let $f: \mathrm{On} \to \mathrm{On}$ be an increasing function with
+\begin{itemize}
+    \item $f(\aleph_0) = \aleph_0$
+    \item If $\mathrm{card}(\alpha) = \mathrm{card}(\beta)$ then $\mathrm{card}(f(\alpha)) = \mathrm{card}(f(\beta))$
+    \item For limit ordinal $\lambda$ have $f(\lambda) = \bigcup_{\delta < \lambda} f(\delta)$
+\end{itemize}
+Then $f(\aleph_\delta) = \aleph_\delta$ for each $\delta \in \mathrm{On}$. This lemma is easy to show by transfinite induction.
+
+\paragraph{Proof} Consider the order $\leq$ on $\mathrm{On}^2$ given by 
+\begin{equation*}
+    (a_0, a_1) \leq (b_0, b_1) :\Leftrightarrow \begin{cases} \max \{a_0,a_1\} < \max \{b_0,b_1\} \ \vee \\ \max \{a_0,a_1\} = \max \{b_0,b_1\}, a_0 < b_0 \ \vee \\ \max \{a_0,a_1\} = \max \{b_0,b_1\}, a_0 = b_0, a_1 \leq b_1 \end{cases}
+\end{equation*}
+Then $f: \mathrm{On} \to \mathrm{On}, \ \alpha \mapsto \mathrm{ord}(\alpha \times \alpha)$ fulfills the conditions from the lemma.$\hfill\square$
+
+\subsection{Power Cardinality}
+For an infinite set $X$ and any set $Y$ have $\mathrm{card}(X^Y) = \max \{ \mathrm{card}(X), \mathrm{card}(\mathfrak{P}(Y)) \}$. 
+\paragraph{Proof} Have bijections
+\begin{equation*}
+    \mathfrak{P}(Y)^Y \to \left( 2^Y \right)^Y \to 2^{Y \times Y} \to \mathfrak{P}(Y^2)
+\end{equation*}
+So by the previous proposition, $\mathrm{card}(\mathfrak{P}(Y)^Y) = \mathrm{card}(\mathfrak{P}(Y))$. So in the case $\mathrm{card}(X) \leq \mathrm{card}(\mathfrak{P}(Y))$ the claim is already shown.
+
+Otherwise have $\gamma = \mathrm{card}(Y)$ and use a variant of the lemma \ref{aleph_identity_lemma}, where all conditions and the result only hold for ordinals $\geq \gamma$ to show that $\mathrm{card}(\mu^\gamma) = \mathrm{card}(\mu)$ for all $\mu \geq 2^\gamma$.
+
+Consider the order $\leq$ on $\mathrm{On}^\gamma$ given by
+\begin{equation*}
+    (a_y)_y \leq (b_y)_y :\Leftrightarrow \begin{cases} \sup_y a_y < \sup_y b_y \ \vee \\ \sup_y a_y = \sup_y b_y, \ (a_y)_y \leq_{\text{lexiographic}} (b_y)_y \end{cases}
+\end{equation*}
+Then the function $\mathrm{On} \to \mathrm{On}, \ \alpha \mapsto \mathrm{ord}(\alpha^\gamma)$ fulfills the conditions of the modified lemma, and the claim follows as $\mathrm{card}(X) \geq 2^\gamma$.$\hfill\square$
+
+\subsection{Ordinal arithmetic}
+For $\alpha, \beta \in \mathrm{On}$ define $\alpha + \beta := \mathrm{ord}((\{0\} \times \alpha) \cup (\{1\} \times \beta))$ (with lexiographic ordering).
+Then have the following properties (which also define $+$ by transfinite recursion)
+\begin{itemize}
+    \item $\alpha + 0 = \alpha$
+    \item $\alpha + (\beta + 1) = (\alpha + \beta) + 1$
+    \item $\alpha + \lambda = \bigcup_{\beta < \lambda} \alpha + \beta$ for limit ordinal $\lambda$
+\end{itemize}
+Furthermore have then
+\begin{itemize}
+    \item $0 + \alpha = \alpha$
+    \item $(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$
+    \item $\alpha + \beta = \alpha + \gamma \ \Rightarrow \ \beta = \gamma$ (but in general not for right-addition)
+\end{itemize}
+Then define $\cdot$ by $\alpha \cdot \beta := \mathrm{ord}(\alpha \times \beta)$ (with lexicographic ordering).
+Then have the following properties (which also define $\cdot$ by transfinite recursion)
+\begin{itemize}
+    \item $\alpha \cdot 0 = 0$
+    \item $\alpha \cdot (\beta + 1) = \alpha \cdot \beta + \alpha$
+    \item $\alpha \cdot \lambda = \bigcup_{\beta < \lambda} \alpha \cdot \beta$ for limit ordinal $\lambda$
+\end{itemize}
+Furthermore have then
+\begin{itemize}
+    \item $0 \cdot \alpha = 0$
+    \item $1 \cdot \alpha = \alpha \cdot 1 = \alpha$
+    \item $(\alpha \cdot \beta) \cdot \gamma = \alpha \cdot (\beta \cdot \gamma)$
+    \item $\alpha \cdot (\beta + \gamma) = \alpha \cdot \beta + \alpha \cdot \gamma$ (but in general no right-distributivity)
+    \item $\alpha \cdot \beta = \alpha \cdot \gamma, \ \alpha \neq 0 \ \Rightarrow \ \beta = \gamma$ (but in general not for right-multiplication)
+\end{itemize}

@@ -1,0 +1,109 @@
+
+\subsection{Main Theorem of Elimination Theory}
+Let $V \subseteq \mathbb{P}^n$ be a projective $K$-variety with $(1 : 0 : ... : 0) \notin V$.
+Let
+\begin{equation*}
+    \pi: V \to \mathbb{P}^{n - 1}, \ [a_0 : ... : a_n] \mapsto [a_1 : ... : a_n]
+\end{equation*}
+Then $\pi(V)$ is closed.
+
+In particular, it follows that for a morphism $\phi: V \to \mathbb{P}^m$ have \
+\begin{equation*}
+    \phi(V) = \pi_{x_{n + 1}, ..., x_{n + m}}(\underbrace{\{ (a, b) \ | \ b = \phi(a) \}}_{\text{closed in the product space of $\mathbb{P}^n$ and $\mathbb{P}^m$}})
+\end{equation*}
+is closed.
+
+\paragraph{We show the following}
+Let $U \subseteq \mathbb{P}^{n - 1}_k$ such that for all $[a_1 : ... : a_n] \in U$ there is $a \in k$ with $[a_0 : a_1 : ... : a_n] \in V$.
+Then this also holds for $W := \overline{U}$.
+\paragraph{Proof} 
+Have that for all $[a_1 : ... : a_n] \in U$ it holds that
+\begin{equation*}
+    1 \notin \langle f_1(x, a_1, ..., a_n), ..., f_m(x, a_1, ..., a_n) \rangle \leq k[x]
+\end{equation*}
+where $\I^+(V) = \langle f_1, ..., f_m \rangle$ homogeneous ideal. 
+We show that there is a joint solution $\alpha$ in the algebraic closure $K$ of $k(W)$ of the equations
+\begin{equation*}
+    \langle f_1(x, y_1, ..., y_n), ..., f_m(x, y_1, ..., y_n \rangle \leq k[W][x]
+\end{equation*}
+Assume not, then Hilbert's Nullstellensatz yields that $1 = \sum_i \tilde{g}_i f_i(x, y_1, ..., y_n)$ for $\tilde{g}_i \in k(W)[x]$
+(here we use the nontrivial fact that $IK[x] \cap k(W)[x] = I$ for $I \leq k(W)[x]$).
+In particular, we find
+\begin{equation*}
+    g = \sum_i g_i f_i(x, y_1, ..., y_n)
+\end{equation*}
+for $g_i \in k[W][x]$ and $g \in k[W] \setminus \{0\}$.
+
+Consider now the open subset $S := W \setminus \V(g) \subseteq W$.
+Now for each $b \in S$ we find a well-defined ring homomorphism
+\begin{equation*}
+    k[W] \to k, \quad f \in R \mapsto f(b)
+\end{equation*}
+In particular, the image of $f_i(x, y_1, ..., y_n)$ under this map is $f_i(x, b_1, ..., b_n)$. 
+Thus we find a representation
+\begin{equation*}
+    g(b_1, ..., b_n) = \sum_i g'_i f_i(x, b_1, ..., b_n) \in k^*
+\end{equation*}
+where $g'_i \in k[x]$ is the image of $g_i \in k[W][x]$.
+This shows that for $b \in S$ there is no $b_0 \in k$ with $[b_0 : ... : b_n] \in V$.
+However, $U$ is dense in $W$ and $S$ is open, so $U \cap S \neq \emptyset$, a contradiction.
+
+So let now $\alpha \in K$ be a universal solution of $f_i(x, y_1, ..., y_n)$.
+Further, let $t \in k[W]$ such that $t\alpha$ is integral over $k[W]$.
+Consider the minimal polynomial $F \in k[W][T]$ of $t\alpha$ over $k(W)$.
+Now let $b \in W$. As $F \in k[W][T]$ is monic, $F(b) \in k[T]$ is a well-defined, non-constant polynomial.
+Hence, it has a root $\beta \in k$ and we can consider the ``evaluation map''
+\begin{equation*}
+    k[W][t\alpha] \to k, \quad y_i \mapsto b_i, \ t\alpha \mapsto \beta
+\end{equation*}
+As the $f_i$ are homogenous, find $f_i(t\alpha, ty_1, ..., ty_n) = t^{\deg f_i}(\alpha, y_1, ..., y_n) = 0$.
+Hence, taking the image under the above ring homomorphism yields
+\begin{equation*}
+    0 = f_i(\beta, t(b) b_1, ..., t(b) b_n)
+\end{equation*}
+Thus there is $[\beta, t(b) b_1, ..., t(b) b_n] \in V$, but since $[1 : 0 : ... : 0] \notin V$ by assumption, we see that $t(b) \neq 0$ and the claim is shown.$\hfill\square$
+
+\subsection{Theorem (Plücker relations)}
+For the Grassmanian $\mathrm{Gr}(d, n) := \{ U \subseteq k^n \ | \ U \ \text{$d$-dimensional linear subspace}\}$ have that the map
+\begin{equation*}
+    \mathrm{Gr}(d, n) \to \mathbb{P}^{{n \choose d} - 1}, \quad U = \V(\underbrace{Mx}_{\mathclap{\text{as matrix-vector multiplication, $M \in k^{d \times n}$}}}) \mapsto \left( \det \tilde{M} \right)_{\tilde{M} \in k^{d \times d} \ \text{minor of $M$}}
+\end{equation*}
+is a closed embedding of projective varieties.
+Note that it is well-defined, as for $M, M'$ with $\V(Mx) = \V(M'x)$ have $A \in \mathrm{GL}(d, k)$ such that $M = AM'$ and so $\det(\tilde{M}) = \det(A)\det(\tilde{M}')$. 
+
+\subsection{Properties of the Grassmanian}
+The Grassmanian $\mathrm{Gr}(d, n)$ is an irreducible variety.
+Further, $\dim\mathrm{Gr}(d, n) = d(n - d)$ and
+\begin{equation*}
+    \deg\mathrm{Gr}(d, n) = (d(n - d))! \frac {1! \cdot 2! \cdot ... \cdot (d - 1)!} {(n - d)! \cdot (n - d + 1)! \cdot ... \cdot (n - 1)!}
+\end{equation*}
+\paragraph{Proof}
+Note that $\mathrm{GL}(n, k)$ is an irreducible affine (quasi-projective) variety, and we find a surjective morphism
+\begin{equation*}
+    \mathrm{GL}(n, k) \to \mathrm{Gr}(d, n), \quad T \mapsto \mathrm{span}\{T e_1, ..., T e_d\}
+\end{equation*}
+This shows that $\mathrm{Gr}(d, n)$ is irreducible. The other statements are harder to show.
+
+\subsection{Dimension of varieties}
+For an affine variety $X \subseteq \mathbb{A}^n$ have that $\dim X = \dim k[X]$.
+For a projective variety $X \subseteq \mathbb{P}^n$ have that $\dim X$ is the maximal length of homogeneous prime ideal chains not containing $\langle x_0, ..., x_n \rangle$ in $S(X)$.
+It follows that $\dim X = \dim S(X) - 1$.
+
+\subsection{Degree of a variety}
+For each projective variety $X \subseteq \mathbb{P}^{n + 1}$ of dimension $d$ there exists an open subset $U \subseteq \mathrm{Gr}(n + 1 - d, n + 1)$ such that for all $L \in U$, the set $L \cap X$ is finite has maximal size among all choices of $U$ (its size does not depend on the $L \in U$).
+
+This size of $L \cap X$ is called the degree $\deg(X)$ of $X$.
+
+\subsection{Weak Bezout's theorem}
+Let $X, Y \subseteq \mathbb{P}^n$ be projective varieties of pure dimension (i.e. all irreducible components have the same dimension) with $\dim(X \cap Y) = \dim X + \dim Y - n$.
+Then $\deg(X \cap Y) \leq \deg X \deg Y$.
+
+\subsection{Hilbert function and Hilbert polynomial}
+Let $X \subseteq \mathbb{P}^n$ be a projective variety. Then for sufficiently large $m$, the Hilbert function
+\begin{equation*}
+    h_X: \N \to \N, \quad m \mapsto \dim_k S(X)_m
+\end{equation*}
+is given by a polynomial $p_X \in \Q[z]$. The leading term of $p_X$ is
+\begin{equation*}
+    \frac {\deg X} {(\dim X)!} \cdot z^{\dim X}
+\end{equation*}

@@ -1,0 +1,148 @@
+
+\subsection{Cauchy-Schwarz}
+
+For $x, y \in V$ inner product space, have
+\begin{equation}
+    \langle x, y \rangle^2 \leq \langle x, x \rangle \langle y, y \rangle \nonumber
+\end{equation}
+\paragraph{Proof idea} Start with
+\begin{equation}
+    \langle x, x \rangle \left\langle y - \frac {\langle x, y \rangle}{\langle x, x \rangle} x, \ y - \frac {\langle x, y \rangle}{\langle x, x \rangle} x \right\rangle \geq 0 \nonumber
+\end{equation}
+
+\subsection{Sylow Theorems}
+
+For a finite group $G$ with $|G| = n = p^em, \ p \in \mathbb{P}, \ p \perp m$ have:
+\begin{itemize}
+    \item There is $U \leq G$ with $|U| = p^e$
+    \item For $U, V \leq G$ with $|U| = |V| = p^e$ have $U = gVg^{-1}$ for $g \in G$
+    \item Let $s$ be the count of $U \leq G, \ |U| = p^e$. Then $s | m$ and $s \equiv 1 \mod p$
+\end{itemize}
+
+\paragraph{Proof idea} Use group operations, for 1. on $\chi := \{ U \leq G \ | \ |U| = p^e \}$, for 2. on $\chi := \{ gU \ | \ g \in G \}$ and for 3. on $\chi := \{ U \leq G \ | \ |U| = p^e \}$ with conjugation.
+
+\subsection{Mordell's inequality}
+Have $\gamma_d \leq \gamma_{d-1}^{(d - 1) / (d - 2)}$. Inductively, it follows $\gamma_d \leq \gamma_k^{(d-1)/(k-1)}$ ($\gamma$ here is Hermite's constant).
+\paragraph{Proof} Let $L$ be a $d$-rank lattice for which Hermite's constant is reached, with dual $L^*$ and $x \in L^*$ with $\|x\| = \lambda(L^*)$.
+\begin{equation}
+    \begin{split}
+        \Rightarrow& \ \left(\langle x \rangle ^\perp \cap L\right)^* = \pi_{\langle x \rangle ^\perp} (L^*) \ \Rightarrow \ \vol(L^*) = \|x\| \ \vol\left(\langle x \rangle^\perp \cup L\right)^* \\
+        \Rightarrow& \ \sqrt{\gamma_{n-1}}^{1-n} \lambda(L)^{n-1} \leq \vol\left(\langle x \rangle^\perp \cap L\right) = \|x\| \ \vol(L) \leq \sqrt{\gamma_n} \vol(L^*)^{\frac 1 n} \vol(L) \\
+        \Rightarrow& \ \sqrt{\gamma_n} \sqrt{\gamma_{n - 1}}^{n - 1} \geq \frac {\lambda(L)^{n-1}} {\vol(L)^{\frac {n-1} n}} = \sqrt{\gamma_n}^{n-1} \ \Rightarrow \ \sqrt{\gamma_n}^{n-2} \geq \sqrt{\gamma_{n-1}}^{n-1}
+    \end{split} \nonumber
+\end{equation}
+where $M^*$ denotes the unique ``dual'' of $M$ in $\langle M \rangle$.
+
+\subsection{Facts about finite rings}
+\begin{itemize}
+    \item $\mathbb{F}_q^*$ is cyclic for $q = p^n$
+\end{itemize}
+\paragraph{Proof} By the theorem on finitely generated abelian groups, have
+\begin{equation}
+    \mathbb{F}_q^* \cong \Z/n_1\Z \times ... \times \Z/n_s\Z \nonumber
+\end{equation}
+with $n_1 | ... | n_s$. Assume $s > 1$ and $n_1 \neq 1$. Then $n_s < N := |\mathbb{F}_q^*|$. For $x \in \mathbb{F}_q^*$, have therefore that $\mathrm{ord}(x) | n_s$, so $p(x) = 0$ with $p(X) := X^{n_s} - 1$. 
+But this is a contradiction, as $p$ is a polynomial of degree $n_s$ with $N > n_s$ roots in the field $\mathbb{F}_q$.
+\begin{itemize}
+    \item if $p > 2$ is prime then $(\Z/p^\alpha\Z)^*$ is cyclic with generator $g$ or $g + p$, where $g \in \mathbb{F}_p^*$ is a generator of $\mathbb{F}_p^*$.
+\end{itemize}
+\paragraph{Proof} 
+First we show: If $a^p \equiv 1 \mod p^\alpha$ then $a \equiv 1 \mod p^\beta$ for all $\beta < \alpha$ where $\alpha \geq 2$.
+If $\beta = 1$ this is clear as $p \divides a^p - 1$ iff $p \divides a - 1$ as $a^p \equiv a \mod p$.
+This shows the claim
+
+So now let $\beta > 1$. Have $p^\alpha \divides a^p - 1$ and by IH also $p^{\beta - 1} \divides a - 1$.
+It follows that $a = 1 + l p^{\beta - 1}$ for some $l \in \Z$ and we have
+\begin{equation*}
+    1 \equiv a^p \equiv (1 + l p^{\beta - 1})^p = \sum_{k = 0}^p \binom{p}{k} l^k p^{k(\beta - 1)} \equiv 1 + l p^{\beta} \mod p^{\beta + 1}
+\end{equation*}
+as $\beta + 1 \leq \alpha$ and $p^{\beta + 1} \divides p p^{2\beta - 2} \divides \binom{p}{k} p^{k\beta - 2}$ for $k \geq 2$.
+Therefore $p \divides l$ and so $a \equiv 1 \mod p^{\beta}$.
+
+We have for each prime $l \divides p - 1$ that
+\begin{equation*}
+    g^{p^{\alpha - 1} \frac {p - 1} l} \equiv 1 \mod p^\alpha \quad \Rightarrow \quad g^{p^{\alpha - 1} \frac {p - 1} l} \equiv g^{\frac {p - 1} l} \equiv 1 \mod p
+\end{equation*}
+where the latter is a contradiction as $g$ is a generator of $\mathbb{F}_p^*$. Therefore, $g$ is a generator of $(\Z/p^\alpha\Z)^*$ iff 
+\begin{equation*}
+    g^{p^{\alpha - 2} (p - 1)} \not\equiv 1 \mod p^\alpha
+\end{equation*}
+By using the claim recursively, this is implied by $g^{p - 1} \not\equiv 1 \mod p^2$. We have that
+\begin{equation*}
+    (g + p)^{p - 1} = \sum_{k = 0}^{p - 1} \binom{p - 1}{k} g^{p - 1 - k} p^k \equiv g^{p - 1} + (p - 1)g^{p - 2}p \equiv g^{p - 1} - p g^{p - 2} \mod p^2
+\end{equation*}
+So if $g^{p - 1} \equiv 1$ then this is $1 - p g^{-1} \not\equiv 1$ as $g^{-1}$ is a unit in $\Z/p^2\Z$, so $p g^{-1} \not\equiv 0$. 
+Hence $g^{p - 1} \not\equiv 1$ or $(g + p)^{p - 1} \not\equiv 1$ and as both $g$ and $g + p$ are generators of $\mathbb{F}_p^*$, this implies that one of them is a generator of $(\Z/p^\alpha\Z)^*$.$\hfill\square$
+
+\subsection{Chinese Remainder theorem}
+Let $R$ be any commutative ring. For pairwise coprime ideals $I_1, ..., I_n \leq R$ have
+\begin{equation*}
+    R/(I_1 \cdot ... \cdot I_n) \cong R/I_1 \times ... \times R/I_n
+\end{equation*}
+
+\subsection{Main theorem of finitely generated modules over PIDs}
+Let $R$ be a principal ideal domain and $M$ a finitely generated $R$-module. Then
+\begin{equation*}
+    M \cong R^d \oplus \bigoplus_{p \in \mathcal{P}} \ \bigoplus_{j \in \{1, ..., n_p\}} R / \left( p^{e_{pj}} \right)
+\end{equation*}
+where $\mathcal{P} \subseteq R$ is a set of prime elements and $n_p \in \N_{>0}$ for $p \in \mathcal{P}$. The set $\mathcal{P}$ is unique, as are the exponents $e_{pj}$ (up to order).
+
+By the Chinese Remainder theorem, we get for finitely generated abelian groups $G$ that
+\begin{equation*}
+    G \cong \Z^d \oplus \bigoplus_{j \in \{1, ..., s\}} \Z/n_j\Z
+\end{equation*}
+for $n_1 | n_2 | ... | n_s$ with $s \in \N$.
+
+\subsection{Smith normal form}
+Let $A \in R^{m \times n}$ for a principal ideal domain $R$. Then there are $U \in \mathrm{SL}_m(R)$ and $V \in \mathrm{SL}_n(R)$ such that
+\begin{equation*}
+    U A V = \mathrm{diag}(n_1, ..., n_s, 0, ..., 0) \in R^{m \times n}
+\end{equation*}
+where $n_1 | n_2 | ... | n_s$ with $s \in \N$.
+
+\subsection{The module $\Z^n$}
+$\Z^n$ is a free, Noetherian $\Z$-module.
+
+\subsection{Hilbert's basis theorem}
+If $R$ is a Noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a ring extension $S \supseteq R$.
+
+\subsection{Noether Normalization Theorem}
+Let $A$ be a finitely generated ring extension of a field $K$ and $I \leq A$ a proper ideal.
+Then there are $y_1, ..., y_d \in A$ algebraically independent such that $A$ is finitely generated over $K[y_1, ..., y_d]$ and $I \cap K[y_1, ..., y_d] = \langle y_{\delta + 1}, ..., y_d \rangle$.
+\paragraph{Proof idea} Use induction on the number $n$ of generators $x_1, ..., x_n$ of $A$. 
+An algebraic relation between them gives rise to a monic polynomial $f \in K[x_1, ..., x_{n - 1}][X]$ with $f(x_n) = 0$ by the following lemma.
+Satisfying the condition with $I$ can be done using the same idea, although the proof becomes quite technical.
+
+\subsubsection{Lemma}
+Let $A$ be a finitely generated ring extension of a field $K$ and $f \in K[x_1, ..., x_n] \setminus \{0\}$.
+Then there are $r_1, ..., r_{n - 1} \in \N$ such that $a^{-1}f(x_1 + x_n^{r_1}, ..., x_{n - 1} + x_n^{r_{n - 1}}, x_n)$ is monic with $a \in K^*$.
+
+\subsection{Hilbert's Nullstellensatz}
+Let $I \leq K[x_1, ..., x_n]$ and $K$ algebraically closed. Then
+\begin{itemize}
+    \item (weak Nullstellensatz) $1 \notin I$ if and only if $\V(I) \neq \emptyset$
+    \item (strong Nullstellensatz) $\I(\V(I)) = \mathrm{Rad}(I)$
+    \item (projective Nullstellensatz) If $I$ is homogeneous, then $\I^+(\V^+(I)) = \mathrm{Rad}(I)$
+\end{itemize}
+\paragraph{Proof idea} For (ii), let $f \in \I(\V(I)) \setminus \{0\}$ and consider $J = \langle I \rangle + \langle Xf - 1 \rangle \leq K[x_1, ..., x_n, X]$.
+As $f$ vanishes on $\V(I)$ get $\V(J) = \emptyset$, so by the weak Nullstellensatz $1 \in J$.
+Thus $1 = h_1 g_1 + ... h_s g_s + k(Xf - 1)$ so $1 = h_1(x_1, ..., x_n, \frac 1 f) g_1 + ... + h_s(x_1, ..., x_n, \frac 1 f) g_s$.
+The claim follows.
+
+\subsection{Krull's Principal Ideal Theorem}
+\label{krulls_pit}
+Let $R$ be an integral ring that is a finitely generated ring extension of a field $K$.
+Then every minimal prime divisor $\mathfrak{y} \supseteq \langle a \rangle$ with $a \in R \setminus R^* \setminus \{ 0 \}$ has height 1.
+\paragraph{Proof idea} 
+Let $\mathfrak{y}, \mathfrak{y}_2, ..., \mathfrak{y}_s \supseteq \langle a \rangle$ be the minimal prime divisors and consider the localization $R_g$ where $g \in \bigcap_{i > 1} \mathfrak{y}_i \setminus \mathfrak{y}$.
+Now $\mathfrak{y} = \mathrm{Rad}(\langle a \rangle)$ (but the height of $\mathfrak{y}$ is unchanged).
+Using a Noether normalization, transfer this into a polynomial ring $K[y_1, ..., y_n]$ so $\mathrm{Rad}(\langle \tilde{a} \rangle) = \langle \tilde{b} \rangle$ for irreducible $\tilde{b}$ as polynomial rings are UFDs.
+Clearly $\langle \tilde{b} \rangle$ has height 1.
+
+\subsection{Krull's Height Theorem}
+Let $R$ be a finitely generated ring extension of a field $K$ and let $I = \langle a_1, ..., a_m \rangle \leq R$.
+Then every minimal prime divisor $\mathfrak{y}$ of $I$ has height at most $m$.
+\paragraph{Proof idea} Use induction on $m$. 
+By taking the quotient by the first component of a maximal prime ideal chain, have wlog that $R$ is an integral domain.
+The base case follows by \ref{krulls_pit}. 
+In the inductive case, find a maximal prime ideal chain $\mathfrak{y}_1 \subsetneq ... \subsetneq \mathfrak{y}_s \subsetneq \mathfrak{y}$ such that $\mathfrak{y}_s$ is a minimal prime divisor of $\langle a_1, ..., a_{m - 1} \rangle$ and then apply \ref{krulls_pit}.

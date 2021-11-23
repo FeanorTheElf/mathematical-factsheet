@@ -1,0 +1,59 @@
+
+
+\subsection{Minkowski-functional}
+For an absorbing set $A \subseteq X$ the functional
+\begin{equation}
+    p_A: X \to \R, \quad x \mapsto \mathrm{inf}\{t \geq 0 \ | \ x \in tA \} \nonumber
+\end{equation} is
+\begin{itemize}
+    \item subadditive if $A$ is convex
+    \item homogenous if $A$ is balanced
+    \item point-separating if $A$ is bounded and $X$ Hausdorff
+\end{itemize}
+
+\subsection{Kolmogorov's normability criterion}
+$X$ is normable, iff an open, bounded, convex set $A \subseteq X$ exists.
+\paragraph{Proof idea} Use the Minkowski-functional for $\tilde{A} = A \cap -A$ which is open, nonempty, bounded, convex.
+
+\subsection{Baire's theorem}
+$X$ complete and metric, $\left( A_n \right)_n$ open and dense $ \ \Rightarrow \ \bigcap A_n $ is dense.
+\paragraph{Proof idea} For each $y \in X$, construct sequence $(x_n)_n$ with 
+\begin{equation}
+    x_n \in B_{\frac 1 n}(y) \cap \ \left( \bigcap_{k \leq n} A_n \right) \ \Rightarrow \ y = \lim x_n \in \mathrm{cl}\left( \bigcap_{i \leq k} A_i \right) \text{ for all } k \nonumber
+\end{equation}
+
+\subsection{Open mapping theorem}
+$X, Y$ Banach and $T: X \to Y$ linear, continuous and surjective. Then $T$ is open.
+\paragraph{Proof idea}
+\begin{equation}
+    \bigcup_{K \in \N} \mathrm{cl}\left(T(B_K(0))\right) = Y \ \Rightarrow \ \mathrm{cl}\left(T(B_K(0))\right)^\circ \neq \emptyset \ \text{for some } K\nonumber
+\end{equation}
+by Baire's theorem. It follows that $B_\epsilon(0) \subseteq T(B_1(0))$, so $T$ is open, by the following lemma:
+\subsubsection{Lemma}
+\label{closure_image_unit_ball}
+Let $T \in \mathcal{L}(X, Y)$ such that $0 \in \mathrm{cl}(T(B_X))^\circ \neq \emptyset$. Then $0 \in T(B_X)^\circ$, where $B_X = B_1(0)$ is the unit ball.
+\paragraph{Proof} The idea is, that $T$ is linear and continuous, so we can work with series. Let $y \in \epsilon B_Y \subseteq \mathrm{cl}(T(B_X))$. Recursivly construct sequences $(x_n)_{n \in \N}$ in $X$ and $(y_n)_{n \in \N}$ in $Y$ with
+\begin{align*}
+    y_0 = y, &\quad \| y_n \| < 2^{-n}\epsilon, \\
+    \| x_n \| < 2^{-n}, &\quad \| y_n - T(x_n) \| < 2^{-n-1} \epsilon \\
+    y_{n + 1} &= y_n - T(x_n)
+\end{align*}
+This is possible as $T(2^{-n}B_X)$ is dense in $2^{-n}\epsilon B_Y$ for each $n \in \N$. By completeness of $X$ have then that $\sum_n x_n$ converges to $x \in X$. Therefore, $T(x) = \sum_n T(x_n) = \sum_n y_n - y_{n + 1} = y_0 = y$ as $y_n \to 0$ for $n \to 0$.
+
+\subsection{Hahn-Banach dominated extension theorem}
+Let $X$ be a $\R$-vector space, $p: X \to \R$ sublinear (i.e. subadditive and homogenous w.r.t $\lambda \geq 0$) and $Y \subseteq X$ a subspace. A form $f: Y \to \R$ with $f \leq p$ can be extended to $F: X \to \R$ with $F \leq p$.
+\paragraph{Proof idea} Let $F: U \to \R$ be the maximal element (exists by Zorn's lemma) in \begin{equation}
+    \left\{ F: U \to \R \ | \ Y \subseteq U \subseteq X, \ \restr{F}{Y} = f, \ F \leq p \right\}  \nonumber
+\end{equation}
+Then $U = X$, as for $v \in X \setminus U$ have $p(v + y) - F(y) \geq \lambda \geq F(z) - p(z - v)$ for $y, z \in U$ by the reverse triangle inequality. Then $F'(u + tv) := F(u) + \lambda t$ is greater than $F$.
+
+\subsection{Banach-Alaoglu}
+$V \subseteq X$ neighborhood of $0 \ \Rightarrow \ K = \{ \phi \in X' \ | \ |\phi(V)| \leq 1 \}$ compact w.r.t weak-*-topology (weakest topology on $X'$ so that all $\hat{x} \in X''$ are continuous, $\hat{x}: X' \to \mathbb{K}, \ \phi \mapsto \phi(x)$).
+\paragraph{Proof idea} Let $\gamma(x) > 0$ with $x \in \gamma(x)V$ for all $x \in X$. Then
+\begin{equation}
+    \mathbb{K}^X = \bigtimes_{x \in X} \mathbb{K} \ \Rightarrow \ K \subseteq \bigtimes_{x \in X} B_{\gamma(x)}(0) \ \text{compact by Tychonoff's theorem}\nonumber
+\end{equation}
+The topologies on the sets match, as the weak-*-topology on $K$ has a local base of finite intersections of $\hat{x_i}^{-1}(]-\epsilon_i, \epsilon_i[)$ and 
+\begin{equation}
+    \bigtimes_{x \in X} B_{\gamma(x)}(0) \cap X' \ \text{has one of sets} \ \bigcap_{1 \leq i \leq n} ]-\epsilon_i, \epsilon_i[ \times \bigtimes_{x \neq x_i} \mathbb{K} \cap X' \nonumber
+\end{equation}

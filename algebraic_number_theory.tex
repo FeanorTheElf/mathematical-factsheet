@@ -1,0 +1,108 @@
+
+\subsection{Propositions}
+Let $K|\Q$ separable and $\mathcal{O}_K$ integral closure of $\Z$. The following basic propositions can be found in Neukirch's book.
+\begin{description}
+    \item[2.9] For $\alpha_1, ..., \alpha_n \in \mathcal{O}_K$ basis of $K$, then $d(\alpha_1, ..., \alpha_n)\mathcal{O}_K \subseteq \alpha_1 \Z + ... + \alpha_n \Z$.
+    \item[2.10] Each finitely generated $\mathcal{O}_K$-module $M \subseteq K$ is a free $\Z$-module. 
+    \item[3.1] $\mathcal{O}_K$ is a Dedekind domain, so noetherian, integrally closed and each prime ideal $p \neq 0$ is maximal.
+    \item[3.3] Each ideal except $(0), (1)$ has a unique factorization in prime ideals (up to order). 
+\end{description}
+
+\subsection{Minkowski's theorem (Neukirch 4.4)}
+Let $V$ be a $n$-dimensional euclidean vector space, $\Gamma \subseteq V$ be a complete lattice, $X \subseteq V$ convex and balanced with $\mathrm{vol}(X) > 2^n \mathrm{vol}(\Gamma)$, then $X \cap \Gamma \neq \emptyset$.
+
+\subsection{The Class group (Neukirch 6.3)}
+Let $K$ be a number field with ring of integers $\mathcal{O}_K$. Then the set of fractional ideals is a group and the principal ideals form a subgroup. The quotient group is finite and called the class group $\mathrm{Cl}_K$. In particular, every $c \in \mathrm{Cl}_K$ contains an integral ideal $I$ of norm
+\begin{equation*}
+    N(I) := [ \mathcal{O}_K : I ] \leq M_K := \left( \frac 4 \pi \right)^s \frac {n!} {n^n} \sqrt{|d_k|}
+\end{equation*}
+where $s$ is the number of pairs of complex embeddings $K \to \mathbb{C}$ and $n = [K : \Q]$.
+\paragraph{Proof idea} Consider an equivalence class $[\mathfrak{a}]$. Then $\gamma \mathfrak{a}^{-1} \subseteq \mathcal{O}_K$ for some $\gamma \in \mathcal{O}_K$.
+By Minkowski's theorem, there is a $a \in \gamma\mathfrak{a}^{-1}$ of norm
+\begin{equation*}
+    N_{K|\Q}(a) \leq \left(\frac 2 \pi\right)^s \frac {n!} {n^n} \sqrt{|d_k|} N(\gamma\mathfrak{a}^{-1}) = \left(\frac 4 \pi\right)^s \frac {n!} {n^n} \sqrt{|d_K|} N(\gamma) N(\mathfrak{a})^{-1}
+\end{equation*}
+Therefore for the ideal $a\gamma^{-1}\mathfrak{a}$ in $[\mathfrak{a}]$ we have
+\begin{equation*}
+    N(a\gamma^{-1}\mathfrak{a}) \leq \left(\frac 4 \pi\right)^s \frac {n!} {n^n} \sqrt{|d_K|}
+\end{equation*}
+This is integral, as $(\gamma) = \gamma\mathfrak{a}^{-1}\mathfrak{a} \ | \ a\mathfrak{a}$.$\hfill\square$
+
+\subsection{Dirichlet's unit theorem}
+For $K / \Q$ finite with ring of integers $\mathcal{O}_K$, have $\mathcal{O}_K^* \cong \mu(K) \oplus G$, where $\mu(K)$ are the roots of unity and $G$ is a free group of rank $r + s - 1$, where $r$ is the number of real $\Q$-embeddings $K \to \R$ and $s$ is the number of conjugate pairs of complex $\Q$-embeddings $K \to \C$.
+
+\subsection{Square number fields}
+For a square-free $D \in \Z, \ D \neq 0, 1$ have $K = \Q(\sqrt{D})$. Then $d := d_K = D$ if $D \equiv 1 \mod 4$ and $d := d_K = 4D$ otherwise. Furthermore, $\mathcal{O}_K = \Z[\frac 1 2 (1 + \sqrt{d_K})]$.
+
+In the case $D > 1$, have that $\mathcal{O}_K^* = \langle \epsilon_1 \rangle$, where $\epsilon_1 = \frac 1 2 (x + y \sqrt{d})$ for the smallest solution $x, y \geq 0$ of $x^2 - dy^2 = -4$ (or $... = 4$ if this has no integral solution).
+
+In the case $D < 0$, have that 
+\begin{equation}
+    \mathcal{O}_K^* = \begin{cases}
+        \{ 1, -1, i, -i \} & \text{if} \ D = -1 \\
+        \left\{ e^{\frac {2\pi i k} 6} \middle| k \in \{0, ..., 5\} \right\} & \text{if} \ D = -3 \\
+        \{ 1, -1 \} & \text{otherwise}
+    \end{cases} \nonumber
+\end{equation}
+\paragraph{Proof idea of the second part} For $\epsilon = \frac 1 2 (u + v \sqrt{d_K}) \in \mathcal{O}_K^*$ have
+\begin{equation*}
+    N_{K|\Q}(\epsilon) = \frac 1 4 (u^2 - d_K v^2) \in \{ -1, 1 \} \ \Rightarrow \ u^2 - d_K v^2 = \pm 4
+\end{equation*}
+By Dirichlet's unit theorem have fundamental unit $\epsilon = \frac 1 2 (u + v \sqrt{d_K})$ and as $-\epsilon$ and $\epsilon^{-1}$ together with $-1$ also generate $\mathcal{O}_K^*$, we may assume $u, v \geq 0$.
+Therefore, $\epsilon^k = \frac 1 2 (x + y\sqrt{d_K})$ and as in
+\begin{equation*}
+    \frac 1 2 (w + t\sqrt{d_K})\frac 1 2 (u + v \sqrt{d_K}) = \frac 1 4 (wu + d_K tv + (ut + vw)\sqrt{d_K})
+\end{equation*}
+the part $\frac 1 4 (wu + d_K tv)$ is greater than $\frac 1 2 w$ as wlog $u \geq 2$, have that $u, v$ must be the smallest solution of Pell's equation.
+
+\subsection{Ramification (de: Verzweigung)}
+Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\mathcal{O}$ the integral closure of $\mathcal{R}$ in an algebraic and separable field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
+
+For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
+\begin{description}
+    \item[8.2] Have $\sum e_i f_i = n := [L : K]$ where $\mathfrak{p}\mathcal{O} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ is the factorization of $\mathfrak{p}$ into prime ideals in $\mathcal{O}$ and $f_i = [\mathcal{O}/\mathfrak{B}_i : \mathcal{R}/\mathfrak{p}]$. The proof uses the CRT and the properties of $\mathcal{O}/\mathfrak{B}_i$ as $\mathcal{R}/\mathfrak{p}$-vector space.
+    \item[8.3] Let $L = K(\alpha)$ for an integral, primitive element $\alpha \in \mathcal{O}$. If $\mathfrak{p}$ is a prime ideal that does not divide the leader $\mathcal{F}$ of $\mathcal{R}[\alpha]$ (the largest ideal contained in $\mathcal{R}[\alpha]$), then $\mathfrak{p} = \mathfrak{B}_1^{e_1}...\mathfrak{B}_r^{e_r}$ for $\mathfrak{B}_i = \mathfrak{p}\mathcal{O} + p_i(\alpha)\mathcal{O}$, where the minimal polynomial $p$ of $\alpha$ splits into irreducible factors mod $\mathfrak{p}\mathcal{O}$ 
+    \begin{equation}
+        p(X) \equiv p_1(X)^{e_1} ... p_r(X)^{e_r} \mod \mathfrak{p}\mathcal{O} \nonumber
+    \end{equation} 
+    Also have $f_i = \mathrm{deg}(p_i)$.
+
+    By definition of $\mathcal{F}$, note that for a number field $K$ (i.e. $\mathcal{R} = \Z$) it is sufficient if $\mathfrak{p} = (p) \not| \ ([\mathcal{O} : \Z[\alpha]])$.
+\end{description}
+If $L|K$ is galoisch, we can consider the effect of the Galois group on the prime ideals $\mathfrak{B} \leq \mathcal{O}$ over some prime ideal $\mathfrak{p} \leq \mathcal{R}$.
+Fix some prime ideal $\mathfrak{B} \leq \mathcal{O}$ over $\mathfrak{p}$ and consider
+\begin{align*}
+    \text{``Zerlegungsgruppe''} \ &G_{\mathfrak{B}} := \{ \sigma \in G \ | \ \sigma \mathfrak{B} = \mathfrak{B} \} \ &\text{with fixed field} \ Z_{\mathfrak{B}} = L^{G_\mathfrak{B}} \\
+    \text{``Trägheitsgruppe''} \ &I_{\mathfrak{B}} := \mathrm{ker}(\phi) \ &\text{with fixed field} \ T_\mathfrak{B} = L^{I_\mathfrak{B}}
+\end{align*}
+where
+\begin{equation*}
+    \phi_\sigma: \mathcal{O}/\mathfrak{B} \to \mathcal{O}/\mathfrak{B}, \quad [a] \mapsto [\sigma a]
+\end{equation*}
+Let then be $e$ resp. $f$ be the ``Verzweigungsindex'' (maximal power such that $\mathfrak{B}^e | \mathfrak{p}$) resp. ```Trägheitsindex'' (the index of $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$) of $\mathfrak{B}$ over $\mathfrak{p}$. If $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$ is separable, have the following representation:
+\begin{align*}
+    \mathfrak{p} \quad \underset{1}{\overset{1}{\subseteq}} \quad \mathfrak{B}_Z := \mathfrak{B} \cap Z_\mathfrak{B} \quad \underset{1}{\overset{f}{\subseteq}} \quad \mathfrak{B}_T := \mathfrak{B} \cap T_\mathfrak{B} \quad \underset{e}{\overset{1}{\subseteq}} \quad \mathfrak{B}
+\end{align*}
+where the ``Verzweigungsindizes'' are written over the corresponding ideal decompositions and the ``Trägheitsindizes'' are written below, respectivly.
+
+\subsection{Quadratic Reciprocity}
+For $a \in \Z$ and $p \in \mathbb{P}$ and $n = \prod_{p} p^{e_p} \in \N_{\geq 2}$ define
+\begin{equation*}
+    \left(\frac a p \right) := \begin{cases}
+        0 & \text{if} \ a = 0 \\
+        1 & \text{if there is $x$ with} \ a \equiv x^2 \mod p \\
+        -1 & \text{otherwise}
+    \end{cases} \quad \text{and} \quad
+    \left(\frac a n \right) := \prod_p \left( \frac a p \right)^{e_p}
+\end{equation*}
+Then for odd $a, n$ have
+\begin{equation*}
+    \left(\frac a n\right) = \begin{cases}
+        -\left(\frac n a \right) & \text{if} \ a \equiv n \equiv 3 \mod 4 \\
+        \left(\frac n a \right) & \text{otherwise}
+    \end{cases} \quad \text{and} \quad
+    \left(\frac 2 n\right) = \begin{cases}
+        1 & \text{if} \ n \equiv \pm 1 \mod 8 \\
+        -1 & \text{if} \ n \equiv \pm 3 \mod 8
+    \end{cases}
+\end{equation*}

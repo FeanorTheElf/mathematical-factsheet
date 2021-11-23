@@ -1,0 +1,59 @@
+
+
+Let $\mathcal{L}$ be a formal language.
+
+\subsection*{Definition Proof}
+In 1st order logic proofs, we allow Modus Ponens and Generalization, and the following base axioms:
+\begin{align*}
+    &\{ \forall x \ \phi \rightarrow \phi(x/t) \ | \ \text{$x$ is free in $\phi$ for $t$} \} \cup \{ \forall \ (\phi \rightarrow \psi) \rightarrow (\phi \rightarrow \forall x \ \psi) \ | \ \text{$x$ free in $\phi$}\} \\
+    \cup \ & \{ x = x \ | \ \} \cup \{x = y \rightarrow (y = z \rightarrow x = z) \ | \ \} \\
+    \cup \ & \{ x = y \rightarrow (R(v_1, ..., v_i, x, v_{i + 1}, ..., v_n) \rightarrow R(v_1, ..., v_i, x, v_{i + 1}, ..., v_n)) \ | \ \} \\
+    \cup \ & \{ x = y \rightarrow (f(v_1, ..., v_i, x, v_{i + 1}, ..., v_n) = f(v_1, ..., v_i, y, v_{i + 1}, ..., v_n)) \ | \ \}
+\end{align*}
+
+\subsection{Deduction theorem}
+Let $\Sigma \subseteq \mathrm{Fml}(\mathcal{L}), \phi \in \mathrm{Sen}(\mathcal{L}), \psi \in \mathrm{Fml}(\mathcal{L})$. If $\Sigma \cup \{\phi\} \vdash \psi$ then $\Sigma \vdash (\phi \rightarrow \psi)$.
+
+\subsection{Constant lemma}
+Let $\phi_1, ..., \phi_n, \phi \in \mathrm{Fml}(\mathcal{L})$ and $x$ a variable not occurring in the $\phi, \phi_i$ and $\mathcal{L}'$ an extension of $\mathcal{L}$ by a constant $c$. If $\phi_1, ..., \phi_n \vdash_{\mathcal{L}'} \phi$ then $\phi_1(c/x), ..., \phi_n(c/x) \vdash_{\mathcal{L}} \phi(c/x)$.
+
+\subsection{Gödel's completeness theorem}
+\label{goedel_completeness}
+Let $\Sigma \subseteq \mathrm{Fml}(\mathcal{L})$ and $\alpha \in \mathrm{Sen}(\mathcal{L})$. If $\Sigma \not\vdash \alpha$ then there is a model $\mathcal{M}$ of $\Sigma$ with $\mathcal{M} \not\models \alpha$.
+\paragraph{Proof idea} First we construct a witness extension for $\Sigma$, so an extension by constants $\mathcal{L}'$ of $\mathcal{L}$ and a consistent set $\Sigma' \supseteq \Sigma$ of $\mathcal{L}'$-sentences such that whenever $\Sigma' \vdash \exists x \ \phi$ for an $\mathcal{L}'$-formula $\phi$ with the only free variable $x$ have $\Sigma' \vdash \phi(x/c_{\phi})$ for a constant $c_\phi$. This can be done by recursivly adding witnesses for each suitable formula and then unifying the chain of languages that were creates.
+
+Now have $\Sigma \cup \{\neg \alpha\}$ is consistent, so contained in a maximally consistent theory $T$. Repeatedly considering witness extensions and maximally consistent supertheories, get that wlog $T$ is a witness extension of $\Sigma \cup \{\neg \alpha\}$. Using this, construct a model where the universe are all variable-free terms of $\mathcal{L}'$ modulo $T$-provable equality. This is then a model of $\Sigma \cup \{\neg \alpha\}$ and the claim follows. 
+
+\subsection{Compactness theorem}
+\label{compactness_theorem}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. If every finite subset of $\Sigma$ has a model, then $\Sigma$ has a model.
+
+\subsection{Löwenheim-Skolem}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$.
+\begin{itemize}
+    \item If $\Sigma$ has a model, then it has one of cardinality $\leq \kappa_{\mathcal{L}}$
+    \item If $\Sigma$ has an infinite model, then it has one of cardinality $\kappa$ for each $\kappa \geq \kappa_{\mathcal{L}}$
+\end{itemize}
+\paragraph{Proof idea} The construction in \ref{goedel_completeness} creates a model of cardinality $\leq \kappa_{\mathcal{L}}$. Greater models can be constructed by adding as many constants and unequal-axioms to $\Sigma$ (stays consistent by the compactness theorem).
+
+\subsection{Separation lemma}
+\label{separation_lemma}
+Let $\Sigma_1, \Sigma_2, \Gamma \subseteq \mathrm{Sen}(\mathcal{L})$. If for each $\mathcal{M}_1 \models \Sigma_1$ and $\mathcal{M}_2 \models \Sigma_2$ have $\gamma \in \Gamma$ that separates them (i.e. $\mathcal{M}_1 \models \gamma, \mathcal{M}_2 \models \neg\gamma$), then there is $\gamma^* = \bigvee_i \bigwedge_j \gamma_{ij}$ with $\gamma_{ij} \in \Gamma$ separating $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2)$ (i.e. $\mathrm{Mod}_{\mathcal{L}}(\Sigma_1) \subseteq \mathrm{Mod}_{\mathcal{L}}(\gamma^*)$ and $\mathrm{Mod}_{\mathcal{L}}(\Sigma_2) \subseteq \mathrm{Mod}_{\mathcal{L}}(\neg\gamma^*)$).
+\paragraph{Proof idea} Use the compactness theorem twice on covers by $\mathrm{Mod}_{\mathcal{L}}(\gamma), \gamma \in \Gamma$.
+
+\subsection{Vaught's test}
+Let $T$ be an $\mathcal{L}$-theory. If $T$ has only infinite models and is $\kappa$-categorical for some $\kappa \geq \kappa_{\mathcal{L}}$, then $T$ is complete.
+\paragraph{Proof} If $T \cup \{\alpha\}$ and $T \cup \{\neg \alpha\}$ would be consistent, Löwenheim-Skolem yields corresponding models of cardinality $\kappa$, which then are isomorphic. This is a contradiction.$\hfill\square$
+
+\subsection{Quantifier elimination}
+A set $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ has quantifier elimination, if any of the following equivalent definitions are fulfilled:
+\begin{itemize}
+    \item for every $\mathcal{L}$-formula $\phi$ there is a quantifier-free $\mathcal{L}$-formula $\psi$ with no additional free variables such that $\Sigma \vdash \phi \leftrightarrow \psi$.
+    \item for every substructure $\mathcal{A}$ of a model of $\Sigma$ have that $\Sigma \cup \mathcal{D}(\mathcal{A}) \subseteq \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ is complete.
+    \item for every two models $\mathcal{M}_1, \mathcal{M}_2$ of $\Sigma$ and a joint substructure $\mathcal{A}$ of $\mathcal{M}_1$ and $\mathcal{M}_2$ have that:
+    \begin{equation*}
+        (\mathcal{M}_1, \mathrm{id}_{|\mathcal{A}|}) \models \phi \ \Leftrightarrow \ (\mathcal{M}_2, \mathrm{id}_{|\mathcal{A}|}) \models \phi
+    \end{equation*}
+    for every formula $\phi \in \mathrm{Sen}(\mathcal{L}(\mathcal{A}))$ of the form $\phi = \exists x \psi$ with a quantifier-free $\psi$.
+\end{itemize}
+\paragraph{Proof idea} Use the separation lemma \ref{separation_lemma}.

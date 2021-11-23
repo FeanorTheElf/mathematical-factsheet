@@ -1,0 +1,40 @@
+
+\subsection{Parameterized Algorithms design techniques}
+
+\subsubsection*{Kernelization}
+
+Given an instance $(X, k)$, compute an instance $(X', k')$ such that $(X, k)$ is a YES-instance if and only if $(X', k')$ is a YES-instance and the size of $X'$ is bounded by $f(k)$ (this is usually done via reduction rules).
+
+\subsubsection*{Bounded search tree}
+
+Given an instance $(X, k)$ compute instances $(X_1, k_1)$, ..., $(X_n, k_m)$ such that $(X, k)$ is a YES-instance if and only if at least one of the $(X_i, k_i)$ is a YES-instance. Additionally, it must hold that $d_i := k - k_i > 0$.
+Then applying this algorithm recursively on all the $(X_i, k_i)$ yields an FPT algorithm with running time $O(\lambda^k \mathrm{poly}(n))$ where $\lambda$ is the positive root of the branching vector polynomial equation (there exactly one, as the $m-1, ..., 0$-th derivates all are non-positive up to some point, and then positive)
+\begin{equation*}
+    X^m = \sum_{i = 1}^m X^{m - d_i}
+\end{equation*}
+
+\subsubsection*{Iterative Compression}
+
+Usually this is used for problems where solutions are (in some way) parts/subsets of the instance and behave monotonously (i.e. supersets of solutions are also solutions).
+In this case, one normally has the size of the searched solution as parameter.
+Then it is easy to reduce the original problem to its ``compression variant''
+\begin{description}
+    \item[Input] Given an instance $(X, k)$ and a solution to $Z \leq X$ of size exactly $k + 1$
+    \item[Problem] Find a solution of size at most $k$ (or find that it does not exist)
+\end{description}
+By trying all $2^k$ subsets, we can further reduce it to the ``disjoint variant'' of the problem:
+\begin{description}
+    \item[Input] Given an instance $(X, k)$ and a solution $Y \leq X$ of size exactly $k + 1$
+    \item[Problem] Find a solution of size at most $k$ that is disjoint to $Y$ (or that it does not exist) 
+\end{description}
+
+\subsection{Treewidth}
+
+A tree $T$ with nodes in $2^V$ is called a tree decomposition of $G = (V, E)$, if
+\begin{itemize}
+    \item for $\{u, v\} \in E$ have a tree node containing $u, v$
+    \item for $u \in V$ have a tree node containing $u$
+    \item for $u \in V$ have that all tree nodes containing $u$ form a subtree of $T$
+\end{itemize}
+The width of a tree decomposition $T$ is the cardinality of its largest node minus 1.
+The treewidth of a graph $G = (V, E)$ is the minimal width of a tree decomposition. 

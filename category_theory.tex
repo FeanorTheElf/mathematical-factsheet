@@ -1,0 +1,18 @@
+
+\subsection{Density of representable functors}
+Let $\mathcal{C}$ be a locally small category. 
+Then for each $\Gamma \in \mathrm{PreSh}(\mathcal{C}) := \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathrm{Set})$ there exists a category $\epsilon(\mathcal{C})$ and a functor $P_\Gamma: \epsilon(\mathcal{C}) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}$ such that
+\begin{equation*}
+    \colim_{\epsilon(\mathcal{C})} P_\Gamma = \Gamma
+\end{equation*}
+\paragraph{Proof} Let
+\begin{align*}
+    \epsilon(\Gamma) = (* \Rightarrow \Gamma)^{\mathrm{op}} \ \text{so} \ &\mathrm{Ob}\epsilon(\Gamma) = \{ (x, y) \ | \ x \in \mathrm{Ob}\mathcal{C}, y \in \Gamma(x)\} \\
+    &\mathrm{Hom}_{\epsilon(\Gamma)}((x_1, y_1), (x_2, y_2)) = \{ f \in \mathrm{Hom}_{\mathcal{C}}(x_1, x_2) \ | \ \Gamma(f)(y_2) = y_1 \}
+\end{align*}
+and
+\begin{align*}
+    P_\Gamma: \epsilon(\Gamma) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}, \quad (x, y) \mapsto \ &Y(x) = \mathrm{Hom}(\cdot, x) \\
+    f \in \mathrm{Hom}_{\epsilon(\Gamma)}((x_1, y_1), (x_2, y_2)) \mapsto \ &\eta^{(f)}: Y(x_1) \Rightarrow Y(x_2) \\
+    &\eta^{(f)}_z: \mathrm{Hom}(z, x_1) \to \mathrm{Hom}(z, x_2), \quad f \circ \cdot
+\end{align*}

@@ -1,0 +1,310 @@
+
+Let $\mathcal{L}$ be a formal language.
+
+\subsection{Extending embeddings}
+Let $\mathcal{S} \subset \mathcal{M}$ be an $\mathcal{L}$-substructure and $f: \mathcal{S} \to \mathcal{N}$ and elementary embedding.
+Then there is an elementary embedding $F: \langle |\mathcal{S}|, a \rangle \to \mathcal{N}$ that extends $f$ with $F(a) = b$ if and only if $b$ realizes $f(\mathrm{tp}^{\mathcal{M}}(a/|\mathcal{S}|))$.
+\paragraph{Proof idea} The condition $F(a) = b$ uniquely defines $F$, so just check well-definedness. 
+
+\subsection{Chains}
+\label{model_chains_union}
+Let $(\mathcal{M}_\beta)_{\beta < \alpha}$ be an $\alpha$-chain. Then
+\begin{equation*}
+    \bigcap_{\beta < \alpha} \mathrm{Th}_{\forall\exists}(\mathcal{M}_\beta) \subseteq \mathrm{Th}_{\forall\exists}\Bigl( \bigcup_{\beta < \alpha} \mathcal{M}_\beta \Bigr)
+\end{equation*}
+If $(\mathcal{M}_\beta)_{\beta < \alpha}$ is elementary, then even
+\begin{equation*}
+    \mathcal{M}_\beta \prec \bigcup_{\gamma < \alpha} \mathcal{M}_\gamma \ \text{for all} \ \beta < \alpha
+\end{equation*}
+\paragraph{Proof idea} Part (i) is easily proven by considering a large enough $\beta$ such that all finitely many elements required for a counterexample are in $\mathcal{M}_\beta$. 
+Part (ii) is proven via transfinite induction and a similar argument in the transfinite case.
+
+\subsection{Embeddings and saturated structures}
+\label{saturation_embedding}
+Let $\mathcal{M}, \mathcal{N}$ be $\mathcal{L}$-structure, $\mathcal{N}$ is $\mathrm{card}(\mathcal{M})$-saturated.
+\begin{itemize}
+    \item If $\mathrm{Th}_\exists(\mathcal{M}) \subseteq \mathrm{Th}_\exists(\mathcal{N})$ then $\mathcal{M}$ embeds into $\mathcal{N}$
+    \item If $\mathrm{Th}(\mathcal{M}) = \mathrm{Th}(\mathcal{N})$ then $\mathcal{M}$ embeds elementarily into $\mathcal{N}$
+\end{itemize}
+\paragraph{Proof idea} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $\mathcal{M}$. 
+Then construct by transfinite induction a chain of maps $f_\beta: A_\beta := \{a_\gamma \ | \ \gamma < \beta\} \to \mathcal{N}$ such that
+\begin{equation*}
+    \mathrm{Th}_\exists(\mathcal{M}, (a_\gamma)_{\gamma < \beta}) \subseteq \mathrm{Th}_\exists(\mathcal{N}, f) \quad \text{resp.} \quad \mathrm{Th}(\mathcal{M}, (a_\gamma)_{\gamma < \beta}) = \mathrm{Th}(\mathcal{N}, f)
+\end{equation*}
+In the inductive step, the next element is found by considering the types $f(\mathrm{tp}_\exists^{\mathcal{M}}(a_\beta / A_\beta))$ resp $f(\mathrm{tp}^{\mathcal{M}}(a_\beta / A_\beta))$ over $\mathcal{N}$.
+
+\subsection{Back-and-forth Argument}
+\begin{center}
+    Well, I guess the theorem is correct and still misses the whole point.
+    The way it currently goes, we could just extend $f$ to $M \to B$ first and then to $M \to N$.
+    However, the interesting thing is the cardinality, so the fact that if one alternatively extends the maps correctly, there will always be elements ``left'' on the other side.
+\end{center}
+\label{back_and_forth}
+Let $M, N$ be sets of same cardinality $\kappa$ and $\mathcal{G}$ a class of bijective maps $A \to B$ for subsets $A \subseteq M, B \subseteq N$.
+Assume that $\mathcal{G}$ is invariant under monotonous unions and for $f: A \to B \in \mathcal{G}$ and $a \in M \setminus A, \ b \in N \setminus B$ there are extensions $f_a: A \cup \{a\} \to B', \ f_b: A' \to B \cup \{b\}$.
+Then there is a bijective map $F: M \to N$ in $\mathcal{G}$.
+
+\paragraph{Proof} Let $(a_\beta)_{\beta < \kappa}$ be the elements of $M$ and $(b_\beta)_{\beta < \kappa}$ be the elements of $N$.
+Construct $f_\beta: A_\beta \to B_\beta$ in $\mathcal{G}$ by transfinite induction such that $a_\gamma \in A_\beta, \ b_\gamma \in B_\beta$ for all $\gamma < \beta$.
+Thus $A_\kappa = M$ and $B_\kappa = N$. The claims for the induction follow directly by the assumptions.
+
+\subsection{Saturation and Isomorphisms}
+Let $\mathcal{M} \equiv \mathcal{N}$ be saturated. Then $\mathcal{M} \cong \mathcal{N}$.
+\paragraph{Proof idea} 
+Use \ref{back_and_forth} with $\mathcal{G} = \{ f: A \to B \ | \ \mathrm{Th}(\mathcal{M}, \mathrm{id}_A) = \mathrm{Th}(\mathcal{N}, f)\}$.
+The extension property follows by considering $\mathrm{tp}^{\mathcal{M}}(a/A)$ which is realized in $\mathcal{N}$ and vice versa.
+
+\subsection{Theorem of Los}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$ and $S = \{ \Delta \subseteq \Sigma \ | \ \Delta \ \text{finite}\}$.
+For $\Delta \in S$ let $S_\Delta = \{ \Delta' \in S \ | \ \Delta \subseteq \Delta' \}$
+Now define $\mathcal{D} = \{ S_\Delta \ | \ \Delta \in S \}$.
+Then $\prod_{\Delta \in S} \mathrm{M}_\Delta / \mathcal{U}$ is a model of $\Sigma$ if $\mathcal{U}$ is an ultrafilter on $\mathcal{S}$ containing $\mathcal{D}$ and $\mathcal{M}_\Delta$ is a model of $\Delta$.
+\paragraph{Proof} Follows from this lemma
+
+\subsubsection{Lemma}
+For an $\mathcal{L}$-formula $\phi$ have
+\begin{equation*}
+    \prod_s \mathcal{M}_s / \mathcal{U} \models \phi \Bigl[ \prod_s h_s / \mathcal{U} \Bigr] \ \Leftrightarrow \ \{ s \in S \ | \ \mathcal{M}_s \models \phi[h_s] \} \in \mathcal{U}
+\end{equation*}
+\paragraph{Proof idea} Use induction on the structure of $\phi$. The nontrivial case is $\phi = \forall x \psi$.
+To show $\Leftarrow$, consider $(a_s)_s \in \bigtimes_s |\mathcal{M}_s|$. 
+Now $\{ s \in S \ | \ \mathcal{M}_s \models \phi[h_s(x / a_s)]\}$ is a superset of the set above, thus in $\mathcal{U}$.
+By induction hypothesis, get the claim for $\overline{(a_s)_s}$.
+For $\Rightarrow$, consider $\neq\phi$ and use that $\mathcal{U}$ is an ultrafilter.
+
+\subsection{Saturation and Ultraproducts}
+Let $\mathcal{L}$ be countable and $(\mathcal{M}_n)_{n \in \N}$ be $\mathcal{L}$-structures. If $\mathcal{U}$ is a free ultrafilter on $\N$ then $\prod_n \mathcal{M}_n/\mathcal{U}$ is $\aleph_1$-saturated.
+\paragraph{Proof idea} The proof relies on diagonal sequences.
+Let $A \subseteq |\mathcal{M}|$ countable and $p(x) = \{\phi_1(x), \phi_2(x), ...\}$ a 1-type over $A$. 
+Set $\psi_k := \phi_1 \wedge ... \wedge \phi_k$.
+As $p$ is a type, $\psi_k$ is realized by $\overline{(c_{k, n})_n}$. Now use the following lemma with $A_k = \{ n \ | \ \mathcal{M}_n \models \psi_k(c_{k, n}) \}$ and get that $p$ is realized by $\overline{(c_{z_n, n})_n}$.
+
+\subsubsection{Lemma}
+Let $\mathcal{U}$ be a free ultrafilter on $\N$ and $(A_k)_k$ a sequence of sets in $\mathcal{U}$. Then there is a sequence of numbers $(z_n)_n$ such that
+\begin{equation*}
+    A^{(k)} := \{ n \ | \ z_n \geq k \ \text{and} \ n \in A_{z_n} \} \in \mathcal{U} \ \text{for all} \ k \in \N
+\end{equation*}
+\paragraph{Proof idea} Take for $z_n$ the greatest $k \leq n$ with $n \in A_k$, or $0$ if this does not exist. Now $A^{(k)} \supseteq A_k \setminus \{ 0, ..., k - 1 \} \in \mathcal{U}$ as $\mathcal{U}$ contains all cofinite sets..
+
+\subsection{Robinson's Test}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. Then the following are equivalent
+\begin{itemize}
+    \item $\Sigma$ is model-complete, i.e. $\Sigma \cup \mathcal{D}(\mathcal{M})$ is complete for all $\mathcal{M} \models \Sigma$
+    \item If $\mathcal{M} \subset \mathcal{N}$ are models of $\Sigma$, then $\mathcal{M}$ is existentially closed in $\mathcal{N}$
+    \item For all $\phi \in \mathrm{Fml}(\mathcal{L})$ there is a universal $\psi \in \mathrm{Fml}(\mathcal{L})$ with $\mathrm{Fr}(\psi) \subseteq \mathrm{Fr}(\phi), \ \Sigma \vdash \phi \leftrightarrow \psi$
+    \item For all $\phi \in \mathrm{Fml}(\mathcal{L})$ there is an existential $\psi \in \mathrm{Fml}(\mathcal{L})$ with $\mathrm{Fr}(\psi) \subseteq \mathrm{Fr}(\phi), \ \Sigma \vdash \phi \leftrightarrow \psi$
+\end{itemize}
+\paragraph{Proof} (iii)$\Leftrightarrow$(iv) follows by considering $\neg\phi$. (i)$\Rightarrow$(ii) and (iii)$\wedge$(iv)$\Rightarrow$(i) are easy. For (ii)$\Rightarrow$(iii) we consider special cases first.
+
+If $\phi$ is an existential sentence, use the separation lemma \ref{separation_lemma}.
+Let $\Gamma = \{ \delta \in \mathrm{Sen}(\mathcal{L}) \ | \ \delta \ \text{universal} \}$ and $\Sigma_1 = \Sigma \cup \{ \phi \}, \Sigma_2 = \Sigma \cup \{ \neg \phi \}$.
+
+Assume there are $\mathcal{M}_1, \mathcal{M}_2 \models \Sigma$ not separated by $\Gamma$.
+Find a $\mathrm{card}(\mathcal{M}_2)$-saturated elementary extension $\mathcal{N}$ of $\mathcal{M}_1$.
+As $\Gamma$ does not separate them, all existential sentences that hold in $\mathcal{M}_1$ hold in $\mathcal{M}_2$.
+By \ref{saturation_embedding}, get wlog $\mathcal{M}_2 \subset \mathcal{N}$, thus $\mathcal{M}_1 \prec \mathcal{N} \supset \mathcal{M}_2$.
+As $\mathcal{M}_2$ is existentially closed, get $\mathcal{M}_1 \models \phi$ if and only if $\mathcal{M}_2 \models \phi$.
+
+The separation lemma now yields a universal $\gamma^*$ such that $\Sigma \vdash \phi \leftrightarrow \gamma^*$.
+By introducing new constants, this can be generalized to all existential formulas $\phi$.
+For arbitrary $\phi$, proceed by induction on the construction of $\phi$. The special case is used in the only nontrivial step, namely $\phi = \neg \psi$.
+
+\subsection{Characterization of Inductive classes}
+Let $\Sigma \subseteq \mathrm{Sen}(\mathcal{L})$. 
+Then $\Sigma$ is inductive (i.e. its models are preserved under monotonous unions) if and only if $\mathrm{Mod}_{\mathcal{L}}(\Sigma) = \mathrm{Mod}_{\mathcal{L}}(\mathrm{Ded}_{\forall\exists}(\Sigma))$.
+\paragraph{Proof} $\Leftarrow$ follows from \ref{model_chains_union}. To show $\Rightarrow$, consider a model $\mathcal{M}_0$ of $\mathrm{Ded}_{\forall\exists}(\Sigma)$ and construct a sequence
+\begin{equation*}
+    \mathcal{M}_0 \subset \mathcal{N}_0 \subset \mathcal{M}_1 \subset \mathcal{N}_1 \subset ...
+\end{equation*}
+where $\mathcal{N}_i$ are models of $\Sigma$. 
+To get $\mathcal{N}_i$, construct an extension of $\mathcal{M}_i$ such that the latter is existentially closed, by considering a model of the consistent set $\Sigma \cup \mathrm{Th}_\forall(\mathcal{M}_i, \mathrm{id}_{|\mathcal{M}_i|})$.
+To get $\mathcal{M}_{i + 1}$ consider a sufficiently saturated elementary extension of $\mathcal{M}_i$.
+Now $\mathcal{M}_i \prec \bigcup_n \mathcal{M}_n = \bigcup_n \mathcal{N}_n$ which is a model of $\Sigma$.
+
+\subsection{Omitting type Theorem}
+\label{omitting_type_theorem}
+Let $\mathcal{L}$ be countable and $\Phi_1(\bar{x}), \Phi_2(\bar{x}), ...$ be non-isolated types over a theory $T$.
+Then $T$ has a model that omits all $\Phi_n$.
+\paragraph{Proof idea} Introduce countably many constant symbols $C$ (these represent all elements whose existence is provable) and construct $\mathcal{L}(C)$ sentences $\Sigma^*$ with
+\begin{itemize}
+    \item For $\psi(x) \in \mathrm{Fml}(\mathcal{L}(C))$ have a $c \in C$ such that $\exists x \psi(x) \rightarrow \psi(c) \in \Sigma^*$ 
+    \item For $\bar{c} \in C$ and $i \in \N$ have $\phi_i(\bar{x}) \in \Phi_i(\bar{x})$ such that $\neg\phi_i(\bar{c}) \in \Sigma^*$
+\end{itemize}
+Do this by recursively constructing consistent $\Sigma_n$ such that $\Sigma_n \setminus T$ is finite.
+Then the substructure $\{ c^{\mathcal{A}} \ | \ c \in C \}$ of a model $\mathcal{A}$ of $\Sigma^*$ omits all $\Phi_n$.
+We use the next lemma to perform this construction: 
+
+Satisfy (i) for $\psi_n \in \mathrm{Fml}(\mathcal{L}(C))$ during step $(n, \perp)$ by adding a sentence with a previously unused constant $c_n \in C$, and satisfy (ii) for $c_{\bar{j}}$ and $j$ in step $(n, m)$ where $\bar{j}, j$ are the images of some bijection $m \mapsto (\bar{j}, j) \in \{ 0, ..., n \}^N \times \N$ (here we require that $\Phi(\bar{x})$ is not isolated).
+
+\subsubsection{Lemma}
+\label{countable_constraint_sequence}
+There exists a bijective sequence $(x_n, y_n)_n$ with $x_n \in \N, y_n \in \N \cup \{\perp\}$ such that 
+\begin{itemize}
+    \item $(n, m)$ does not occur before $(n, \perp)$ for all $n, m \in \N$
+    \item $(n_2, \perp)$ does not occur before $(n_1, \perp)$ for $n_1 < n_2$
+\end{itemize}
+
+\subsection{Ryll-Nardzewski Theorem}
+\label{ryll_nardzewski}
+Let $\mathcal{L}$ be countable and $T$ a complete theory. 
+Then $T$ is $\aleph_0$-categorical if and only if for every $n \in \N$ there are only countably many $\phi(x_1, ..., x_n) \in \mathrm{Fml}(\mathcal{L})$ up to provable equivalence in $T$.
+
+In this case, each countable model of $T$ is saturated.
+\paragraph{Proof} (i) $\overset{\text{\ref{omitting_type_theorem}}}{\Leftrightarrow}$ all complete types are isolated $\Leftrightarrow$ $S_n(T)$ has discrete topology $\Leftrightarrow$ $S_n(T)$ is finite $\Leftrightarrow$ $S_n(T)$ has finitely many open sets $\Leftrightarrow$ (ii).
+
+\subsection{Characterization of small theories}
+Let $\mathcal{L}$ be countable and $T$ complete. Then $T$ is small (i.e. $S_n(T)$ countable) if and only if $T$ has a countable, saturated model.
+\paragraph{Proof idea} $\Leftarrow$ holds as tuples over $\mathcal{M}$ determine each type $\Phi(\bar{x}) \in S_n(T)$. 
+For $\Rightarrow$, consider an elementary chain $(\mathcal{M}_n)_n$ such that $\mathcal{M}_{n + 1}$ realizes all types over $\mathcal{M}_n$.
+
+\subsection{Theorem of Vaught}
+Let $\mathcal{L}$ be countable and $T$ complete. Then $T$ cannot have exactly two countable models, up to isomorphism.
+\paragraph{Proof idea} wlog have that $T$ is small (otherwise the claim is easy). 
+Then there is a saturated, countable mode, a non-saturated, countable model realizing a non-isolated type $\Phi$ and a countable model omitting $\Phi$ (that or $T$ is $\aleph_0$-categorical).
+
+\subsection{Amalgamation Method}
+Let $\mathcal{L}$ be countable and $\mathcal{K}$ a class of $\mathcal{L}$-structures.
+Then the following are equivalent:
+\begin{itemize}
+    \item There is a countable $\mathcal{K}$-saturated $\mathcal{L}$-structure $\mathcal{M}$, i.e. $\mathcal{K}$ consists exactly of all finitely generated substructures of $\mathcal{M}$ and for $\mathcal{A}, \mathcal{B} \in \mathcal{K}$ with embeddings $f: \mathcal{A} \to \mathcal{M}, g: \mathcal{A} \to \mathcal{B}$ there is an embedding $h: \mathcal{B} \to \mathcal{M}$ such that $f = h \circ g$.
+    \item $\mathcal{K}$ consists of finitely generated $\mathcal{L}$-structures and satisfies
+    \begin{itemize}
+        \item for $\mathcal{M} \in \mathcal{K}$ each finitely generated substructure of $\mathcal{M}$ is in $\mathcal{K}$
+        \item every $\mathcal{M}_1, \mathcal{M_2} \in \mathcal{K}$ can be jointly embedded into some $\mathcal{N} \in \mathcal{K}$
+        \item for $\mathcal{P}, \mathcal{M}_1, \mathcal{M}_2 \in \mathcal{K}$ and embeddings $f_i: \mathcal{P} \to \mathcal{M}_i$ find $\mathcal{N} \in \mathcal{K}$ and embeddings $g_i: \mathcal{M}_i \to \mathcal{N}$ such that $g_1 \circ f_1 = g_2 \circ f_2$.
+    \end{itemize}
+\end{itemize}
+\paragraph{Proof} $\Rightarrow$ is easy. 
+For $\Leftarrow$ use the combinatorial lemma \ref{countable_constraint_sequence} to construct a chain $\mathcal{M}_1 \subset \mathcal{M}_2 \subset ...$ such that
+\begin{itemize}
+    \item each $\mathcal{M} \in \mathcal{K}$ embeds into some $\mathcal{M}_k$.
+    \item for embeddings $f: \mathcal{A} \to \mathcal{M}_n, \ g: \mathcal{A} \to \mathcal{B}$ with $\mathcal{A}, \mathcal{B} \in \mathcal{K}$ have embedding $h: \mathcal{B} \to \mathcal{M}_k$ such that $\mathcal{M}_n \subset \mathcal{M}_k$ and $h \circ g = f$.
+\end{itemize}
+As $\mathcal{K}$ is countable up to isomorphism ($\mathcal{L}$ is countable), we can satisfy (i) during the steps $(n, \perp)$.
+During step $(n, m)$ we satisfy then (ii) for $\mathcal{A}_{n, m}, \mathcal{B}_{n, m}, \mathcal{M}_n, f_{n, m}, g_{n, m}$, where $\mathcal{A}_{n, m}, \mathcal{B}_{n, m}, f_{n, m}, g_{n, m}$ runs through all possible choice of these values as $m$ runs through $\N$ (if we count $\mathcal{A}, \mathcal{B}$ only up to isomorphism, these are countably many).
+Now $\mathcal{M}^* := \bigcup_n \mathcal{M}_n$ satisfies the claim.
+
+\subsection{The Standard Lemma}
+\label{standard_lemma}
+Let $I, J$ be infinite ordered sets and $(a_i)_{i \in I}$ a sequence in $|\mathcal{M}|$.
+Then there is an $\mathcal{L}$-structure $\mathcal{N}$ and a sequence of indiscernibles $(b_j)_{j \in J}$ in $|\mathcal{N}|$ such that $\mathcal{M} \equiv \mathcal{N}$ and $(b_j)_j$ realizes the Ehrenfeucht-Mostowski-type
+\begin{equation*}
+    \mathrm{EM}^{\mathcal{M}}((a_i)_i) := \{ \phi(x_1, ..., x_n) \ | \ n \in \N, \ (\mathcal{M}, \mathrm{id}_{|\mathrm{M}|}) \models \phi(a_{i_1}, ... a_{i_n}) \ \text{for all} \ i_1 < ... < i_n \}
+\end{equation*}
+i.e. for $\phi(x_1, ..., x_n) \in \mathrm{EM}^{\mathcal{M}}((a_i)_i)$ have
+\begin{equation*}
+    (\mathcal{M}, \mathrm{id}_{|\mathcal{M}|}) \models \phi(b_{j_1}, ..., b_{j_n}) \ \text{for all} \ j_1 < ... < j_n
+\end{equation*}
+\paragraph{Proof} Introduce constants $C = \{ c_j \ | \ j \in J \}$ and define a corresponding order on $C$.
+Now a model of
+\begin{align*}
+    \mathrm{Th}(\mathcal{M})& \cup \Sigma_C \cup \Gamma_{C, \mathrm{Fml}(\mathcal{L})} \\
+    \text{where} \ &\Sigma_D = \{ \psi(\bar{c}) \ | \ \psi(\bar{c}) \in \mathrm{EM}^{\mathcal{M}}((a_i)_i), \ \bar{c} \in D^n \ \text{increasing} \} \\
+    &\Gamma_{D, \Delta} = \{ \phi(\bar{c}) \leftrightarrow \phi(\bar{d}) \ | \ \phi(\bar{x}) \in \Delta, \ \bar{c}, \bar{d} \in D^n \ \text{increasing} \}
+\end{align*}
+shows the claim. So use the compactness theorem. 
+A finite subset of these sentences is contained in $\mathrm{Th}(\mathcal{M}) \cup \Sigma_D \cup \Gamma_{D, \Delta}$ for finite $D \subseteq C, \Delta \subseteq \mathrm{Fml}(\mathcal{L})$.
+Now we find $(a_d)_{d \in D}$ such that
+\begin{equation*}
+    (\mathcal{M}, (a_d)_d) \models \mathrm{Th}(\mathcal{M}) \cup \Sigma_D \cup \Gamma_{D, \Delta}
+\end{equation*}
+This can be done by choosing increasing elements from an infinite set $B$, where $B \subseteq \{ a_i \ | \ i \in I \}$ such that $\bar{b} \sim \bar{d}$ for increasing $\bar{b}, \bar{d} \in B^n$.
+Here $\sim$ is defined by
+\begin{equation*}
+    \bar{b} \sim \bar{d} :\Leftrightarrow (\mathcal{M}, \mathrm{id}_{\mathcal{M}}) \models \phi(\bar{b}) \leftrightarrow \phi(\bar{d}) \ \text{for all} \ \phi(\bar{x}) \in \Delta
+\end{equation*}
+We get this set $B$ from Ramsey's theorem, as the partition $\Omega_n(\{ a_i \ | \ i \in I \})/\sim$ is finite ($\Delta$ is finite).
+
+\subsubsection{Ramsey's theorem}
+Let $A$ be infinite, $n \in \N$ and set $\Omega_n(A) := \{ B \subseteq A \ | \ \mathrm{card}(B) = n \}$.
+For a finite partition $\Omega_n(A) = \bigcup_{k \leq N} C_k$ have an infinite $\tilde{A} \subseteq A$ with $\Omega_n(\tilde{A}) \subseteq C_k$ for some $k \in \N$.
+
+\paragraph{Proof idea} By induction on $n$.
+
+\subsection{Skolem Theory}
+For a language $\mathcal{L}$ there is a Skolem theory $T_{\mathrm{Skol}}$, i.e. a $\mathcal{L}_{\mathrm{Skol}}$-theory with
+\begin{itemize}
+    \item $T_{\mathrm{Skol}}$ has quantifier elimination
+    \item $T_{\mathrm{Skol}}$ has a universal axiomatization
+    \item Every $\mathcal{L}$-structure can be extended to a model of $T_{\mathrm{Skol}}$
+    \item $\mathcal{L}_{\mathrm{Skol}}$ is an extension of $\mathcal{L}$ with same cardinality
+\end{itemize}
+\paragraph{Proof idea} Introduce function symbols for all $\forall \bar{x} \exists y \ \psi(\bar{x}, y)$.
+
+\subsection{Stability and transcendence}
+\label{stability_transcendence_facts}
+Let $\mathcal{L}$ be countable and $T$ a complete $\mathcal{L}$-theory.
+\begin{itemize}
+    \item $T$ is $\kappa$-categorical for uncountable $\kappa$ $\Rightarrow$ $T$ is $\omega$-stable
+    \item $T$ is $\omega$-stable $\Rightarrow$ $T$ is totally transcendental
+    \item $T$ totally transcendental $\Rightarrow$ $T$ is $\kappa$-stable for every infinite $\kappa$
+\end{itemize}
+$T$ is defined to be $\kappa$-stable, if $\mathrm{card}(S_n^{\mathcal{M}}(A)) \leq \kappa$ for models $\mathcal{M}$ and $A \subseteq |\mathcal{M}|, \mathrm{card}(A) \leq \kappa$.
+\\
+$T$ is defined to be totally transcendental, if there is no model $\mathcal{M}$ with a binary tree of consistent $\mathcal{L}(\mathcal{M})$-formulas.
+\paragraph{Proof idea}
+For (i), assume there is a model $\mathcal{N}$ and a countable $A \subseteq |\mathcal{N}|$ such that there are distinct 1-types $(p_\alpha(x))_{\alpha < \aleph_1}$.
+Now have $\mathcal{M}_0 \prec \mathcal{N}$ of cardinality $\aleph_1$ containing $A$ and realizing all $p_\alpha$ by Skolem-Löwenheim.
+Thus have $\mathcal{M} \succ \mathcal{M}_0$ of cardinality $\kappa$ by Skolem-Löwenheim.
+Now construct a model of cardinality $\kappa$ realizing only countably many types.
+
+Let $\mathcal{N}^*$ be a model of $T \cup T_{\mathrm{Skol}}$ such that there is a sequence of distinct indiscernibles $(a_\alpha)_{\alpha < \kappa}$ by \ref{standard_lemma}.
+Let $\mathcal{A}$ be the substructure generated by the $a_i$. Then $\mathcal{A} \prec \mathcal{N}^*$ has $T \cup T_{\mathrm{Skol}}$ is universal ($T_{\mathrm{Skol}}$ has quantifier elimination).
+Each element of $\mathcal{A}$ is now $t(a_{i_1}, ..., a_{i_m})$ for an $\mathcal{L}$-term $t$, so its type is determined only by $t$ and the relative order of $i_1, ..., i_m$, giving only countably many choices.
+
+For (ii), note that a binary tree induces $2^{\aleph_0}$ many different complete types.
+For (iii), recursively construct a binary tree of consistent $\mathcal{L}(\mathcal{M})$-formulas by considering ``large'' formulas, defined as those contained in more than $\kappa$ many types.
+By the following lemma, each large formula has suitable, large tree children.
+
+\subsubsection{Lemma}
+Let $X$ be an infinite set of cardinality $\kappa$ and $\mathcal{C} \subseteq 2^X$ with $\mathrm{card}(\mathcal{C}) > \kappa$.
+Then there is $x \in X$ such that $\mathcal{C}_x := \{ A \in \mathcal{C} \ | \ x \in A \}$ and $\mathcal{C} \setminus \mathcal{C}_x$ are of cardinality $> \kappa$.
+\paragraph{Proof} Assume not, so wlog $\mathrm{card}(\mathcal{C}_x) \leq \kappa$. Then also $\mathcal{C} \setminus \{ \emptyset \} = \bigcup_{x \in X} \mathcal{C}_x$ is of cardinality $\leq \mathrm{card}(\kappa \times \kappa) = \kappa$, a contradiction.
+
+\subsection{Saturation and categoricity}
+\label{uncountable_saturation_categoricity}
+Let $\mathcal{L}$ be countable, $T$ a complete theory and $\kappa$ be an infinite cardinal. 
+Then $T$ is $\kappa$-categorical if and only if every model of $T$ of cardinality $\kappa$ is saturated. 
+\paragraph{Proof idea} Showing $\Leftarrow$ is easy. For $\Rightarrow$, if $\kappa = \aleph_0$ the claim follows by \ref{ryll_nardzewski}.
+Otherwise, note that a model $\mathcal{M}$ is $\kappa$-stable by \ref{stability_transcendence_facts}, thus for $\lambda < \kappa$ we find an elementary extension that is $\lambda^+$-saturated and of same cardinality.
+All of them are isomorphic by assumption, thus $\mathcal{M}$ is saturated.
+
+\subsection{Constructible Prime Extensions}
+\label{constructible_prime_extensions}
+Let $\mathcal{L}$ be countable, $T$ a totally transcendental theory and $\mathcal{M}$ a model.
+Then every $A \subseteq |\mathcal{M}|$ has a constructible elementary prime extension $\mathcal{M}_0$, so $\mathcal{M}_0$ is constructible over $A$ and every partial elementary map $A \to \mathcal{N}$ extends to an elementary embedding $\mathcal{M}_0 \to \mathcal{N}$.
+\paragraph{Proof idea} A maximal constructible subset of $|\mathcal{M}|$ already defines an elementary substructure of $\mathcal{M}$ and an elementary prime extension of $A$.
+
+\subsection{Theorem of Lachlan}
+\label{lachlan_theorem}
+Let $\mathcal{L}$ be countable and $T$ totally transcendental with an uncountable model $\mathcal{M}$.
+Then there are arbitrarily large $\mathcal{N} \succ \mathcal{M}$ that omit every possible countable type, i.e. every countable type omitted in $\mathcal{M}$.
+
+\paragraph{Proof idea} Call an $\mathcal{L}(\mathcal{M})$-formula ``large'', if it has uncountably many realizations in $\mathcal{M}$.
+As $\mathcal{M}$ has no binary tree of consistent formulas, there is an $\mathcal{L}(\mathcal{M})$-formula $\phi_0(x)$ which does not have two large tree children (i.e. either $\phi_0 \wedge \psi$ or $\phi_0 \wedge \neg\psi$ are not large).
+Thus $p(x) = \{ \psi(x) \in \mathrm{Fml}(\mathcal{L}(\mathcal{M})) \ | \ \phi_0 \wedge \psi \ \text{large} \}$ is a complete type over $\mathcal{M}$.
+
+Now consider a constructible elementary prime extension $\mathcal{N}$ of $|\mathcal{M}| \cup \{a\}$, where $a$ realizes $p$ (in some elementary extension of $\mathcal{M}$) by \ref{constructible_prime_extensions}.
+Let $\Phi(x) \subseteq \mathrm{tp}^{\mathcal{N}}(b/\mathcal{M})$ be a countable type realized in $\mathcal{N}$, then it is by constructibility isolated by some $\chi(a, y)$.
+\begin{equation*}
+    \Psi(x) := \{ \forall y \ (\chi(x, y) \rightarrow \phi(y)) \ | \ \phi \in \Phi \} \subseteq p \quad \text{is a countable subset}
+\end{equation*}
+We show that it is realized in $\mathcal{M}$, so we find an element $\tilde{a} \in |\mathcal{M}|$ ``sufficiently like $a$'' such that it can be used to isolate $\Phi$.
+Then clearly $\Phi$ is realized in $\mathcal{M}$. 
+
+Let $\Psi = \{ \psi_n \ | \ n \in \N \}$. Then the set $R_n$ of realizations of $\phi_0 \cap \neg\psi_n$ is countable, so also $\bigcup_{n \in \N} R_n$ is.
+However $\phi_0$ has uncountably many realizations, so find one not in $\bigcup_n R_n$. This then realizes all $\psi_n$, hence $\Psi$.
+
+Now repeat this construction to get an arbitrarily long elementary chain, yielding arbitrarily large elementary extensions.
+
+\subsection{Morley's Theorem}
+Let $\mathcal{L}$ be countable and $T$ an $\mathcal{L}$-theory. Then the following are equivalent:
+\begin{itemize}
+    \item $T$ is $\aleph_1$-categorical
+    \item $T$ is $\kappa$-categorical for some uncountable cardinal $\kappa$
+    \item $T$ is $\kappa$-categorical for all uncountable cardinals $\kappa$
+\end{itemize}
+\paragraph{Proof idea} Show only (ii) $\Rightarrow$ (i), the direction (i) $\Rightarrow$ (iii) was not proven.
+Consider a non-saturated model $\mathcal{M}$ of $T$ of cardinality $\aleph_1$. Then $\mathcal{M}$ omits some countable type.
+Using \ref{stability_transcendence_facts} and \ref{lachlan_theorem} we lift it to a non-saturated elementary extension of cardinality $\kappa$.
+Now get a contradiction by \ref{uncountable_saturation_categoricity}.
