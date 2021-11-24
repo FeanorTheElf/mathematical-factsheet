@@ -1,9 +1,9 @@
 
 \subsection{Density of representable functors}
 Let $\mathcal{C}$ be a locally small category. 
-Then for each $\Gamma \in \mathrm{PreSh}(\mathcal{C}) := \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathrm{Set})$ there exists a category $\epsilon(\mathcal{C})$ and a functor $P_\Gamma: \epsilon(\mathcal{C}) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}$ such that
+Then for each $\Gamma \in \mathrm{PreSh}(\mathcal{C}) := \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathrm{Set})$ there exists a category $\epsilon(\mathcal{C})$ and a functor $P_\Gamma: \epsilon(\Gamma) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}$ such that
 \begin{equation*}
-    \colim_{\epsilon(\mathcal{C})} P_\Gamma = \Gamma
+    \colim_{\epsilon(\Gamma)} P_\Gamma = \Gamma
 \end{equation*}
 \paragraph{Proof} Let
 \begin{align*}
@@ -16,3 +16,46 @@ and
     f \in \mathrm{Hom}_{\epsilon(\Gamma)}((x_1, y_1), (x_2, y_2)) \mapsto \ &\eta^{(f)}: Y(x_1) \Rightarrow Y(x_2) \\
     &\eta^{(f)}_z: \mathrm{Hom}(z, x_1) \to \mathrm{Hom}(z, x_2), \quad f \circ \cdot
 \end{align*}
+\paragraph{Show} $\Gamma$ is the colimit of $P_\Gamma$.
+
+For all $(x, y) \in \mathrm{Ob}\epsilon(\Gamma)$ consider the natural transformations
+\begin{align*}
+    \theta^{(x, y)}: P_\Gamma(x, y) \Rightarrow \Gamma, \quad \theta^{(x, y)}_z: \mathrm{Hom}_{\mathcal{C}}(z, x) \to \Gamma(z), \ g \mapsto \underbrace{\Gamma(g)}_{\mathclap{\in \mathrm{Hom}_{\mathrm{Set}}(\Gamma(x), \Gamma(z))}}(y)
+\end{align*}
+We have for $\alpha: (x_1, y_1) \to (x_2, y_2)$ morphism in $\epsilon(\Gamma)$ that
+\begin{equation*}
+    \theta^{(x_1, y_1)} = \theta^{(x_2, y_2)} \circ P_\Gamma(\alpha)
+\end{equation*}
+as for $f \in P_\Gamma(x_1, y_1)(z) = \mathrm{Hom}_{\mathcal{C}}(z, x_1), z \in \mathrm{Ob}\mathcal{C}$ it holds
+\begin{align*}
+    \theta^{(x_1, y_1)}_z(f) &= \Gamma(f)(y_1) = \Gamma(f)(\Gamma(\alpha)(y_2)) = \Gamma(\alpha \circ f)(y_2) \\
+    &= \theta^{(x_2, y_2)}(\alpha \circ f) = \theta^{(x_2, y_2)}_z \circ \eta^{(\alpha)}_z(f) = (\theta^{(x_2, y_2)}_z \circ P_\Gamma(\alpha))(f)
+\end{align*} 
+
+So it is left to show the universal property. Let $W \in \mathrm{PreSh}(\mathcal{C})$ with natural transformations
+\begin{equation*}
+    \phi^{(x, y)}: P_\Gamma(x, y) \Rightarrow W, \quad \phi^{(x, y)}_z: \mathrm{Hom}_{\mathcal{C}}(z, x) \to W(z)
+\end{equation*}
+such that for all $\alpha: (x_1, y_1) \to (x_2, y_2)$ morphisms in $\epsilon(\Gamma)$ have
+\begin{equation*}
+    \phi^{(x_1, y_1)} = \phi^{(x_2, y_2)} \circ P_\Gamma(\alpha)
+\end{equation*}
+Then there exists the unique natural transformation
+\begin{equation*}
+    \rho: \Gamma \Rightarrow W, \quad \rho_z: \Gamma(z) \to W(z), \ y \mapsto \phi^{(z, y)}_z(\mathrm{id}_z)
+\end{equation*}
+such that
+\begin{equation*}
+    \rho \circ \theta^{(x, y)} = \phi^{(x, y)}
+\end{equation*}
+This is the case, as for $f \in \mathrm{Hom}_{\mathcal{C}}(z, x)$ we find $\Gamma(f)(y) = y' \in \Gamma(z)$.
+Note that if follows that $f: (z, y') \to (x, y)$ is a morphism in $\epsilon(\Gamma)$ and so
+\begin{equation*}
+    \phi^{(z, y')} = \phi^{(x, y)} \circ P_\Gamma(f) = \phi^{(x, y)} \circ \eta^{(f)}
+\end{equation*}
+Then
+\begin{align*}
+    \phi^{(x, y)}_z(f) &= \phi^{(x,y)}_z(\eta^{(f)}_z(\mathrm{id}_z)) = (\phi^{(x, y)} \circ \eta^{(f)})_z(\mathrm{id}_z) = \phi^{(z, y')}_z(\mathrm{id}_z) \quad \text{and} \\
+    (\rho \circ \theta^{(x, y)})_z(f) &= \rho(\Gamma(f)(y)) = \rho(y') = \phi_z^{(z, y')}(\mathrm{id}_z)
+\end{align*}
+The uniqueness is clear, and the claim follows.$\hfill\square$

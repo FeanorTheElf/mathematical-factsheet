@@ -20,7 +20,7 @@
 \usetikzlibrary{babel, positioning, shapes.geometric, arrows, arrows.meta}
 \addbibresource{bibliography.bib}
 
-\title{Some Notes on Morphisms, Regular Maps and Elliptic Curves}
+\title{Some Notes on Algebraic Maps, Elliptic Curves and Isogenies}
 \author{Simon Pohmann}
 
 \newcommand{\N}{\mathbb{N}}
@@ -75,17 +75,17 @@ Note that the graded ring is not invariant under isomorphisms of projective vari
         \begin{equation*}
             (f_0(a), ..., f_m(a)) \neq 0 \ \text{and} \ f(a) = [f_0(a) : ... : f_m(a)] \ \text{for all $a \in U$}
         \end{equation*}
-        \item A map $X \to k$ is called \emph{regular} at $p \in X$, if it is given by polynomials near $p$, i.e. there is an open neighborhood $U$ of $p$ and homogeneous polynomials  $g, h \in S(\bar{X})$ of same degree such that
-        \begin{equation*}
-            h(a) \neq 0 \ \text{and} \ f(a) = \frac {g(a)} {h(a)} \ \text{for all $a \in U$}
-        \end{equation*}
-        $f$ is called regular, if it is regular at all $p \in X$. 
+        \item A map $X \to k$ is called \emph{regular} at $p \in X$, if it is given by polynomials near $p$, i.e. there is an open neighborhood $U$ of $p$ such that the restriction $U \to k$ is a morphism.
         Denote the regular maps on $X$ by $\mathcal{O}_{\bar{X}}(X)$.
         We remark that this is a $k$-algebra.
+        \item A partial map $X \dashrightarrow Y$ on an irreducible quasi-projective variety $X$ is called \emph{rational}, if its domain is an open subset $U \subseteq X$ and it is a morphism $U \to Y$.
+        We identify rational maps $f, g: X \dashrightarrow Y$ defined on $U, V \subseteq X$ if $\restr{f}{U \cap V} = \restr{g}{U \cap V}$.
+        In other words, regular maps are morphisms $U \to Y$ with maximal domain $U \subseteq X$ open.
     \end{itemize}
 \end{definition}
-In particular, regular maps and morphisms are technically the same thing, because if you consider $Y = k \subseteq \mathbb{P}^1$, then regular maps $X \to k$ are really just morphisms $X \to Y$.
-However, they are usually used in a completely different way.
+In particular, morphisms, rational maps and regular maps are technically all the same thing.
+The definitions just differ in the domain and the codomain, not in the key property ``locally defined by polynomials''.
+However, they are usually used in a different way.
 One often works with morphisms between varieties of the same type (e.g. morphisms between projective varieties), and then they differ fundamentally from regular maps (we only have the above equivalence by taking $Y = k$ to be an affine variety).
 
 \subsection{The coordinate rings}
@@ -140,17 +140,52 @@ If we only consider regular maps that are defined on the whole of $X$, we get th
     If $X \subseteq \mathbb{P}^n$ is a projective variety, find $\mathcal{O}_X(X) \cong k$.
     If $X \subseteq \mathbb{A}^n$ is an affine variety, find $\mathcal{O}_X(X) \cong k[X]$.
 \end{theorem}
+\begin{proof}
+    Consider the map
+    \begin{equation*}
+        k[X] \to \mathcal{O}_X(X), \quad f \mapsto (a \mapsto f(a))
+    \end{equation*}
+    which is clearly a well-defined, injective $k$-algebra homomorphism.
+    So for the second part, it is left to show that it is surjective.
+
+    Let $f \in \mathcal{O}_X(X)$.
+    Then for each $p \in X$ there is an open neighborhood $U_p \subseteq X$ and polynomials $g_p, h_p \in S(X)$ with $f = g_p/h_p$ on $U_p$ with $h_p(a) \neq 0$ for all $a \in U_p$.
+    As $X \subseteq \mathbb{A}^n$, we can assume $g_p, h_p \in k[X]$.
+    Obviously, there is a finite subcover $U_1 := U_{p_1}, ..., U_r := U_{p_r}$ with $p_1, ..., p_r \in X$.
+
+    As the $U_i$ are an open cover, we see that $\V(\langle h_1, ..., h_r \rangle) = \emptyset$ and so by Hilbert's Nullstellensatz, find
+    \begin{equation*}
+        1 = \sum_i \alpha_i h_i
+    \end{equation*}
+    Thus
+    \begin{equation*}
+        f_i := \frac {g_i} {h_i} = \frac {g_i} {h_i} \sum_j \alpha_j h_j = \alpha_i g_i + \sum_{j \neq i} \alpha_j h_j \in k[X] \subseteq k(X)
+    \end{equation*}
+    So on each $U_i$, the regular map $f$ is given by a polynomial $f_i \in k[X]$.
+    It is left to show that those glue together to one global polynomial (this is only trivial in the case $X$ irreducible).
+
+    First of all, show that $f_i(a) = f_j(a)$ even for all $a \in \bar{U}_j \cap \bar{U}_j$.
+\end{proof}
 Describing morphisms is slightly more difficult, but they also allow a relatively nice definition using the function field.
 \begin{theorem}
-    Let $X \subseteq \mathbb{P}^n$ be a projective variety.
-    Then there is a well-defined injection
+    Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety. Then there is a well-defined bijection
     \begin{align*}
-        \Phi: \{ f: X \to \mathbb{P}^m \ | \ f \ \text{morphism} \} &\to k(V)^m, \\ 
-        f \ \text{defined locally by $f_0, ..., f_m \in S(X)$} \ &\mapsto \ \left( \frac {f_1} {f_0}, ..., \frac {f_n} {f_0} \right)
+        \Phi: \{ f: X \dashrightarrow \mathbb{P}^m \ | \ f \ \text{rational map} \} &\to \mathbb{P}_{k(X)}^m, \\
+        f \ \text{defined locally by $f_0, ..., f_m \in S(X)$} &\mapsto \left[ \frac {f_0} {x_0^d}  : \frac {f_1} {x_0^d} : ... : \frac {f_n} {x_0^d} \right]
     \end{align*}
-    that is compatible with evaluation maps, i.e. for $f: X \to Y$ and $g: Y \to \mathbb{P}^r$ have
+    that is compatible with evaluation maps, i.e. for $f: X \dashrightarrow Y$ and $g: Y \dashrightarrow \mathbb{P}^r$ such that the composition $g \circ f$ is well-defined, have
     \begin{equation*}
         \Phi(g \circ f) = \mathrm{ev}_{\Phi(f)}(\Phi(g))
     \end{equation*}
+    In particular, the restriction
+    \begin{equation*}
+        \restr{\Phi}{\{f: X \to \mathbb{P}^m \ | \ f \ \text{morphism}\}}: \{f: X \to \mathbb{P}^m \ | \ f \ \text{morphism}\} \to \mathbb{P}_{k(X)}^m
+    \end{equation*}
+    is a well-defined injection.
 \end{theorem}
+We sometimes will identify those two representations of rational maps.
+Note that $k[X \cap \mathbb{A}^n] \subseteq k(X \cap \mathbb{A}^n) \cong k(X)$, and using this makes the notation of rational maps as $[f_0 : ... : f_m]$ even more convenient, because we do not even require fractions then.
+
+\section{Elliptic Curves}
+
 \end{document}

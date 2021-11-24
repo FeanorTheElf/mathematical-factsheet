@@ -112,6 +112,10 @@ Let $2 \leq T \leq 2x$. Then
     \Psi(x) := \sum_{n < x} \Lambda(n) = x - \sum_{\rho, \Im(\rho) \leq T} \frac {x^\rho} \rho + O\left( \frac {x (\log x)^3} T \right)
 \end{equation*}
 where the sum runs over all nontrivial zeros $\rho$ of $\zeta$ with $\Im(\rho) \leq T$.
+According to Wolfram Math World, there is also the explicit formula
+\begin{equation*}
+    \Psi(x) = x - \sum_\rho \frac {x^\rho} {\rho} - \ln(2\pi) - \frac 1 2 \ln\left(1 - x^{-2}\right)
+\end{equation*}
 \paragraph{Proof idea} Perron's formula yields that
 \begin{equation*}
     \Psi(x) = -\frac 1 {2\pi i} \int_{c - iT}^{c + iT} \underbrace{\frac {x^s} s \frac {\zeta'(s)} {\zeta(s)}}_{:= f(s)} ds + O\left( \frac {x (\log x)^3} T \right)

@@ -95,19 +95,19 @@ Using further that $A(n_2) f(n_2) = A(y) f(y) - \int_y^{n_2} A(t) f'(t) dt$ and 
         \sum_{x \in L} f(y + x) = \det(L^*) \sum_{x \in L^*} \hat{f}(x) \exp(2\pi i \langle y, x \rangle)
     \end{equation*}
 \end{itemize}
-\paragraph{Proof} Assume wlog $\det(L) = 1$. Consider the functions
+\paragraph{Proof} Consider the functions
 \begin{align*}
     F: \R^n \to \C, \quad &y \mapsto \sum_{x \in L} f(y + x) \\
-    G: \R^n \to \C, \quad &y \mapsto \sum_{x \in L^*} \hat{f}(x)\exp(2\pi i\langle y, x \rangle)
+    G: \R^n \to \C, \quad &y \mapsto \det(L^*) \sum_{x \in L^*} \hat{f}(x)\exp(2\pi i\langle y, x \rangle)
 \end{align*}
 which are obviously periodic on $L$, and hence $F, G \in S(\R^n / L)$.
 We show that $\hat{F} = \hat{G} \in S(L^*)$, and then it follows that $F = G$. For the fundamental parallelepiped $P$ of $L$ have
 \begin{align*}
-    \hat{G}(\xi) &= \int_P G(y) \exp(-2\pi i \langle \xi, y \rangle) dy = \int_P \ \sum_{x \in L^*} \hat{f}(x) \exp(2\pi i \langle y, x - \xi \rangle) dy \\
-    &= \sum_{x \in L^*} \hat{f}(x) \underbrace{\int_P \exp(2\pi i \langle y, x - \xi \rangle) dy}_{= \begin{cases}
-        \vol(P) = 1 & \text{if $x = \xi$} \\
+    \hat{G}(\xi) &= \int_P G(y) \exp(-2\pi i \langle \xi, y \rangle) dy = \det(L^*) \int_P \ \sum_{x \in L^*} \hat{f}(x) \exp(2\pi i \langle y, x - \xi \rangle) dy \\
+    &= \det(L^*) \sum_{x \in L^*} \hat{f}(x) \underbrace{\int_P \exp(2\pi i \langle y, x - \xi \rangle) dy}_{= \begin{cases}
+        \vol(P) & \text{if $x = \xi$} \\
         0 & \text{otherwise}
-    \end{cases}} = \hat{f}(\xi)
+    \end{cases}} = \det(P)\det(L^*) \hat{f}(\xi) = \hat{f}(\xi)
 \end{align*}
 and by using that $\langle L^*, L \rangle \subseteq \Z$ we also find
 \begin{align*}
