@@ -103,10 +103,10 @@ This ring has a much tighter connection to the variety.
     \end{align*}
     is an equivalence of categories.
 \end{theorem}
-Further, each affine and projective (and even quasi-projective) variety has a function field.
+Further, each irreducible affine and projective (and even quasi-projective) variety has a function field.
 \begin{definition}
-    For an affine variety $X \subseteq \mathbb{A}^n$, define the \emph{function field} as the field of fractions $k(X) := \mathrm{Frac}(k[X])$.
-    For a projective variety $X \subseteq \mathbb{P}^n$, define the \emph{function field} as
+    For an irreducible affine variety $X \subseteq \mathbb{A}^n$, define the \emph{function field} as the field of fractions $k(X) := \mathrm{Frac}(k[X])$.
+    For an irreducible projective variety $X \subseteq \mathbb{P}^n$, define the \emph{function field} as
     \begin{equation*}
         k(X) := \left\{ f/g \in \mathrm{Frac}(S(X)) \ \middle| \ f, g \ \text{homogeneous polynomials of same degree} \right\}
     \end{equation*}
@@ -116,7 +116,7 @@ To get the function field of an arbitrary quasi-projective variety, one can defi
 We will not pursue that path further.
 However, the following lemma is important.
 \begin{lemma}
-    Let $X \subseteq \mathbb{P}^n$ be a projective variety. Then for all embeddings $\mathbb{A}^n \subseteq \mathbb{P}^n$ get
+    Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety. Then for all embeddings $\mathbb{A}^n \subseteq \mathbb{P}^n$ get
     \begin{equation*}
         k(X \cap \mathbb{A}^n) \cong k(X) \quad \text{via} \quad \frac f g \mapsto \frac {x_0^d f({x_1} / {x_0}, ..., {x_n} / {x_0})} {x_0^d g({x_1} / {x_0}, ..., {x_n} / {x_0})}, \ d = \max \{\deg f, \deg g\}
     \end{equation*}
@@ -163,8 +163,6 @@ If we only consider regular maps that are defined on the whole of $X$, we get th
     \end{equation*}
     So on each $U_i$, the regular map $f$ is given by a polynomial $f_i \in k[X]$.
     It is left to show that those glue together to one global polynomial (this is only trivial in the case $X$ irreducible).
-
-    First of all, show that $f_i(a) = f_j(a)$ even for all $a \in \bar{U}_j \cap \bar{U}_j$.
 \end{proof}
 Describing morphisms is slightly more difficult, but they also allow a relatively nice definition using the function field.
 \begin{theorem}
@@ -185,6 +183,19 @@ Describing morphisms is slightly more difficult, but they also allow a relativel
 \end{theorem}
 We sometimes will identify those two representations of rational maps.
 Note that $k[X \cap \mathbb{A}^n] \subseteq k(X \cap \mathbb{A}^n) \cong k(X)$, and using this makes the notation of rational maps as $[f_0 : ... : f_m]$ even more convenient, because we do not even require fractions then.
+
+Furthermore, the rational maps $X \dashrightarrow Y$ to a projective variety $Y$ are then exactly the elements of 
+\begin{equation*}
+    \V_{k(X)}(\I_k(Y)) \subseteq \mathbb{P}^m_{k(X)}
+\end{equation*}
+and similarly for open sets.
+
+This of course leads to interesting questions
+\begin{itemize}
+    \item Do dominant rational maps for a Zariski-open or Zariski-closed subset?
+    \item What about birational equivalences?
+    \item Or any other special kind of rational maps?
+\end{itemize}
 
 \section{Elliptic Curves}
 

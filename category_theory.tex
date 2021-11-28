@@ -1,4 +1,74 @@
 
+\subsection{Yoneda's Lemma}
+For a small category $\mathcal{C}$, Yoneda's functor
+\begin{align*}
+    Y: \mathcal{C} \to \mathrm{PreSh}(\mathcal{C}) := \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathrm{Set}), \quad x &\mapsto \mathrm{Hom}_{\mathcal{C}}(\cdot, x) \\
+    f \in \mathrm{Hom}_{\mathcal{C}}(x, y) &\mapsto \eta: \mathrm{Hom}(\cdot, x) \Rightarrow \mathrm{Hom}(\cdot, y), \ \eta_z: g \mapsto f \circ g
+\end{align*}
+is fully faithful.
+
+\subsection{Characterization of adjoint functors}
+Let $F: \mathcal{C} \to \mathcal{D}$ and $G: \mathcal{D} \to \mathcal{C}$ be functors between locally small categories.
+Then $F \dashv G$ iff there is a collection of isomorphisms
+\begin{equation*}
+    \phi_{xy}: \mathrm{Hom}_{\mathcal{D}}(F(x), y) \to \mathrm{Hom}_{\mathcal{C}}(x, G(y))
+\end{equation*}
+that it natural in $x \in \mathrm{Ob}\mathcal{C}$ and $y \in \mathrm{Ob}\mathcal{D}$ in the following sense:
+For $\alpha: y_1 \to y_2$ and $\beta: x_1 \to x_2$ have
+\begin{equation*}
+    \phi_{x_1 y_2} \circ (\alpha \circ \cdot) = (G(\alpha) \circ \cdot) \circ \phi_{x_1 y_1} \quad \text{and} \quad \phi_{x_2 y_1} \circ (\cdot \circ F(\beta)) = (\cdot \circ \beta) \circ \phi_{x_1 y_1}
+\end{equation*}
+In other words, we have a natural isomorphism
+\begin{equation*}
+    \mathrm{Hom}_{\mathcal{D}}(F(\cdot), \cdot) \ \Rightarrow \ \mathrm{Hom}_{\mathcal{C}}(\cdot, G(\cdot))
+\end{equation*}
+where the functors are $\mathcal{C} \times \mathcal{C} \to \mathrm{Set}$.
+
+\subsection{Limits and adjoint functors}
+Let $F: \mathcal{C} \to \mathcal{D}$ be a functor with right-adjoint $F \dashv G$, then $G$ preserves limits, i.e. if the limit $\lim_I \Lambda$ exists in $\mathcal{D}$ for some diagram $\Lambda: I \to \mathcal{D}$, then $G(\lim_I \Lambda) \cong \lim_I G \Lambda$ (and the right-hand side exists in $\mathcal{C}$). 
+\paragraph{Proof}
+It suffices to show that $G(\lim_I \Lambda)$ is a limit of $G \Lambda: I \to \mathcal{C}$.
+For $i \in I$ have morphisms $f_i: \lim_I \Lambda \to \Lambda(i)$ and so have morphisms
+\begin{equation*}
+    G(f_i): G(\lim_I \Lambda) \to G \Lambda(i)
+\end{equation*}
+which clearly commute in the sense $G(\alpha) \circ G(f_i) = G(f_j)$ where $\alpha: i \to j$.
+Hence we only have to show the universal property.
+
+As the Yoneda embedding is fully faithful, we may assume that there is a presheaf $W \in \mathrm{PreSh}(\mathcal{C})$ with morphisms $W \to \mathrm{Hom}(\cdot, G\Lambda(i))$ that are nicely compatible with maps $i \to j$.
+Now it suffices to show that the Hom-functor commutes with limits, as then
+\begin{equation*}
+    \mathrm{Hom}(\cdot, G(\lim_I \Lambda)) \cong \mathrm{Hom}(F(\cdot), \lim_I \Lambda) \cong \lim_{i \in I} \mathrm{Hom}(F(\cdot), \Lambda(i)) \cong \lim_{i \in I} \mathrm{Hom}(\cdot, G\Lambda(i))
+\end{equation*}
+and the claim follows by the universal property of $\lim_{i \in I} \mathrm{Hom}(\cdot, G\Lambda(i))$.
+This is shown in the next lemma.$\hfill\square$
+
+\subsubsection{Lemma (Hom-functor preserves limits)}
+For a locally small category $\mathcal{C}$ and a diagram $F: I \to \mathcal{C}$ such that $\lim_I F$ exists, have a natural isomorphism
+\begin{equation*}
+    \mathrm{Hom}_{\mathcal{C}}(\cdot, \lim_I F) \ \Rightarrow \ \lim_{i \in I} \mathrm{Hom}_{\mathcal{C}}(\cdot, F(i))
+\end{equation*}
+In other words, there is a bijection $\mathrm{Hom}_{\mathcal{C}}(x, \lim_I F) \cong \lim_{i \in I} \mathrm{Hom}_{\mathcal{C}}(x, F(i))$ that is natural in $x \in \mathrm{Ob}\mathcal{C}$.
+
+Dually find
+\begin{equation*}
+    \mathrm{Hom}_{\mathcal{C}}(\colim F, \cdot) \ \Rightarrow \ \lim_{i \in I} \mathrm{Hom}_{\mathcal{C}}(F(i), \cdot)
+\end{equation*}
+\paragraph{Proof}
+First we show that $\mathrm{Hom}(x, \lim F) \cong \lim_{i \in I} \mathrm{Hom}(x, F(i))$.
+Clearly $\lim_I F$ has morphisms $\lim_I F \to F(i)$ which induce morphisms that are nicely compatible with morphisms $i \to j$. 
+So we show the universal property.
+
+Let $W$ be a set with morphisms $g_i: W \to \mathrm{Hom}(x, F(i))$. Then the $g_i$ factor via the unique morphism $\phi: W \to \mathrm{Hom}(x, \lim_I F)$ defined as follows.
+Note that for $h \in W$ we have morphisms
+\begin{equation*}
+    g_i(h): x \to F(i)
+\end{equation*}
+that are nicely compatible with morphisms $i \to j$.
+Hence, we find a unique morphism $x \to \lim_I F$ by the universal property of $\lim_I F$, which shall be $\phi(h)$.
+
+Now the naturality of the constructed isomorphism is easy to show.$\hfill\square$
+
 \subsection{Density of representable functors}
 Let $\mathcal{C}$ be a locally small category. 
 Then for each $\Gamma \in \mathrm{PreSh}(\mathcal{C}) := \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathrm{Set})$ there exists a category $\epsilon(\mathcal{C})$ and a functor $P_\Gamma: \epsilon(\Gamma) \to \mathrm{PreSh}(\mathcal{C})^{\mathrm{repr}}$ such that
@@ -59,3 +129,4 @@ Then
     (\rho \circ \theta^{(x, y)})_z(f) &= \rho(\Gamma(f)(y)) = \rho(y') = \phi_z^{(z, y')}(\mathrm{id}_z)
 \end{align*}
 The uniqueness is clear, and the claim follows.$\hfill\square$
+
