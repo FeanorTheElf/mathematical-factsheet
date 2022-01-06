@@ -28,6 +28,7 @@
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\I}{\mathbb{I}}
 \newcommand{\V}{\mathbb{V}}
+\newcommand{\End}{\mathrm{End}}
 \newcommand{\proj}{\mathrm{proj}}
 \newcommand{\Quot}{\mathrm{Quot}}
 \renewcommand{\O}{O}
@@ -78,7 +79,7 @@ Note that the graded ring is not invariant under isomorphisms of projective vari
         \item A map $X \to k$ is called \emph{regular} at $p \in X$, if it is given by polynomials near $p$, i.e. there is an open neighborhood $U$ of $p$ such that the restriction $U \to k$ is a morphism.
         Denote the regular maps on $X$ by $\mathcal{O}_{\bar{X}}(X)$.
         We remark that this is a $k$-algebra.
-        \item A partial map $X \dashrightarrow Y$ on an irreducible quasi-projective variety $X$ is called \emph{rational}, if its domain is an open subset $U \subseteq X$ and it is a morphism $U \to Y$.
+        \item A partial map $X \dashrightarrow Y$ on an irreducible quasi-projective variety $X$ is called \emph{rational}, if its set of definition is an open subset $U \subseteq X$ and it is a morphism $U \to Y$.
         We identify rational maps $f, g: X \dashrightarrow Y$ defined on $U, V \subseteq X$ if $\restr{f}{U \cap V} = \restr{g}{U \cap V}$.
         In other words, regular maps are morphisms $U \to Y$ with maximal domain $U \subseteq X$ open.
     \end{itemize}
@@ -96,6 +97,7 @@ Affine varieties have a much nicer coordinate ring.
 \end{definition}
 This ring has a much tighter connection to the variety.
 \begin{theorem}
+    \label{prop:equivalence_of_categories}
     Let $\mathcal{V}$ be the category of affine varieties $\subseteq \mathbb{A}_k^n$ with affine morphisms, and $\mathcal{A}$ the category of finitely generated, reduced (commutative, unital) $k$-algebras.
     Then
     \begin{align*}
@@ -125,7 +127,7 @@ However, the following lemma is important.
 \end{lemma}
 Hence, the function field is again a natural property of varieties.
 
-\subsection{The connection between them}
+\subsection{Describing rational maps}
 The function field is more or less equal to all regular maps defined on \emph{some} open subset of $X$. Namely
 \begin{prop}
     Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety.
@@ -164,17 +166,14 @@ If we only consider regular maps that are defined on the whole of $X$, we get th
     So on each $U_i$, the regular map $f$ is given by a polynomial $f_i \in k[X]$.
     It is left to show that those glue together to one global polynomial (this is only trivial in the case $X$ irreducible).
 \end{proof}
-Describing morphisms is slightly more difficult, but they also allow a relatively nice definition using the function field.
+Describing rational maps and morphisms can be done similarly, but they also allow a relatively nice definition using the function field.
 \begin{theorem}
+    \label{prop:rational_map_function_field}
     Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety. Then there is a well-defined bijection
     \begin{align*}
         \Phi: \{ f: X \dashrightarrow \mathbb{P}^m \ | \ f \ \text{rational map} \} &\to \mathbb{P}_{k(X)}^m, \\
         f \ \text{defined locally by $f_0, ..., f_m \in S(X)$} &\mapsto \left[ \frac {f_0} {x_0^d}  : \frac {f_1} {x_0^d} : ... : \frac {f_n} {x_0^d} \right]
     \end{align*}
-    that is compatible with evaluation maps, i.e. for $f: X \dashrightarrow Y$ and $g: Y \dashrightarrow \mathbb{P}^r$ such that the composition $g \circ f$ is well-defined, have
-    \begin{equation*}
-        \Phi(g \circ f) = \mathrm{ev}_{\Phi(f)}(\Phi(g))
-    \end{equation*}
     In particular, the restriction
     \begin{equation*}
         \restr{\Phi}{\{f: X \to \mathbb{P}^m \ | \ f \ \text{morphism}\}}: \{f: X \to \mathbb{P}^m \ | \ f \ \text{morphism}\} \to \mathbb{P}_{k(X)}^m
@@ -190,13 +189,588 @@ Furthermore, the rational maps $X \dashrightarrow Y$ to a projective variety $Y$
 \end{equation*}
 and similarly for open sets.
 
-This of course leads to interesting questions
-\begin{itemize}
-    \item Do dominant rational maps for a Zariski-open or Zariski-closed subset?
-    \item What about birational equivalences?
-    \item Or any other special kind of rational maps?
-\end{itemize}
+\begin{remark}
+    Note that the bijection $\Phi$ from Theorem~\ref{prop:rational_map_function_field} is compatible with evaluation maps in the following sense.
+    For $f: X \dashrightarrow Y$ and $g: Y \dashrightarrow \mathbb{P}^r$ such that the composition $g \circ f$ is well-defined, have
+    \begin{equation*}
+        \Phi(g \circ f) = \mathrm{ev}_{\Phi(f)}(\Phi(g))
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
+    Let $f = [f_0 : ... : f_m]: X \dashrightarrow Y$ be a rational map with $f_0, ..., f_m \in k(X)$.
+    Then
+    \begin{equation*}
+        f^*: k(Y) \to k(X), \quad y_i \mapsto f_i
+    \end{equation*}
+    is called the \emph{pullback} of $f$.
+\end{definition}
 
 \section{Elliptic Curves}
+
+\begin{definition}[Elliptic Curve]
+    An elliptic curve $E \subseteq \mathbb{P}^2$ is a nonsingular curve given by an equation of the form
+    \begin{equation*}
+        E = \V( Y^2 Z + a_1 XYZ + a_3 YZ^2 - X^3 - a_2 X^2 Z - a_4 XZ^2 - a_6 Z^3 )
+    \end{equation*}
+    We write $\O := [0 : 1 : 0]$ for the unique point of $E$ on the hyperplane at infinity.
+    Further, write $k[E]$ for the affine coordinate ring $k[E \cap \mathbb{A}^2]$.
+\end{definition}
+
+We will often use dehomogenized equations to specify an elliptic curve.
+
+\begin{definition}[Isogeny]
+    An isogeny $f: E \to E'$ between elliptic curves is a morphism with $f(\O) = \O$.
+    An isogeny that is an isomorphisms in the sense of Algebraic Geometry is also called isomorphism.
+\end{definition}
+
+\begin{prop}
+    \label{prop:isogeny_surjective}
+    Let $f: E \to E'$ be a nonconstant isogeny. 
+    Then $f$ is surjective.
+\end{prop}
+\begin{proof}
+    It is a fact from Algebraic Geometry that the image of a projective variety under a morphism is a projective variety.
+    So the image of $f$ must be an irreducible projective subvariety of $E'$, hence either a single point or $E'$.
+\end{proof}
+
+\begin{prop}
+    If $\mathrm{char}(k) \neq 2, 3$ then each elliptic curve is isomorphic to an elliptic curve of the form
+    \begin{equation*}
+        y^2 = x^3 + A x + B
+    \end{equation*}
+\end{prop}
+
+\begin{definition}[Discriminant]
+    For an elliptic curve $E: y^2 + a_1 xy + a_3 y = x^3 + a_2 x^2 + a_4 x + a_6$, define the discriminant
+    \begin{align*}
+        \Delta(E) = & - b_2^2 b_8 - 8 b_4^3 - 27 b_6^2 + 9 b_2 b_4 b_6 \\
+        \text{where} \quad & b_2 = a_1^2 + 4 a_2 \\
+        & b_4 = a_1 a_3 + 2 a_4 \\
+        & b_6 = a_3^2 + 4 a_6 \\
+        & b_8 = a_1^2 a_6 + 4 a_2 a_6 - a_1 a_3 a_4 + a_2 a_3^2 - a_4^2
+    \end{align*}
+\end{definition}
+
+Note that for elliptic curves $E$ given by the simpler equation $E: y^2 = x^3 + Ax + B$ have
+\begin{equation*}
+    \Delta(E) = -16(4A^3 - 27B^2)
+\end{equation*}
+
+\begin{prop}
+    A cubic curve
+    \begin{equation*}
+        C = \V( Y^2 Z + a_1 XYZ + a_3 YZ^2 - X^3 - a_2 X^2 Z - a_4 XZ^2 - a_6 Z^3 )
+    \end{equation*}
+    is an elliptic curve (i.e. nonsingular), if and only if $\Delta(C) \neq 0$.
+\end{prop}
+
+\begin{lemma}
+    \label{prop:morphism_depends_on_y}
+    Let $\psi = [\psi_0, \psi_1, 1]: E \to E'$ be a morphism between elliptic curves.
+    Then $k(\psi_0, \psi_1, x) = k(x, y)$.
+\end{lemma}
+\begin{proof}
+    Assume that we have $E': y^2 = x^3 + Ax + B$.
+    Then clearly
+    \begin{equation*}
+        \psi_1^2 = \psi_0^3 + A\psi_0 + B
+    \end{equation*}
+    Now assume for a contradiction that $\psi_0, \psi_1 \in k(x)$.
+    Since $k$ is algebraically closed, have $x^3 + Ax + B = (x - \mu_1)(x - \mu_2)(x - \mu_3)$ and so
+    \begin{equation*}
+        (\psi_0 - \mu_1)(\psi_0 - \mu_2)(\psi_0 - \mu_3)
+    \end{equation*}
+    is a perfect square in $k(x)$.
+    Note that $\Delta(E')$ is a constant multiple of the discriminant of the polynomial $x^3 + Ax + B$ and since $\Delta(E') \neq 0$, we see that $\mu_1, \mu_2, \mu_3$ are pairwise distinct.
+    With $\phi_0 = f/g$ and $f, g \in k[x], f \perp g$ we see that then the factors $f - \mu_1 g, f - \mu_2 g$ and $f - \mu_3 g$ are pairwise coprime, so each must already be a perfect square, say
+    \begin{equation*}
+        f - \mu_1 g = h_1^2, \ f - \mu_2 g = h_2^2, \ f - \mu_3 g = h_3^2
+    \end{equation*}
+    with pairwise coprime $h_1, h_2, h_3$. Then
+    \begin{align*}
+        &(\mu_2 - \mu_1) g = (h_1 - h_2)(h_1 + h_2), \\
+        &(\mu_3 - \mu_1) g = (h_1 - h_3)(h_1 + h_3)
+    \end{align*}
+    Since $h_2 \perp h_3$, find $(h_1 + h_2) \perp (h_1 + h_3)$ and $(h_1 - h_2) \perp (h_1 - h_3)$, so
+    \begin{equation*}
+        h_1 - h_2 = \epsilon(h_1 + h_3), \ h_1 + h_2 = \epsilon'(h_1 - h_3)
+    \end{equation*}
+    for some $\epsilon, \epsilon' \in k^*$. Thus $(1 - \epsilon)h_1 = \epsilon h_3 + h_2$ with $\epsilon - 1 \in k^*$.
+    So
+    \begin{equation*}
+        2h_1 = (\epsilon + \epsilon')h_1 + (\epsilon - \epsilon')h_3
+    \end{equation*}
+    thus
+    \begin{equation*}
+        (2 - \epsilon - \epsilon')h_1 = (\epsilon - \epsilon')h_3
+    \end{equation*}
+    and so $\epsilon = \epsilon' = 1$ since $h_1 \perp h_3$. 
+    However then $h_3 = -h_2$, a contradiction.
+\end{proof}
+
+\subsection{The group law}
+
+\begin{prop}
+    \label{prop:bezout_theorem_case}
+    Let $E$ be an elliptic curve. Then each projective line meets $E$ at exactly three points, with multiplicity.
+\end{prop}
+
+\begin{definition}
+    Define a map
+    \begin{equation*}
+        +_{\mathrm{geo}}: E \times E \to E
+    \end{equation*}
+    that for $P, Q \in E$ is given by the following geometric construction:
+    \begin{itemize}
+        \item Let $L$ be the line through $P, Q$ (with multiplicity)
+        \item Let $R$ be the third point of intersection of $E$ with $L$ (exists by \ref{prop:bezout_theorem_case})
+        \item Let $L'$ be the line through $R, \O$
+        \item Set $P +_{\mathrm{geo}} Q$ to be the third point of intersection of $E$ with $L'$
+    \end{itemize}
+\end{definition}
+
+\begin{prop}
+    \label{prop:dedekind_domain}
+    Let $E: y^2 = x^3 + Ax + B$ be an elliptic curve. Then the affine coordinate ring $k[E]$ is a Dedekind domain and there is a bijection
+    \begin{equation*}
+        \phi: E \to \mathrm{Cl}(k[E]), \quad (\lambda, \mu) \mapsto \overline{\langle x - \lambda, y - \mu \rangle}, \ \O \mapsto \overline{\langle 1 \rangle}
+    \end{equation*}
+\end{prop}
+
+\begin{definition}
+    Define the map
+    \begin{equation*}
+        +_{\mathrm{alg}}: E \times E \to E, \quad (P, Q) \mapsto  \phi^{-1}(\phi(P) \phi(Q))
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    Define the map 
+    \begin{align*}
+        +_{\mathrm{poly}}: E \times E \to E, \quad ((x_1, y_1), (x_2, y_2)) &\mapsto (x_3, y_3), \\
+        ((x, y), (x, -y)) &\mapsto \O \\
+        (\O, P), \ (P, \O) &\mapsto P
+    \end{align*}
+    where for $P = (x_1, y_1), \ Q = (x_2, y_2) \neq (x_1, -y_1)$ we set
+    \begin{align*}
+        \lambda &:= \begin{cases}
+            \frac {y_2 - y_1} {x_2 - x_1} \ \text{if} \ x_1 \neq x_2 \\
+            \frac {3 x_1^2 + A} {2 y_1} \ \text{otherwise}
+        \end{cases} \\
+        x_3 &:= -x_1 - x_2 + \lambda^2 \\
+        y_3 &:= -y_1 + \lambda (x_1 - x_3)
+    \end{align*}
+\end{definition}
+
+\begin{prop}[The group law]
+    \label{prop:group_operation}
+    Let $E$ be an elliptic curve. Then $+ := +_{\mathrm{geo}} = +_{\mathrm{alg}} = +_{\mathrm{poly}}$.
+\end{prop}
+
+\begin{corollary}
+    Let $E: Y^2 = X^3 + AX + B$ be an elliptic curve. Then 
+    \begin{itemize}
+        \item $E$ together with the binary operation $+$ from \ref{prop:group_operation} is a group.
+        \item $E$ has neutral element $\O$
+        \item $E$ is abelian
+        \item for a field tower $k|L|K$, the so-called $L$-rational points $E(L) := E \cap \mathbb{P}_L^2 = (E \cap L^2) \cup \{ \O \}$ form a subgroup
+    \end{itemize}
+\end{corollary}
+
+\begin{prop}
+    \label{prop:isogeny_homomorphism}
+    Let $E, E': y^2 = x^3 + A'x + B'$ be elliptic curves and $\psi: E \to E'$ an isogeny. Then $\psi$ is a group homomorphisms.
+\end{prop}
+\begin{proof}
+    Wlog assume that $\psi$ is nonconstant.
+    Have $\psi = [\psi_1 : \psi_2 : 1]$ with $\psi_1, \psi_2 \in k(E)$ and consider the field homomorphism
+    \begin{equation*}
+        \psi^*: k(E') \to k(E), \quad \overline{f} \mapsto \overline{f( \psi_1, \psi_2 )}
+    \end{equation*}
+    This is well-defined, because if $\overline{f} = \overline{g}$ then
+    \begin{equation*}
+        f(\psi_1, \psi_2) \equiv g(\psi_1, \psi_2) \mod \underbrace{\psi_2^2 - \psi_1^3 + A'\psi_1 + B'}_{= (0)}
+    \end{equation*}
+    Now we look at the field extension 
+    \begin{equation*}
+        k(E) = k(x, y) \ | \ \psi^*k(E') = k(\psi_1, \psi_2)
+    \end{equation*}
+    As $\psi(\O) = \O$ we see that there are homogeneous polynomials $f, g, h \in k[R, S, T]$ of same degree with
+    \begin{equation*}
+        f(0, 1, 0) = h(0, 1, 0) = 0, \ g(0, 1, 0) = 1, \quad \psi_1 = \frac {f^{\mathrm{deh}}(x, y)} {h^{\mathrm{deh}}(x, y)}, \ \psi_2 = \frac {g^{\mathrm{deh}}(x, y)} {h^{\mathrm{deh}}(x, y)}
+    \end{equation*}
+    Since $f, h$ are homogeneous of same degree, we see that $f(0, y, 0) = h(0, y, 0) = 0$ for all $y \in k$.
+    It follows that $\psi_1 \in k(x)$. 
+    Furthermore, if $\psi_1 = f(x)/h(x)$ for $f, h \in k[T]$ we can then assume wlog that $f - \psi_1 h \in \psi^*k(E')[T]$ is the minimal polynomial of $x$ over $\psi^*k(E')$ or over $k(\psi_1)$.
+
+    By \ref{prop:isogeny_surjective} we see that $\psi$ is surjective, so Algebraic Geometry tells us that $\psi^*$ is injective.
+    We can then define
+    \begin{equation*}
+        \psi_* := \left(\psi^*\right)^{-1} \circ N_{k(E) | \psi^*k(E')}: k(E) \to k(E')
+    \end{equation*}
+    This map is a (multiplicative) group homomorphism, as $\psi^*$ is a field homomorphism and the norm map $N$ is multiplicative.
+    Thus it induces a well-defined group homomorphism
+    \begin{equation*}
+        \overline{\psi_*}: \mathrm{Cl}(k[E]) \to \mathrm{Cl}(k[E']), \quad \overline{I} \mapsto \overline{(\psi_*I)}
+    \end{equation*}
+    Now we show that the following diagram is commutative and the claim follows by \ref{prop:dedekind_domain} and \ref{prop:group_operation}.
+    
+    \begin{center}
+    \begin{tikzpicture}
+        \node (E) {$E$};
+        \node[below = of E] (KE) {$\mathrm{Cl}(k[E])$};
+        \node[right = of KE] (KEp) {$\mathrm{Cl}(k[E'])$};
+        \node[above = of KEp] (Ep) {$E'$};
+
+        \draw[->] (E) -- (Ep) node[midway, above] {$\psi$};
+        \draw[->] (E) -- (KE) node[midway, left] {$\phi$};
+        \draw[->] (Ep) -- (KEp) node[midway, left] {$\phi$};
+        \draw[->] (KE) -- (KEp) node[midway, above] {$\overline{\psi_*}$};
+    \end{tikzpicture}
+    \end{center}
+
+    Clearly this holds for $\O$, so consider $(\lambda, \mu) \in E$ with $\psi(\lambda, \mu) \neq \O$.
+    As $\psi^*$ is injective, is suffices to show that $(\psi^* \circ \phi \circ \psi)(\lambda, \mu) = (\psi^* \circ \overline{\psi_*} \circ \phi)(\lambda, \mu)$.
+
+    Using the definition of $\phi$ we find
+    \begin{align*}
+        &(\psi^* \circ \psi_* \circ \phi)(\lambda, \mu) = ( N(x - \lambda), N(y - \mu) ) \quad \text{and} \\
+        &(\psi^* \circ \phi \circ \psi)(\lambda, \mu) = \psi^*\left(( x - \psi_1(\lambda, \mu), y - \psi_2(\lambda, \mu) )\right)  = ( \psi_1 - \psi_1(\lambda, \mu), \psi_2 - \psi_2(\lambda, \mu) )
+    \end{align*}
+    Explicitly computing the determinant of the multiplication map shows that
+    \begin{equation*}
+        N_{L(\alpha)|L}(\alpha - \lambda) = \mathrm{MiPo}_L(\alpha)(\lambda) \quad \text{so} \quad N(x - \lambda) = \mathrm{MiPo}_{k(\psi_1)}(x)(\lambda)
+    \end{equation*}
+    By the above, find $f, h \in k[T]$ such that $\psi_1 = f(x)/h(x)$ and $f(T) - \psi_1h(T)$ is the minimal polynomial of $x$.
+    Now we see that ($\psi(\lambda, \mu) \neq \O$ so $h(\lambda) \neq 0$)
+    \begin{equation*}
+        N(x - \lambda) = f(\lambda) - \psi_1h(\lambda) = -h(\lambda)(\psi_1 - \psi_1(\lambda, \mu))
+    \end{equation*}
+    As $\psi_2^2 = u(\psi_1)$ for some $u \in k[T]$ we find $u, v \in k[S, T]$ such that
+    \begin{equation*}
+        \mathrm{MiPo}_{\psi^*k(E')}(Y) = v(T, \psi_1)\psi_2 - u(T, \psi_1) \in k(\psi_1, \psi_2)(T)
+    \end{equation*}
+    Hence
+    \begin{equation*}
+        N(y - \mu) = v(\mu, \psi_1)\psi_2 - u(\mu, \psi_1)
+    \end{equation*}
+    As $\mathrm{MiPo}(y)(y) = 0$ have
+    \begin{equation*}
+        \mathrm{MiPo}(y)(y)(\lambda, \mu) = v(\mu, \psi_1(\lambda, \mu))\psi_2(\lambda, \mu) - u(\mu, \psi_1(\lambda, \mu)) = 0
+    \end{equation*}
+    Together, modulo $\psi_1 - \psi_1(\lambda, \mu)$ we get
+    \footnote{Strictly speaking, we use require $v(\mu, \psi_1(\lambda, \mu)) \neq 0$ here.
+    At least we have $v(y, \psi_1) \neq 0$ here, which follows from Lemma~\ref{prop:morphism_depends_on_y}.}
+    \begin{align*}
+        \frac 1 {v(\mu, \psi_1(\lambda, \mu))} N(y - \mu) \equiv \psi_2 - \frac {u(\mu, \psi_1)} {v(\mu, \psi_1)} \equiv \psi_2 - \underbrace{\frac {u(\mu, \psi_1(\lambda, \mu))} {v(\mu, \psi_1(\lambda, \mu))}}_{= \psi_2(\lambda, \mu)} = \psi_2 - \psi_2(\lambda, \mu)
+    \end{align*}
+    So
+    \begin{equation*}
+        ( N(x - \lambda), N(y - \mu) ) = ( \psi_1 - \psi_1(\lambda, \mu), \psi_2 - \psi_2(\lambda, \mu) ) \in \mathrm{Cl}(k[E])
+    \end{equation*}
+    and the claim follows.
+\end{proof}
+\begin{remark}
+    In \cite{EllipticCurves}, the above proof was done using the Picard group (which is naturally isomorphic to the ideal class group, but working with it uses different tools).
+    Riemann-Roche is not cited (as far as I think) for that proof, but already relies heavily on the theory of divisors.
+\end{remark}
+
+Note that the field extension $k(E) | \psi^*k(E')$ is quite important.
+In particular, we say
+\begin{definition}
+    Let $\psi: E \to E'$ be an isogeny.
+    We define the \emph{degree} of $\psi$ to be the degree of $k(E) | \psi^*k(E')$ and say that $\psi$ is \emph{separable} if $k(E) | \psi^*k(E')$ is.
+\end{definition}
+
+\subsection{Isomorphism classes}
+
+\begin{definition}[j-invariant]
+    Let $E: y^2 = x^3 + Ax + B$ be an elliptic curve.
+    Then define the j-invariant of $E$ as
+    \begin{equation*}
+        j(E) := \frac {(-48 A)^3} {\Delta(E)} = 1728 \frac {4A^3} {27 B^2 + 4A^3}
+    \end{equation*}
+\end{definition}
+
+\begin{prop}
+    Let $E, E'$ be two elliptic curves. Then $E \cong E'$ if and only if $j(E) = j(E')$.
+\end{prop}
+\begin{proof}
+    First, assume $j(E) = j(E')$ and consider the isogeny $\psi = [u^2 x, u^3 y, 1]$ where $u^4 = A/A'$.
+    Then
+    \begin{align*}
+        (u^3 y)^2 =& \ u^6 y^2 \quad \text{and} \\
+        (u^2 X)^3 - A (u^2 X) - B =& \ u^6 \Bigl(X^3 - \frac 1 {u^4} A X - \frac 1 {u^6} B \Bigr) \\
+        =& \ u^6 \Bigl( X^3 - A' X - \frac 1 {u^6} B \Bigr)
+    \end{align*}
+    From $j(E) = j(E')$ we get
+    \begin{equation*}
+        A^3 (27 B'^2 + 4A'^3) = A'^3 (27 B^2 + 4A^3)
+    \end{equation*}
+    Thus
+    \begin{equation*}
+        A^3 \left( 27 B'^2 + 4\frac 1 {u^{12}} A^3 \right) = \frac 1 {u^{12}} A^3 (27 B^2 + 4A^3)
+    \end{equation*}
+    and so
+    \begin{equation*}
+        B'^2 = \frac 1 {u^{12}} B^2 + \frac 1 {27 u^{12}} (4 A^3 - 4 A^3) = \frac 1 {u^{12}} B^2
+    \end{equation*}
+    It follows that $u^6 = B/B'$ and so $\psi$ maps $E$ to $E'$. 
+    It is only a linear transformation, hence also an isomorphism.
+
+    For the other direction, assume there is an isomorphism $\psi = [u, v, 1]$ from $E$ to $E'$ where $E': Y^2 = X^3 + A'X + B'$ and $x, y \in k(E)$.
+    As $\psi$ is an isomorphism, it is also an isomorphism of the affine varieties $E \cap \mathbb{A}^2$ resp. $E' \cap \mathbb{A}^2$ and so we find the pullback
+    \begin{equation*}
+        \psi^*: k[E'] \to k[E], \quad x' \mapsto u, y' \mapsto v
+    \end{equation*}
+    for some $u, v \in k[E]$ with $v^2 = u^3 + A'u + B'$
+    \footnote{Note that we use a result discussed at the beginning here.
+    Namely, the crucial point is that a birational equivalence between affine varieties that is defined everywhere is already an isomorphism.}.
+    We want to show that $u, v$ are linear in $x, y \in k[E]$, and the claim follows more or less by reversing the computation above.
+
+    As $\psi$ maps $\O$ to $\O$, we see as before in Prop.~\ref{prop:isogeny_homomorphism} that $u \in k[x]$.
+    Since $u$ is transcendental over $k$, we see that $k[x]$ is a finitely generated $k[u]$-module.
+    Now we find
+    \begin{equation*}
+        [k[u] : k[x]] \underbrace{[k[x] : k[x, y]]}_{= 2} = [k[u] : k[x, y]] = \underbrace{[k[u] : k[u, v]]}_{\leq 2} \underbrace{[k[u, v] : k[x, y]]}_{= 1 \ \text{by assumption}}
+    \end{equation*}
+    and so $k[u] = k[x]$.
+    Clearly this implies that $u$ is linear in $x$.
+    It is easy to see that now $v$ must also be linear in $x$ and $y$.
+\end{proof}
+\begin{remark}
+    In \cite{EllipticCurves}, the above proof was done using the Riemann-Roche theorem, from which it directly follows that a certain vector space containing $1, x, u$ is 2-dimensional, and so $u$ is linear in $1$ and $x$.
+    Similarly, one again finds that $v$ is linear in $1, x, y$. 
+\end{remark}
+
+\section{The Endomorphism ring}
+\begin{lemma}
+    \label{prop:sum_isogenies}
+    Let $\phi, \psi: E \to E'$ be isogenies on an elliptic curve $E$.
+    Then $\phi + \psi$ (where addition is defined pointwise) is an isogeny $E \to E$.
+\end{lemma}
+\begin{proof}
+    Clearly $(\phi + \psi)(\O) = \O$ and the map is given locally by polynomials, as
+    \begin{align*}
+        \frac {\phi_y - \psi_y} {\phi_x - \psi_x} = &\frac {\phi_y^2 - \psi_y^2} {(\phi_x - \psi_x)(\phi_y + \psi_y)} = \frac {\phi_x^3 + A'\phi_x + B' - \psi_x^3 - A'\psi_x - B'} {(\phi_x - \psi_x)(\phi_y + \psi_y)} \\
+        = &\frac {(\phi_x^2 + \phi_x \psi_x + \psi_x^2 + A')(\phi_x - \psi_x)} {(\phi_x - \psi_x)(\phi_y + \psi_y)} = \frac {\phi_x^2 + \phi_x \psi_x + \psi_x^2 + A'} {\phi_y + \psi_y}
+    \end{align*}
+    in $k[E]$ where $\phi = [\phi_x : \phi_y : 1]$ and $\psi = [\psi_x : \psi_y : 1]$.
+\end{proof}
+\begin{definition}
+    For an elliptic curve $E$, consider the set $\End(E)$ of isogenies $E \to E$ together with pointwise addition $+$ and composition $\cdot$.
+    This is called the \emph{Endomorphism ring} of $E$.
+\end{definition}
+\begin{prop}
+    Let $E$ be an elliptic curve. 
+    Then $\End(E)$ is a (possibly noncommutative) ring with unit.
+\end{prop}
+\begin{proof}
+    The only nontrivial part is to show distributivity, but this directly follows from Prop.~\ref{prop:isogeny_homomorphism}.
+\end{proof}
+\begin{definition}
+    Let $E$ be an elliptic curve.
+    For $m \in \Z$ denote by $[m]$ the multiplication isogeny
+    \begin{equation*}
+        E \to E, \quad P \mapsto \mathrm{sgn}(m)\sum_{i = 1}^{|m|} P
+    \end{equation*}
+    This is an isogeny by Lemma~\ref{prop:sum_isogenies}.
+\end{definition}
+\begin{prop}
+    Let $E$ be an elliptic curve.
+    Then the ring homomorphism
+    \begin{equation*}
+        [\cdot]: \Z \to \End(E), \quad m \mapsto [m]
+    \end{equation*}
+    is injective.
+\end{prop}
+\begin{proof}
+    As $[\cdot]$ is a ring homomorphism, it suffices to show $[m] \neq 0$ for $m \neq 0$.
+    For $P = [x : y : 1] \in E$ we see that the $x$-coordinate of $[2]P$ is
+    \begin{align*}
+        -2x + \lambda^2 &= \left( \frac {3x^2 + A} {2y} \right)^2 - 2x = \frac {9x^4 + 6Ax^2 + A^2 - 8x^4 - 8Ax^2 - 8xB} {4x^3 + 4Ax + 4B}\\
+        &= \frac {x^4 - 2Ax^2 - 8Bx + A^2} {4x^3 + 4Ax + 4B}
+    \end{align*}
+    In particular, there are only finitely many $x$ such that
+    \begin{equation*}
+        x^4 - 2Ax^2 - 8Bx + A^2 = 0
+    \end{equation*}
+    and so only finitely many $P \in E$ with $P + P = \O$.
+    Thus $[2] \neq 0$.
+    
+    Consider now any $m \in \Z$ with $m = 2^k n, n \perp 2$ and assume $[m] = 0$.
+    Then $[2^k]$ annihilates only finitely many points, so $[n]$ must annihilate infinitely many points.
+    Hence $[n] = 0$ as the fiber $[n]^{-1}(\O)$ is a subvariety of $E$.
+    Now we show that $E$ contains a 2-torsion point $P$, then $[n]P = [(n - 1)/2]\O + P = P \neq \O$ and we get a contradiction.
+
+    However, this is easy to see as there is some $x$ with $x^3 + Ax + B = 0$ and so $(x, 0) + (x, 0) = \O$ (we use that $k$ is algebraically closed).
+\end{proof}
+
+\subsection{Constructing Isogenies}
+The proof of Prop.~\ref{prop:isogeny_homomorphism} via the ideal class group is quite nice.
+However, using $\mathrm{Cl}(k[E])$ will stop to work when we want to construct new isogenies, as it is unclear that transferring a group homomorphism
+\begin{equation*}
+    \mathrm{Cl}(k[E]) \to \mathrm{Cl}(k[E'])
+\end{equation*}
+to $E \to E'$ will result in an isogeny, i.e. a map given locally by polynomials.
+Now we will look at related ways to construct an isogeny.
+\begin{lemma}
+    Let $f: C \dashrightarrow \mathbb{P}^m$ be a rational map on a smooth projective curve in $\mathbb{P}^2$ (i.e. a 1-dimensional nonsingular projective variety).
+    Then $f$ is a morphism.
+\end{lemma}
+\begin{proof}
+    wlog assume the set of definition of $f$ is $U \subseteq C$.
+    Now fix a point $P \in C \setminus U$ and consider an affine chart $\mathbb{A}^2 \subseteq \mathbb{P}^2$ such that $P \in C_{\mathrm{aff}} := C \cap \mathbb{A}^2$.
+
+    It is a statement of Algebraic Geometry that for $P \in C$, we have for the tangent space $T_P C$ of $C$ at $P$ that
+    \begin{equation*}
+        T_P C \cong (\mathfrak{m}_P/\mathfrak{m}_P^2)^*
+    \end{equation*}
+    where $\mathfrak{m}_P \subseteq k[C_{\mathrm{aff}}]$ is the maximal ideal $\langle x_1 - P_1, ..., x_n - P_n \rangle$.
+    Since $C$ is assumed to be smooth, we see that $\dim T_P C = \dim C = 1$ and so $\dim (\mathfrak{m}_P/\mathfrak{m}_P^2) = 1$.
+    Thus there is $\alpha \in k[C_{\mathrm{aff}}]_{\mathfrak{m}_P}$\footnote{This $\alpha$ is also called \emph{uniformizer}.} such that
+    \begin{equation*}
+        \mathfrak{m}_P = (\alpha) \subseteq k[C_{\mathrm{aff}}]_{\mathfrak{m}_P}
+    \end{equation*}
+    Now let $f = [f_0 : f_1 : f_2]$.
+    By assumption, $P \notin U$ and so the rational map $f_i(P) = 0$ for all $i \leq 3$.
+    In other words, we have $f_0, f_1, f_2 \in \mathfrak{m}_p$.
+    Now let $d_i > 0$ be the greatest integer such that $\alpha^{d_i}$ divides $f_i$ and set $d = \min\{d_0, d_1, d_2\}$.
+
+    Now find that $[f_0/\alpha^d : f_1/\alpha^d : f_2/\alpha^d] = [f_0 : f_1 : f_2]$ but for some $i$, have $f_i/\alpha^d \notin \mathfrak{m}_P$, so $(f_i/\alpha^d)(P) \neq 0$.
+    This contradicts the assumption that $f$ cannot be defined at $P$.
+\end{proof}
+Interestingly, this statement is the main reason why we require elliptic curves to be nonsingular.
+\begin{lemma}
+    Let $E, E'$ be elliptic curves and
+    \begin{equation*}
+        f: k(E') \to k(E)
+    \end{equation*}
+    be a field homomorphism.
+    Then there is a unique morphism
+    \begin{equation*}
+        \psi: E \to E'
+    \end{equation*}
+    such that $\psi^* = f$.
+\end{lemma}
+\begin{proof}
+    Consider the rational map $\psi := [f(x) : f(y) : 1]: E \to \mathbb{P}^2$.
+    By the previous lemma, this is a morphism.
+    
+    Assume that $E$ is given by $E: y^2 = x^3 + Ax + B$.
+    Then, in $k(E)$ we have that $y^2 = x^3 + Ax + B$ and since $f$ is a field homomorphism, we see that
+    \begin{equation*}
+        f(y)^2 = f(x)^3 + Af(x) + B
+    \end{equation*}
+    It follows that $\psi: E \to E'$.
+    The uniqueness follows easily from Prop.~\ref{prop:equivalence_of_categories}.
+\end{proof}
+
+\subsection{The Frobenius morphism}
+For this subsection, assume $p = \mathrm{char}(k) > 2$ is an odd prime.
+\begin{definition}
+    For an elliptic curve $E: y^2 = x^3 + Ax + B$ and $t \in \N$ define the elliptic curve $E^{(q)}$ by
+    \begin{equation*}
+        E^{(q)}: y^2 = x^3 + A^q x + B^q
+    \end{equation*}
+    where $q = p^t$.
+    Further, define the \emph{Frobenius morphism}
+    \begin{equation*}
+        \pi_q := [x^q, y^q, 1]: E \to E^{(q)}
+    \end{equation*}
+\end{definition}
+Note that the Frobenius endomorphism $k \to k, \ \alpha \mapsto \alpha^q$ has trivial kernel, and so the curve $E^{(q)}$ has discriminant $\Delta(E)^q \neq 0$ and is nonsingular, i.e. an elliptic curve.
+\begin{lemma}
+    Let $\psi: E \to E'$ be an isogeny.
+    With the inseparability degree $t := [k(E') : \psi^*k(E)]_i$ of the field extension $k(E') | \psi^*k(E)$ we find that $\psi$ factors as
+    \begin{equation*}
+        E \overset{\pi_q}{\longrightarrow} E^{(q)} \overset{\tilde{\psi}}{\longrightarrow} E'
+    \end{equation*}
+    where $q = p^t$ and $\tilde{\psi}: E^{(q)} \to E'$ is some separable isogeny.
+    Write $\pi = \pi_p$, so $\pi_q = \pi^t$.
+\end{lemma}
+\begin{proof}
+    Consider the field tower $k(E) | F | \psi^*k(E')$ where $F$ is the field of separable elements in $k(E)$ (over $\psi^*k(E')$).
+    Now we will give a description of $F$.
+
+    For $\alpha \in k(E)$ have that $\mathrm{MiPo}_F(\alpha) = X^{p^l} -  a$, for some $l \in \N$ and $a \in F$ since $k(E) | F$ is purely inseparable.
+    Since $\deg(\mathrm{MiPo}_F(\alpha)) \leq [k(E) : F] = t$, we see that $\alpha^q \in F$.
+    In particular, $x^q, y^q \in F$.
+
+    Now observe that $k(x) | k(x^q)$ is obviously a field extension of degree $q$, and since 2 does not divide $p$, it follows that also $k(x, y) | k(x^q, y^q)$ has degree $q$.
+    Since $x^q, y^q \in F$, we find $k(E) | F | k(x^q, y^q)$ and as $[k(E) : F] = q$, it already follows that $F = k(x^q, y^q)$.
+
+    Now observe that
+    \begin{align*}
+        k(E^{(q)}) \to k(E), \quad u \mapsto x^q, \ v \mapsto y^q
+    \end{align*}
+    is a well-defined field homomorphism with image $k(x^q, y^q)$.
+    Hence $k(E^{(q)}) \cong F$ and we have the field tower
+    \begin{equation*}
+        k(E) \ | \ k(E^{(q)}) \ | \ \psi^*k(E')
+    \end{equation*}
+    which induces a field homomorphism $k(E') \to k(E^{q}), \ a \mapsto \psi^*(a)$ (using $k(E^{(q)}) \subseteq k(E)$).
+    The previous lemma now gives us a morphism
+    \begin{equation*}
+        \tilde{\psi}: E^{(q)} \to E'
+    \end{equation*}
+    with $\tilde{\psi}^* = \psi^*$.
+    Further have that
+    \begin{equation*}
+        \pi_q^*: k(E^{(q)}) \to E, \quad u = x^q \mapsto x^q, \ v = y^q \mapsto y^q
+    \end{equation*}
+    is the identify on $k(E^{(q)})$.
+    Hence $(\tilde{\psi} \circ \pi_q)^* = \pi_q^* \circ \tilde{\psi}^* = \psi^*$ and the uniqueness in the previous lemma shows that
+    \begin{equation*}
+        \psi = \tilde{\psi} \circ \pi_q
+    \end{equation*}
+    Since $\psi$ and $\pi_q$ map $\O$ to $\O$, this must also be the case for $\tilde{\psi}$.
+    So $\tilde{\psi}$ is a separable isogeny and the claim follows.
+\end{proof}
+
+\subsection{Dual Isogenies}
+\begin{lemma}
+    Let $\psi: E \to E'$ be a nonconstant morphism between elliptic curves such that $k(E) | \psi^*k(E')$ is separable.
+    Then $\#\psi^{-1}(\{\O\}) = \deg\psi$.
+\end{lemma}
+\begin{proof}
+    Let $\psi = [\psi_0 : \psi_1 : 1]$ and consider
+    \begin{equation*}
+        F := \mathrm{MiPo}_{\psi^*k(E')}(x) = \sum_{n = 0}^m a_n(\psi_0, \psi_1) T^n \in k(\psi_0, \psi_1)[T]
+    \end{equation*}
+    where $a_n \in k(X, Y)$.
+    Note that $m = \deg\psi$ as $k(\psi_0, \psi_1, x) = k(x, y)$ by Lemma~\ref{prop:morphism_depends_on_y}.
+
+    As $k$ is infinite, we can now find $(\lambda, \mu) \in E$ such that
+    \begin{equation*}
+        F_{\lambda, \mu} = \sum_{n = 0}^m a_n(\psi_0(\lambda, \mu), \psi_1(\lambda, \mu)) T^n \in k[T]
+    \end{equation*}
+    is a separable polynomial of degree $m$.
+    Hence, it has $m$ distinct roots, say $x_1, ..., x_m$ in $k$.
+\end{proof}
+
+\section*{Notes}
+Let $p$ be a prime.
+Consider the category $\mathrm{EC}$ defined by
+\begin{align*}
+    \mathrm{Ob}(\mathrm{EC}) &:= \{ \text{$E$ elliptic curve over $\F_{p^2}$} \} \\
+    \mathrm{Hom}_{\mathrm{EC}}(E, E') &:= \{ \text{$\psi: E \to E'$ isogeny} \}
+\end{align*}
+Have a functor
+\begin{align*}
+    \cdot^{(p)}: \mathrm{EC} \ &\to \ \mathrm{EC} \\
+    \text{$E$ defined by $y^2 = x^3 + Ax + B$} \ &\mapsto \ \text{$E'$ defined by $y^2 = x^3 + A^p x + B^p$} \\
+    \left[ \sum_{i, j} a_{ij} x^i y^j : \sum_{i, j} b_{ij} x^i y^j : \sum_{i, j} c_{ij} x^i y^j \right] \ &\mapsto \ \left[ \sum_{i, j} a_{ij}^p x^i y^j : \sum_{i, j} b_{ij}^p x^i y^j : \sum_{i, j} c_{ij}^p x^i y^j \right]
+\end{align*}
+and a functor
+\begin{align*}
+    \hat{\cdot}: \mathrm{EC} \ \to \ \mathrm{EC}^{\mathrm{op}}, \quad E \ \mapsto \ E, \quad \phi \ \mapsto \ \hat{\phi}
+\end{align*}
+$(d, \epsilon)$-structures and their isogenies are given by the category $\mathcal{C}$ defined by
+\begin{align*}
+    \mathrm{Ob}(\mathcal{C}) &:= \{ (E, \psi) \ | \ E \in \mathrm{EC}, \ \psi: E \to E^{(p)}, \ \hat{\psi} = \epsilon\psi^{(p)} \} \\
+    \mathrm{Hom}_{\mathcal{C}}((E, \psi), (E', \psi')) &:= \{ \phi: E \to E' \ | \ \psi' \circ \phi = \phi^{(p)} \circ \psi \}
+\end{align*}
 
 \end{document}
