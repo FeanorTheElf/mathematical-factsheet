@@ -28,8 +28,12 @@
 \newcommand{\F}{\mathbb{F}}
 \newcommand{\I}{\mathbb{I}}
 \newcommand{\V}{\mathbb{V}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Aff}{\mathbb{A}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\Half}{\mathcal{H}}
+\newcommand{\SL}{\mathrm{SL}}
 \newcommand{\End}{\mathrm{End}}
-\newcommand{\proj}{\mathrm{proj}}
 \newcommand{\Quot}{\mathrm{Quot}}
 \renewcommand{\O}{O}
 
@@ -64,12 +68,12 @@
 First of all, we define the basic notions of algebraic maps, that is maps that are locally defined by polynomials.
 For simplicity of notation, we already introduce the projective coordinate ring before.
 \begin{definition}
-    Let $X \subseteq \mathbb{P}^n$ be a projective variety. 
+    Let $X \subseteq \Proj^n$ be a projective variety. 
     Then the graded ring $S(X) := k[x_0, ..., x_n] / \I(X)$ is its projective coordinate ring.
 \end{definition}
 Note that the graded ring is not invariant under isomorphisms of projective varieties.
 \begin{definition}
-    Let $X \subseteq \mathbb{P}^n$ and $Y \subseteq \mathbb{P}^m$ be quasi-projective varieties, i.e. open subsets of the projective varieties $\bar{X}, \bar{Y}$.
+    Let $X \subseteq \Proj^n$ and $Y \subseteq \Proj^m$ be quasi-projective varieties, i.e. open subsets of the projective varieties $\bar{X}, \bar{Y}$.
     Then define
     \begin{itemize}
         \item A map $X \to Y$ is called \emph{morphism}, if it is given locally by polynomials, so for each $p \in X$ there is an open neighborhood $U$ of $p$ and homogeneous polynomials $f_0, ..., f_m \in S(\bar{X})$ of same degree such that
@@ -93,12 +97,12 @@ One often works with morphisms between varieties of the same type (e.g. morphism
 We have already introduced the projective coordinate ring, which is a not totally natural object, because it is not invariant under isomorphisms.
 Affine varieties have a much nicer coordinate ring.
 \begin{definition}
-    For an affine variety $X \subseteq \mathbb{A}^n$, define the affine coordinate ring $k[X] := k[x_1, ..., x_n] / \I(X)$.
+    For an affine variety $X \subseteq \Aff^n$, define the affine coordinate ring $k[X] := k[x_1, ..., x_n] / \I(X)$.
 \end{definition}
 This ring has a much tighter connection to the variety.
 \begin{theorem}
     \label{prop:equivalence_of_categories}
-    Let $\mathcal{V}$ be the category of affine varieties $\subseteq \mathbb{A}_k^n$ with affine morphisms, and $\mathcal{A}$ the category of finitely generated, reduced (commutative, unital) $k$-algebras.
+    Let $\mathcal{V}$ be the category of affine varieties $\subseteq \Aff_k^n$ with affine morphisms, and $\mathcal{A}$ the category of finitely generated, reduced (commutative, unital) $k$-algebras.
     Then
     \begin{align*}
         \Phi: \mathcal{V}^{\mathrm{op}} \to \mathcal{A}, \quad V \mapsto k[V], \ \phi \mapsto \phi^*
@@ -107,8 +111,8 @@ This ring has a much tighter connection to the variety.
 \end{theorem}
 Further, each irreducible affine and projective (and even quasi-projective) variety has a function field.
 \begin{definition}
-    For an irreducible affine variety $X \subseteq \mathbb{A}^n$, define the \emph{function field} as the field of fractions $k(X) := \mathrm{Frac}(k[X])$.
-    For an irreducible projective variety $X \subseteq \mathbb{P}^n$, define the \emph{function field} as
+    For an irreducible affine variety $X \subseteq \Aff^n$, define the \emph{function field} as the field of fractions $k(X) := \mathrm{Frac}(k[X])$.
+    For an irreducible projective variety $X \subseteq \Proj^n$, define the \emph{function field} as
     \begin{equation*}
         k(X) := \left\{ f/g \in \mathrm{Frac}(S(X)) \ \middle| \ f, g \ \text{homogeneous polynomials of same degree} \right\}
     \end{equation*}
@@ -118,19 +122,19 @@ To get the function field of an arbitrary quasi-projective variety, one can defi
 We will not pursue that path further.
 However, the following lemma is important.
 \begin{lemma}
-    Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety. Then for all embeddings $\mathbb{A}^n \subseteq \mathbb{P}^n$ get
+    Let $X \subseteq \Proj^n$ be an irreducible projective variety. Then for all embeddings $\Aff^n \subseteq \Proj^n$ get
     \begin{equation*}
-        k(X \cap \mathbb{A}^n) \cong k(X) \quad \text{via} \quad \frac f g \mapsto \frac {x_0^d f({x_1} / {x_0}, ..., {x_n} / {x_0})} {x_0^d g({x_1} / {x_0}, ..., {x_n} / {x_0})}, \ d = \max \{\deg f, \deg g\}
+        k(X \cap \Aff^n) \cong k(X) \quad \text{via} \quad \frac f g \mapsto \frac {x_0^d f({x_1} / {x_0}, ..., {x_n} / {x_0})} {x_0^d g({x_1} / {x_0}, ..., {x_n} / {x_0})}, \ d = \max \{\deg f, \deg g\}
     \end{equation*}
     Further, find that $k(X)$ is invariant under isomorphisms.
-    If the embedding $\mathbb{A}^n \subseteq \mathbb{P}^n$ is clear, we will sometimes identify both fields.
+    If the embedding $\Aff^n \subseteq \Proj^n$ is clear, we will sometimes identify both fields.
 \end{lemma}
 Hence, the function field is again a natural property of varieties.
 
 \subsection{Describing rational maps}
 The function field is more or less equal to all regular maps defined on \emph{some} open subset of $X$. Namely
 \begin{prop}
-    Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety.
+    Let $X \subseteq \Proj^n$ be an irreducible projective variety.
     Have a well-defined and injective $k$-algebra homomorphism
     \begin{equation*}
         \mathcal{O}_X(U) \to k(X), \quad f: U \to k \ \text{defined locally at $p \in U$ by $f = g/h$} \ \mapsto \ \frac g h
@@ -139,8 +143,8 @@ The function field is more or less equal to all regular maps defined on \emph{so
 \end{prop}
 If we only consider regular maps that are defined on the whole of $X$, we get the following statement.
 \begin{theorem}
-    If $X \subseteq \mathbb{P}^n$ is a projective variety, find $\mathcal{O}_X(X) \cong k$.
-    If $X \subseteq \mathbb{A}^n$ is an affine variety, find $\mathcal{O}_X(X) \cong k[X]$.
+    If $X \subseteq \Proj^n$ is a projective variety, find $\mathcal{O}_X(X) \cong k$.
+    If $X \subseteq \Aff^n$ is an affine variety, find $\mathcal{O}_X(X) \cong k[X]$.
 \end{theorem}
 \begin{proof}
     Consider the map
@@ -152,7 +156,7 @@ If we only consider regular maps that are defined on the whole of $X$, we get th
 
     Let $f \in \mathcal{O}_X(X)$.
     Then for each $p \in X$ there is an open neighborhood $U_p \subseteq X$ and polynomials $g_p, h_p \in S(X)$ with $f = g_p/h_p$ on $U_p$ with $h_p(a) \neq 0$ for all $a \in U_p$.
-    As $X \subseteq \mathbb{A}^n$, we can assume $g_p, h_p \in k[X]$.
+    As $X \subseteq \Aff^n$, we can assume $g_p, h_p \in k[X]$.
     Obviously, there is a finite subcover $U_1 := U_{p_1}, ..., U_r := U_{p_r}$ with $p_1, ..., p_r \in X$.
 
     As the $U_i$ are an open cover, we see that $\V(\langle h_1, ..., h_r \rangle) = \emptyset$ and so by Hilbert's Nullstellensatz, find
@@ -169,29 +173,29 @@ If we only consider regular maps that are defined on the whole of $X$, we get th
 Describing rational maps and morphisms can be done similarly, but they also allow a relatively nice definition using the function field.
 \begin{theorem}
     \label{prop:rational_map_function_field}
-    Let $X \subseteq \mathbb{P}^n$ be an irreducible projective variety. Then there is a well-defined bijection
+    Let $X \subseteq \Proj^n$ be an irreducible projective variety. Then there is a well-defined bijection
     \begin{align*}
-        \Phi: \{ f: X \dashrightarrow \mathbb{P}^m \ | \ f \ \text{rational map} \} &\to \mathbb{P}_{k(X)}^m, \\
+        \Phi: \{ f: X \dashrightarrow \Proj^m \ | \ f \ \text{rational map} \} &\to \Proj_{k(X)}^m, \\
         f \ \text{defined locally by $f_0, ..., f_m \in S(X)$} &\mapsto \left[ \frac {f_0} {x_0^d}  : \frac {f_1} {x_0^d} : ... : \frac {f_n} {x_0^d} \right]
     \end{align*}
     In particular, the restriction
     \begin{equation*}
-        \restr{\Phi}{\{f: X \to \mathbb{P}^m \ | \ f \ \text{morphism}\}}: \{f: X \to \mathbb{P}^m \ | \ f \ \text{morphism}\} \to \mathbb{P}_{k(X)}^m
+        \restr{\Phi}{\{f: X \to \Proj^m \ | \ f \ \text{morphism}\}}: \{f: X \to \Proj^m \ | \ f \ \text{morphism}\} \to \Proj_{k(X)}^m
     \end{equation*}
     is a well-defined injection.
 \end{theorem}
 We sometimes will identify those two representations of rational maps.
-Note that $k[X \cap \mathbb{A}^n] \subseteq k(X \cap \mathbb{A}^n) \cong k(X)$, and using this makes the notation of rational maps as $[f_0 : ... : f_m]$ even more convenient, because we do not even require fractions then.
+Note that $k[X \cap \Aff^n] \subseteq k(X \cap \Aff^n) \cong k(X)$, and using this makes the notation of rational maps as $[f_0 : ... : f_m]$ even more convenient, because we do not even require fractions then.
 
 Furthermore, the rational maps $X \dashrightarrow Y$ to a projective variety $Y$ are then exactly the elements of 
 \begin{equation*}
-    \V_{k(X)}(\I_k(Y)) \subseteq \mathbb{P}^m_{k(X)}
+    \V_{k(X)}(\I_k(Y)) \subseteq \Proj^m_{k(X)}
 \end{equation*}
 and similarly for open sets.
 
 \begin{remark}
     Note that the bijection $\Phi$ from Theorem~\ref{prop:rational_map_function_field} is compatible with evaluation maps in the following sense.
-    For $f: X \dashrightarrow Y$ and $g: Y \dashrightarrow \mathbb{P}^r$ such that the composition $g \circ f$ is well-defined, have
+    For $f: X \dashrightarrow Y$ and $g: Y \dashrightarrow \Proj^r$ such that the composition $g \circ f$ is well-defined, have
     \begin{equation*}
         \Phi(g \circ f) = \mathrm{ev}_{\Phi(f)}(\Phi(g))
     \end{equation*}
@@ -209,12 +213,12 @@ and similarly for open sets.
 \section{Elliptic Curves}
 
 \begin{definition}[Elliptic Curve]
-    An elliptic curve $E \subseteq \mathbb{P}^2$ is a nonsingular curve given by an equation of the form
+    An elliptic curve $E \subseteq \Proj^2$ is a nonsingular curve given by an equation of the form
     \begin{equation*}
         E = \V( Y^2 Z + a_1 XYZ + a_3 YZ^2 - X^3 - a_2 X^2 Z - a_4 XZ^2 - a_6 Z^3 )
     \end{equation*}
     We write $\O := [0 : 1 : 0]$ for the unique point of $E$ on the hyperplane at infinity.
-    Further, write $k[E]$ for the affine coordinate ring $k[E \cap \mathbb{A}^2]$.
+    Further, write $k[E]$ for the affine coordinate ring $k[E \cap \Aff^2]$.
 \end{definition}
 
 We will often use dehomogenized equations to specify an elliptic curve.
@@ -374,7 +378,7 @@ Note that for elliptic curves $E$ given by the simpler equation $E: y^2 = x^3 + 
         \item $E$ together with the binary operation $+$ from \ref{prop:group_operation} is a group.
         \item $E$ has neutral element $\O$
         \item $E$ is abelian
-        \item for a field tower $k|L|K$, the so-called $L$-rational points $E(L) := E \cap \mathbb{P}_L^2 = (E \cap L^2) \cup \{ \O \}$ form a subgroup
+        \item for a field tower $k|L|K$, the so-called $L$-rational points $E(L) := E \cap \Proj_L^2 = (E \cap L^2) \cup \{ \O \}$ form a subgroup
     \end{itemize}
 \end{corollary}
 
@@ -460,7 +464,7 @@ Note that for elliptic curves $E$ given by the simpler equation $E: y^2 = x^3 + 
         \mathrm{MiPo}(y)(y)(\lambda, \mu) = v(\mu, \psi_1(\lambda, \mu))\psi_2(\lambda, \mu) - u(\mu, \psi_1(\lambda, \mu)) = 0
     \end{equation*}
     Together, modulo $\psi_1 - \psi_1(\lambda, \mu)$ we get
-    \footnote{Strictly speaking, we use require $v(\mu, \psi_1(\lambda, \mu)) \neq 0$ here.
+    \footnote{Strictly speaking, we require $v(\mu, \psi_1(\lambda, \mu)) \neq 0$ here, which I haven't considered.
     At least we have $v(y, \psi_1) \neq 0$ here, which follows from Lemma~\ref{prop:morphism_depends_on_y}.}
     \begin{align*}
         \frac 1 {v(\mu, \psi_1(\lambda, \mu))} N(y - \mu) \equiv \psi_2 - \frac {u(\mu, \psi_1)} {v(\mu, \psi_1)} \equiv \psi_2 - \underbrace{\frac {u(\mu, \psi_1(\lambda, \mu))} {v(\mu, \psi_1(\lambda, \mu))}}_{= \psi_2(\lambda, \mu)} = \psi_2 - \psi_2(\lambda, \mu)
@@ -520,7 +524,7 @@ In particular, we say
     It is only a linear transformation, hence also an isomorphism.
 
     For the other direction, assume there is an isomorphism $\psi = [u, v, 1]$ from $E$ to $E'$ where $E': Y^2 = X^3 + A'X + B'$ and $x, y \in k(E)$.
-    As $\psi$ is an isomorphism, it is also an isomorphism of the affine varieties $E \cap \mathbb{A}^2$ resp. $E' \cap \mathbb{A}^2$ and so we find the pullback
+    As $\psi$ is an isomorphism, it is also an isomorphism of the affine varieties $E \cap \Aff^2$ resp. $E' \cap \Aff^2$ and so we find the pullback
     \begin{equation*}
         \psi^*: k[E'] \to k[E], \quad x' \mapsto u, y' \mapsto v
     \end{equation*}
@@ -616,12 +620,12 @@ However, using $\mathrm{Cl}(k[E])$ will stop to work when we want to construct n
 to $E \to E'$ will result in an isogeny, i.e. a map given locally by polynomials.
 Now we will look at related ways to construct an isogeny.
 \begin{lemma}
-    Let $f: C \dashrightarrow \mathbb{P}^m$ be a rational map on a smooth projective curve in $\mathbb{P}^2$ (i.e. a 1-dimensional nonsingular projective variety).
+    Let $f: C \dashrightarrow \Proj^m$ be a rational map on a smooth projective curve in $\Proj^2$ (i.e. a 1-dimensional nonsingular projective variety).
     Then $f$ is a morphism.
 \end{lemma}
 \begin{proof}
     wlog assume the set of definition of $f$ is $U \subseteq C$.
-    Now fix a point $P \in C \setminus U$ and consider an affine chart $\mathbb{A}^2 \subseteq \mathbb{P}^2$ such that $P \in C_{\mathrm{aff}} := C \cap \mathbb{A}^2$.
+    Now fix a point $P \in C \setminus U$ and consider an affine chart $\Aff^2 \subseteq \Proj^2$ such that $P \in C_{\mathrm{aff}} := C \cap \Aff^2$.
 
     It is a statement of Algebraic Geometry that for $P \in C$, we have for the tangent space $T_P C$ of $C$ at $P$ that
     \begin{equation*}
@@ -629,9 +633,13 @@ Now we will look at related ways to construct an isogeny.
     \end{equation*}
     where $\mathfrak{m}_P \subseteq k[C_{\mathrm{aff}}]$ is the maximal ideal $\langle x_1 - P_1, ..., x_n - P_n \rangle$.
     Since $C$ is assumed to be smooth, we see that $\dim T_P C = \dim C = 1$ and so $\dim (\mathfrak{m}_P/\mathfrak{m}_P^2) = 1$.
-    Thus there is $\alpha \in k[C_{\mathrm{aff}}]_{\mathfrak{m}_P}$\footnote{This $\alpha$ is also called \emph{uniformizer}.} such that
+    From this, it follows that $\mathfrak{m}_P \cdot k[C_{\mathrm{aff}}]_{\mathfrak{m}_P}$ is principal (this fact requires Nakayama's lemma
+    \footnote{I will not go deeper into that for now, see e.g. \cite[Chapter I §11 Exercise 7]{AlgNumberTheory}}).
+    Thus there is $\alpha \in k[C_{\mathrm{aff}}]_P := k[C_{\mathrm{aff}}]_{\mathfrak{m}_P}$
+    \footnote{This $\alpha$ is also called \emph{uniformizer}. Note that it is not true that $\mathfrak{m}_P$ is principal, an error I have made before (e.g. consider $E: y^2 = x^3 - x$ and $P = (0, 0)$).}
+    such that
     \begin{equation*}
-        \mathfrak{m}_P = (\alpha) \subseteq k[C_{\mathrm{aff}}]_{\mathfrak{m}_P}
+        \mathfrak{m}_P k[C_{\mathrm{aff}}]_P = (\alpha) \subseteq k[C_{\mathrm{aff}}]_P
     \end{equation*}
     Now let $f = [f_0 : f_1 : f_2]$.
     By assumption, $P \notin U$ and so the rational map $f_i(P) = 0$ for all $i \leq 3$.
@@ -655,7 +663,7 @@ Interestingly, this statement is the main reason why we require elliptic curves 
     such that $\psi^* = f$.
 \end{lemma}
 \begin{proof}
-    Consider the rational map $\psi := [f(x) : f(y) : 1]: E \to \mathbb{P}^2$.
+    Consider the rational map $\psi := [f(x) : f(y) : 1]: E \to \Proj^2$.
     By the previous lemma, this is a morphism.
     
     Assume that $E$ is given by $E: y^2 = x^3 + Ax + B$.
@@ -729,28 +737,174 @@ Note that the Frobenius endomorphism $k \to k, \ \alpha \mapsto \alpha^q$ has tr
     So $\tilde{\psi}$ is a separable isogeny and the claim follows.
 \end{proof}
 
-\subsection{Dual Isogenies}
+\section{Some Complex Analysis stuff}
+Since we want to use complex analysis, we restrict to $k = \C$ in this paragraph.
+\begin{definition}
+    A subgroup $\Gamma \leq \SL_2(\Z)$ is called \emph{congruence subgroup}, if there exists $N \geq 1$ such that
+    \begin{equation*}
+        \Gamma \supseteq \Gamma(N) := \bigl\{ \left(\begin{matrix} a & b \\ c & d \end{matrix}\right) \in \SL_2(\Z) \ \bigm| \ \left(\begin{matrix} a & b \\ c & d \end{matrix}\right) \equiv \left(\begin{matrix} 1 & 0 \\ 0 & 1 \end{matrix}\right) \mod N \bigr\}
+    \end{equation*}
+    The smallest such $N$ is called the \emph{level} of $\Gamma$.
+\end{definition}
+\begin{definition}
+    Define the \emph{upper half-plane} $\Half := \{ \tau \in \C \ | \ \Im(\tau) > 0 \}$ and the \emph{closed upper half-plane}
+    \begin{equation*}
+        \Half^* := \Half \cup \Proj_{\mathbb{Q}}^1
+    \end{equation*}
+    Further, the group $\SL_2(\Z)$ acts on $\Half$ via the restriction of the action of $\mathrm{PGL}_1(\C)$ on $\Proj_{\C}^1$.
+    In other words, we have
+    \begin{equation*}
+        \left(\begin{matrix}
+            a & b \\ c & d
+        \end{matrix}\right).\tau := \frac {a\tau + b} {c\tau + d}
+    \end{equation*}
+    and we can also get an action on $\Half^*$ by the restriction of the action of $\mathrm{PGL}_1(\mathbb{Q})$ on $\mathbb{P}_{\mathbb{Q}}^1$, i.e.
+    \begin{equation*}
+        \left(\begin{matrix}
+            a & b \\ c & d
+        \end{matrix}\right).[ x : y ] := [ ax + by : cx + dy ]
+    \end{equation*}
+\end{definition}
+
+\subsection{j-invariant}
 \begin{lemma}
-    Let $\psi: E \to E'$ be a nonconstant morphism between elliptic curves such that $k(E) | \psi^*k(E')$ is separable.
-    Then $\#\psi^{-1}(\{\O\}) = \deg\psi$.
+    For an even $k \geq 4$, the series
+    \begin{equation*}
+        G_k(\tau) := \sum_{(c, d) \in \Z^2 \setminus \{0\}} (c\tau + d)^{-k}
+    \end{equation*}
+    converges absolutely and uniformly on $\Im(\tau) \geq \epsilon$.
+    Thus, it is a holomorphic function on $\Half$.
+    It is called the Eisenstein series of weight $k$.
+\end{lemma}
+\begin{lemma}
+    For $\gamma \in \SL_2(\Z)$ have
+    \begin{equation*}
+        G_k(\gamma.\tau) = (c\tau + d)^k G_k(\tau)
+    \end{equation*}
+    where
+    \begin{equation*}
+        \gamma = \left(\begin{matrix}
+            a & b \\ c & d
+        \end{matrix}\right)
+    \end{equation*}
 \end{lemma}
 \begin{proof}
-    Let $\psi = [\psi_0 : \psi_1 : 1]$ and consider
+    We have
+    \begin{align*}
+        G_k(\gamma.\tau) =& \sum_{(u, v) \in \Z^2 \setminus \{0\}} \left( u\frac {a\tau + b} {c \tau + d} + v \right)^{-k} = \sum_{(u, v) \in \Z^2 \setminus \{0\}} \left( \frac {au\tau + bu + cv\tau + dv} {c\tau + d} \right)^{-k} \\
+        =& \sum_{(u, v) \in \Z^2 \setminus \{0\}} \left( \frac {(au + cv) \tau + (bu + dv)} {c\tau + d} \right)^{-k} \\
+        =& (c\tau + d)^k \sum_{(u, v) \in \Z^2 \setminus \{0\}} ((au + cv)\tau + (bu + dv))^{-k} \\
+        =& (c\tau + d)^k \sum_{(u, v) \in \Z^2 \setminus \{0\}} (u\tau + v)^{-k}
+    \end{align*}
+\end{proof}
+\begin{definition}
+    Define
     \begin{equation*}
-        F := \mathrm{MiPo}_{\psi^*k(E')}(x) = \sum_{n = 0}^m a_n(\psi_0, \psi_1) T^n \in k(\psi_0, \psi_1)[T]
+        \Delta: \Half \to \C, \quad \tau \mapsto (60 G_4(\tau))^3 - 27 (140 G_6(\tau))^2
     \end{equation*}
-    where $a_n \in k(X, Y)$.
-    Note that $m = \deg\psi$ as $k(\psi_0, \psi_1, x) = k(x, y)$ by Lemma~\ref{prop:morphism_depends_on_y}.
+    and
+    \begin{equation*}
+        j: \Half \to \C, \quad \tau \mapsto 1728 \frac {(60G_4(\tau))^3} {\Delta(\tau)}
+    \end{equation*}
+\end{definition}
+\begin{prop}
+    $j$ is a surjective, holomorphic map $\Half \to \C$.
+\end{prop}
+\begin{proof}
+    Clearly $j$ is holomorphic on $\Half$.
+    Note further that it is $\SL_2(\Z)$-invariant.
+    Now assume for a contradiction that $c \in \C \setminus j(\Half)$.
+    Hence the function
+    \begin{equation*}
+        \Half \to \C, \quad \tau \mapsto \frac {j'(\tau)} {j(\tau) - c}
+    \end{equation*}
+    is well-defined and holomorphic.
+    By Cauchy's Residue theorem, we find now that
+    \begin{align*}
+        0 = &\underbrace{\int_{\pi/3}^{2\pi/3} \frac {j'(\exp(2\pi i \phi))} {j(\exp(2\pi i \phi)) - c} d\phi}_{=: A_1} + \underbrace{\int_{(i\sqrt{3} - 1)/2}^{(Ti - 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau}_{=: A_2} \\
+        &+ \underbrace{\int_{(Ti - 1)/2}^{(Ti + 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau}_{=: A_3} + \underbrace{\int_{(Ti + 1)/2}^{(\sqrt{3}i + 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau}_{=: A_4}
+    \end{align*}
+    Since $j$ is $\SL_2(\Z)$-invariant, we see that
+    \begin{equation*}
+        j(\tau) = j\bigl( \left(\begin{matrix} 1 & 1 \\ 0 & 1 \end{matrix}\right).\tau \bigr) = j(\tau + 1)
+    \end{equation*}
+    and so $A_2 = -A_4$.
+    Furthermore
+    \begin{equation*}
+        j(\tau) = j\bigl( \left( \begin{matrix} 0 & -1 \\ 1 & 0 \end{matrix} \right).\tau \bigr) = j\left( -\frac 1 \tau \right)
+    \end{equation*}
+    and so
+    \begin{equation*}
+        \int_{\pi/3}^{\pi/2} \frac {j'(\exp(2\pi i \phi))} {j(\exp(2\pi i \phi)) - c} d\phi = \int_{2\pi/3}^{\pi/2} \frac {j'(\exp(2\pi i \phi))} {j(\exp(2\pi i \phi)) - c} d\phi
+    \end{equation*}
+    and $A_1 = 0$.
+    It follows that $A_3 = 0$.
 
-    As $k$ is infinite, we can now find $(\lambda, \mu) \in E$ such that
+    Now it is a fact that
     \begin{equation*}
-        F_{\lambda, \mu} = \sum_{n = 0}^m a_n(\psi_0(\lambda, \mu), \psi_1(\lambda, \mu)) T^n \in k[T]
+        j(\tau) = \frac 1 {\exp(2\pi i \tau)} + h(\exp(2\pi i \tau))
     \end{equation*}
-    is a separable polynomial of degree $m$.
-    Hence, it has $m$ distinct roots, say $x_1, ..., x_m$ in $k$.
+    for some holomorphic function $h$ (this is the Fourier series of $j$).
+    Hence
+    \begin{equation*}
+        j'(\tau) = -\frac {2\pi i} {\exp(2\pi i \tau)} + 2\pi i \exp(2\pi i \tau) h'(\exp(2\pi i \tau))
+    \end{equation*}
+    and so
+    \begin{align*}
+        &\int_{(Ti - 1)/2}^{(Ti + 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau \\
+        =& 2\pi i \int_{(Ti - 1)/2}^{(Ti + 1)/2} \frac {-1/\exp(2\pi i \tau) + \exp(2\pi i \tau)h'(\exp(2\pi i \tau))} {1/\exp(2\pi i \tau) + h(\exp(2\pi i \tau)) - c} d\tau \\
+        =& 2\pi i \int_{(Ti - 1)/2}^{(Ti + 1)/2} -1 + \exp(2\pi i \tau)\tilde{h}(\exp(2\pi i \tau)) d\tau
+    \end{align*}
+    where $\tilde{h}$ is meromorphic and has no pole at $0$, as
+    \begin{equation*}
+        \frac {-1/q + qh'(q)} {1/q + h(q) - c} = -1 + q \frac {qh'(q) + h(q) - c} {1 + qh(q) - cq}
+    \end{equation*}
+    and $1 + qh(q) - cq$ has the $0$-th Laurent series coefficient $1$.
+
+    Now observe that as $T \to \infty$ we have
+    \begin{equation*}
+        \int_{(Ti - 1)/2}^{(Ti + 1)/2} \exp(2\pi i \tau)\tilde{h}(\exp(2\pi i \tau)) d\tau \to \tilde{h}(0) \int_{(Ti - 1)/2}^{(Ti + 1)/2} \exp(2\pi i\tau) = \tilde{h}(0) \exp(-\pi T) \to 0
+    \end{equation*}
+    and
+    \begin{equation*}
+        \int_{(Ti - 1)/2}^{(Ti + 1)/2} -1 dq = -1
+    \end{equation*}
+    Hence for large enough $T$, we find $A_3 \neq 0$, a contradiction.
 \end{proof}
 
+\subsection{The Weierstrass $\wp$-function}
+\begin{lemma}
+    For a lattice $\Lambda \subseteq \C$ and $z \notin \Lambda$ the series
+    \begin{equation*}
+        \frac 1 {z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \frac 1 {(z - \omega)^2} - \frac 1 {\omega^2}
+    \end{equation*}
+    converges.
+    It converges absolutely in the sense
+    \begin{equation*}
+        \left| \frac 1 {z^2} \right| + \sum_{\omega \in \Lambda \setminus \{0\}} \left| \frac 1 {(z - \omega)^2} - \frac 1 {\omega^2} \right| < \infty
+    \end{equation*}
+    Further, the convergence is uniform in $z$ on compact subsets $C \subseteq \C$ that are disjoint from $\Lambda$.
+\end{lemma}
+\begin{definition}
+    For a lattice $\Lambda \subseteq \C$ define the \emph{Weierstrass $\wp$-function} as
+    \begin{equation*}
+        \wp_\Lambda(z) = \frac 1 {z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \frac 1 {(z - \omega)^2} - \frac 1 {\omega^2}
+    \end{equation*}
+    Define further $\wp_{\tau}(z) := \wp_{\Z + \tau\Z}(z)$.
+\end{definition}
+\begin{lemma}
+    Have the derivate
+    \begin{equation*}
+        \wp'(z) = -2\sum_{\omega \in \Lambda \setminus \{0\}} \frac 1 {(z - \omega)^3}
+    \end{equation*}
+    where the sum converges absolutely and uniformly on compact subsets $C \subseteq \C$ disjoint from $\Lambda$.
+\end{lemma}
+\begin{corollary}
+    $\wp_\Lambda$ and $\wp'_\Lambda$ are meromorphic functions that are invariant under translations by $\Lambda$.
+\end{corollary}
+
 \section*{Notes}
+\subsection*{$(d, \epsilon)$-structures}
 Let $p$ be a prime.
 Consider the category $\mathrm{EC}$ defined by
 \begin{align*}
@@ -773,4 +927,12 @@ $(d, \epsilon)$-structures and their isogenies are given by the category $\mathc
     \mathrm{Hom}_{\mathcal{C}}((E, \psi), (E', \psi')) &:= \{ \phi: E \to E' \ | \ \psi' \circ \phi = \phi^{(p)} \circ \psi \}
 \end{align*}
 
+\subsection*{Endomorphism Ring}
+Consider a supersingular curve $E$ defined over $\F_q$ and $\pi = \pi_q$ the Frobenius endomorphism.
+Then
+\begin{equation*}
+    \mathrm{End}(E) \neq \Z[\pi] = \underbrace{\mathrm{End}_{\F_q}(E)}_{\mathclap{\text{endomorphisms defined over $\F_q$}}}
+\end{equation*}
+and $\Z[\pi]$ is a commutative ring (either $\Z$ or an order in an imaginary quadratic number field).
+In particular, there is an endomorphism (I believe even automorphism) $\psi$ not defined over $\F_q$ such that $\psi \notin \Z[\pi]$ and $\pi, \psi$ do not commute.
 \end{document}

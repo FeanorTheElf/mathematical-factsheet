@@ -1,4 +1,50 @@
 
+\subsection{Presheaves and Sheaves}
+Let $\mathcal{C}$ be a small category and $\mathcal{D}$ a sub-category of Set.
+Then the category of presheaves $\mathrm{PreSh}(\mathcal{C}, \mathcal{D})$ is the category of functors $\mathcal{C} \to \mathcal{D}$, i.e.
+\begin{equation*}
+    \mathrm{Ob}(\mathrm{PreSh}(\mathcal{C}, \mathcal{D})) = \{ F: \mathcal{C} \to \mathcal{D} \ \text{functor} \}, \quad \mathrm{Hom}_{\mathrm{PreSh}(\mathcal{C}, \mathcal{D})}(F, G) = \{ \eta: F \Rightarrow G \}
+\end{equation*}
+We also write $\mathrm{PreSh}(\mathcal{C})$ for $\mathrm{PreSh}(\mathcal{C}, \mathrm{Set})$.
+If $X$ is a topological space, consider the category $\mathrm{Top}(X)$ defined by
+\begin{equation*}
+    \mathrm{Ob}(\mathrm{Top}(X)) = \{ U \subseteq X \ \text{open} \}, \quad \mathrm{Hom}_{\mathrm{Top}(X)}(U, V) := \begin{cases}
+        \{ U \to V \} & \text{if $U \subseteq V$} \\
+        \emptyset & \text{otherwise}
+    \end{cases}
+\end{equation*}
+We also write $\mathrm{PreSh}(X, \mathcal{D})$ for $\mathrm{PreSh}(\mathrm{Top}(X)^{\mathrm{op}}, \mathcal{D})$.
+
+Finally, for a topological space $X$ and a sub-category $\mathcal{D}$ of Set, we define the category of sheaves $\mathrm{Sh}(X, \mathcal{D})$ by
+\begin{equation*}
+    \mathrm{Ob}(\mathrm{Sh}(X, \mathcal{D})) := \{ F \in \mathrm{Ob}(\mathrm{PreSh}(X, \mathcal{D})) \ | \ F \ \text{satisfies ``local-to-global condition''} \}
+\end{equation*}
+Here a functor $F$ satisfies the ``local-to-global condition'', if for all families of open sets $(U_i)_{i \in I}$ and elements $s_i \in F(U_i)$ with
+\begin{equation*}
+    \forall i, j: F(U_i \cap U_j \to U_i)(s_i) = F(U_i \cap U_j \to U_j)(s_j)
+\end{equation*}
+it holds that there is a unique $s \in F(\bigcup_j U_j)$ with
+\begin{equation*}
+    \forall i: F\biggl(U_i \to \bigcup_j U_j\biggr)(s) = s_i
+\end{equation*}
+
+\subsection{Sheafification}
+Let $F$ be a presheaf on a topological space $X$ and a sub-category $\mathcal{D}$ of Set that has small limits and colimits.
+Then for $x \in X$, define the stalk of $F$ at $x$ as
+\begin{equation*}
+    F_x := \colim_{U \ni x} F(U)
+\end{equation*}
+Further define a functor $F^+: \mathrm{Top}(X)^{\mathrm{op}} \to \mathcal{D}$ by
+\begin{align*}
+    F^+(U) := \bigl\{ \ s \in \prod_{x \in U} F_x \ \bigm| \ \exists V \subseteq U \ \text{open}, \ \sigma \in F(V): \ s \in V, \ \underbrace{s = \sigma \in F_v}_{\mathclap{\substack{\text{strictly speaking, the images under the}\\\text{maps $F(U), F(V) \to F_v$ must be equal}}}} \ \bigr\}
+\end{align*}
+Then $F^+$ is a sheaf on $X$ and $\mathcal{D}$ and there is a natural transformation $\eta: F \Rightarrow F^+, \eta_U: s \to (s \in F_u)_{u \in U}$ such that every natural transformation $\theta: F \Rightarrow G$ factors as
+\begin{equation*}
+    F \overset{\eta}{\Rightarrow} F^+ \overset{\theta'}{\Rightarrow} G
+\end{equation*}
+with an unique $\theta': F^+ \Rightarrow G$.
+Furthermore, this is a universal property of $F^+$.
+
 \subsection{Yoneda's Lemma}
 For a small category $\mathcal{C}$, Yoneda's functor
 \begin{align*}

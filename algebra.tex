@@ -1,3 +1,4 @@
+All rings are considered to be commutative and unital.
 
 \subsection{Cauchy-Schwarz}
 
@@ -102,6 +103,17 @@ where $n_1 | n_2 | ... | n_s$ with $s \in \N$.
 
 \subsection{The module $\Z^n$}
 $\Z^n$ is a free, Noetherian $\Z$-module.
+
+\subsection{The Nilradical}
+Let $R$ be a ring, and let $\mathfrak{N}(R) := \{ a \in R \ | \ \exists n \in \N: a^n = 0 \}$ its nilradical. Then
+\begin{equation*}
+    \mathfrak{N}(R) = \bigcap_{\text{$\mathfrak{p} \leq R$ prime}} \mathfrak{p}
+\end{equation*}
+\paragraph{Proof}
+Clearly $\mathfrak{N}(R) \subseteq \bigcap \mathfrak{p}$.
+Now assume that $a \in \bigcap \mathfrak{p} \setminus \mathfrak{N}(R)$.
+Then every chain in the set of ideals $\{ I \leq R \ | \ 1, a \notin I \}$ has an upper bound, and so we find a maximal element $\mathfrak{m}$ by Zorn's Lemma (the set is nonempty, as it contains $\mathfrak{N}(R)$).
+Clearly $\mathfrak{m}$ is prime with $a \notin \mathfrak{m}$, a contradiction.$\hfill\square$
 
 \subsection{Hilbert's basis theorem}
 If $R$ is a Noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a ring extension $S \supseteq R$.
