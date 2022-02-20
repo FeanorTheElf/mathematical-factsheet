@@ -55,7 +55,7 @@ Therefore, $\epsilon^k = \frac 1 2 (x + y\sqrt{d_K})$ and as in
 \end{equation*}
 the part $\frac 1 4 (wu + d_K tv)$ is greater than $\frac 1 2 w$ as wlog $u \geq 2$, have that $u, v$ must be the smallest solution of Pell's equation.
 
-\subsection{Ramification (de: Verzweigung)}
+\subsection{Ramification}\footnote{German: ``Verzweigung''}
 Let $\mathcal{R}$ be a Dedekind domain, $K = \mathrm{Quot}(\mathcal{R})$ and $\mathcal{O}$ the integral closure of $\mathcal{R}$ in an algebraic and separable field extension $L|K$. Then $\mathcal{O}$ is a Dedekind domain.
 
 For a prime ideal $\mathfrak{p}$ in $\mathcal{R}$, have
@@ -79,11 +79,11 @@ where
 \begin{equation*}
     \phi_\sigma: \mathcal{O}/\mathfrak{B} \to \mathcal{O}/\mathfrak{B}, \quad [a] \mapsto [\sigma a]
 \end{equation*}
-Let then be $e$ resp. $f$ be the ``Verzweigungsindex'' (maximal power such that $\mathfrak{B}^e | \mathfrak{p}$) resp. ```Trägheitsindex'' (the index of $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$) of $\mathfrak{B}$ over $\mathfrak{p}$. If $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$ is separable, have the following representation:
+Let then be $e$ resp. $f$ be the ramification index (maximal power such that $\mathfrak{B}^e | \mathfrak{p}$) resp. ```Trägheitsindex'' (the index of $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$) of $\mathfrak{B}$ over $\mathfrak{p}$. If $\mathcal{O}/\mathfrak{B} | \mathcal{R}/\mathfrak{p}$ is separable, have the following representation:
 \begin{align*}
     \mathfrak{p} \quad \underset{1}{\overset{1}{\subseteq}} \quad \mathfrak{B}_Z := \mathfrak{B} \cap Z_\mathfrak{B} \quad \underset{1}{\overset{f}{\subseteq}} \quad \mathfrak{B}_T := \mathfrak{B} \cap T_\mathfrak{B} \quad \underset{e}{\overset{1}{\subseteq}} \quad \mathfrak{B}
 \end{align*}
-where the ``Verzweigungsindizes'' are written over the corresponding ideal decompositions and the ``Trägheitsindizes'' are written below, respectivly.
+where the splitting index are written over the corresponding ideal decompositions and the ``Trägheitsindizes'' are written below, respectivly.
 
 \subsection{Quadratic Reciprocity}
 For $a \in \Z$ and $p \in \mathbb{P}$ and $n = \prod_{p} p^{e_p} \in \N_{\geq 2}$ define
@@ -106,3 +106,22 @@ Then for odd $a, n$ have
         -1 & \text{if} \ n \equiv \pm 3 \mod 8
     \end{cases}
 \end{equation*}
+
+\subsection{Hensel's Lemma}
+Let $K$ be a field complete with respect to a non-Archimedean valuation $|\cdot|$ and valuation ring $R = \{ x \in K \ | \ |x| \leq 1 \}$.
+For $f \in R[X]$ and $a_0 \in R$ with
+\begin{equation*}
+    |f(a_0)| < |f'(a_0)|^2
+\end{equation*}
+there exists a unique $a \in R$ such that $f(a) = 0$ and $|a - a_0| \leq |f(a_0)| / |f'(a_0)|$.
+\paragraph{Proof idea} Recursively define
+\begin{equation*}
+    a_{n + 1} := a_n - \frac {f(a_n)} {f'(a_n)}
+\end{equation*}
+and show by induction that $a_n \in R$, $|f'(a_n)| = |f'(a_0)|$ and $|f(a_n)| \leq \rho^n|f(a_0)|$.
+
+Then it follows that $f(a_n)/f'(a_n)$ converges, and so also
+\begin{equation*}
+    a_n = a_0 - \sum_{k < n} \frac {f(a_k)} {f'(a_k)}
+\end{equation*}
+By continuity of polynomials, this shows that $f(a) = 0$, where $a$ is the limit of $a_n$.$\hfill\square$

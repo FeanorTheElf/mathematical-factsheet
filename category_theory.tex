@@ -36,7 +36,8 @@ Then for $x \in X$, define the stalk of $F$ at $x$ as
 \end{equation*}
 Further define a functor $F^+: \mathrm{Top}(X)^{\mathrm{op}} \to \mathcal{D}$ by
 \begin{align*}
-    F^+(U) := \bigl\{ \ s \in \prod_{x \in U} F_x \ \bigm| \ \exists V \subseteq U \ \text{open}, \ \sigma \in F(V): \ s \in V, \ \underbrace{s = \sigma \in F_v}_{\mathclap{\substack{\text{strictly speaking, the images under the}\\\text{maps $F(U), F(V) \to F_v$ must be equal}}}} \ \bigr\}
+    &F^+(U) := \bigl\{ \ s \in \prod_{x \in U} F_x \ \bigm| \ \forall u \in U \ \exists V \subseteq U \ \text{open}, \ \sigma \in F(V): \ u \in V, \ \underbrace{s_v = \sigma \in F_v}_{\mathclap{\substack{\text{strictly speaking, the images under the}\\\text{maps $F(U), F(V) \to F_v$ must be equal}}}} \ \bigr\} \\
+    &F^+(U \to V): \prod_{u \in V} F_u \to \prod_{u \in U} F_u, \quad (s_u)_{u \in V} \mapsto (s_u)_{u \in U}
 \end{align*}
 Then $F^+$ is a sheaf on $X$ and $\mathcal{D}$ and there is a natural transformation $\eta: F \Rightarrow F^+, \eta_U: s \to (s \in F_u)_{u \in U}$ such that every natural transformation $\theta: F \Rightarrow G$ factors as
 \begin{equation*}
