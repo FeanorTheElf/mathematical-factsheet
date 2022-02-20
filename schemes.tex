@@ -76,7 +76,7 @@
 \tableofcontents
 
 \section{Category-theoretical stuff}
-Let $\mathcal{C}$ be a small sub-category of $\Set$ that has small limits and colimits, and let $X$ be a topological space.
+Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits, and let $X$ be a topological space.
 \begin{definition}
     A \emph{sheaf} on $X$ is a functor
     \begin{equation*}
@@ -200,18 +200,7 @@ Let $\mathcal{C}$ be a small sub-category of $\Set$ that has small limits and co
 \end{definition}
 \begin{definition}
     A locally ringed space $(X, \O_X)$ is a \emph{scheme}, if there exists a covering $X = \bigcup_i U_i$ with open $U_i \subseteq X$ such that each $(U_i, \restr{\O_X}{U_i})$ is an affine scheme.
-\end{definition}
-\begin{definition}
-    A \emph{morphism} of locally ringed spaces $(X, \O_X) \to (Y, \O_Y)$ is a continuous map $f: X \to Y$ and a morphism of sheaves
-    \begin{equation*}
-        \phi: \O_Y \to f_*\O_X
-    \end{equation*}
-    such that each
-    \begin{equation*}
-        \phi_x: \O_{Y, f(x)} \to \O_{X, x}
-    \end{equation*}
-    is a homomorphism of local rings.
-    Here $f_*\O_X$ is the sheaf $(f_*\O_X)(U) := \O_X(f^{-1}(U))$.
+    Such $U$ are also called \emph{affine opens}.
 \end{definition}
 \begin{definition}
     Denote the category of schemes by $\Sch$ and the subcategory of affine schemes by $\Aff$
@@ -247,6 +236,15 @@ Let $\mathcal{C}$ be a small sub-category of $\Set$ that has small limits and co
     Then $(U, \restr{\O_X}{U})$ is isomorphic to $\Spec R$ for some ring $R$.
     However, $\Spec R$ is T0, a contradiction. 
 \end{proof}
+\begin{definition}
+    An open subscheme of a scheme $(X, \O_X)$ is $(U, \restr{\O_X}{U})$ for an open subset $U \subseteq X$.
+\end{definition}
+\begin{remark}
+    The notion of a general subscheme is more tricky.
+    We more or less want to have some subset $U \subseteq X$ and a corresponding sheaf $\O_U$ that should be derived from $\O_X$.
+    However, we obviously cannot take $\restr{\O_X}{U}$, and in fact, it is not easy to find a suitable one.
+    Hence, for now, we will remain with defining open subschemes. 
+\end{remark}
 
 \section{Coproduct (gluing) in $\Sch$}
 
@@ -453,6 +451,23 @@ Let $\mathcal{C}$ be a small sub-category of $\Set$ that has small limits and co
         \item \emph{irreducible}, if $|X|$ is irreducible (i.e. not the union of two proper closed subsets).
         \item \emph{integral}, if for all open $U$ have that $\O_X(U)$ is integral.
     \end{itemize}
+\end{definition}
+
+Note that as defined before, the notion of an open subscheme is relatively easy.
+Now we will also say what a closed subscheme is.
+
+\begin{definition}
+    Let $(X, \O_X)$ be a scheme.
+    A scheme $(C, \O_C)$ is a closed subscheme of $(X, \O_X)$ if $C \subseteq X$ is closed and there exists a quasi-coherent sheaf of ideals $\mathcal{I}$ on $\O_X$ such that
+    \begin{equation*}
+        i_*\O_C \cong \O_X/\mathcal{I}
+    \end{equation*}
+    where $i: C \to X$ is the inclusion map and $i_*: \mathrm{Sh}(C) \to \mathrm{Sh}(X)$ its pullback.
+
+    Here a sheaf of ideals $\mathcal{I}$ on $\O_X$ is called \emph{quasi-coherent}, if for all affine opens $U \subseteq X$, there exists an ideal $I \leq \O_X(U)$ such that
+    \begin{equation*}
+        \forall f \in \O_X(U): \ \mathcal{I}(D_f) = I \mathcal{O}_X(U)_f
+    \end{equation*}
 \end{definition}
 
 \begin{definition}
