@@ -459,7 +459,7 @@ Let $\mathcal{C}$ be a small sub-category of $\Set$ that has small limits and co
     A morphism of schemes $f: X \to Y$ is
     \begin{itemize}
         \item \emph{affine}, if $f^{-1}(U)$ is affine for all affine open $U \subseteq X$.
-        \item \emph{quasi-compact}, if $f^{-1}(U)$ is quasi-compact for all quasi-compact $U \subseteq X$.
+        \item \emph{quasi-compact}, if $f^{-1}(U)$ is quasi-compact for all quasi-compact and open $U \subseteq X$.
         \item \emph{locally of finite type}, if for all affine opens $U \subseteq X$ and $V \subseteq Y$ with $f(U) \subseteq V$ have that $\O_X(U)$ becomes a finitely generated $\O_Y(V)$-algebra when equipped with 
         \begin{equation*}
             \O_Y(V) \ \overset{f^\#}{\to} \ \O_X(f^{-1}(V)) \ \to \ \O_X(U)
@@ -468,6 +468,8 @@ Let $\mathcal{C}$ be a small sub-category of $\Set$ that has small limits and co
         \item a \emph{closed immersion}, if it is an isomorphism onto a closed subscheme of $Y$.
         \item an \emph{open immersion}, if it is an isomorphism onto an open subscheme of $Y$.
         \item \emph{flat}, if all $\O_{X, x}$ are flat $\O_{Y, f(x)}$-modules, i.e. the functor $\O_{X, x} \otimes_{\O_{Y, f(x)}} \cdot$ of $\O_{Y, f(x)}$-algebras is exact\footnote{here $\O_{X, x}$ becomes a $\O_{Y, f(x)}$-algebra via $f_x$}.
+        \item \emph{separated}, if $\Delta: X \to X \times_B X$ is a closed immersion.
+        Here $\Delta$ is the unique morphism $X \to X \times_B X$ such that $\pi_i \circ \Delta = \mathrm{id}_X$, where $\pi_i: X \times_B X \to X$.
     \end{itemize}
 \end{definition}
 
