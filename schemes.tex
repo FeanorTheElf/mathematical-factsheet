@@ -183,18 +183,27 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
     are the basic open sets and form a basis of $\Spec R$.
 \end{definition}
 \begin{definition}
-    A morphism between locally ringed spaces $(X, \O_X)$ and $(Y, \O_Y)$ is a continuous map $f: X \to Y$ together with a natural transformation $\eta: \O_Y \Rightarrow f_*\O_X$ that satisfies
+    A \emph{morphism} between locally ringed spaces $(X, \O_X)$ and $(Y, \O_Y)$ is a continuous map $f: X \to Y$ together with a natural transformation $\eta: \O_Y \Rightarrow f_*\O_X$ that satisfies
     \begin{equation*}
         \eta_y: (f_*\O_X)_y \cong \O_{X, f(y)} \to \O_{Y, y} \quad \text{maps} \quad \eta_y(\mathfrak{m}) \subseteq \mathfrak{m}
     \end{equation*}
     for all $y \in Y$.
-
+    We write $f$ for the morphism of schemes $(X, \O_X) \to (Y, \O_Y)$ and denote $\eta$ by $f^\# := \eta$.
     Here
     \begin{equation*}
         f_*: \mathrm{Sh}(X) \to \mathrm{Sh}(Y), \quad F \mapsto (U \mapsto F(f^{-1}(U)))
     \end{equation*}
-    is the pullback of $f$.
+    is the \emph{direct image functor} of the continuous map $f$.
 \end{definition}
+\begin{definition}
+    Similar to the direct image functor, define for a continuous $f: X \to Y$ the \emph{inverse image functor} as the sheafification
+    \begin{equation*}
+        f^{-1}: \mathrm{Sh}(Y) \to \mathrm{Sh}(X), \quad F \mapsto \left( U \mapsto \colim_{V \supseteq f(U)} F(V) \right)^+
+    \end{equation*}
+\end{definition}
+\begin{prop}
+    $f^{-1} \dashv f_*$
+\end{prop}
 \begin{definition}
     A locally ringed space $(X, \O_X)$ is an \emph{affine scheme}, if there exists a ring $R$ such that $(X, \O_X) \cong (\Spec R, \O_{\Spec R})$.
 \end{definition}
@@ -281,7 +290,7 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
 
     Furthermore, for any open $U \subseteq W$ note that
     \begin{equation*}
-        f^{-1}(U) = \{ \p \times R_2 \ | \ \p \in \psi_1^{-1}(U) \} \cup \{ R_1 \times \p \ | \ \p \in \psi_2^{-1}(U) \}
+        f^{-1}(|U|) = \{ \p \times R_2 \ | \ \p \in \psi_1^{-1}(|U|) \} \cup \{ R_1 \times \p \ | \ \p \in \psi_2^{-1}(U) \}
     \end{equation*}
     is a union of open sets, hence open.
     So $f$ is continuous.
@@ -291,11 +300,11 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
         (V_i, \restr{\O_{\Spec(R_1 \times R_2)}}{V_i}) \cong \Spec R_i
     \end{equation*}
     where the isomorphisms are natural in $V_i$.
-    So $s \in \O_W(U)$ yields via $\O_W(U) \to \O_{\Spec R_i}(\psi^{-1}(U)) \cong \O_{\Spec(R_1 \times R_2)}(f^{-1}(U) \cap V_i)$ elements
+    So $s \in \O_W(U)$ yields via $\O_W(U) \to \O_{\Spec R_i}(\psi^{-1}(|U|)) \cong \O_{\Spec(R_1 \times R_2)}(f^{-1}(|U|) \cap V_i)$ elements
     \begin{equation*}
-        s'_1 \in \O_{\Spec(R_1 \times R_2)}(f^{-1}(U) \cap V_1), \quad s'_2 \in \O_{\Spec(R_1 \times R_2)}(f^{-1}(U) \cap V_2)
+        s'_1 \in \O_{\Spec(R_1 \times R_2)}(f^{-1}(|U|) \cap V_1), \quad s'_2 \in \O_{\Spec(R_1 \times R_2)}(f^{-1}(|U|) \cap V_2)
     \end{equation*}
-    These glue together to some $s' \in \O_{\Spec(R_1 \times R_2)}(f^{-1}(U))$.
+    These glue together to some $s' \in \O_{\Spec(R_1 \times R_2)}(f^{-1}(|U|))$.
     Hence define a morphism of sheaves
     \begin{equation*}
         \eta: \O_W \to f_*\O_{\Spec(R_1 \times R_2)}, \quad \eta_U(s) := s'
@@ -312,7 +321,7 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
     \end{equation*}
     The latter is true, as the isomorphism in
     \begin{equation*}
-        \O_W(U) \to \O_{\Spec R_i}(\psi_i^{-1}(U)) \cong \O_{\Spec(R_1 \times R_2)}(f^{-1}(U) \cap V_i)
+        \O_W(U) \to \O_{\Spec R_i}(\psi_i^{-1}(|U|)) \cong \O_{\Spec(R_1 \times R_2)}(f^{-1}(|U|) \cap V_i)
     \end{equation*}
     in the direction $\leftarrow$ on basic open sets is given by the extension of the projection map $\pi_i: (R_1 \times R_2)_g \to (R_i)_{\pi_i(g)}$ and hence is $\phi_i$.
 
@@ -338,6 +347,40 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
 
 \section{Products in $\Sch$}
 
+The fiber product allows us to define fibers in an abstract sense.
+First, we show that preimages of open subschemes are open subschemes, i.e. have the natural scheme structure and behave as we would expect them to.
+\begin{prop}[Preimages of open sets]
+    Let $f: X \to Y$ be a morphism of schemes and let $U \subseteq Y$ be an open subscheme.
+    Then the scheme $(f^{-1}(|U|), \restr{\O_X}{f^{-1}(|U|)})$ is the fiber product $X \times_Y U$.
+\end{prop}
+\begin{proof}
+    Clearly, the open subscheme $Z := (f^{-1}(|U|), \restr{\O_X}{f^{-1}(|U|)})$ makes the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (Z) at (0, 0) {$Z$};
+            \node (X) at (-1.5, -1.5) {$X$};
+            \node (U) at (1.5, -1.5) {$U$};
+            \node (Y) at (0, -3) {$Y$};
+
+            \draw [->] (Z) -- (X);
+            \draw [->] (Z) -- (U) node [midway, right] {$f$};
+            \draw [->] (X) -- (Y) node [midway, left] {$f$};
+            \draw [->] (U) -- (Y);
+        \end{tikzpicture}
+    \end{center}
+    commute.
+    Hence, to show that it is the fiber product, we have to show universality.
+    Assume $W$ is another scheme with compatible maps $g_x: W \to X$ and $g_u: W \to U$.
+    Now define the morphism of schemes $h: W \to Z$ by
+    \begin{align*}
+        &h: |W| \to |U|, \quad w \in |W| \mapsto g_x(w) \\
+        &h^\#_V: \O_Z(V) = \O_X(V) \to \O_W(g_x^{-1}(|V|)), \quad \alpha \mapsto (g_x)^\#_V(\alpha)
+    \end{align*}
+    This is well-defined, as for $w \in |W|$, have $f(g_x(w)) = g_u(w) \in U$ and so $w \in f^{-1}(|U|)$.
+    Clearly, $f \circ h = g_u$ and $h = g_x$ up to restriction.
+    The uniqueness of $h$ is clear as well. 
+\end{proof}
+From now on, use $f^{-1}(U)$ for the open subscheme $(f^{-1}(|U|), \restr{\O_X}{f^{-1}(|U|)}) = X \times_Y U$.
 \begin{prop}
     Let $f: X \to Z$ and $g: Y \to Z$ be schemes over a scheme $Z$.
     The fiber product (or pullback) $X \times_Z Y$ is defined as the limit of
@@ -419,10 +462,24 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
             \restr{\phi_{ik}}{U_{ijk}} = \restr{\phi_{jk}}{U_{jik}} \circ \restr{\phi_{ij}}{U_{ijk}}
         \end{equation*}
     \end{itemize}
+    Hence, we find a scheme $U$ that results from gluing all $X_i \times_Z Y$.
+    Now we can glue all the morphisms $X_i \times_Z Y \to X_i$ and $X_i \times_Z Y \to Y$ to find compatible morphisms $U \to X$ and $U \to Y$.
+    
+    To show the universal property, assume there is a scheme $W$ with morphisms $W \to Z$.
+    This induces morphisms $W \to X_i$ and $W \to Y$, hence we see that it factors as $W \to X_i \times_Z Y \to X \ \text{resp.} \ Y$.
+    Gluing those maps $W \to X_i \times_Z Y$ then gives the expected map $W \to U$ and so $U$ is indeed the fiber product $X \times_Z Y$.
 
     \paragraph{Step 3: $Z$ affine} Exactly as in step 2 (note that we did not use $Y$ affine there).
 
     \paragraph{Step 4: General case} Let $Z = \bigcup Z_i$ be a cover of $Z$ by affine opens.
+    Again, we would like to use Step 3 to construct parts as fiber products over $Z_i$ and glue them together.
+    However, we cannot glue $X \times_{Z_i} Y$.
+    Instead, let $X_i = f^{-1}(Z_i), Y_i = g^{-1}(Z_i)$ and glue
+    \begin{equation*}
+        X_i \times_{Z_i} Y_i = X_i \times_Z Y
+    \end{equation*}
+    First, we show this equality above.
+
 \end{proof}
 
 \section{Properties of Schemes and Morphisms}
@@ -527,5 +584,32 @@ Now we will also say what a closed subscheme is.
 \begin{prop}[Characterization flat]
     An $R$-module $M$ is flat if and only if for all injective $\alpha: N_1 \to N_2$ have that $\mathrm{id} \otimes \alpha: M \otimes_R N_1 \to M \otimes_R N_2$ is injective.
 \end{prop}
+
+\begin{prop}[Characterization closed immersion]
+    For a morphism $f: X \to Y$ between schemes, the following are equivalent
+    \begin{itemize}
+        \item $f$ is a closed immersion
+        \item $f: |X| \to f(|X|)$ is a homeomorphism and $f^\#: \O_Y \to f_*\O_X$ is surjective
+        \item there exists a cover $Y = \bigcup_i U_i$ of affine opens and ideals $I_i \leq \O_Y(U_i)$ such that $f^{-1}(U_i) \cong \Spec(\O_Y(U_i)/I_i)$
+    \end{itemize}
+\end{prop}
+\begin{proof}
+    First consider (i) $\Rightarrow$ (ii).
+    Clearly $f: |X| \to f(|X|)$ is a homeomorphism.
+    By assumption, have a sheaf of ideals $\mathcal{I}$ on $\O_Y$ such that $f_*\O_X \cong \O_Y/\mathcal{I}$ and $f: (|X|, \O_X) \to (f(|X|), \O_Y/\mathcal{Y})$ is an isomorphism.
+    Now $f^\#$ factors as
+    \begin{equation*}
+        \O_Y \ \to \ \O_Y / \mathcal{I} \ \overset{\sim}{\to} \ \O_X
+    \end{equation*}
+    hence is surjective.
+
+    To show (ii) $\Rightarrow$ (iii), let $Y = \bigcup_i U_i$ be a cover by affine opens.
+    For each $i$, let now $I_i := \ker(f^\#_U)$.
+    As $f^\#$ is surjective, by the isomorphism theorem
+    \begin{equation*}
+        \tilde{f}^\#_U: \O_Y(U) / I_i \to (f_*\O_X)(U)
+    \end{equation*}
+    is an isomorphism of rings.
+\end{proof}
 
 \end{document}
