@@ -254,6 +254,13 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
     However, we obviously cannot take $\restr{\O_X}{U}$, and in fact, it is not easy to find a suitable one.
     Hence, for now, we will remain with defining open subschemes. 
 \end{remark}
+\begin{definition}
+    For a morphism of schemes $f: X \to Y$ and an open subscheme $U \subseteq X$ define the restriction as
+    \begin{align*}
+        &\restr{f}{U}: U \to Y, \quad x \in |U| \mapsto f(u), \\
+        &\bigl(\restr{f}{U}\bigr)^\#_V: \O_Y(V) \to \O_X(f^{-1}(|V|) \cap U), \quad \alpha \mapsto \restr{f_V}{f^{-1}(|V|) \cap U}
+    \end{align*}
+\end{definition}
 
 \section{Coproduct (gluing) in $\Sch$}
 
@@ -344,6 +351,14 @@ Let $\mathcal{C}$ be a sub-category of $\Set$ that has small limits and colimits
     The above easily shows that coproducts exist in $\Sch$ (just take $U_i$ to be the empty scheme $(\emptyset, \emptyset \mapsto \{0\})$).
     However, $\Sch$ is not cocomplete\footnote{\href{https://mathoverflow.net/questions/9961/colimits-of-schemes}{https://mathoverflow.net/questions/9961/colimits-of-schemes}}, so coequalizers do not exist in general.
 \end{remark}
+\begin{prop}
+    Let $X, Y$ be schemes and $X = \bigcup_i X_i$ a cover by open subschemes.
+    Let further $f_i: X_i \to Y$ be morphisms such that for $i, j$ have
+    \begin{equation*}
+        \restr{f_i}{X_i \cap X_j} = \restr{f_j}{X_i \cap X_j}
+    \end{equation*}
+    Then there exists a unique morphism $f: X \to Y$ such that $\restr{f}{X_i} = f_i$.
+\end{prop}
 
 \section{Products in $\Sch$}
 
