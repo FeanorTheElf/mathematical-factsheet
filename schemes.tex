@@ -500,6 +500,7 @@ From now on, use $f^{-1}(U)$ for the open subscheme $(f^{-1}(|U|), \restr{\O_X}{
 \section{Properties of Schemes and Morphisms}
 
 \begin{prop}
+    \label{prop:affine_local_property}
     Let $X$ be a scheme and let $P$ be a property of affine opens (i.e. a class of embeddings $\Spec R \to X$) such that
     \begin{itemize}
         \item for all $\alpha: \Spec R \to X$ and $f \in R$ have
@@ -605,7 +606,8 @@ Now we will also say what a closed subscheme is.
     \begin{itemize}
         \item $f$ is a closed immersion
         \item $f: |X| \to f(|X|)$ is a homeomorphism and $f^\#: \O_Y \to f_*\O_X$ is surjective
-        \item there exists a cover $Y = \bigcup_i U_i$ of affine opens and ideals $I_i \leq \O_Y(U_i)$ such that $f^{-1}(U_i) \cong \Spec(\O_Y(U_i)/I_i)$
+        \item there exists a cover $Y = \bigcup_i U_i$ of affine opens and ideals $I_i \leq \O_Y(U_i)$ such that $f^{-1}(U_i) \cong \Spec(\O_Y(U_i)/I_i)$ as schemes over $U_i$.
+        \item $f: |X| \to f(|X|)$ is a homeomorphism, $f(|X|)$ is closed and $f_*\O_X \cong \O_Y/\mathcal{I}$ for a quasi-coherent sheaf of ideals $\mathcal{I}$ on $\O_Y$
     \end{itemize}
 \end{prop}
 \begin{proof}
@@ -619,12 +621,100 @@ Now we will also say what a closed subscheme is.
     hence is surjective.
 
     To show (ii) $\Rightarrow$ (iii), let $Y = \bigcup_i U_i$ be a cover by affine opens.
-    For each $i$, let now $I_i := \ker(f^\#_U)$.
+    For each $i$, let now $I_i := \ker(f^\#_{U_i})$.
     As $f^\#$ is surjective, by the isomorphism theorem
     \begin{equation*}
-        \tilde{f}^\#_U: \O_Y(U) / I_i \to (f_*\O_X)(U)
+        \tilde{f}^\#_{U_i}: \O_Y(U_i) / I_i \to (f_*\O_X)(U_i)
     \end{equation*}
     is an isomorphism of rings.
+    Denote now $R = \O_Y(U_i)$ and consider a basic open set $D_g \subseteq U_i$.
+    We have
+    \begin{equation*}
+        f^\#_{D_g}: R_g \to (f_*\O_X)(D_g)
+    \end{equation*}
+    is surjective and given by
+    \begin{equation*}
+        \frac {x} {g^n} \mapsto \frac {f^\#_{U_i}(x)} {f^\#_{U_i}(g)^n}
+    \end{equation*}
+    and thus has kernel $I_iR_g$.
+    Hence, we see that also
+    \begin{equation*}
+        \tilde{f}^\#_{D_g}: R_g / I_i R_g \to (f_*\O_X)(D_g)
+    \end{equation*}
+    is an isomorphism.
+    Hence, since the basic open sets form a basis, we see that there is an isomorphism of schemes
+    \begin{equation*}
+        \restr{\tilde{f}}{f^{-1}(U_i)}: f^{-1}(U_i) \to \Spec(R_g/I_iR_g)
+    \end{equation*}
+    which is also an isomorphism of schemes over $U_i$.
+    This shows the claim.
+
+    Finally, we show (iii) $ \Rightarrow$ (iv).
+    Define a sheaf of ideals on $\O_Y$ by
+    \begin{equation*}
+        \mathcal{I}(U) := \bigcap_i \mathrm{restr}^{-1}_{U_i \cap U}(I_i)
+    \end{equation*}
+    Note that by assumption, each $\restr{\mathcal{I}}{U_i}$ is quasi-coherent.
+
+    Claim: $\mathcal{I}$ is quasi-coherent.
+    We show that ``$\restr{\mathcal{I}}{U}$ is quasi-coherent'' for affine opens $U \subseteq Y$ and the claim follows by Proposition~\ref{prop:affine_local_property}.
+    \begin{itemize}
+        \item If $\restr{\mathcal{I}}{U}$ is quasi-coherent with $U \cong \Spec R$, then clearly also $\restr{\mathcal{I}}{D_g}$ is where $g \in R$.
+        This holds, as
+        \begin{equation*}
+            \mathcal{I}(D_g \cap D_h) = \mathcal{I}(D_{gh}) = \mathcal{I}(U) R_{gh}
+        \end{equation*}
+        \item Let $U = \bigcup_g D_g$ be a cover by basic open sets such that each $\restr{\mathcal{I}}{D_g}$ is quasi-coherent.
+        Consider now a basic open set $D_h$ of $U$.
+        By assumption, find for all $g$ that
+        \begin{equation*}
+            \mathcal{I}(D_g \cap D_h) = \mathcal{I}(D_{gh}) = \mathcal{I}(D_g) R_{gh}
+        \end{equation*}
+        where $R = \O_Y(U)$.
+        By construction, have now that
+        \begin{equation*}
+            \mathcal{I}(D_h) = \bigcap_g \mathcal{I}(D_g)R_{gh}
+        \end{equation*}
+        The inclusion $\subseteq$ is clear.
+        Since the $D_g$ cover $U$, we see that there is a combination $1 = \sum_i r_i g_i$ with $r_i \in R$.
+        Now consider some $\alpha \in \bigcap_g \mathcal{I}(D_g) R_{gh}$.
+        
+        For each $g$ there is $n \in \N$ such that $\alpha h^n \in \mathcal{I}(D_g)$.
+        Let now $N \in \N$ such that for all $i$, have $\alpha h^N \in \mathcal{I}(D_{g_i})$ (works as there are only finitely many such $i$).
+        It follows that
+        \begin{equation*}
+            \restr{\alpha h^N}{D_{g_i} \cap D_{g_j}} = \restr{\alpha h^N}{D_{g_i} \cap D_{g_j}}
+        \end{equation*}
+        and so we can glue all $\alpha h^N$ to $\alpha h^N \in \mathcal{I}(U)$ by the sheaf property of $\mathcal{I}$.
+        Thus $\alpha h^N \in \mathcal{I}(D_h)$ and so $\alpha \in \mathcal{I}(D_h)$.
+    \end{itemize}
+    Now it follows that for every affine open $U$ the restriction $\restr{\mathcal{I}}{U}$ is quasi-coherent, and so $\mathcal{I}$ is quasi-coherent.
+
+    Claim: $f: (X, \O_X) \to (Y, \O_Y)$ is a closed immersion.
+    Note that $f_* \O_X \cong \O_Y / \mathcal{I}$ as $\mathcal{I}(U) = \ker (\O_Y \to f_* \O_X)$ on each $U_i$ and so on each open $U$.
+    Hence, it is left to show that $f(|X|)$ is closed.
+    This follows directly, as the isomorphism $f^{-1}(U_i) \cong \Spec(\O_Y(U_i)/\mathcal{I}(U_i))$ is an isomorphism as schemes over $U_i$, and so the diagram
+    \begin{center}
+        \begin{tikzpicture}
+            \node (fUi) at (0, 0) {$f^{-1}(U_i)$};
+            \node (Ui) at (4, 0) {$U_i$};
+            \node (Spec) at (2, -2) {$\Spec(\O_Y(U_i)/\mathcal{I}(U_i))$};
+
+            \draw [->] (fUi) -- (Ui) node [midway, above] {$f$};
+            \draw [->] (fUi) -- (Spec) node [midway, left] {$\sim$};
+            \draw [->] (Spec) -- (Ui);
+        \end{tikzpicture}
+    \end{center}
+    is commutative, hence $\restr{f}{f^{-1}(U_i)}$ is a closed immersion, so $f(|f^{-1}(U_i)|)$ is closed in $|U_i|$.
+    Furthermore, for a closed $C \subseteq f^{-1}(U_i)$ have that $f(C) \subseteq |U_i|$ is closed.
+    Since the $U_i$ cover $Y$, we see that $f(|X|)$ is closed and $f: |X| \to f(|X|)$ is a homeomorphism.
+
+    The last implication (iv) $\Rightarrow$ (i) follows directly from the fact that $f$ factors as
+    \begin{equation*}
+        (|X|, \O_X) \ \overset{\sim}{\to} \ (f(|X|), \O_{f(|X|)}) \ \overset{i}{\to} \ (|Y|, \O_Y)
+    \end{equation*}
+    where $i$ is the inclusion map and $\O_{f(|X|)}(U)$ is defined as $\O_Y(\tilde{U}) / \mathcal{I}(\tilde{U})$ where $\tilde{U} \subseteq Y$ is any open set with $\tilde{U} \cap f(|X|) = U$.
+    In particular, we see that $i_*\O_{f(|X|)} \cong \O_Y/\mathcal{I}$ and so $(f(|X|), \O_{f(|X|)})$ is a closed subscheme.
 \end{proof}
 
 \end{document}
