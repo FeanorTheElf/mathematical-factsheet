@@ -71,8 +71,19 @@ In other words, we have a natural isomorphism
 \end{equation*}
 where the functors are $\mathcal{C} \times \mathcal{C} \to \mathrm{Set}$.
 
+\subsection{Limits commute}
+Let $F: I \times J \to \mathcal{C}$ a diagram and assume $\mathcal{C}$ has limits of shape $I$ and of shape $J$.
+Then
+\begin{equation*}
+    \lim_I \lim_J F \cong \lim_{I \times J} F \cong \lim_J \lim_I F
+\end{equation*}
+Dually, if $\mathcal{C}$ has colimits of shape $I$, have that
+\begin{equation*}
+    \colim_I \colim_J F \cong \colim_{I \times J} \cong \colim_J \colim_I F
+\end{equation*}
+
 \subsection{Limits and adjoint functors}
-Let $F: \mathcal{C} \to \mathcal{D}$ be a functor with right-adjoint $F \dashv G$, then $G$ preserves limits, i.e. if the limit $\lim_I \Lambda$ exists in $\mathcal{D}$ for some diagram $\Lambda: I \to \mathcal{D}$, then $G(\lim_I \Lambda) \cong \lim_I G \Lambda$ (and the right-hand side exists in $\mathcal{C}$). 
+Let $F: \mathcal{C} \to \mathcal{D}$ be a functor with right-adjoint $F \dashv G$, then $F$ preserves colimits (and $G$ preserves limits), i.e. if the colimit $\colim_I \Lambda$ exists in $\mathcal{C}$ for some diagram $\Lambda: I \to \mathcal{C}$, then $F(\colim_I \Lambda) \cong \colim_I F \Lambda$ (and the right-hand side exists in $\mathcal{D}$). 
 \paragraph{Proof}
 It suffices to show that $G(\lim_I \Lambda)$ is a limit of $G \Lambda: I \to \mathcal{C}$.
 For $i \in I$ have morphisms $f_i: \lim_I \Lambda \to \Lambda(i)$ and so have morphisms
@@ -115,6 +126,24 @@ that are nicely compatible with morphisms $i \to j$.
 Hence, we find a unique morphism $x \to \lim_I F$ by the universal property of $\lim_I F$, which shall be $\phi(h)$.
 
 Now the naturality of the constructed isomorphism is easy to show.$\hfill\square$
+
+\subsection{Limit functor adjunction}
+Assume $\mathcal{C}$ has limits of shape $I$.
+Then the colimit functor
+\begin{equation*}
+    \colim_I: \mathrm{Fun}(I, \mathcal{C}) \to \mathcal{C}
+\end{equation*}
+satisfies $\colim_I \dashv \Delta$ where
+\begin{equation*}
+    \Delta: \mathcal{C} \to \mathrm{Fun}(I, \mathcal{C}), \quad x \mapsto (i \mapsto x)
+\end{equation*}
+is the diagonal functor.
+
+\subsection{Existence of Limits}
+\begin{itemize}
+    \item $\mathcal{C}$ has limits, if and only if it has products and equalizers
+    \item $\mathcal{C}$ has finite limits, if and only if it has binary products, a final object and equalizers
+\end{itemize}
 
 \subsection{Density of representable functors}
 Let $\mathcal{C}$ be a locally small category. 
