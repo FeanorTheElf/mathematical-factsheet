@@ -733,17 +733,6 @@ Let $(X, \O_X)$ be a ringed space.
     \end{equation*}
     for all $\alpha \in \O_X(U)$ and $x \in F(U)$.
 \end{definition}
-Note that for $n \in \N$, the direct sum
-\begin{equation*}
-    \left( \bigoplus_{i = 0}^n \O_X \right)(U) := \bigoplus_{i = 0}^n \O_X(U)
-\end{equation*}
-is an $\O_X$-module.
-Similarly, for any set $I$, the direct sum
-\begin{equation*}
-    \bigoplus_{i \in I} \O_X := \left( U \mapsto \bigoplus_{i \in I} \O_X(U) \right)^+
-\end{equation*}
-is an $\O_X$-module.
-Note that we require the sheafification here.
 \begin{definition}
     A morphism of $\O_X$-modules $F, G$ is a natural transformation $\eta: F \Leftarrow G$ such that each
     \begin{equation*}
@@ -776,6 +765,29 @@ Note that we require the sheafification here.
     $\ker$, $\mathrm{coker}$ and $\im$ are the kernel, cokernel and image respectively in the category theoretical sense.
 \end{prop}
 Note that a being a surjection $F \to G$ does not mean that $F(U) \to G(U)$ is surjective for all open $U$. 
+
+\begin{definition}
+    For $\O_X$-modules $F, G$ and $(F_i)_{i \in I}$ define the
+    \begin{itemize}
+        \item \emph{coproduct} as
+        \begin{equation*}
+            \bigoplus_{i \in I} F_i := \left( U \mapsto \bigoplus_{i \in I} F_i(U) \right)^+
+        \end{equation*}
+        \item \emph{product} as
+        \begin{equation*}
+            \left( \prod_{i \in I} F_i \right)(U) := \prod_{i \in I} F_i(U)
+        \end{equation*}
+        \item \emph{tensor product} as
+        \begin{equation*}
+            F \otimes_{\O_X} G := \left( U \mapsto F(U) \otimes_{\O_X(U)} G(U) \right)^+
+        \end{equation*}
+    \end{itemize}
+\end{definition}
+Note that for infinite coproducts, we have to sheafify.
+This is not the case for finite coproducts.
+\begin{prop}
+    The product and coproduct defined above are product and coproduct in the category theoretical sense.
+\end{prop}
 \begin{definition}
     An $\O_X$-module $F$ is called
     \begin{itemize}
@@ -797,6 +809,7 @@ Note that a being a surjection $F \to G$ does not mean that $F(U) \to G(U)$ is s
             is exact.
             For a $k$-algebra $A$, we have such a sequence $k[y_1, ..., y_m] \to k[x_1, ..., x_n] \to A \to 0$ with $y_i \mapsto f_i$ iff $A \cong k[x_1, ..., x_n]/(f_1, ..., f_m)$.
         }
+        \item \emph{flat}, if $\cdot \otimes_{\O_X} F$ is an exact functor
     \end{itemize}
 \end{definition}
 First, we consider two technical lemmas that describe under which conditions we can lift maps $\bigoplus_{i = 0}^n \O_{X, x} \to F_x$ to an open neighborhood of $x$.
@@ -815,26 +828,6 @@ A corollary of these two technical lemmas is the following.
     Let $F$ be an $\O_X$-module.
     Suppose $F$ is coherent and for all $x \in X$, there is $n \in \N$ such that the stalk is free $F_x \cong \bigoplus_{i = 0}^n \O_{X, x}$.
     Then $F$ is a vector bundle.
-\end{prop}
-\begin{definition}
-    For $\O_X$-modules $F, G$ and $(F_i)_{i \in I}$ define the
-    \begin{itemize}
-        \item \emph{coproduct} as
-        \begin{equation*}
-            \bigoplus_{i \in I} F_i := \left( U \mapsto \bigoplus_{i \in I} F_i(U) \right)^+
-        \end{equation*}
-        \item \emph{product} as
-        \begin{equation*}
-            \left( \prod_{i \in I} F_i \right)(U) := \prod_{i \in I} F_i(U)
-        \end{equation*}
-        \item \emph{tensor product} as
-        \begin{equation*}
-            F \otimes_{\O_X} G := \left( U \mapsto F(U) \otimes_{\O_X(U)} G(U) \right)^+
-        \end{equation*}
-    \end{itemize}
-\end{definition}
-\begin{prop}
-    The product and coproduct defined above are product and coproduct in the category theoretical sense.
 \end{prop}
 \begin{definition}
     For a morphism $f: X \to Y$ of ringed spaces, an $\O_X$-module $F$ and an $\O_Y$-module $G$, define
@@ -869,5 +862,25 @@ A corollary of these two technical lemmas is the following.
         f^*: \Mod{\O_Y} \to \Mod{\O_X}, \quad G \mapsto f^*G
     \end{align*}
     are the corresponding functors.
+\end{prop}
+\begin{definition}
+    For a ring $R$ and an $R$-module $M$ define the $\O_{\Spec R}$-module by
+    \begin{equation*}
+        \tilde{M}(D_f) := M_f
+    \end{equation*}
+    with the obvious choice of restriction maps.
+\end{definition}
+\begin{prop}
+    For a ring $R$ and an $R$-module $M$ have that
+    \begin{equation*}
+        \tilde{M} \cong \left( U \mapsto M \otimes_R \O_{\Spec(R)}(U) \right)^+
+    \end{equation*}
+\end{prop}
+\begin{prop}
+    For a ring $R$ the functor
+    \begin{equation*}
+        \tilde{\cdot}: \Mod{R} \to \Mod{\O_{\Spec(R)}}
+    \end{equation*}
+    is fully faithful and exact.
 \end{prop}
 \end{document}
