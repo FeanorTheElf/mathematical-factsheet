@@ -116,8 +116,21 @@ Then every chain in the set of ideals $\{ I \leq R \ | \ 1, a \notin I \}$ has a
 Clearly $\mathfrak{m}$ is prime with $a \notin \mathfrak{m}$, a contradiction.$\hfill\square$
 
 \subsection{Nakayama's Lemma}
-Let $I$ be an ideal in a ring $R$, and $M$ a finitely-generated $R$-module.
-If $I M = M$, then there exists an $r \in R$ with $r \equiv 1 \mod I$, such that $r M = 0$. 
+There are the following, equivalent versions of this statement.
+\begin{itemize}
+    \item Let $I$ be an ideal in a ring $R$, and $M$ a finitely-generated $R$-module.
+    If $I M = M$, then there exists an $r \in R$ with $r \equiv 1 \mod I$, such that $r M = 0$. 
+    \item Let $R$ be a ring and
+    \begin{equation*}
+        J := \bigcap_{\mathfrak{m} \leq R} \mathfrak{m}
+    \end{equation*}
+    be the so-called Jacobson ideal in $R$, and $M, N$ finitely-generated $R$-modules.
+    If $M = N + JM$ then $M = N$.
+    \item Let $R$ be a ring and $J$ the Jacobson ideal as above.
+    Let $M$ be a finitely generated $R$-module and $m_1, ..., m_n \in M$.
+    If $\overline{m_1}, ..., \overline{m_n}$ generated $M/JM$ then $\mathfrak{m}_1, ..., \mathfrak{m}_n$ generate $M$.
+\end{itemize}
+This is particularly useful in a local ring $R$ with unique maximal ideal $\mathfrak{m}$, as in this case $J = \mathfrak{m}$.
 
 \subsection{Hilbert's basis theorem}
 If $R$ is a Noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a ring extension $S \supseteq R$.
