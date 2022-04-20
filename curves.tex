@@ -14,6 +14,7 @@
 \usepackage{geometry}
 \usepackage{enumerate}
 \usepackage{tikz}
+\usepackage{hyperref}
 \usepackage[style=english]{csquotes}
 \usepackage[language=english, backend=biber, style=alphabetic, sorting=nyt]{biblatex}
 
@@ -22,6 +23,13 @@
 
 \title{Some Notes on Algebraic Maps, Elliptic Curves and Isogenies}
 \author{Simon Pohmann}
+
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
 
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -34,8 +42,11 @@
 \newcommand{\Half}{\mathcal{H}}
 \newcommand{\SL}{\mathrm{SL}}
 \newcommand{\End}{\mathrm{End}}
+\newcommand{\Ell}{\mathrm{Ell}}
 \newcommand{\Quot}{\mathrm{Quot}}
+\newcommand{\Cl}{\mathrm{Cl}}
 \renewcommand{\O}{O}
+\newcommand{\Order}{\mathcal{O}}
 
 \newcommand\restr[2]{{
     \left.\kern-\nulldelimiterspace
@@ -85,13 +96,12 @@ Note that the graded ring is not invariant under isomorphisms of projective vari
         We remark that this is a $k$-algebra.
         \item A partial map $X \dashrightarrow Y$ on an irreducible quasi-projective variety $X$ is called \emph{rational}, if its set of definition is an open subset $U \subseteq X$ and it is a morphism $U \to Y$.
         We identify rational maps $f, g: X \dashrightarrow Y$ defined on $U, V \subseteq X$ if $\restr{f}{U \cap V} = \restr{g}{U \cap V}$.
-        In other words, regular maps are morphisms $U \to Y$ with maximal domain $U \subseteq X$ open.
+        In other words, rational maps are morphisms $U \to Y$ with maximal domain $U \subseteq X$ open.
     \end{itemize}
 \end{definition}
 In particular, morphisms, rational maps and regular maps are technically all the same thing.
 The definitions just differ in the domain and the codomain, not in the key property ``locally defined by polynomials''.
-However, they are usually used in a different way.
-One often works with morphisms between varieties of the same type (e.g. morphisms between projective varieties), and then they differ fundamentally from regular maps (we only have the above equivalence by taking $Y = k$ to be an affine variety).
+This distinction is mostly an artifact of the definition of varieties via vanishing loci, and is no longer necessary when one uses the ``modern'' approach to algebraic geometry based on schemes.
 
 \subsection{The coordinate rings}
 We have already introduced the projective coordinate ring, which is a not totally natural object, because it is not invariant under isomorphisms.
@@ -903,36 +913,126 @@ Since we want to use complex analysis, we restrict to $k = \C$ in this paragraph
     $\wp_\Lambda$ and $\wp'_\Lambda$ are meromorphic functions that are invariant under translations by $\Lambda$.
 \end{corollary}
 
-\section*{Notes}
-\subsection*{$(d, \epsilon)$-structures}
-Let $p$ be a prime.
-Consider the category $\mathrm{EC}$ defined by
-\begin{align*}
-    \mathrm{Ob}(\mathrm{EC}) &:= \{ \text{$E$ elliptic curve over $\F_{p^2}$} \} \\
-    \mathrm{Hom}_{\mathrm{EC}}(E, E') &:= \{ \text{$\psi: E \to E'$ isogeny} \}
-\end{align*}
-Have a functor
-\begin{align*}
-    \cdot^{(p)}: \mathrm{EC} \ &\to \ \mathrm{EC} \\
-    \text{$E$ defined by $y^2 = x^3 + Ax + B$} \ &\mapsto \ \text{$E'$ defined by $y^2 = x^3 + A^p x + B^p$} \\
-    \left[ \sum_{i, j} a_{ij} x^i y^j : \sum_{i, j} b_{ij} x^i y^j : \sum_{i, j} c_{ij} x^i y^j \right] \ &\mapsto \ \left[ \sum_{i, j} a_{ij}^p x^i y^j : \sum_{i, j} b_{ij}^p x^i y^j : \sum_{i, j} c_{ij}^p x^i y^j \right]
-\end{align*}
-and a functor
-\begin{align*}
-    \hat{\cdot}: \mathrm{EC} \ \to \ \mathrm{EC}^{\mathrm{op}}, \quad E \ \mapsto \ E, \quad \phi \ \mapsto \ \hat{\phi}
-\end{align*}
-$(d, \epsilon)$-structures and their isogenies are given by the category $\mathcal{C}$ defined by
-\begin{align*}
-    \mathrm{Ob}(\mathcal{C}) &:= \{ (E, \psi) \ | \ E \in \mathrm{EC}, \ \psi: E \to E^{(p)} \ \text{degree $d$ isogeny}, \ \hat{\psi} = \epsilon\psi^{(p)} \} \\
-    \mathrm{Hom}_{\mathcal{C}}((E, \psi), (E', \psi')) &:= \{ \phi: E \to E' \ | \ \psi' \circ \phi = \phi^{(p)} \circ \psi \}
-\end{align*}
+\section{Isogeny graphs}
+This is a quite specialized topic, going further into the methods I am currently studying.
+Furthermore, it is not present in Silverman anymore.
 
-\subsection*{Endomorphism Ring}
-Consider a supersingular curve $E$ defined over $\F_q$ and $\pi = \pi_q$ the Frobenius endomorphism.
-Then
-\begin{equation*}
-    \mathrm{End}(E) \neq \Z[\pi] = \underbrace{\mathrm{End}_{\F_q}(E)}_{\mathclap{\text{endomorphisms defined over $\F_q$}}}
-\end{equation*}
-and $\Z[\pi]$ is a commutative ring (either $\Z$ or an order in an imaginary quadratic number field).
-In particular, there is an endomorphism (I believe even automorphism) $\psi$ not defined over $\F_q$ such that $\psi \notin \Z[\pi]$ and $\pi, \psi$ do not commute.
+\subsection{The CSIDH class group action}
+
+\begin{definition}
+    Let $E$ be an Elliptic Curve defined over $k$.
+    Then denote
+    \begin{align*}
+        \End_k(E) &:= \{ \phi \in \End(E) \ | \ \phi \ \text{defined over $k$} \} \\
+        \End^0(E) &:= \End(E) \otimes_{\Z} {\mathbb{Q}}
+    \end{align*}
+\end{definition}
+\begin{prop}[CSIDH class group action]
+    Let $E$ be an Elliptic Curve defined over $k = \F_p$.
+    Then $\End_k(E) = \Z[\pi] =: \Order$ where $\pi$ is the $p$-th power Frobenius endomorphism and $\Cl(\Order)$ acts on the set
+    \begin{equation*}
+        \Ell_k(\Order) := \{ E \ | \ \text{$E$ Elliptic Curve defined over $\F_p$ with $\End_k(E) \cong \Order$ }\} / \cong
+    \end{equation*}
+    via
+    \begin{equation*}
+        \Cl(\Order) \times \Ell_k(\Order) \to \Ell_k(\Order), \quad ([\pi^r\mathfrak{a}], E) \mapsto \pi^r\Bigl( E / \bigcap_{\alpha \in \mathfrak{a}} \ker(\alpha) \Bigr)
+    \end{equation*}
+\end{prop}
+\begin{remark}
+    If $E$ is supersingular, then $\pi^2 = -p$ and so $\End_k(E) \cong \Z[\sqrt{-p}]$.
+    Conversely, if $E$ is ordinary, then $\pi^2 + t \pi + p = 0$ for $t \neq 0$ and so $\End_k(E) \cong \Z[\alpha]$ with $\alpha = \sqrt{t^2/4 - p}$ or $\alpha = 1/2 + \sqrt{t^2/4 - p}$.
+    Hence
+    \begin{equation*}
+        \Ell_k(\Z[\sqrt{-p}]) = \{ E \ | \ \text{$E$ supersingular Elliptic Curve defined over $k = \F_p$} \} / \cong
+    \end{equation*}
+\end{remark}
+
+\subsection{Horizontal and vertical isogenies}
+
+\begin{prop}
+    Let $E, E'$ be Elliptic Curves defined over a field $k$ and consider an isogeny $\phi: E \to E'$ of prime degree $l$.
+    Then $\End(E)$ and $\End(E')$ have the same rank $r \leq 4$ (as free $\Z$-modules), and
+    \begin{equation*}
+        l^2\O \subseteq l\O' \subseteq \O \subseteq \mathcal{K}
+    \end{equation*}
+    via an embedding $\End(E') \to \End^0(E)$.
+\end{prop}
+\begin{proof}
+    Consider the map
+    \begin{equation*}
+        \Phi_*: \End(E) \to \End(E'), \quad \tau \mapsto \phi \circ \tau \circ \hat{\phi}
+    \end{equation*}
+    and
+    \begin{equation*}
+        \Phi^*: \End(E') \to \End(E), \quad \tau \mapsto \hat{\phi} \circ \tau \circ \phi
+    \end{equation*}
+    Then these are injective $\Z$-module homomorphisms with $\Phi_* \circ \Phi^* = [l^2] \circ \cdot$.
+    In particular, find that
+    \begin{equation*}
+        \frac {\Phi^*} l : \End^0(E') \to \End^0(E)
+    \end{equation*}
+    is an isomorphism of $\mathbb{Q}$-algebras\footnote{If it is not completely clear what this means in the non-commutative case, just look at $\End(E)$ resp. $\End(E')$ as a free $\Z$-module of finite rank.}.
+    In other words, both $\Order := \End(E)$ and $\Order' := \End(E')$ are orders in $\mathcal{K} := \End^0(E)$.
+
+    Now observe that the inclusion $[l^2]\Order \to \Order$ factors through $\Order'$ via
+    \begin{equation*}
+        l^2 \Order \ \overset{\Phi_* / l}{\to} \ l \Order' \ \overset{\Phi^* / l}{\to} \ \Order
+    \end{equation*}
+    and these embeddings are compatible with the embeddings $\Order, \Order' \to \mathcal{K}$.
+    In other words, have $l^2\Order \subseteq l\Order' \subseteq \Order \subseteq \mathcal{K}$.
+\end{proof}
+\begin{corollary}
+    Let $E, E'$ be Elliptic Curves defined over a field $k$ and consider an isogeny $\phi: E \to E'$ of prime degree $l$.
+    Suppose that that $\End(E)$ has rank 2 (i.e. a CM curve, or an ordinary curve over $k = \F_q$).
+    Then one of the following is true
+    \begin{itemize}
+        \item $\End(E) = \End(E')$ and $\phi$ is called \emph{horizontal}
+        \item $[\End(E) : \End(E')] = l$ and $\phi$ is called \emph{descending}
+        \item $[\End(E') : \End(E)] = l$ and $\phi$ is called \emph{ascending}
+    \end{itemize}
+\end{corollary}
+\begin{proof}
+    Let $\Order := \End(E)$ and $\Order' := \End(E')$.
+    By the previous proposition, have $l^2\Order \subseteq l\Order' \subseteq \Order$ and clearly $[\Order : l^2\Order] = l^4$.
+    Since $l$ is prime and $\Order' \neq l\Order$ resp. $\Order \neq l\Order'$ (both $\Order$ and $\Order'$ contain 1), find that either
+    \begin{itemize}
+        \item $[\Order' : l\Order] = l^2$ and $[\Order : l\Order'] = l^2$
+        \item $[\Order' : l\Order] = l$ and $[\Order : l\Order'] = l^3$
+        \item $[\Order' : l\Order] = l^3$ and $[\Order : l\Order'] = l$
+    \end{itemize}
+    These are exactly the cases that $\phi$ is horizontal, descending and ascending, respectively.
+\end{proof}
+
+%\section*{Notes}
+%\subsection*{$(d, \epsilon)$-structures}
+%Let $p$ be a prime.
+%Consider the category $\mathrm{EC}$ defined by
+%\begin{align*}
+%    \mathrm{Ob}(\mathrm{EC}) &:= \{ \text{$E$ elliptic curve over $\F_{p^2}$} \} \\
+%    \mathrm{Hom}_{\mathrm{EC}}(E, E') &:= \{ \text{$\psi: E \to E'$ isogeny} \}
+%\end{align*}
+%Have a functor
+%\begin{align*}
+%    \cdot^{(p)}: \mathrm{EC} \ &\to \ \mathrm{EC} \\
+%    \text{$E$ defined by $y^2 = x^3 + Ax + B$} \ &\mapsto \ \text{$E'$ defined by $y^2 = x^3 + A^p x + B^p$} \\
+%    \left[ \sum_{i, j} a_{ij} x^i y^j : \sum_{i, j} b_{ij} x^i y^j : \sum_{i, j} c_{ij} x^i y^j \right] \ &\mapsto \ \left[ \sum_{i, j} a_{ij}^p x^i y^j : \sum_{i, j} b_{ij}^p x^i y^j : \sum_{i, j} c_{ij}^p x^i y^j \right]
+%\end{align*}
+%and a functor
+%\begin{align*}
+%    \hat{\cdot}: \mathrm{EC} \ \to \ \mathrm{EC}^{\mathrm{op}}, \quad E \ \mapsto \ E, \quad \phi \ \mapsto \ \hat{\phi}
+%\end{align*}
+%$(d, \epsilon)$-structures and their isogenies are given by the category $\mathcal{C}$ defined by
+%\begin{align*}
+%    \mathrm{Ob}(\mathcal{C}) &:= \{ (E, \psi) \ | \ E \in \mathrm{EC}, \ \psi: E \to E^{(p)} \ \text{degree $d$ isogeny}, \ \hat{\psi} = \epsilon\psi^{(p)} \} \\
+%    \mathrm{Hom}_{\mathcal{C}}((E, \psi), (E', \psi')) &:= \{ \phi: E \to E' \ | \ \psi' \circ \phi = \phi^{(p)} \circ \psi \}
+%\end{align*}
+%
+%\subsection*{Endomorphism Ring}
+%Consider a supersingular curve $E$ defined over $\F_q$ and $\pi = \pi_q$ the Frobenius endomorphism.
+%Then
+%\begin{equation*}
+%    \mathrm{End}(E) \neq \Z[\pi] = \underbrace{\mathrm{End}_{\F_q}(E)}_{\mathclap{\text{endomorphisms defined over $\F_q$}}}
+%\end{equation*}
+%and $\Z[\pi]$ is a commutative ring (either $\Z$ or an order in an imaginary quadratic number field).
+%In particular, there is an endomorphism (I believe even automorphism) $\psi$ not defined over $\F_q$ such that $\psi \notin \Z[\pi]$ and $\pi, \psi$ do not commute.
 \end{document}

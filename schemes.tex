@@ -614,7 +614,9 @@ Now we will also say what a closed subscheme is.
 \end{definition}
 
 \begin{definition}
-    A scheme $X$ is called \emph{variety}, if it is of finite type, integral and separated.
+    A scheme $X$ over an algebraically closed field $k$\footnote{To be completely precise, a morphism $X \to \Spec(k)$.} is called \emph{variety}, if it is of finite type, integral and separated.
+
+    A variety $X$ over $k$ is called complete, if $X \to \Spec(k)$ is proper.
 \end{definition}
 
 \begin{prop}[Characterization Noetherian]
@@ -954,5 +956,73 @@ A corollary of these two technical lemmas is the following.
         \tilde{\cdot}: \Mod{R} \to \Mod{\O_{\Spec(R)}}
     \end{equation*}
     is fully faithful and exact.
+\end{prop}
+
+\section{\v{C}ech cohomology}
+\begin{definition}
+    For an $\O_X$-module $F$ and an affine open cover $X = \bigcup_{i \in I} U_i$ define
+    \begin{equation*}
+        \breve{C}_{\{U_i\}}^n(F) := \prod_{J \in I^{n + 1}} \Gamma(U_J, F)
+    \end{equation*}
+    where $U_{(i_0, ..., i_n)} = U_{i_0} \cap ... \cap U_{i_n}$.
+    Define further
+    \begin{equation*}
+        d^n: \breve{C}_{\{U_i\}}^n(F) \to \breve{C}_{\{U_i\}}^{n + 1}(F), \quad (s_J)_J \mapsto \left( \sum_{k = 0}^{n + 1} (-1)^k \restr{s_{J_k}}{U_J} \right)_J
+    \end{equation*}
+    where we define
+    \begin{equation*}
+        (i_0, ..., i_n)_j := (i_0, ..., i_{j - 1}, i_{j + 1}, ..., i_n)
+    \end{equation*}
+\end{definition}
+\begin{prop}
+    The sequence $\breve{C}_{\{U_i\}}^n(F)$ of groups together with the $d^n$ forms a chain complex $\breve{C}^\bullet_{\{U_i\}}(F)$.
+    Its cohomology is
+    \begin{equation*}
+        H_{\{U_i\}}^n(F) := \ker(d^n) / \im(d^{n - 1})
+    \end{equation*}
+\end{prop}
+\begin{definition}
+    Define
+    \begin{equation*}
+        \left(\breve{C}^+_{\{U_i\}}\right)^n(F) := \prod_{J \in I^{(n + 1)} \ \text{increasing}} \Gamma(U_J, F)
+    \end{equation*}
+    Note that for $J \in I^{(n + 1)}$ increasing and $k \leq n + 1$ also $J_k$ is increasing.
+    Hence $(\breve{C}^+_{\{U_i\}})^\bullet(F)$ with $d^\bullet$ is a chain complex.
+\end{definition}
+\begin{prop}
+    The cohomologies of
+    \begin{equation*}
+        \left(\breve{C}^+_{\{U_i\}}\right)^\bullet(F) \quad \text{and} \quad \breve{C}_{\{U_i\}}^\bullet(F)
+    \end{equation*}
+    are equal.
+\end{prop}
+\begin{definition}
+    Consider the (partial) order of affine open covers $\bigcup U_i = X$ on a scheme $X$ given by refinement.
+    For an $\O_X$-module $F$ define the \emph{\v{C}ech-cohomology} as
+    \begin{equation*}
+        \breve{H}^n(X, F) := \colim_{\bigcup U_i = X} \breve{H}^n_{\{U_i\}}(F)
+    \end{equation*}
+\end{definition}
+\begin{theorem}
+    Let $X$ be a separated and quasi-compact scheme, and $F$ an $\O_X$-module.
+    Let $X = \bigcup_{i \in I} U_i = \bigcup_{j \in J} V_j$ be covers by affine opens.
+    Then
+    \begin{equation*}
+        \breve{H}^\bullet_{\{U_i\}}(F) = \breve{H}^\bullet_{\{V_i\}}(F)
+    \end{equation*}
+\end{theorem}
+\begin{corollary}
+    Let $X$ be a separated and quasi-compact scheme, and $F$ an $\O_X$-module.
+    Then
+    \begin{equation*}
+        \breve{H}^\bullet(X, F) = \breve{H}^\bullet_{\{U_i\}}(F)
+    \end{equation*}
+    for any affine open cover $X = \bigcup U_i$.
+\end{corollary}
+\begin{prop}
+    For any scheme $X$ and an $\O_X$-module $F$ have
+    \begin{equation*}
+        \breve{H}^0(X, F) = \Gamma(X, F)
+    \end{equation*}
 \end{prop}
 \end{document}

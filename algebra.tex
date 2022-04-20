@@ -130,7 +130,20 @@ There are the following, equivalent versions of this statement.
     Let $M$ be a finitely generated $R$-module and $m_1, ..., m_n \in M$.
     If $\overline{m_1}, ..., \overline{m_n}$ generated $M/JM$ then $\mathfrak{m}_1, ..., \mathfrak{m}_n$ generate $M$.
 \end{itemize}
-This is particularly useful in a local ring $R$ with unique maximal ideal $\mathfrak{m}$, as in this case $J = \mathfrak{m}$.
+This lemma is almost only useful in a local ring $R$ with unique maximal ideal $\mathfrak{m}$, as in this case $J = \mathfrak{m}$.
+
+\subsection{Ideals \& Tensor product}
+Let $S, T$ be $R$-algebras via $f: R \to S$ and $g: R \to T$.
+Let $\mathfrak{p} \leq S, \mathfrak{q} \leq T$ be prime ideals with $\mathfrak{b} = f^{-1}(\mathfrak{p}) = g^{-1}(\mathfrak{q})$.
+Then have the canonical map
+\begin{equation*}
+    S \otimes_R T \to \Frac(S/\mathfrak{p}) \otimes_R \Frac(T/\mathfrak{q}) = \Frac{S/\mathfrak{p}} \otimes_{R/\mathfrak{b}} \Frac(T/\mathfrak{q})
+\end{equation*}
+Then the preimage $\mathfrak{a} \leq S \otimes_R T$ of a prime ideal in $\Frac(S/\mathfrak{p}) \otimes_{R/\mathfrak{b}} \Frac(T/\mathfrak{q})$ is a prime ideal such that
+\begin{equation*}
+    \iota_S^{-1}(\mathfrak{a}) = \mathfrak{p} \quad \text{and} \quad \iota_T^{-1}(\mathfrak{a}) = \mathfrak{q}
+\end{equation*}
+where $\iota_S: S \to S \otimes_R T$ and $\iota_T: T \to S \otimes_R T$ are the tensor maps.
 
 \subsection{Hilbert's basis theorem}
 If $R$ is a Noetherian ring, then so is $R[s_1, ..., s_n]$ for $s_1, ..., s_n \in S$ with a ring extension $S \supseteq R$.
