@@ -91,16 +91,13 @@ Note that the graded ring is not invariant under isomorphisms of projective vari
         \begin{equation*}
             (f_0(a), ..., f_m(a)) \neq 0 \ \text{and} \ f(a) = [f_0(a) : ... : f_m(a)] \ \text{for all $a \in U$}
         \end{equation*}
-        \item A map $X \to k$ is called \emph{regular} at $p \in X$, if it is given by polynomials near $p$, i.e. there is an open neighborhood $U$ of $p$ such that the restriction $U \to k$ is a morphism.
-        Denote the regular maps on $X$ by $\mathcal{O}_{\bar{X}}(X)$.
-        We remark that this is a $k$-algebra.
         \item A partial map $X \dashrightarrow Y$ on an irreducible quasi-projective variety $X$ is called \emph{rational}, if its set of definition is an open subset $U \subseteq X$ and it is a morphism $U \to Y$.
         We identify rational maps $f, g: X \dashrightarrow Y$ defined on $U, V \subseteq X$ if $\restr{f}{U \cap V} = \restr{g}{U \cap V}$.
         In other words, rational maps are morphisms $U \to Y$ with maximal domain $U \subseteq X$ open.
     \end{itemize}
 \end{definition}
-In particular, morphisms, rational maps and regular maps are technically all the same thing.
-The definitions just differ in the domain and the codomain, not in the key property ``locally defined by polynomials''.
+In particular, morphisms and rational maps are technically the same thing.
+The definitions just differ in the domain, not in the key property ``locally defined by polynomials''.
 This distinction is mostly an artifact of the definition of varieties via vanishing loci, and is no longer necessary when one uses the ``modern'' approach to algebraic geometry based on schemes.
 
 \subsection{The coordinate rings}
@@ -746,6 +743,41 @@ Note that the Frobenius endomorphism $k \to k, \ \alpha \mapsto \alpha^q$ has tr
     Since $\psi$ and $\pi_q$ map $\O$ to $\O$, this must also be the case for $\tilde{\psi}$.
     So $\tilde{\psi}$ is a separable isogeny and the claim follows.
 \end{proof}
+\begin{prop}
+    Let $\tau: E \to E'$ be a separable morphism of degree $n$ between Elliptic Curves $E, E' \subseteq \Proj^2$.
+    Then $\#\tau^{-1}(\{P\}) = n$ for all but finitely many $P \in E'$.
+\end{prop}
+\begin{proof}
+    Let $\tau = [\tau_x : \tau_y : 1]$.
+    Consider then the minimal polynomial $f(T, \tau_x, \tau_y) \in \tau^*k(E)[T]$.
+    By assumption, this is separable and has degree $n$ (in $T$).
+    In particular, it follows that $f(T, \tau_x(P), \tau_y(P))$ is separable of degree $n$ for all but finitely many $P \in E$.
+    Since $\tau$ is surjective, find that $f(T, x, y)$ is separable of degree $n$ for all but finitely many $P = (x, y) \in E'$.
+    Hence, it has $n$ distinct roots, say $\beta_1, ..., \beta_n$.
+
+    Now write
+    \begin{equation*}
+        S := \bigl\{ (u, v) \in E \ | \ u \in \{ \beta_1, ..., \beta_n \} \bigr\}, \quad S' = \bigl\{ (u, v) \in E' \ | \ u = x \bigr\}
+    \end{equation*}
+    and find that $\tau(Q) \in S'$ if and only if $Q \in S$.
+    Furthermore, by excluding finitely many $P$, we can assume that $\#S = 2n$ and $\#S' = 2$ (there are only finitely many cases such that $x$ or $\beta_i$ give a point of higher multiplicity).
+
+    Clearly $\tau^{-1}(\{Q\})$ is a variety of degree $n$, so $\#\tau^{-1}(\{Q\}) \leq n$ for all $Q$.
+    Thus we must already have that the map $S \to S'$ is $n$-to-1 and so $\#\tau^{-1}(\{P\}) = n$.
+\end{proof}
+\begin{corollary}
+    \label{prop:deg_separable_isogeny}
+    Let $\psi: E \to E'$ be a separable isogeny.
+    Then $\#\ker\psi = \deg(\psi)$. 
+\end{corollary}
+\begin{proof}
+    By the previous theorem, there exists a point $P'$ such that $\#\psi^{-1}(\{P'\}) = n$.
+    Now the claim follows, since there is a bijection
+    \begin{equation*}
+        \ker\psi \to \psi^{-1}(\{P'\}), \quad Q \mapsto Q + P
+    \end{equation*}
+    where $P \in E$ such that $\psi(P) = P'$.
+\end{proof}
 
 \section{Some Complex Analysis stuff}
 Since we want to use complex analysis, we restrict to $k = \C$ in this paragraph.
@@ -937,6 +969,9 @@ Furthermore, it is not present in Silverman anymore.
     \begin{equation*}
         \Cl(\Order) \times \Ell_k(\Order) \to \Ell_k(\Order), \quad ([\pi^r\mathfrak{a}], E) \mapsto \pi^r\Bigl( E / \bigcap_{\alpha \in \mathfrak{a}} \ker(\alpha) \Bigr)
     \end{equation*}
+\end{prop}
+\begin{prop}
+    This action is free and transitive.
 \end{prop}
 \begin{remark}
     If $E$ is supersingular, then $\pi^2 = -p$ and so $\End_k(E) \cong \Z[\sqrt{-p}]$.
