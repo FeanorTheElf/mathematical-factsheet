@@ -12,9 +12,9 @@
 \usepackage{listings}
 \usepackage{xparse}
 \usepackage{geometry}
+\usepackage{hyperref}
 \usepackage{enumerate}
 \usepackage{tikz}
-\usepackage{hyperref}
 \usepackage[style=english]{csquotes}
 \usepackage[language=english, backend=biber, style=alphabetic, sorting=nyt]{biblatex}
 
@@ -47,6 +47,8 @@
 \newcommand{\Cl}{\mathrm{Cl}}
 \renewcommand{\O}{O}
 \newcommand{\Order}{\mathcal{O}}
+\newcommand{\divides}{\ \mid \ }
+\newcommand{\notdivides}{\ \nmid \ }
 
 \newcommand\restr[2]{{
     \left.\kern-\nulldelimiterspace
@@ -676,7 +678,7 @@ Interestingly, this statement is the main reason why we require elliptic curves 
     Assume that $E$ is given by $E: y^2 = x^3 + Ax + B$.
     Then, in $k(E)$ we have that $y^2 = x^3 + Ax + B$ and since $f$ is a field homomorphism, we see that
     \begin{equation*}
-        f(y)^2 = f(x)^3 + Af(x) + B
+        f(y)^2 = f(x)^3 + A f(x) + B
     \end{equation*}
     It follows that $\psi: E \to E'$.
     The uniqueness follows easily from Prop.~\ref{prop:equivalence_of_categories}.
@@ -779,177 +781,9 @@ Note that the Frobenius endomorphism $k \to k, \ \alpha \mapsto \alpha^q$ has tr
     where $P \in E$ such that $\psi(P) = P'$.
 \end{proof}
 
-\section{Some Complex Analysis stuff}
-Since we want to use complex analysis, we restrict to $k = \C$ in this paragraph.
-\begin{definition}
-    A subgroup $\Gamma \leq \SL_2(\Z)$ is called \emph{congruence subgroup}, if there exists $N \geq 1$ such that
-    \begin{equation*}
-        \Gamma \supseteq \Gamma(N) := \bigl\{ \left(\begin{matrix} a & b \\ c & d \end{matrix}\right) \in \SL_2(\Z) \ \bigm| \ \left(\begin{matrix} a & b \\ c & d \end{matrix}\right) \equiv \left(\begin{matrix} 1 & 0 \\ 0 & 1 \end{matrix}\right) \mod N \bigr\}
-    \end{equation*}
-    The smallest such $N$ is called the \emph{level} of $\Gamma$.
-\end{definition}
-\begin{definition}
-    Define the \emph{upper half-plane} $\Half := \{ \tau \in \C \ | \ \Im(\tau) > 0 \}$ and the \emph{closed upper half-plane}
-    \begin{equation*}
-        \Half^* := \Half \cup \Proj_{\mathbb{Q}}^1
-    \end{equation*}
-    Further, the group $\SL_2(\Z)$ acts on $\Half$ via the restriction of the action of $\mathrm{PGL}_1(\C)$ on $\Proj_{\C}^1$.
-    In other words, we have
-    \begin{equation*}
-        \left(\begin{matrix}
-            a & b \\ c & d
-        \end{matrix}\right).\tau := \frac {a\tau + b} {c\tau + d}
-    \end{equation*}
-    and we can also get an action on $\Half^*$ by the restriction of the action of $\mathrm{PGL}_1(\mathbb{Q})$ on $\mathbb{P}_{\mathbb{Q}}^1$, i.e.
-    \begin{equation*}
-        \left(\begin{matrix}
-            a & b \\ c & d
-        \end{matrix}\right).[ x : y ] := [ ax + by : cx + dy ]
-    \end{equation*}
-\end{definition}
-
-\subsection{j-invariant}
-\begin{lemma}
-    For an even $k \geq 4$, the series
-    \begin{equation*}
-        G_k(\tau) := \sum_{(c, d) \in \Z^2 \setminus \{0\}} (c\tau + d)^{-k}
-    \end{equation*}
-    converges absolutely and uniformly on $\Im(\tau) \geq \epsilon$.
-    Thus, it is a holomorphic function on $\Half$.
-    It is called the Eisenstein series of weight $k$.
-\end{lemma}
-\begin{lemma}
-    For $\gamma \in \SL_2(\Z)$ have
-    \begin{equation*}
-        G_k(\gamma.\tau) = (c\tau + d)^k G_k(\tau)
-    \end{equation*}
-    where
-    \begin{equation*}
-        \gamma = \left(\begin{matrix}
-            a & b \\ c & d
-        \end{matrix}\right)
-    \end{equation*}
-\end{lemma}
-\begin{proof}
-    We have
-    \begin{align*}
-        G_k(\gamma.\tau) =& \sum_{(u, v) \in \Z^2 \setminus \{0\}} \left( u\frac {a\tau + b} {c \tau + d} + v \right)^{-k} = \sum_{(u, v) \in \Z^2 \setminus \{0\}} \left( \frac {au\tau + bu + cv\tau + dv} {c\tau + d} \right)^{-k} \\
-        =& \sum_{(u, v) \in \Z^2 \setminus \{0\}} \left( \frac {(au + cv) \tau + (bu + dv)} {c\tau + d} \right)^{-k} \\
-        =& (c\tau + d)^k \sum_{(u, v) \in \Z^2 \setminus \{0\}} ((au + cv)\tau + (bu + dv))^{-k} \\
-        =& (c\tau + d)^k \sum_{(u, v) \in \Z^2 \setminus \{0\}} (u\tau + v)^{-k}
-    \end{align*}
-\end{proof}
-\begin{definition}
-    Define
-    \begin{equation*}
-        \Delta: \Half \to \C, \quad \tau \mapsto (60 G_4(\tau))^3 - 27 (140 G_6(\tau))^2
-    \end{equation*}
-    and
-    \begin{equation*}
-        j: \Half \to \C, \quad \tau \mapsto 1728 \frac {(60G_4(\tau))^3} {\Delta(\tau)}
-    \end{equation*}
-\end{definition}
-\begin{prop}
-    $j$ is a surjective, holomorphic map $\Half \to \C$.
-\end{prop}
-\begin{proof}
-    Clearly $j$ is holomorphic on $\Half$.
-    Note further that it is $\SL_2(\Z)$-invariant.
-    Now assume for a contradiction that $c \in \C \setminus j(\Half)$.
-    Hence the function
-    \begin{equation*}
-        \Half \to \C, \quad \tau \mapsto \frac {j'(\tau)} {j(\tau) - c}
-    \end{equation*}
-    is well-defined and holomorphic.
-    By Cauchy's Residue theorem, we find now that
-    \begin{align*}
-        0 = &\underbrace{\int_{\pi/3}^{2\pi/3} \frac {j'(\exp(2\pi i \phi))} {j(\exp(2\pi i \phi)) - c} d\phi}_{=: A_1} + \underbrace{\int_{(i\sqrt{3} - 1)/2}^{(Ti - 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau}_{=: A_2} \\
-        &+ \underbrace{\int_{(Ti - 1)/2}^{(Ti + 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau}_{=: A_3} + \underbrace{\int_{(Ti + 1)/2}^{(\sqrt{3}i + 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau}_{=: A_4}
-    \end{align*}
-    Since $j$ is $\SL_2(\Z)$-invariant, we see that
-    \begin{equation*}
-        j(\tau) = j\bigl( \left(\begin{matrix} 1 & 1 \\ 0 & 1 \end{matrix}\right).\tau \bigr) = j(\tau + 1)
-    \end{equation*}
-    and so $A_2 = -A_4$.
-    Furthermore
-    \begin{equation*}
-        j(\tau) = j\bigl( \left( \begin{matrix} 0 & -1 \\ 1 & 0 \end{matrix} \right).\tau \bigr) = j\left( -\frac 1 \tau \right)
-    \end{equation*}
-    and so
-    \begin{equation*}
-        \int_{\pi/3}^{\pi/2} \frac {j'(\exp(2\pi i \phi))} {j(\exp(2\pi i \phi)) - c} d\phi = \int_{2\pi/3}^{\pi/2} \frac {j'(\exp(2\pi i \phi))} {j(\exp(2\pi i \phi)) - c} d\phi
-    \end{equation*}
-    and $A_1 = 0$.
-    It follows that $A_3 = 0$.
-
-    Now it is a fact that
-    \begin{equation*}
-        j(\tau) = \frac 1 {\exp(2\pi i \tau)} + h(\exp(2\pi i \tau))
-    \end{equation*}
-    for some holomorphic function $h$ (this is the Fourier series of $j$).
-    Hence
-    \begin{equation*}
-        j'(\tau) = -\frac {2\pi i} {\exp(2\pi i \tau)} + 2\pi i \exp(2\pi i \tau) h'(\exp(2\pi i \tau))
-    \end{equation*}
-    and so
-    \begin{align*}
-        &\int_{(Ti - 1)/2}^{(Ti + 1)/2} \frac {j'(\tau)} {j(\tau) - c} d\tau \\
-        =& 2\pi i \int_{(Ti - 1)/2}^{(Ti + 1)/2} \frac {-1/\exp(2\pi i \tau) + \exp(2\pi i \tau)h'(\exp(2\pi i \tau))} {1/\exp(2\pi i \tau) + h(\exp(2\pi i \tau)) - c} d\tau \\
-        =& 2\pi i \int_{(Ti - 1)/2}^{(Ti + 1)/2} -1 + \exp(2\pi i \tau)\tilde{h}(\exp(2\pi i \tau)) d\tau
-    \end{align*}
-    where $\tilde{h}$ is meromorphic and has no pole at $0$, as
-    \begin{equation*}
-        \frac {-1/q + qh'(q)} {1/q + h(q) - c} = -1 + q \frac {qh'(q) + h(q) - c} {1 + qh(q) - cq}
-    \end{equation*}
-    and $1 + qh(q) - cq$ has the $0$-th Laurent series coefficient $1$.
-
-    Now observe that as $T \to \infty$ we have
-    \begin{equation*}
-        \int_{(Ti - 1)/2}^{(Ti + 1)/2} \exp(2\pi i \tau)\tilde{h}(\exp(2\pi i \tau)) d\tau \to \tilde{h}(0) \int_{(Ti - 1)/2}^{(Ti + 1)/2} \exp(2\pi i\tau) = \tilde{h}(0) \exp(-\pi T) \to 0
-    \end{equation*}
-    and
-    \begin{equation*}
-        \int_{(Ti - 1)/2}^{(Ti + 1)/2} -1 dq = -1
-    \end{equation*}
-    Hence for large enough $T$, we find $A_3 \neq 0$, a contradiction.
-\end{proof}
-
-\subsection{The Weierstrass $\wp$-function}
-\begin{lemma}
-    For a lattice $\Lambda \subseteq \C$ and $z \notin \Lambda$ the series
-    \begin{equation*}
-        \frac 1 {z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \frac 1 {(z - \omega)^2} - \frac 1 {\omega^2}
-    \end{equation*}
-    converges.
-    It converges absolutely in the sense
-    \begin{equation*}
-        \left| \frac 1 {z^2} \right| + \sum_{\omega \in \Lambda \setminus \{0\}} \left| \frac 1 {(z - \omega)^2} - \frac 1 {\omega^2} \right| < \infty
-    \end{equation*}
-    Further, the convergence is uniform in $z$ on compact subsets $C \subseteq \C$ that are disjoint from $\Lambda$.
-\end{lemma}
-\begin{definition}
-    For a lattice $\Lambda \subseteq \C$ define the \emph{Weierstrass $\wp$-function} as
-    \begin{equation*}
-        \wp_\Lambda(z) = \frac 1 {z^2} + \sum_{\omega \in \Lambda \setminus \{0\}} \frac 1 {(z - \omega)^2} - \frac 1 {\omega^2}
-    \end{equation*}
-    Define further $\wp_{\tau}(z) := \wp_{\Z + \tau\Z}(z)$.
-\end{definition}
-\begin{lemma}
-    Have the derivate
-    \begin{equation*}
-        \wp'(z) = -2\sum_{\omega \in \Lambda \setminus \{0\}} \frac 1 {(z - \omega)^3}
-    \end{equation*}
-    where the sum converges absolutely and uniformly on compact subsets $C \subseteq \C$ disjoint from $\Lambda$.
-\end{lemma}
-\begin{corollary}
-    $\wp_\Lambda$ and $\wp'_\Lambda$ are meromorphic functions that are invariant under translations by $\Lambda$.
-\end{corollary}
-
 \section{Isogeny graphs}
 This is a quite specialized topic, going further into the methods I am currently studying.
 Furthermore, it is not present in Silverman anymore.
-
-\subsection{The CSIDH class group action}
 
 \begin{definition}
     Let $E$ be an Elliptic Curve defined over $k$.
@@ -959,28 +793,6 @@ Furthermore, it is not present in Silverman anymore.
         \End^0(E) &:= \End(E) \otimes_{\Z} {\mathbb{Q}}
     \end{align*}
 \end{definition}
-\begin{prop}[CSIDH class group action]
-    Let $E$ be an Elliptic Curve defined over $k = \F_p$.
-    Then $\End_k(E) = \Z[\pi] =: \Order$ where $\pi$ is the $p$-th power Frobenius endomorphism and $\Cl(\Order)$ acts on the set
-    \begin{equation*}
-        \Ell_k(\Order) := \{ E \ | \ \text{$E$ Elliptic Curve defined over $\F_p$ with $\End_k(E) \cong \Order$ }\} / \cong
-    \end{equation*}
-    via
-    \begin{equation*}
-        \Cl(\Order) \times \Ell_k(\Order) \to \Ell_k(\Order), \quad ([\pi^r\mathfrak{a}], E) \mapsto \pi^r\Bigl( E / \bigcap_{\alpha \in \mathfrak{a}} \ker(\alpha) \Bigr)
-    \end{equation*}
-\end{prop}
-\begin{prop}
-    This action is free and transitive.
-\end{prop}
-\begin{remark}
-    If $E$ is supersingular, then $\pi^2 = -p$ and so $\End_k(E) \cong \Z[\sqrt{-p}]$.
-    Conversely, if $E$ is ordinary, then $\pi^2 + t \pi + p = 0$ for $t \neq 0$ and so $\End_k(E) \cong \Z[\alpha]$ with $\alpha = \sqrt{t^2/4 - p}$ or $\alpha = 1/2 + \sqrt{t^2/4 - p}$.
-    Hence
-    \begin{equation*}
-        \Ell_k(\Z[\sqrt{-p}]) = \{ E \ | \ \text{$E$ supersingular Elliptic Curve defined over $k = \F_p$} \} / \cong
-    \end{equation*}
-\end{remark}
 
 \subsection{Horizontal and vertical isogenies}
 
@@ -1037,6 +849,96 @@ Furthermore, it is not present in Silverman anymore.
     \end{itemize}
     These are exactly the cases that $\phi$ is horizontal, descending and ascending, respectively.
 \end{proof}
+
+\subsection{A class group action}
+
+\begin{definition}
+    For any (non-commutative) ring $\Order$ write
+    \begin{equation*}
+        \Ell(\Order) := \{ E \ | \ \End(E) \cong \Order \} / \cong
+    \end{equation*}
+    for the set of isomorphism classes of Elliptic Curves with endomorphism ring $\Order$.
+    Write further
+    \begin{equation*}
+        \Ell_k(\Order) := \{ [E] \in \Ell(\Order) \ | \ \text{$E$ defined over $k$} \}
+    \end{equation*}
+\end{definition}
+\begin{prop}
+    Let $E$ be an ordinary Elliptic Curve defined over $k$ and assume that $\Order := \End(E)$ is an order in a quadratic imaginary number field.
+    For an ideal $\mathfrak{a} \leq \Order$ define
+    \begin{equation*}
+        E[\mathfrak{a}] := \bigcap_{a \in \mathfrak{a}} \ker(a)
+    \end{equation*}
+    Then the map
+    \begin{equation*}
+        \Cl(\Order) \times \Ell(\Order) \to \Ell(\Order), \quad ([\mathfrak{a}], [E]) \mapsto [E/E[\mathfrak{a}]]
+    \end{equation*}
+    defines a (well-defined) group action of $\Cl(\Order)$ on $\Ell(\Order)$ (we choose $\mathfrak{a}$ to be an integral ideal representative of the class $[\mathfrak{a}]$). 
+\end{prop}
+\begin{proof}
+    First, we show that $\End(E/E[\mathfrak{p}]) \cong \Order$ for an invertible ideal $\mathfrak{a} \leq \Order$.
+
+    Now we show that for (invertible) ideals $\mathfrak{a}, \mathfrak{b} \leq \Order$, we have
+    \begin{equation*}
+        E/E[\mathfrak{b}\mathfrak{a}] \cong E'/E'[\mathfrak{a}] \quad \text{where $E' = E/E[\mathfrak{b}]$}
+    \end{equation*}
+    The tricky part here is that we identified the isomorphic endomorphism rings $\End(E)$ and $\End(E')$, but the isomorphism is only on the level of rings (and we also need the kernel of endomorphisms).
+    So let's be explicit about which ring we are in.
+
+    Consider the isogenies
+    \begin{align*}
+        &\phi: E \to E' = E/E[\mathfrak{b}] \quad \text{with kernel $E[\mathfrak{b}]$} \\
+        &\psi: E' \to E'/E'[\mathfrak{a}] \quad \text{with kernel $E'[\mathfrak{a}]$}
+    \end{align*}
+    It suffices to show that $\ker(\psi \circ \phi) = E[\mathfrak{b}\mathfrak{a}]$.
+
+    Consider any $\tau \in \mathfrak{a}$ and let $\tau'$ be the image under the isomorphism $\End(E) \cong \End(E')$.
+    Now have that $\tau' \circ \phi = \phi \circ \tau$ (since the isomorphism is $\Phi_*$).
+    Hence
+    \begin{align*}
+        \ker(\psi \circ \phi) =& \phi^{-1}(\ker\psi) = \phi^{-1}(E'[\mathfrak{a}]) = \phi^{-1}\Bigl( \bigcap_{\tau \in \mathfrak{a}} \ker(\tau') \Bigr) \\
+        =& \bigcap_{\tau \in \mathfrak{a}} \phi^{-1}(\ker(\tau')) = \bigcap_{\tau \in \mathfrak{a}} \ker(\tau' \circ \phi) = \bigcap_{\tau \in \mathfrak{a}} \ker(\phi \circ \tau) = \bigcap_{\tau \in \mathfrak{a}} \tau^{-1}(\ker\phi) \\
+        =& \bigcap_{\tau \in \mathfrak{a}} \tau^{-1}(E[\mathfrak{b}]) = \bigcap_{\tau \in \mathfrak{a}, \ \rho \in \mathfrak{b}} \tau^{-1}(\ker\rho) = \bigcap_{\tau \in \mathfrak{a}, \ \rho \in \mathfrak{b}} \ker(\underbrace{\rho \circ \tau}_{\mathclap{= \rho\tau \in \End(E)}}) = E[\mathfrak{b}\mathfrak{a}]
+    \end{align*}
+    The claim now follows, since clearly $E/E[(\alpha)] \cong E$ for a principal ideal $(\alpha) \leq \End(E)$.
+\end{proof}
+\begin{prop}
+    This action is faithful (even free?) and transitive.
+\end{prop}
+\begin{prop}[CSIDH class group action]
+    Let $E$ be an Elliptic Curve defined over $k := \F_p$.
+    Denote $\Order := \End_k(E)$.
+    Then $\Cl(\Order)$ acts on $\Ell_k(\Order)$ via
+    \begin{equation*}
+        \Cl(\Order) \times \Ell_k(\Order) \to \Ell_k(\Order), \quad ([\mathfrak{a}], E) \mapsto [E/E[\mathfrak{a}]]
+    \end{equation*}
+\end{prop}
+\begin{prop}
+    This action is faithful (even free?) and transitive.
+\end{prop}
+\begin{remark}
+    If $E$ is a supersingular Elliptic Curve defined over $k := \F_p$, then $\pi^2 = -p$ and so $\End_k(E) \cong \Z[\sqrt{-p}]$.
+    Conversely, if $E$ is ordinary, then $\pi^2 + t \pi + p = 0$ for $t \neq 0$ and so $\End_k(E) \cong \Z[\alpha]$ with $\alpha = \sqrt{t^2/4 - p}$ or $\alpha = 1/2 + \sqrt{t^2/4 - p}$.
+    Hence
+    \begin{equation*}
+        \Ell_k(\Z[\sqrt{-p}]) = \{ E \ | \ \text{$E$ supersingular Elliptic Curve defined over $k = \F_p$} \} / \cong
+    \end{equation*}
+\end{remark}
+
+\subsection{Summary - Ordinary Elliptic Curves}
+\begin{theorem}
+    Let $E$ be an ordinary Elliptic Curve defined over $\F_q$.
+    Let $\Order := \End(E)$ and $\pi$ be the $q$-th power Frobenius endomorphism of $E$.
+    Furthermore, let $t \in \Z$ be the trace of $\pi$.
+    Then
+    \begin{itemize}
+        \item $\Order$ is an order in the quadratic imaginary number field $\mathbb{Q}[\sqrt{D}]$ where $D = t^2 - 4q$.
+        Note that $\mathbb{Q}[\sqrt{D}] = \mathbb{Q}[\sqrt{D'}]$ if $D = a^2D'$, and in general $D$ is not square-free.
+        \item $\Z[\pi] \subseteq \Order$ (in general no equality).
+        \item For an integral ideal $\mathfrak{a} \leq \Order$ such that $p \notdivides [\Order : \mathfrak{a}]$, the isogeny $E \to E/E[\mathfrak{a}]$ has degree $[\Order : \mathfrak{a}]$.
+    \end{itemize}
+    There is a faithful and transitive group action of $\Cl(\Order)$ on $\Ell(\Order)$ via $[\mathfrak{a}].E = E/E[\mathfrak{a}]$.
+\end{theorem}
 
 %\section*{Notes}
 %\subsection*{$(d, \epsilon)$-structures}
