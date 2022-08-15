@@ -863,6 +863,48 @@ Furthermore, it is not present in Silverman anymore.
         \Ell_k(\Order) := \{ [E] \in \Ell(\Order) \ | \ \text{$E$ defined over $k$} \}
     \end{equation*}
 \end{definition}
+\begin{theorem}
+    Let $E, E$ be Elliptic Curves such that $\End(E) \cong \End(E')$.
+    Then there is a separable isogeny $E \to E'$.
+\end{theorem}
+\begin{lemma}
+    Let $E, E'$ be Elliptic Curves with $\End(E) \cong \End(E')$ and $\phi, \psi: E_1 \to E_2$ be nonconstant isogenies.
+    Then $\Phi_* = \Psi_*$.
+\end{lemma}
+\begin{proof}
+    Let $\alpha \in \End(E)$. We have to show that
+    \begin{equation*}
+        \tau := \frac {\phi \circ \alpha \circ \hat{\phi}} {\deg(\phi)} - \frac {\psi \circ \alpha \circ \hat{\psi}} {\deg(\psi)} = \O
+    \end{equation*}
+    Assume $\tau$ is nonconstant, then so is
+    \begin{equation*}
+        \tau' := \deg(\phi) (\hat{\psi} \circ \tau \circ \psi) = (\hat{\psi} \circ \phi) \circ \alpha \circ (\hat{\phi} \circ \psi) - \deg(\phi)\deg(\psi) \alpha
+    \end{equation*}
+    Note that $\hat{\psi} \circ \phi$ and $\hat{\phi} \circ \psi$ are endomorphisms of $E$, thus by commutativity of $\End(E)$ we find
+    \begin{equation*}
+        \tau' = (\hat{\psi} \circ \phi) (\hat{\phi} \circ \psi) \alpha - \deg(\phi) \deg(\psi) \alpha = \deg(\phi) \deg(\psi) \alpha - \deg(\phi) \deg(\psi) \alpha = \O
+    \end{equation*}
+    since $\hat{\psi} \circ \phi$ is dual to $\hat{\phi} \circ \psi$.
+    So $\tau$ must be constant and the claim follows.
+\end{proof}
+This shows that for any two curves $E, E'$ with $\End(E) \cong \End(E')$ there is a unique canonical isomorphism
+\begin{equation*}
+    \Phi_*: \End(E) \to \End(E')
+\end{equation*}
+Since quadratic number fields always have one nontrivial automorphism, this is not the only isomorphism, but the only one given by isogenies.
+Furthermore, if $\End(E) \cong \End(E') \cong \End(E'')$ then the diagram of canonical isomorphisms
+\begin{center}
+    \begin{tikzpicture}
+        \node (E1) at (0, 0) {$\End(E)$};
+        \node (E2) at (3, 0) {$\End(E')$};
+        \node (E3) at (6, 0) {$\End(E'')$};
+
+        \draw [->] (E1) to (E2);
+        \draw [->] (E2) to (E3);
+        \draw [->] (E1) to [bend right] (E3);
+    \end{tikzpicture}
+\end{center}
+commutes.
 \begin{prop}
     Let $E$ be an ordinary Elliptic Curve defined over $k$ and assume that $\Order := \End(E)$ is an order in a quadratic imaginary number field.
     For an ideal $\mathfrak{a} \leq \Order$ define
@@ -873,10 +915,10 @@ Furthermore, it is not present in Silverman anymore.
     \begin{equation*}
         \Cl(\Order) \times \Ell(\Order) \to \Ell(\Order), \quad ([\mathfrak{a}], [E]) \mapsto [E/E[\mathfrak{a}]]
     \end{equation*}
-    defines a (well-defined) group action of $\Cl(\Order)$ on $\Ell(\Order)$ (we choose $\mathfrak{a}$ to be an integral ideal representative of the class $[\mathfrak{a}]$). 
+    defines a (well-defined) group action of $\Cl(\Order)$ on $\Ell(\Order)$ (we choose $\mathfrak{a}$ to be an integral ideal representative of the class $[\mathfrak{a}]$)\footnote{Note that for a curve $E'$ that is not $E$, the notation $E'[\mathfrak{a}]$ means $E'[\Phi_*(\mathfrak{a})]$ where $\Phi_*$ is the canonical isomorphism $\End(E) = \Order \to \End(E')$.}.
 \end{prop}
 \begin{proof}
-    First, we show that $\End(E/E[\mathfrak{p}]) \cong \Order$ for an invertible ideal $\mathfrak{a} \leq \Order$.
+    First, we show that $\End(E/E[\mathfrak{p}]) \cong \Order$ for an invertible ideal $\mathfrak{p} \leq \Order$.
 
     Now we show that for (invertible) ideals $\mathfrak{a}, \mathfrak{b} \leq \Order$, we have
     \begin{equation*}
